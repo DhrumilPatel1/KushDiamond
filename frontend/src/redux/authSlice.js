@@ -20,11 +20,9 @@ export const authSlice = createSlice({
 			console.log(action.payload,"payload")
 
 			state.isLoading = false;
-			state.userData = action.payload?.Admin_Details;
-			state.abilityData = action.payload?.ability;
-			localStorage.setItem('abilityData', JSON.stringify(action.payload?.ability));
-			localStorage.setItem('userData', JSON.stringify(action.payload?.Admin_Details));
-			localStorage.setItem('accessToken', JSON.stringify(action.payload?.Token));
+			state.userData = action.payload?.data;
+			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
+			localStorage.setItem('accessToken', JSON.stringify(action.payload?.token.access));
 		},
 		handleErrorLogin: (state, action) => {
 			state.error = action.payload;
@@ -50,18 +48,18 @@ export const { handleSuccessLogin, handleErrorLogin, setLoading, handleLogout, h
 export default authSlice.reducer;
 
 export const AdminLoginRequest = (userData) => async (dispatch) => {
-	dispatch(setLoading());
+	dispatch(setLoading(true));
 	try {
 		const { data } = await AdminLoginAPI(userData);
 
-		console.log(data,"login data")	
 
 		const { statusCode, error, errors } = data;
+
 		if (error) {
 			dispatch(handleErrorLogin(errors));
 		}
 		if (statusCode === 200) {
-			dispatch(handleSuccessLogin(data.data));
+			dispatch(handleSuccessLogin(data));
 		}
 	} catch (err) {
 		dispatch(handleErrorLogin(err));
