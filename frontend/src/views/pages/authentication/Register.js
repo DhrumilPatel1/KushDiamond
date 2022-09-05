@@ -235,13 +235,6 @@ const Register = () => {
 									name="register-password"
 									className="input-group-merge"
 									onChange={(e) => setPassword(e.target.value)}
-									className={classnames({
-										'is-invalid': errors['register-password'],
-									})}
-									innerRef={register({
-										required: true,
-										validate: (value) => value !== '',
-									})}
 								/>
 							</FormGroup>
 							<FormGroup>

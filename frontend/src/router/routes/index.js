@@ -2,7 +2,7 @@ import DashboardRoutes from './Dashboards';
 import AuthenticationRoutes from './Authentication';
 
 // ** Document title
-const TemplateTitle = 'OnCourseGlobal';
+const TemplateTitle = 'Kush Diamond';
 
 // ** Default Route
 const DefaultRoute = '/dashboard';

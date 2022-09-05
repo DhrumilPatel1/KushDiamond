@@ -17,6 +17,8 @@ export const authSlice = createSlice({
 			state.isLoading = true;
 		},
 		handleSuccessLogin: (state, action) => {
+			console.log(action.payload,"payload")
+
 			state.isLoading = false;
 			state.userData = action.payload?.Admin_Details;
 			state.abilityData = action.payload?.ability;
@@ -51,6 +53,9 @@ export const AdminLoginRequest = (userData) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await AdminLoginAPI(userData);
+
+		console.log(data,"login data")	
+
 		const { statusCode, error, errors } = data;
 		if (error) {
 			dispatch(handleErrorLogin(errors));
