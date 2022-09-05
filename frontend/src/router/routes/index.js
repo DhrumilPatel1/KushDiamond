@@ -1,5 +1,6 @@
 import DashboardRoutes from './Dashboards';
 import AuthenticationRoutes from './Authentication';
+import ProductesRoutes from './Products';
 
 // ** Document title
 const TemplateTitle = 'Kush Diamond';
@@ -8,6 +9,6 @@ const TemplateTitle = 'Kush Diamond';
 const DefaultRoute = '/dashboard';
 
 // ** Merge Routes
-const Routes = [...DashboardRoutes, ...AuthenticationRoutes];
+const Routes = [...DashboardRoutes, ...AuthenticationRoutes, ...ProductesRoutes];
 
 export { DefaultRoute, TemplateTitle, Routes };
