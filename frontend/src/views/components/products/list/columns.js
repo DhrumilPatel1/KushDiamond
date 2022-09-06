@@ -13,7 +13,7 @@ import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 
 const statusObj = {
 	active: 'light-success',
-	inactive: 'light-secondary',
+	inactive: 'light-warning',
 };
 
 
