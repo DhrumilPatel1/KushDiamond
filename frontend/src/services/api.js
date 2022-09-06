@@ -16,7 +16,7 @@ const api = axios.create({
 
 export const AdminLoginAPI = async (reqData) => {
 	return await axios
-		.post(`${api.baseURL}/api/login/`, reqData, {
+		.post(`${BASE_URL_API}/api/login/`, reqData, {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',

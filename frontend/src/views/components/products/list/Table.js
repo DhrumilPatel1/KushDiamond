@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown } from 'react-feather';
+import { ChevronDown, Plus, Share } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
 	Card,
@@ -26,6 +26,7 @@ import {
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { productList } from '../../../../redux/productsSlice';
+import { Link } from 'react-router-dom';
 
 // ** Table Header
 const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
@@ -58,19 +59,15 @@ const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) 
 					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
-					<div className="d-flex align-items-center mb-sm-0 mb-1 mr-1">
-						<Label className="mb-0" for="search-invoice">
-							Search:
-						</Label>
-						<Input
-							id="search-invoice"
-							className="ml-50 w-100"
-							type="text"
-							value={searchTerm}
-							onChange={(e) => handleFilter(e.target.value)}
-						/>
-					</div>
-					<Button.Ripple color="primary">Add New User</Button.Ripple>
+					<Button.Ripple tag={Label} className="ml-2" color="secondary" caret outline>
+						<Share size={15} />
+						Import
+						<Input type="file" hidden accept="image/*" />
+					</Button.Ripple>
+					<Button className="ml-2" color="primary" tag={Link} to={'/products/add'}>
+						<Plus size={15} />
+						<span className="align-middle ml-50">Add Products</span>
+					</Button>
 				</Col>
 			</Row>
 		</div>
@@ -178,12 +175,6 @@ const ProductsList = () => {
 
 	return (
 		<Fragment>
-			<Card>
-				<CardHeader>
-					<CardTitle tag="h4">Search Filter</CardTitle>
-				</CardHeader>
-			</Card>
-
 			<Card>
 				<DataTable
 					noHeader

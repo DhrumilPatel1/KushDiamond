@@ -8,6 +8,9 @@ import { Disc, X, Circle } from 'react-feather';
 // ** Config
 import themeConfig from '@configs/themeConfig';
 
+const illustration = 1 ? 'image_main.png' : 'image_main.png',
+	source = require(`@src/assets/images/logo/${illustration}`).default;
+
 const VerticalMenuHeader = (props) => {
 	// ** Props
 	const { menuCollapsed, setMenuCollapsed, setMenuVisibility, setGroupOpen, menuHover } = props;
@@ -45,10 +48,14 @@ const VerticalMenuHeader = (props) => {
 			<ul className="nav navbar-nav flex-row">
 				<li className="nav-item mr-auto">
 					<NavLink to="/" className="navbar-brand">
-						<span className="brand-logo">
+						{/* <span className="brand-logo">
 							<img src={themeConfig.app.appLogoImage} alt="logo" />
 						</span>
-						<h2 className="brand-text mb-0">{themeConfig.app.appName}</h2>
+						<h2 className="brand-text mb-0">{themeConfig.app.appName}</h2> */}
+						<span className="brand-logo">
+							<img className="img-fluid" style={{ width: '11px' }} src={source} alt="Login V2" />
+						</span>
+						<h2 className="brand-text mb-0" style={{}}>Kush Diamond</h2>
 					</NavLink>
 				</li>
 				<li className="nav-item nav-toggle">
