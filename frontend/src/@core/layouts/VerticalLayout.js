@@ -72,7 +72,7 @@ const VerticalLayout = (props) => {
 
 	// ** Handles Content Width
 	const setIsHidden = (val) => dispatch(handleMenuHidden(val));
-
+console.log(setIsHidden,"SSSSSSS");
 	//** This function will detect the Route Change and will hide the menu on menu item click
 	useEffect(() => {
 		if (menuVisibility && windowWidth < 1200) {

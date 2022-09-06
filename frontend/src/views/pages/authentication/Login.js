@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import * as yup from 'yup';
+import { Link, useHistory } from 'react-router-dom';
 import {
 	Card,
 	CardBody,
@@ -14,59 +13,75 @@ import {
 	FormFeedback,
 } from 'reactstrap';
 import '@styles/base/pages/page-auth.scss';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { AdminLoginRequest } from '../../../redux/authSlice';
-import { isObjEmpty } from '@utils';
+import { AdminLoginRequest, handleResetAuth } from '../../../redux/authSlice';
+import { getHomeRouteForLoggedInUser, isObjEmpty } from '@utils';
+import { toast, Slide } from 'react-toastify';
+import Avatar from '@components/avatar';
+import { Fragment } from 'react';
+import { useEffect } from 'react';
+import { Coffee } from 'react-feather';
+
+const ToastContent = ({ name, role }) => (
+	<Fragment>
+		<div className="toastify-header">
+			<div className="title-wrapper">
+				<Avatar size="sm" color="success" icon={<Coffee size={12} />} />
+				<h6 className="toast-title font-weight-bold">Welcome, {name}</h6>
+			</div>
+		</div>
+		<div className="toastify-body">
+			<span>
+				You have successfully logged in as an {role} user to Vuexy. Now you can start to explore.
+				Enjoy!
+			</span>
+		</div>
+	</Fragment>
+);
 
 const illustration = 1 ? 'image_main.png' : 'image_main.png',
 	source = require(`@src/assets/images/logo/${illustration}`).default;
 
 const Login = () => {
-	const SignupSchema = yup.object().shape({
-		username: yup.string().required('Email / Phone is required'),
-		password: yup
-			.string()
-			.min(2, 'Password must be at least 2 characters')
-			.required('Password is required'),
-	});
+	const { userData } = useSelector((state) => state.auth);
 
-	// const { register, errors, handleSubmit } = useForm({
-	// 	mode: 'onChange',
-	// 	resolver: yupResolver(SignupSchema),
-	// });
-	// const { register, errors, handleSubmit } = useForm();
-
+	const { register, errors, handleSubmit } = useForm();
 	const dispatch = useDispatch();
-
-	const userLogin = useSelector((state) => state);
-	// const { userData, error, abilityData } = useSelector((state) => state.auth);
-	console.log(userLogin, 'userLogin');
+	const history = useHistory();
 	const [value, setValue] = useState({
 		username: '',
 		password: '',
 	});
 
-	// const [username, setUserName] = useState('');
-	// const [password, setPassword] = useState('');
-
-	// const onClick = () => {
-	// 	// e.preventDefault();
-	// 	const { username, password } = value;
-	// 	const user = { username, password };
-	// 	console.log(user, 'user');
-	// 	dispatch(AdminLoginRequest(user));
-	// };
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const onClick = () => {
 		const { username, password } = value;
 		const user = { username, password };
-		console.log(user, 'user');
 		dispatch(AdminLoginRequest(user));
 	};
+
+	useEffect(() => {
+		if (userData !== null) {
+			toast.success(
+				<ToastContent
+					name={userData.name || userData.username || 'John Doe'}
+					role={userData.role || 'client'}
+				/>,
+				{
+					transition: Slide,
+					hideProgressBar: true,
+					autoClose: 2000,
+				}
+			);
+			setTimeout(() => {
+				history.push(getHomeRouteForLoggedInUser(userData.role));
+			}, 100);
+		}
+		return () => {
+			dispatch(handleResetAuth());
+		};
+	}, [userData]);
 	return (
 		<div className="auth-wrapper auth-v1 px-2">
 			<div className="auth-inner py-2">
@@ -85,8 +100,7 @@ const Login = () => {
 							Please sign-in to your account and start the adventure
 						</CardText>
 						{/* <Form className="auth-login-form mt-2" onClick={(e) => handleSubmit(e)}> */}
-						{/* <Form className="auth-login-form mt-2" onClick={handleSubmit(onClick)}> */}
-						<Form className="auth-login-form mt-2" onClick={(e) => handleSubmit(e)}>
+						<Form className="auth-login-form mt-2" onClick={handleSubmit(onClick)}>
 							<FormGroup>
 								<Label className="form-label" for="login-email">
 									Email / Mobile No

@@ -17,8 +17,6 @@ export const authSlice = createSlice({
 			state.isLoading = true;
 		},
 		handleSuccessLogin: (state, action) => {
-			console.log(action.payload,"payload")
-
 			state.isLoading = false;
 			state.userData = action.payload?.data;
 			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
@@ -48,10 +46,9 @@ export const { handleSuccessLogin, handleErrorLogin, setLoading, handleLogout, h
 export default authSlice.reducer;
 
 export const AdminLoginRequest = (userData) => async (dispatch) => {
-	dispatch(setLoading(true));
+	dispatch(setLoading());
 	try {
 		const { data } = await AdminLoginAPI(userData);
-
 
 		const { statusCode, error, errors } = data;
 

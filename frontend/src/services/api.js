@@ -15,12 +15,24 @@ const api = axios.create({
 });
 
 export const AdminLoginAPI = async (reqData) => {
-	console.log(reqData,"DAAAATAAA");
 	return await axios
-		.post(`${BASE_URL_API}/api/login/`, reqData, {
+		.post(`${api.baseURL}/api/login/`, reqData, {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
 		})
-		.then((response) => response).catch((err) => console.log(err));
+		.then((response) => response)
+		.catch((err) => console.log(err));
+};
+
+export const ProductApi = async () => {
+	return await axios
+		.get(`${BASE_URL_API}/api/product/list/`, {
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
+			Authorization: `${accessToken}`,
+		})
+		.then((response) => response)
+		.catch((err) => console.log(err));
 };
