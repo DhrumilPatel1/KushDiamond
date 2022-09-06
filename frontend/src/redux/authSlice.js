@@ -9,7 +9,6 @@ export const authSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		userData: null,
-		abilityData: null,
 		error: null,
 	},
 	reducers: {

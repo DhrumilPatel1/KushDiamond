@@ -6,6 +6,10 @@ const ProductesRoutes = [
 		exact: true,
 		component: lazy(() => import('../../views/components/products/list')),
 	},
+	{
+		path: '/products/add',
+		component: lazy(() => import('../../views/components/products/AddProducts')),
+	},
 ];
 
 export default ProductesRoutes;

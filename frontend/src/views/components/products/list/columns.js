@@ -1,36 +1,22 @@
 // ** React Imports
 import { Link } from 'react-router-dom';
 
-// // ** Store & Actions
-// import { getUser, deleteUser } from '../store/action';
-// import { store } from '@store/storeConfig/store'
-
 // ** Third Party Components
 import {
-	Badge,
 	UncontrolledDropdown,
 	DropdownToggle,
 	DropdownMenu,
 	DropdownItem,
+	Badge,
 } from 'reactstrap';
-import {
-	Slack,
-	User,
-	Settings,
-	Database,
-	Edit2,
-	MoreVertical,
-	FileText,
-	Trash2,
-	Archive,
-	Eye,
-	Edit,
-} from 'react-feather';
+import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 
 const statusObj = {
 	active: 'light-success',
 	inactive: 'light-secondary',
 };
+
+
 
 export const columns = [
 	{
@@ -101,7 +87,7 @@ export const columns = [
 	},
 	{
 		name: 'Actions',
-		minWidth: '100px',
+		minWidth: '80px',
 		cell: (row) => (
 			<UncontrolledDropdown>
 				<DropdownToggle tag="div" className="btn btn-sm">

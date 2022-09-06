@@ -1,73 +1,68 @@
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
+import * as yup from 'yup';
 import {
 	Card,
 	CardBody,
 	CardTitle,
 	CardText,
-	Form,
 	FormGroup,
 	Label,
 	Input,
 	CustomInput,
 	Button,
-	FormFeedback,
 } from 'reactstrap';
 import '@styles/base/pages/page-auth.scss';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminLoginRequest, handleResetAuth } from '../../../redux/authSlice';
 import { getHomeRouteForLoggedInUser, isObjEmpty } from '@utils';
 import { toast, Slide } from 'react-toastify';
-import Avatar from '@components/avatar';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
-import { Coffee } from 'react-feather';
+import InputPasswordToggle from '@components/input-password-toggle';
+
+const illustration = 1 ? 'image_main.png' : 'image_main.png',
+	source = require(`@src/assets/images/logo/${illustration}`).default;
 
 const ToastContent = ({ name, role }) => (
 	<Fragment>
 		<div className="toastify-header">
 			<div className="title-wrapper">
-				<Avatar size="sm" color="success" icon={<Coffee size={12} />} />
+				<img className="img-fluid" style={{ width: '30px' }} src={source} alt="Login V2" />
 				<h6 className="toast-title font-weight-bold">Welcome, {name}</h6>
 			</div>
 		</div>
 		<div className="toastify-body">
 			<span>
-				You have successfully logged in as an {role} user to Vuexy. Now you can start to explore.
+				You have successfully logged in as an {role} to Kush Diamond. Now you can start to explore.
 				Enjoy!
 			</span>
 		</div>
 	</Fragment>
 );
 
-const illustration = 1 ? 'image_main.png' : 'image_main.png',
-	source = require(`@src/assets/images/logo/${illustration}`).default;
+const SignupSchema = yup.object().shape({
+	username: yup.string().required('Email / Phone is required'),
+	password: yup
+		.string()
+		.min(3, 'Password must be at least 3 characters')
+		.required('Password is required'),
+});
 
 const Login = () => {
-	const { userData } = useSelector((state) => state.auth);
-
-	const { register, errors, handleSubmit } = useForm();
+	// const userlogin = useSelector((state) => state.auth);
+	// console.log(userlogin, 'userlogin');
+	const { userData, errors, erorr } = useSelector((state) => state.auth);
+	// console.log(errors, 'erorrs');
+	// console.log(erorr, 'erorr');
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [value, setValue] = useState({
-		username: '',
-		password: '',
-	});
-
-	const onClick = () => {
-		const { username, password } = value;
-		const user = { username, password };
-		dispatch(AdminLoginRequest(user));
-	};
 
 	useEffect(() => {
 		if (userData !== null) {
 			toast.success(
-				<ToastContent
-					name={userData.name || userData.username || 'John Doe'}
-					role={userData.role || 'client'}
-				/>,
+				<ToastContent name={userData.name || userData.username} role={userData.role} />,
 				{
 					transition: Slide,
 					hideProgressBar: true,
@@ -82,6 +77,7 @@ const Login = () => {
 			dispatch(handleResetAuth());
 		};
 	}, [userData]);
+
 	return (
 		<div className="auth-wrapper auth-v1 px-2">
 			<div className="auth-inner py-2">
@@ -99,67 +95,60 @@ const Login = () => {
 						<CardText className="mb-2">
 							Please sign-in to your account and start the adventure
 						</CardText>
-						{/* <Form className="auth-login-form mt-2" onClick={(e) => handleSubmit(e)}> */}
-						<Form className="auth-login-form mt-2" onClick={handleSubmit(onClick)}>
-							<FormGroup>
-								<Label className="form-label" for="login-email">
-									Email / Mobile No
-								</Label>
-								<Input
-									type="text"
-									id="username"
-									name="username"
-									defaultValue={value.username}
-									onChange={(e) => (value['username'] = e.target.value)}
-									// value={username}
-									// onChange={(e) => setUserName(e.target.value)}
-									// innerRef={register({ required: true })}
-									// invalid={errors.username && true}
-									placeholder="Enter Your Email / Mobile No"
-									autoFocus
-								/>
-								{/* {errors && errors.username && (
-									<FormFeedback>{errors.username.message}</FormFeedback>
-								)} */}
-							</FormGroup>
-							<FormGroup>
-								<div className="d-flex justify-content-between">
-									<Label className="form-label" for="login-password">
-										Password
-									</Label>
-									<Link to="/forgot-password">
-										<small>Forgot Password?</small>
-									</Link>
-								</div>
-								<Input
-									id="password"
-									type="password"
-									name="password"
-									className="input-group-merge"
-									placeholder="Enter Your Password"
-									defaultValue={value.password}
-									onChange={(e) => (value['password'] = e.target.value)}
-									// value={password}
-									// onChange={(e) => setPassword(e.target.value)}
-									// innerRef={register({ required: true })}
-									// invalid={errors.password && true}
-								/>
-								{/* {errors && errors.password && (
-									<FormFeedback>{errors.password.message}</FormFeedback>
-								)} */}
-							</FormGroup>
-							<FormGroup>
-								<CustomInput
-									type="checkbox"
-									className="custom-control-Primary"
-									id="remember-me"
-									label="Remember Me"
-								/>
-							</FormGroup>
-							<Button.Ripple color="primary" block>
-								Sign in
-							</Button.Ripple>
-						</Form>
+						<Formik
+							initialValues={{
+								username: '',
+								password: '',
+							}}
+							validationSchema={SignupSchema}
+							onSubmit={(values) => {
+								dispatch(AdminLoginRequest(values));
+							}}
+						>
+							{({ errors, touched }) => (
+								<Form className="auth-login-form mt-2">
+									<FormGroup>
+										<Label className="form-label" for="login-email">
+											Email / Mobile No
+										</Label>
+										<Field
+											type="text"
+											id="username"
+											name="username"
+											className="form-control"
+											placeholder="Enter Your Email / Mobile No"
+										/>
+										{errors.username && touched.username ? (
+											<div style={{ color: 'red' }}>{errors.username}</div>
+										) : null}
+									</FormGroup>
+									<FormGroup>
+										<div className="d-flex justify-content-between">
+											<Label className="form-label" for="login-password">
+												Password
+											</Label>
+											<Link to="/forgot-password">
+												<small>Forgot Password?</small>
+											</Link>
+										</div>
+										<Field
+											id="password"
+											type="password"
+											name="password"
+											className="form-control"
+											placeholder="Enter Your Password"
+										/>
+										{errors.password && touched.password ? (
+											<div style={{ color: 'red' }}>{errors.password}</div>
+										) : null}
+									</FormGroup>
+
+									<Button.Ripple type="submit" color="primary" block>
+										Sign in
+									</Button.Ripple>
+								</Form>
+							)}
+						</Formik>
 					</CardBody>
 				</Card>
 			</div>

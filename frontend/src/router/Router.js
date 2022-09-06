@@ -73,6 +73,8 @@ const Router = () => {
 
 		// ** Assign vars based on route meta
 		if (route.meta) {
+			console.log(route.meta,"CALLED3");
+
 			action = route.meta.action ? route.meta.action : null;
 			resource = route.meta.resource ? route.meta.resource : null;
 		}
@@ -81,6 +83,8 @@ const Router = () => {
 			(!isUserLoggedIn() && route.meta === undefined) ||
 			(!isUserLoggedIn() && route.meta && !route.meta.authRoute && !route.meta.publicRoute)
 		) {
+			console.log("CALLED2");
+
 			/**
 			 ** If user is not Logged in & route meta is undefined
 			 ** OR
@@ -90,6 +94,7 @@ const Router = () => {
 
 			return <Redirect to="/login" />;
 		} else if (route.meta && route.meta.authRoute && isUserLoggedIn()) {
+			console.log("CALLED1");
 			// ** If route has meta and authRole and user is Logged in then redirect user to home page (DefaultRoute)
 			return <Redirect to="/" />;
 			// } else if (isUserLoggedIn() && userRole.role === 'student') {
