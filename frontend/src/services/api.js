@@ -16,18 +16,32 @@ const api = axios.create({
 
 export const AdminLoginAPI = async (reqData) => {
 	return await axios
-		.post(`${api.baseURL}/api/login/`, reqData, {
+		.post(`${BASE_URL_API}/api/login/`, reqData, {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
 		})
 		.then((response) => response)
+		.catch((err) => console.log(err,"err"));
+};
+
+export const ProductApi = async (queryString) => {
+	return await axios
+		.get(`${BASE_URL_API}/api/product/list/?`+queryString, {
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
+			Authorization: `${accessToken}`,
+		})
+		.then((response) => response)
 		.catch((err) => console.log(err));
 };
 
-export const ProductApi = async () => {
+
+
+export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/product/list/`, {
+		.post(`${BASE_URL_API}/api//upload1/`,uploadexcel,{
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',

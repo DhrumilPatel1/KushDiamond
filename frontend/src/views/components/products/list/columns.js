@@ -27,41 +27,77 @@ import {
 	Edit,
 } from 'react-feather';
 
+const statusObj = {
+	active: 'light-success',
+	inactive: 'light-secondary',
+};
+
 export const columns = [
 	{
 		name: 'Sku',
-		minWidth: '172px',
+		minWidth: '150px',
 		selector: 'sku',
 		sortable: true,
 		cell: (row) => row.sku,
 	},
 	{
 		name: 'Shape',
-		minWidth: '172px',
+		minWidth: '130px',
 		selector: 'shape',
 		sortable: true,
 		cell: (row) => row.shape,
 	},
 	{
 		name: 'Carat',
-		minWidth: '130px',
+		minWidth: '90px',
 		selector: 'carat',
 		sortable: true,
 		cell: (row) => row.carat,
 	},
 	{
-		name: 'Stone',
-		minWidth: '120px',
-		selector: 'stone',
-		sortable: true,
-		cell: (row) => row.stone,
-	},
-	{
 		name: 'Color',
-		minWidth: '172px',
+		minWidth: '150px',
 		selector: 'color',
 		sortable: true,
 		cell: (row) => row.color,
+	},
+	{
+		name: 'Measurement',
+		minWidth: '200px',
+		selector: 'measurement',
+		sortable: true,
+		cell: (row) => row.measurement,
+	},
+	{
+		name: 'Price',
+		minWidth: '120px',
+		selector: 'price',
+		sortable: true,
+		cell: (row) => row.price,
+	},
+
+	{
+		name: 'Certificate No',
+		minWidth: '190px',
+		selector: 'certificate_no',
+		sortable: true,
+		cell: (row) => row.certificate_no,
+	},
+
+	{
+		name: 'Status',
+		minWidth: '138px',
+		selector: 'is_active',
+		sortable: true,
+		cell: (row) => (
+			<Badge
+				className="text-capitalize"
+				color={statusObj[row.is_active === true ? 'active' : 'inactive']}
+				pill
+			>
+				{row.is_active === true ? 'active' : 'inactive'}
+			</Badge>
+		),
 	},
 	{
 		name: 'Actions',
