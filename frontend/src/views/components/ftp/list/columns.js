@@ -39,6 +39,10 @@ const renderClient = (row) => {
 	}
 };
 
+const handleDeleteById = (id) => {
+	console.log(id,"id")
+};
+
 export const columns = [
 	{
 		name: 'Client Name',
@@ -85,40 +89,66 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		minWidth: '80px',
-		cell: (row) => (
-			<UncontrolledDropdown>
-				<DropdownToggle tag="div" className="btn btn-sm">
-					<MoreVertical size={14} className="cursor-pointer" />
-				</DropdownToggle>
-				<DropdownMenu right>
-					<DropdownItem
-						tag={Link}
-						to={`/apps/user/view/${row.id}`}
-						className="w-100"
-						// onClick={() => store.dispatch(getUser(row.id))}
-					>
-						<Eye size={14} className="mr-50" />
-						<span className="align-middle">Details</span>
-					</DropdownItem>
-					<DropdownItem
-						tag={Link}
-						to={`/apps/user/edit/${row.id}`}
-						className="w-100"
-						// onClick={() => store.dispatch(getUser(row.id))}
-					>
-						<Edit size={14} className="mr-50" />
-						<span className="align-middle">Edit</span>
-					</DropdownItem>
-					<DropdownItem
-						className="w-100"
-						// onClick={() => store.dispatch(deleteUser(row.id))}
-					>
-						<Trash2 size={14} className="mr-50" />
-						<span className="align-middle">Delete</span>
-					</DropdownItem>
-				</DropdownMenu>
-			</UncontrolledDropdown>
-		),
+		minWidth: '25%',
+		cell: (row) => {
+			return (
+				<div className="d-inline ">
+					<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
+						<Eye size={18} />
+					</Link>
+
+					<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
+						<Edit size={18} />
+					</Link>
+
+					<Trash2
+						className="text-danger"
+						size={18}
+						onClick={() => handleDeleteById(row.id)}
+						style={{ cursor: 'pointer' }}
+					/>
+				</div>
+			);
+		},
+		// sortable: true,
 	},
+
+	// {
+	// 	name: 'Actions',
+	// 	minWidth: '80px',
+	// 	cell: (row) => (
+	// 		<UncontrolledDropdown>
+	// 			<DropdownToggle tag="div" className="btn btn-sm">
+	// 				<MoreVertical size={14} className="cursor-pointer" />
+	// 			</DropdownToggle>
+	// 			<DropdownMenu right>
+	// 				<DropdownItem
+	// 					tag={Link}
+	// 					to={`/apps/user/view/${row.id}`}
+	// 					className="w-100"
+	// 					// onClick={() => store.dispatch(getUser(row.id))}
+	// 				>
+	// 					<Eye size={14} className="mr-50" />
+	// 					<span className="align-middle">Details</span>
+	// 				</DropdownItem>
+	// 				<DropdownItem
+	// 					tag={Link}
+	// 					to={`/apps/user/edit/${row.id}`}
+	// 					className="w-100"
+	// 					// onClick={() => store.dispatch(getUser(row.id))}
+	// 				>
+	// 					<Edit size={14} className="mr-50" />
+	// 					<span className="align-middle">Edit</span>
+	// 				</DropdownItem>
+	// 				<DropdownItem
+	// 					className="w-100"
+	// 					// onClick={() => store.dispatch(deleteUser(row.id))}
+	// 				>
+	// 					<Trash2 size={14} className="mr-50" />
+	// 					<span className="align-middle">Delete</span>
+	// 				</DropdownItem>
+	// 			</DropdownMenu>
+	// 		</UncontrolledDropdown>
+	// 	),
+	// },
 ];
