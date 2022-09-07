@@ -73,6 +73,7 @@ const ProductsList = () => {
 	const dispatch = useDispatch();
 
 	const { productData, isLoading } = useSelector((state) => state.products);
+	console.log(isLoading,"isLoading")
 	// ** States
 
 	// ** Get data on mount

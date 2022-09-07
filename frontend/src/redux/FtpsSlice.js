@@ -6,7 +6,6 @@ export const FtpsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		ftpData: [],
-		excelTypeOne: [],
 		error: null,
 	},
 	reducers: {

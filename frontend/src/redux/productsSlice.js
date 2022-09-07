@@ -32,7 +32,7 @@ export const productsSlice = createSlice({
 	},
 });
 
-export const { productGetData, handleErrorList, excelTypeOne,excelTypeOneReset } = productsSlice.actions;
+export const { productGetData, handleErrorList, excelTypeOne,excelTypeOneReset,setLoading } = productsSlice.actions;
 
 export default productsSlice.reducer;
 
@@ -47,7 +47,6 @@ export const productList = (queryString) => async (dispatch) => {
 };
 
 export const productExcelUpload = (uploadfile) => async (dispatch) => {
-	dispatch(setLoading())
 	try {
 		const { data } = await ProductExcelUploadTypeOne(uploadfile);
 		const { statusCode } = data;
