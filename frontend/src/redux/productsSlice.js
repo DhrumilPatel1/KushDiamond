@@ -21,15 +21,18 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
 		},
-
 		handleErrorList: (state, action) => {
+			state.error = action.payload;
+			state.isLoading = false;
+		},
+		handleErrorExcel:(state,action)=>{
 			state.error = action.payload;
 			state.isLoading = false;
 		},
 	},
 });
 
-export const { productGetData, handleErrorList, excelTypeOne } = productsSlice.actions;
+export const { productGetData, handleErrorList, excelTypeOne,excelTypeOneReset } = productsSlice.actions;
 
 export default productsSlice.reducer;
 
@@ -49,8 +52,9 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 		if (statusCode === 200) {
 			dispatch(excelTypeOne(data));
 			toast.success('File upload successfully');
+			dispatch(productList())
 		}
 	} catch (err) {
-		dispatch(handleErrorList(err));
+		dispatch(handleErrorExcel(err));
 	}
 };
