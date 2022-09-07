@@ -43,7 +43,7 @@ const ToastContent = ({ name, role }) => (
 );
 
 const SignupSchema = yup.object().shape({
-	username: yup.string().required('Email / Phone is required'),
+	username: yup.string().required('Email or Mobile No is required'),
 	password: yup
 		.string()
 		.min(3, 'Password must be at least 3 characters')
@@ -109,14 +109,14 @@ const Login = () => {
 								<Form className="auth-login-form mt-2">
 									<FormGroup>
 										<Label className="form-label" for="login-email">
-											Email / Mobile No
+											Email or Mobile No
 										</Label>
 										<Field
 											type="text"
 											id="username"
 											name="username"
 											className="form-control"
-											placeholder="Enter Your Email / Mobile No"
+											placeholder="Enter Your Email or Mobile No"
 										/>
 										{errors.username && touched.username ? (
 											<div style={{ color: 'red' }}>{errors.username}</div>
