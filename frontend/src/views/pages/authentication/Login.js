@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -52,6 +52,7 @@ const SignupSchema = yup.object().shape({
 
 const Login = () => {
 	const { userData, error } = useSelector((state) => state.auth);
+	console.log(userData, 'userData');
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -118,9 +119,10 @@ const Login = () => {
 										{errors.username && touched.username ? (
 											<div style={{ color: 'red' }}>{errors.username}</div>
 										) : null}
-										{error && error.username && touched.username ? (
+
+										{/* {error && error.username && touched.username ? (
 											<div style={{ color: 'red' }}>{error.username}</div>
-										) : null}
+										) : null} */}
 									</FormGroup>
 									<FormGroup>
 										<div className="d-flex justify-content-between">
@@ -141,9 +143,9 @@ const Login = () => {
 										{errors.password && touched.password ? (
 											<div style={{ color: 'red' }}>{errors.password}</div>
 										) : null}
-										{error && error.password && touched.password ? (
+										{/* {error && error.password && touched.password ? (
 											<div style={{ color: 'red' }}>{error.password}</div>
-										) : null}
+										) : null} */}
 									</FormGroup>
 
 									<Button.Ripple type="submit" color="primary" block>

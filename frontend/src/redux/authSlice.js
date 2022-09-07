@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 // import useJwt from '@src/auth/jwt/useJwt';
 import { AdminLoginAPI } from '../services/api';
 
@@ -57,6 +58,7 @@ export const AdminLoginRequest = (userData) => async (dispatch) => {
 		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
+			toast.error(error.response.data.errors.username || error.response.data.errors.password);
 			return dispatch(handleErrorLogin(error.response.data.errors));
 		} else {
 			return dispatch(handleErrorLogin(error.message));
