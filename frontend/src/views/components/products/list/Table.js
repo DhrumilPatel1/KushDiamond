@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Link, Plus, Share } from 'react-feather';
+import { ChevronDown, Plus, Share } from 'react-feather';
 import DataTable from 'react-data-table-component';
+
 import {
 	Card,
 	CardHeader,
@@ -24,8 +25,14 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productExcelUpload, productList } from '../../../../redux/productsSlice';
+import {
+	excelTypeOneReset,
+	productExcelUpload,
+	productList,
+} from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
+import { Link } from 'react-router-dom';
+
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
@@ -40,7 +47,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 						Import
 						<Input type="file" onChange={ExcelTypeOne} hidden />
 					</Button.Ripple>
-					<Button className="ml-2" color="primary">
+					<Button className="ml-2" color="primary" tag={Link} to="/dashboard">
 						<Plus size={15} />
 						<span className="align-middle ml-50">Add Products</span>
 					</Button>
