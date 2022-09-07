@@ -10,14 +10,18 @@ import {
 	Badge,
 } from 'reactstrap';
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
+import { FtpDeleteRequest } from '../../../../redux/FtpsSlice';
+import { useDispatch } from 'react-redux';
+import FtpList from './Table';
+
+export const handleDeleteById = (id) => {
+	console.log(id, 'id dddd');
+	return <FtpList id={id} />;
+};
 
 const statusObj = {
 	active: 'light-success',
 	inactive: 'light-warning',
-};
-
-const handleDeleteById = (id) => {
-	console.log(id,"id")
 };
 
 export const columns = [
@@ -55,6 +59,13 @@ export const columns = [
 		selector: 'Username',
 		sortable: true,
 		cell: (row) => row.username,
+	},
+	{
+		name: 'Password',
+		minWidth: '210px',
+		selector: 'Password',
+		sortable: true,
+		cell: (row) => row.password,
 	},
 
 	{

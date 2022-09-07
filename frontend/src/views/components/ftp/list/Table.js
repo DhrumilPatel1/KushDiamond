@@ -57,7 +57,9 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm }) => {
 	);
 };
 
-const ProductsList = () => {
+const FtpList = () => {
+
+
 	// ** Store Vars
 	const dispatch = useDispatch();
 	const { ftpData, isLoading } = useSelector((state) => state.Ftps);
@@ -248,4 +250,4 @@ const ProductsList = () => {
 	);
 };
 
-export default ProductsList;
+export default FtpList;
