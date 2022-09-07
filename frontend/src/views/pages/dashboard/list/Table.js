@@ -42,7 +42,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 						<Input type="file" onChange={ExcelTypeOne} hidden />
 					</Button.Ripple>
 
-					<Button className="ml-2" color="primary" tag={Link} to='products/list'>
+					<Button className="ml-2" color="primary" tag={Link} to="products/list">
 						<Plus size={15} />
 						<span className="align-middle ml-50">Add Products</span>
 					</Button>

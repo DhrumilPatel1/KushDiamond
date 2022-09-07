@@ -115,13 +115,9 @@ const Login = () => {
 											className="form-control"
 											placeholder="Enter Your Email or Mobile No"
 										/>
-										{errors.username && touched.username ? (
-											<div style={{ color: 'red' }}>{errors.username}</div>
+										{(errors.username && touched.username) || (error && error.username) ? (
+											<div className="error-sm">{errors.username || error.username}</div>
 										) : null}
-
-										{/* {error && error.username && touched.username ? (
-											<div style={{ color: 'red' }}>{error.username}</div>
-										) : null} */}
 									</FormGroup>
 									<FormGroup>
 										<div className="d-flex justify-content-between">
@@ -139,10 +135,15 @@ const Login = () => {
 											className="form-control"
 											placeholder="Enter Your Password"
 										/>
-										{errors.password && touched.password ? (
+
+										{(errors.password && touched.password) || (error && error.password) ? (
+											<div className="error-sm">{errors.password || error.password}</div>
+										) : null}
+
+										{/* {errors.password && touched.password ? (
 											<div style={{ color: 'red' }}>{errors.password}</div>
 										) : null}
-										{/* {error && error.password && touched.password ? (
+										{error && error.password && touched.password ? (
 											<div style={{ color: 'red' }}>{error.password}</div>
 										) : null} */}
 									</FormGroup>

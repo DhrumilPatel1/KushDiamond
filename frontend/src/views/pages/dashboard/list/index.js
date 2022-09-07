@@ -4,7 +4,7 @@ import Table from './Table';
 // ** Styles
 import '@styles/react/apps/app-users.scss';
 
-const ProductsList = () => {
+const DashboardList = () => {
 	return (
 		<div className="app-user-list">
 			<h1>Dashboard</h1>
@@ -13,4 +13,4 @@ const ProductsList = () => {
 	);
 };
 
-export default ProductsList;
+export default DashboardList;
