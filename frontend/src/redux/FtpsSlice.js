@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FtpCreateApi,  FtpListApi } from '../services/api';
+import { FtpCreateApi, FtpListApi } from '../services/api';
 
 export const FtpsSlice = createSlice({
 	name: 'Ftps',
@@ -38,6 +38,7 @@ export const FtpClientList = (queryString) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await FtpListApi(queryString);
+	
 		dispatch(ftpGetData(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));
