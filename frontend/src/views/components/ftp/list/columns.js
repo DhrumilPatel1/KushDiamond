@@ -11,12 +11,33 @@ import {
 } from 'reactstrap';
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 
-const statusObj = {
-	active: 'light-success',
-	inactive: 'light-warning',
+// ** Custom Components
+import Avatar from '@components/avatar';
+
+// ** Renders Client Columns
+const renderClient = (row) => {
+	const stateNum = Math.floor(Math.random() * 6),
+		states = [
+			'light-success',
+			'light-danger',
+			'light-warning',
+			'light-info',
+			'light-primary',
+			'light-secondary',
+		],
+		color = states[stateNum];
+
+	if (row.client_name) {
+		return (
+			<Avatar
+				color={color || 'primary'}
+				className="mr-1"
+				content={row.client_name || ''}
+				initials
+			/>
+		);
+	}
 };
-
-
 
 export const columns = [
 	{
@@ -24,32 +45,39 @@ export const columns = [
 		minWidth: '190px',
 		selector: 'client_name',
 		sortable: true,
-		cell: (row) => row.client_name,
+		cell: (row) => (
+			<div className="d-flex justify-content-left align-items-center">
+				{renderClient(row)}
+				<div className="d-flex flex-column">
+					<span className="font-weight-bold">{row.client_name}</span>
+				</div>
+			</div>
+		),
 	},
 	{
 		name: 'Protocol',
-		minWidth: '130px',
-		selector: 'Protocol',
+		minWidth: '140px',
+		selector: 'protocol',
 		sortable: true,
 		cell: (row) => row.protocol,
 	},
 	{
 		name: 'Port',
-		minWidth: '90px',
-		selector: 'Port',
+		minWidth: '110px',
+		selector: 'port',
 		sortable: true,
 		cell: (row) => row.port,
 	},
 	{
 		name: 'Hostname',
-		minWidth: '170px',
-		selector: 'Hostname',
+		minWidth: '250px',
+		selector: 'hostname',
 		sortable: true,
 		cell: (row) => row.hostname,
 	},
 	{
 		name: 'Username',
-		minWidth: '210px',
+		minWidth: '170px',
 		selector: 'Username',
 		sortable: true,
 		cell: (row) => row.username,

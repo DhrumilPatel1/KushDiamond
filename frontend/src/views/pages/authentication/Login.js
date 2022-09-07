@@ -52,7 +52,6 @@ const SignupSchema = yup.object().shape({
 
 const Login = () => {
 	const { userData, error } = useSelector((state) => state.auth);
-	console.log(userData, 'userData');
 
 	const dispatch = useDispatch();
 	const history = useHistory();

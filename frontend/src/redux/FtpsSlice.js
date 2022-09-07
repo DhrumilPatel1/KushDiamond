@@ -6,7 +6,7 @@ export const FtpsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		ftpData: [],
-		ftpCreateData: [],
+		ftpCreateData: null,
 		error: null,
 	},
 	reducers: {
@@ -27,10 +27,17 @@ export const FtpsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
+
+		ftpResetAuth: (state) => {
+			state.isLoading = false;
+			state.error = null;
+			state.ftpCreateData = null;
+		},
 	},
 });
 
-export const { ftpGetData, ftpCreateData, setLoading, ftpErrorList } = FtpsSlice.actions;
+export const { ftpGetData, ftpCreateData, setLoading, ftpErrorList, ftpResetAuth } =
+	FtpsSlice.actions;
 
 export default FtpsSlice.reducer;
 
@@ -38,7 +45,7 @@ export const FtpClientList = (queryString) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await FtpListApi(queryString);
-	
+
 		dispatch(ftpGetData(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));

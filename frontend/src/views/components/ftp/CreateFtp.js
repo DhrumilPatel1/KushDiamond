@@ -3,7 +3,7 @@ import { CardBody, FormGroup, Row, Col, Button, Label } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { FtpCreateRequest } from '../../../redux/FtpsSlice';
+import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Slide, toast } from 'react-toastify';
 
@@ -22,21 +22,23 @@ const FtpCreateSchema = yup.object().shape({
 
 const CreateFtp = () => {
 	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
-	console.log(ftpCreateData, 'ftpCreateData');
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		if (ftpCreateData && ftpCreateData !== null) {
-			toast.success('Account successfully created');
-			history.push('/ftp/list');
-			// setTimeout(() => {
-			// 	history.push('/ftp/list');
-			// }, 100);
+		if (ftpCreateData !== null) {
+			toast.success('Account successfully created', {
+				transition: Slide,
+				hideProgressBar: true,
+				autoClose: 2000,
+			});
+			setTimeout(() => {
+				history.push('/ftp/list');
+			}, 100);
 		}
-		// return () => {
-		// 	dispatch(handleResetAuth());
-		// };
+		return () => {
+			dispatch(ftpResetAuth());
+		};
 	}, [ftpCreateData]);
 
 	return (
