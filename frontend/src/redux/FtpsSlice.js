@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FtpCreateApi, FtpList } from '../services/api';
+import { FtpCreateApi,  FtpListApi } from '../services/api';
 
 export const FtpsSlice = createSlice({
 	name: 'Ftps',
 	initialState: {
 		isLoading: false,
-		ftpData: null,
+		ftpData: [],
 		ftpCreateData: [],
 		error: null,
 	},
