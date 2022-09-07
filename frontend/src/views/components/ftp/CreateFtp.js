@@ -9,44 +9,59 @@ const CreateFtp = () => {
 				<Row>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="nameMulti">Client Name</Label>
-							<Input type="text" name="client_name" id="client_name" placeholder="Client Name" />
+							<Label for="client_name">Client Name</Label>
+							<Input
+								type="text"
+								name="client_name"
+								id="client_name"
+								placeholder="Enter Your Client Name"
+							/>
 						</FormGroup>
 					</Col>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="lastNameMulti">Protocol</Label>
-							<Input type="text" name="lastname" id="lastNameMulti" placeholder="Last Name" />
+							<Label for="protocol">Protocol</Label>
+							<Input type="text" name="protocol" id="protocol" placeholder="Enter Your Protocol" />
 						</FormGroup>
 					</Col>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="cityMulti">Port</Label>
-							<Input type="text" name="city" id="cityMulti" placeholder="City" />
+							<Label for="port">Port</Label>
+							<Input type="number" name="port" id="port" placeholder="Enter Your Port" />
 						</FormGroup>
 					</Col>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="CountryMulti">Hostname</Label>
-							<Input type="text" name="country" id="CountryMulti" placeholder="Country" />
+							<Label for="hostname">Hostname</Label>
+							<Input type="text" name="hostname" id="hostname" placeholder="Enter Your Hostname" />
 						</FormGroup>
 					</Col>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="CompanyMulti">Username</Label>
-							<Input type="text" name="company" id="CompanyMulti" placeholder="Company" />
+							<Label for="username">Username</Label>
+							<Input type="text" name="username" id="username" placeholder="Enter Your Username" />
 						</FormGroup>
 					</Col>
 					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="EmailMulti">Password</Label>
-							<Input type="email" name="Email" id="EmailMulti" placeholder="Email" />
+							<Label for="password">Password</Label>
+							<Input
+								type="password"
+								name="password"
+								id="password"
+								placeholder="Enter Your Password"
+							/>
 						</FormGroup>
 					</Col>
-                    <Col md="6" sm="12">
+					<Col md="6" sm="12">
 						<FormGroup>
-							<Label for="EmailMulti">Password</Label>
-							<Input type="email" name="Email" id="EmailMulti" placeholder="Email" />
+							<Label for="folder_path">Folder Path</Label>
+							<Input
+								type="text"
+								name="folder_path"
+								id="folder_path"
+								placeholder="Enter Your Folder Path"
+							/>
 						</FormGroup>
 					</Col>
 					<Col sm="12">
@@ -55,7 +70,7 @@ const CreateFtp = () => {
 								Submit
 							</Button.Ripple>
 							<Button.Ripple color="secondary" tag={Link} to="/ftp/list" outline>
-								Cancel
+								Back
 							</Button.Ripple>
 						</FormGroup>
 					</Col>
