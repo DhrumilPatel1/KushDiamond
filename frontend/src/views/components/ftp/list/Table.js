@@ -27,6 +27,7 @@ import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { productExcelUpload, productList } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
+import { FtpClientList } from '../../../../redux/FtpsSlice';
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
@@ -49,8 +50,9 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 const ProductsList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
+	const {ftpData} = useSelector((state) => state.Ftps);
+	console.log(ftpData,"ftpData")
 
-	const { productData } = useSelector((state) => state.products);
 	// ** States
 
 	// ** Get data on mount
@@ -84,7 +86,7 @@ const ProductsList = () => {
 	);
 
 	useEffect(() => {
-		dispatch(productList(queryString));
+		dispatch(FtpClientList(queryString));
 	}, [dispatch, queryString]);
 
 	// const handleSort = (column, sortDirection) => {
@@ -168,13 +170,42 @@ const ProductsList = () => {
 	};
 
 	useEffect(() => {
-		dispatch(productList());
+		dispatch(FtpClientList());
 	}, []);
 
 	return (
 		<Fragment>
 			<Card>
-				<DataTable
+				<CardHeader>
+					<CardTitle tag="h4">Search Filter</CardTitle>
+				</CardHeader>
+				<CardBody>
+					<Form onSubmit={(e) => filterSubmit(e)}>
+						<Row>
+							<Col lg="3" md="6">
+								<Label for="color">Color:</Label>
+								<Input id="color" name="color" placeholder="Enter Color" />
+							</Col>
+							<Col lg="3" md="6">
+								<Label for="shape">Shape:</Label>
+								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
+							</Col>
+							<Col lg="3" md="6">
+								<Label for="cut">Cut:</Label>
+								<Input type="text" name="cut" placeholder="Enter Cut" />
+							</Col>
+							<Col lg="3" md="6">
+								<Label for="cut"></Label>
+								<Button.Ripple type="submit" color="primary" block>
+									Filter
+								</Button.Ripple>
+							</Col>
+						</Row>
+					</Form>
+				</CardBody>
+			</Card>
+			<Card>
+				{/* <DataTable
 					noHeader
 					pagination
 					subHeader
@@ -203,7 +234,7 @@ const ProductsList = () => {
 							// handleFilter={handleFilter}
 						/>
 					}
-				/>
+				/> */}
 			</Card>
 		</Fragment>
 	);
