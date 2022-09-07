@@ -53,7 +53,6 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 		const { statusCode } = data;
 		if (statusCode === 200) {
 			dispatch(excelTypeOne(data));
-			// toast.success('File upload successfully');
 			dispatch(productList());
 		}
 	} catch (err) {
