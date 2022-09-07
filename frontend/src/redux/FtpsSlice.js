@@ -35,8 +35,9 @@ export const { ftpGetData, ftpCreateData, setLoading, ftpErrorList } = FtpsSlice
 export default FtpsSlice.reducer;
 
 export const FtpClientList = (queryString) => async (dispatch) => {
+	dispatch(setLoading());
 	try {
-		const { data } = await FtpList(queryString);
+		const { data } = await FtpListApi(queryString);
 		dispatch(ftpGetData(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));

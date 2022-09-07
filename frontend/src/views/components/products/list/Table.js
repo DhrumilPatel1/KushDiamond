@@ -72,7 +72,8 @@ const ProductsList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
 
-	const { productData } = useSelector((state) => state.products);
+	const { productData, isLoading } = useSelector((state) => state.products);
+	console.log(isLoading,"isLoading")
 	// ** States
 
 	// ** Get data on mount
@@ -209,7 +210,7 @@ const ProductsList = () => {
 									className="react-select"
 									classNamePrefix="select"
 									options={roleOptions}
-									name='ftp'
+									name="ftp"
 								/>
 							</Col>
 							<Col lg="2" md="6">
@@ -250,7 +251,7 @@ const ProductsList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
-					progressPending={productData.length == 0 ? true : false}
+					progressPending={isLoading}
 					// onSort={handleSort}
 					// sortServer={true}
 					// striped={true}
