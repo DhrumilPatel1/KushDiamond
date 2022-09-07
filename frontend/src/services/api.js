@@ -41,7 +41,7 @@ export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 
 export const FtpListApi = async (queryString) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/ftp/list/?`+queryString,{
+		.get(`${BASE_URL_API}/api/ftp/list/?` + queryString, {
 			headers,
 		})
 		.then((response) => response)
