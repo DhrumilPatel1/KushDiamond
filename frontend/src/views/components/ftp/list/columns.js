@@ -20,71 +20,41 @@ const statusObj = {
 
 export const columns = [
 	{
-		name: 'Sku',
+		name: 'Client Name',
 		minWidth: '190px',
-		selector: 'sku',
+		selector: 'client_name',
 		sortable: true,
-		cell: (row) => row.sku,
+		cell: (row) => row.client_name,
 	},
 	{
-		name: 'Shape',
+		name: 'Protocol',
 		minWidth: '130px',
-		selector: 'shape',
+		selector: 'Protocol',
 		sortable: true,
-		cell: (row) => row.shape,
+		cell: (row) => row.protocol,
 	},
 	{
-		name: 'Carat',
+		name: 'Port',
 		minWidth: '90px',
-		selector: 'carat',
+		selector: 'Port',
 		sortable: true,
-		cell: (row) => row.carat,
+		cell: (row) => row.port,
 	},
 	{
-		name: 'Color',
+		name: 'Hostname',
 		minWidth: '170px',
-		selector: 'color',
+		selector: 'Hostname',
 		sortable: true,
-		cell: (row) => row.color,
+		cell: (row) => row.hostname,
 	},
 	{
-		name: 'Measurement',
+		name: 'Username',
 		minWidth: '210px',
-		selector: 'measurement',
+		selector: 'Username',
 		sortable: true,
-		cell: (row) => row.measurement,
-	},
-	{
-		name: 'Price',
-		minWidth: '120px',
-		selector: 'price',
-		sortable: true,
-		cell: (row) => row.price,
+		cell: (row) => row.username,
 	},
 
-	{
-		name: 'Certificate No',
-		minWidth: '190px',
-		selector: 'certificate_no',
-		sortable: true,
-		cell: (row) => row.certificate_no,
-	},
-
-	{
-		name: 'Status',
-		minWidth: '138px',
-		selector: 'is_active',
-		sortable: true,
-		cell: (row) => (
-			<Badge
-				className="text-capitalize"
-				color={statusObj[row.is_active === true ? 'active' : 'inactive']}
-				pill
-			>
-				{row.is_active === true ? 'active' : 'inactive'}
-			</Badge>
-		),
-	},
 	{
 		name: 'Actions',
 		minWidth: '80px',

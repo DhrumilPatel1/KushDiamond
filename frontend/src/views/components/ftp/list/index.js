@@ -7,7 +7,7 @@ import '@styles/react/apps/app-users.scss';
 const ProductsList = () => {
 	return (
 		<div className="app-user-list">
-			<h1>Ftp</h1>
+			<h1>Ftp List</h1>
 			<Table />
 		</div>
 	);

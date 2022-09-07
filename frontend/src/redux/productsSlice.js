@@ -37,6 +37,7 @@ export const { productGetData, handleErrorList, excelTypeOne,excelTypeOneReset }
 export default productsSlice.reducer;
 
 export const productList = (queryString) => async (dispatch) => {
+	dispatch(setLoading())
 	try {
 		const { data } = await ProductApi(queryString);
 		dispatch(productGetData(data));
@@ -46,6 +47,7 @@ export const productList = (queryString) => async (dispatch) => {
 };
 
 export const productExcelUpload = (uploadfile) => async (dispatch) => {
+	dispatch(setLoading())
 	try {
 		const { data } = await ProductExcelUploadTypeOne(uploadfile);
 		const { statusCode } = data;

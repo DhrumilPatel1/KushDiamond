@@ -29,7 +29,7 @@ import { datatable_per_page, datatable_per_raw } from '../../../../configs/const
 import { Link } from 'react-router-dom';
 import { FtpClientList } from '../../../../redux/FtpsSlice';
 // ** Table Header
-const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
+const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm }) => {
 	return (
 		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
 			<Row>
@@ -37,6 +37,19 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 					xl="12"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
+					<div className="d-flex align-items-center mb-sm-0 mb-1 mr-1 search-chairman-btn">
+						<Label className="mb-0" for="search-invoice">
+							Search:
+						</Label>
+						<Input
+							id="search-invoice"
+							className="ml-50 w-100"
+							type="text"
+							name="search"
+							onChange={handleFilter}
+							placeholder="Search"
+						/>
+					</div>
 					<Button className="ml-2" color="primary" tag={Link} to={'/ftp/add'}>
 						<Plus size={15} />
 						<span className="align-middle ml-50">Add Ftp</span>
@@ -50,9 +63,8 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 const ProductsList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const {ftpData} = useSelector((state) => state.Ftps);
-	console.log(ftpData,"ftpData")
-
+	const { ftpData, isLoading } = useSelector((state) => state.Ftps);
+	console.log(isLoading, 'isLoading');
 	// ** States
 
 	// ** Get data on mount
@@ -70,6 +82,7 @@ const ProductsList = () => {
 	const [filterShape, setFilterShape] = useState('');
 
 	const [filterCut, setFilterCut] = useState('');
+	const [filter_value, setFilter_value] = useState('');
 
 	const table_data = {
 		page: 1,
@@ -77,12 +90,13 @@ const ProductsList = () => {
 		sort_order: sort_order,
 		color: filterColor,
 		shape: filterShape,
+		filter_value: filter_value,
 		cut: filterCut,
 		order_column: 'updated_at',
 	};
 
 	const [queryString, setQueryString] = useState(
-		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
+		`page=${table_data.page}&search=${table_data.filter_value}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
 
 	useEffect(() => {
@@ -114,6 +128,12 @@ const ProductsList = () => {
 			})
 			.join('&');
 		setQueryString(queryStr);
+	};
+
+	const handleFilter = (e) => {
+		let value = e.target.value;
+		tableChangeHandler({ ...table_data, search: value });
+		setFilter_value(value);
 	};
 
 	const filterSubmit = (e) => {
@@ -162,20 +182,13 @@ const ProductsList = () => {
 		// );
 	};
 
-	const ExcelTypeOne = (e) => {
-		const files = e.target.files[0];
-		let formData = new FormData();
-		formData.append('file', files);
-		dispatch(productExcelUpload(formData));
-	};
-
 	useEffect(() => {
 		dispatch(FtpClientList());
 	}, []);
 
 	return (
 		<Fragment>
-			<Card>
+			{/* <Card>
 				<CardHeader>
 					<CardTitle tag="h4">Search Filter</CardTitle>
 				</CardHeader>
@@ -203,38 +216,36 @@ const ProductsList = () => {
 						</Row>
 					</Form>
 				</CardBody>
-			</Card>
+			</Card> */}
 			<Card>
-				{/* <DataTable
+				<DataTable
 					noHeader
 					pagination
 					subHeader
 					responsive
 					paginationServer
 					columns={columns}
-					data={productData.results}
-					paginationTotalRows={productData.count}
+					data={ftpData.results}
+					paginationTotalRows={ftpData.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
-					progressPending={productData.length == 0 ? true : false}
+					progressPending={isLoading}
 					// onSort={handleSort}
 					// sortServer={true}
 					// striped={true}
 					// onChangePage={handlePageChange}
 					subHeaderComponent={
 						<CustomHeader
-							ExcelTypeOne={ExcelTypeOne}
-							// handlePerPage={handlePerPage}
 							// searchTerm={searchTerm}
-							// value={filter_value}
-							// handleFilter={handleFilter}
+							value={filter_value}
+							handleFilter={handleFilter}
 						/>
 					}
-				/> */}
+				/>
 			</Card>
 		</Fragment>
 	);
