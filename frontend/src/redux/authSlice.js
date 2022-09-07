@@ -48,16 +48,18 @@ export const AdminLoginRequest = (userData) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await AdminLoginAPI(userData);
-
 		const { statusCode, error, errors } = data;
-
 		if (error) {
 			dispatch(handleErrorLogin(errors));
 		}
 		if (statusCode === 200) {
 			dispatch(handleSuccessLogin(data));
 		}
-	} catch (err) {
-		dispatch(handleErrorLogin(err));
+	} catch (error) {
+		if (error.response && error.response.data.errors) {
+			return dispatch(handleErrorLogin(error.response.data.errors));
+		} else {
+			return dispatch(handleErrorLogin(error.message));
+		}
 	}
 };

@@ -174,35 +174,6 @@ const ProductsList = () => {
 	return (
 		<Fragment>
 			<Card>
-				<CardHeader>
-					<CardTitle tag="h4">Search Filter</CardTitle>
-				</CardHeader>
-				<CardBody>
-					<Form onSubmit={(e) => filterSubmit(e)}>
-						<Row>
-							<Col lg="3" md="6">
-								<Label for="color">Color:</Label>
-								<Input id="color" name="color" placeholder="Enter Color" />
-							</Col>
-							<Col lg="3" md="6">
-								<Label for="shape">Shape:</Label>
-								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
-							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut">Cut:</Label>
-								<Input type="text" name="cut" placeholder="Enter Cut" />
-							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut"></Label>
-								<Button.Ripple type="submit" color="primary" block>
-									Filter
-								</Button.Ripple>
-							</Col>
-						</Row>
-					</Form>
-				</CardBody>
-			</Card>
-			<Card>
 				<DataTable
 					noHeader
 					pagination

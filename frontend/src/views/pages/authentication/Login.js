@@ -51,11 +51,8 @@ const SignupSchema = yup.object().shape({
 });
 
 const Login = () => {
-	// const userlogin = useSelector((state) => state.auth);
-	// console.log(userlogin, 'userlogin');
-	const { userData, errors, erorr } = useSelector((state) => state.auth);
-	// console.log(errors, 'erorrs');
-	// console.log(erorr, 'erorr');
+	const { userData, error } = useSelector((state) => state.auth);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -121,6 +118,9 @@ const Login = () => {
 										{errors.username && touched.username ? (
 											<div style={{ color: 'red' }}>{errors.username}</div>
 										) : null}
+										{error && error.username && touched.username ? (
+											<div style={{ color: 'red' }}>{error.username}</div>
+										) : null}
 									</FormGroup>
 									<FormGroup>
 										<div className="d-flex justify-content-between">
@@ -140,6 +140,9 @@ const Login = () => {
 										/>
 										{errors.password && touched.password ? (
 											<div style={{ color: 'red' }}>{errors.password}</div>
+										) : null}
+										{error && error.password && touched.password ? (
+											<div style={{ color: 'red' }}>{error.password}</div>
 										) : null}
 									</FormGroup>
 
