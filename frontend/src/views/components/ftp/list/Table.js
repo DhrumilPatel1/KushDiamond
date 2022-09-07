@@ -27,6 +27,7 @@ import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { productExcelUpload, productList } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
+import { FtpClientList } from '../../../../redux/FtpsSlice';
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
@@ -49,8 +50,9 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 const ProductsList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
+	const {ftpData} = useSelector((state) => state.Ftps);
+	console.log(ftpData,"ftpData")
 
-	const { productData } = useSelector((state) => state.products);
 	// ** States
 
 	// ** Get data on mount
@@ -84,7 +86,7 @@ const ProductsList = () => {
 	);
 
 	useEffect(() => {
-		dispatch(productList(queryString));
+		dispatch(FtpClientList(queryString));
 	}, [dispatch, queryString]);
 
 	// const handleSort = (column, sortDirection) => {
@@ -168,7 +170,7 @@ const ProductsList = () => {
 	};
 
 	useEffect(() => {
-		dispatch(productList());
+		dispatch(FtpClientList());
 	}, []);
 
 	return (
@@ -203,7 +205,7 @@ const ProductsList = () => {
 				</CardBody>
 			</Card>
 			<Card>
-				<DataTable
+				{/* <DataTable
 					noHeader
 					pagination
 					subHeader
@@ -232,7 +234,7 @@ const ProductsList = () => {
 							// handleFilter={handleFilter}
 						/>
 					}
-				/>
+				/> */}
 			</Card>
 		</Fragment>
 	);

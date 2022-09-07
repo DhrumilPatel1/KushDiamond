@@ -41,3 +41,13 @@ export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
+
+export const FtpList = async (queryString) => {
+	return await axios
+		.get(`${BASE_URL_API}/api/ftp/list/`, {
+			headers,
+		}).then((response) => response)
+		.catch((err) => console.log(err));
+		
+};
+

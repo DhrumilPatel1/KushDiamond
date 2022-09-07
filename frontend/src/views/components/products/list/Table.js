@@ -22,6 +22,7 @@ import {
 	CardBody,
 	FormGroup,
 	Form,
+	Toast,
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
@@ -32,7 +33,8 @@ import {
 } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
@@ -56,6 +58,15 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 		</div>
 	);
 };
+
+const roleOptions = [
+	{ value: '', label: 'Select Role' },
+	{ value: 'admin', label: 'Admin' },
+	{ value: 'author', label: 'Author' },
+	{ value: 'editor', label: 'Editor' },
+	{ value: 'maintainer', label: 'Maintainer' },
+	{ value: 'subscriber', label: 'Subscriber' },
+];
 
 const ProductsList = () => {
 	// ** Store Vars
@@ -127,7 +138,7 @@ const ProductsList = () => {
 
 	const filterSubmit = (e) => {
 		e.preventDefault();
-		console.log(e.target.shape.value, 'e.target.shape.value');
+		console.log(e.target.ftp.value, 'e.target.shape.value');
 		setFilterColor(e.target.color.value);
 		setFilterShape(e.target.shape.value);
 		setFilterCut(e.target.cut.value);
@@ -192,15 +203,25 @@ const ProductsList = () => {
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
 							<Col lg="3" md="6">
-								<Label for="color">Color:</Label>
+								<Label for="color">Ftp :</Label>
+								<Select
+									isClearable={false}
+									className="react-select"
+									classNamePrefix="select"
+									options={roleOptions}
+									name='ftp'
+								/>
+							</Col>
+							<Col lg="2" md="6">
+								<Label for="color">Color :</Label>
 								<Input id="color" name="color" placeholder="Enter Color" />
 							</Col>
-							<Col lg="3" md="6">
-								<Label for="shape">Shape:</Label>
+							<Col lg="2" md="6">
+								<Label for="shape">Shape :</Label>
 								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
 							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut">Cut:</Label>
+							<Col lg="2" md="6">
+								<Label for="cut">Cut :</Label>
 								<Input type="text" name="cut" placeholder="Enter Cut" />
 							</Col>
 							<Col lg="3" md="6">
