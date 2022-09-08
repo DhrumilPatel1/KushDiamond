@@ -31,6 +31,13 @@ export const columns = [
 		sortable: true,
 		cell: (row) => row.username,
 	},
+	{
+		name: 'Password',
+		minWidth: '210px',
+		selector: 'Password',
+		sortable: true,
+		cell: (row) => row.password,
+	},
 
 	{
 		name: 'Port',

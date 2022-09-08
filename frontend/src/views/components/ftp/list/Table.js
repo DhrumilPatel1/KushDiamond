@@ -45,6 +45,9 @@ const CustomHeader = ({ handleFilter }) => {
 };
 
 const FtpList = () => {
+
+
+	// ** Store Vars
 	const dispatch = useDispatch();
 	const { ftpData, isLoading } = useSelector((state) => state.Ftps);
 
