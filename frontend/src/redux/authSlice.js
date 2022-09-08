@@ -11,6 +11,7 @@ export const authSlice = createSlice({
 		isLoading: false,
 		userData: null,
 		error: null,
+		abilityData: null,
 	},
 	reducers: {
 		setLoading: (state) => {
@@ -19,6 +20,8 @@ export const authSlice = createSlice({
 		handleSuccessLogin: (state, action) => {
 			state.isLoading = false;
 			state.userData = action.payload?.data;
+			state.abilityData = [{"action": "manage", "subject": "all"}];
+			localStorage.setItem('abilityData', [{"action": "manage", "subject": "all"}])
 			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
 			localStorage.setItem('accessToken', JSON.stringify(action.payload?.token.access));
 		},

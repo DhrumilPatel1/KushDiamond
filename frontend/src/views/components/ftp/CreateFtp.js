@@ -39,9 +39,9 @@ const CreateFtp = () => {
 	return (
 		<>
 			<Breadcrumbs
-				breadCrumbTitle="Ftp Create"
-				breadCrumbParent="ftp"
-				breadCrumbActive="ftp form"
+				breadCrumbTitle="FTP Create"
+				breadCrumbParent="Ftp"
+				breadCrumbActive="Create"
 			/>
 			<Card>
 				<CardBody>

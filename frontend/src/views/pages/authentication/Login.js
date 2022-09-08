@@ -1,18 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import {
-	Card,
-	CardBody,
-	CardTitle,
-	CardText,
-	FormGroup,
-	Label,
-	Input,
-	CustomInput,
-	Button,
-} from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText, FormGroup, Label, Button } from 'reactstrap';
 import '@styles/base/pages/page-auth.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminLoginRequest, handleResetAuth } from '../../../redux/authSlice';
@@ -21,6 +11,7 @@ import { toast, Slide } from 'react-toastify';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
 import InputPasswordToggle from '@components/input-password-toggle';
+import { AbilityContext } from '@src/utility/context/Can.js';
 
 const illustration = 1 ? 'image_main.png' : 'image_main.png',
 	source = require(`@src/assets/images/logo/${illustration}`).default;
@@ -51,8 +42,8 @@ const SignupSchema = yup.object().shape({
 });
 
 const Login = () => {
-	const { userData, error } = useSelector((state) => state.auth);
-
+	const { userData, error, abilityData } = useSelector((state) => state.auth);
+	const ability = useContext(AbilityContext);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -66,6 +57,7 @@ const Login = () => {
 					autoClose: 2000,
 				}
 			);
+			ability.update(abilityData);
 			setTimeout(() => {
 				history.push(getHomeRouteForLoggedInUser(userData.role));
 			}, 100);
@@ -139,13 +131,6 @@ const Login = () => {
 										{(errors.password && touched.password) || (error && error.password) ? (
 											<div className="error-sm">{errors.password || error.password}</div>
 										) : null}
-
-										{/* {errors.password && touched.password ? (
-											<div style={{ color: 'red' }}>{errors.password}</div>
-										) : null}
-										{error && error.password && touched.password ? (
-											<div style={{ color: 'red' }}>{error.password}</div>
-										) : null} */}
 									</FormGroup>
 
 									<Button.Ripple type="submit" color="primary" block>
