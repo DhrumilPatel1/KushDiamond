@@ -22,7 +22,6 @@ import {
 	CardBody,
 	FormGroup,
 	Form,
-	Toast,
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
@@ -33,8 +32,7 @@ import {
 } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
@@ -73,16 +71,6 @@ const ProductsList = () => {
 	const dispatch = useDispatch();
 
 	const { productData, isLoading } = useSelector((state) => state.products);
-	console.log(isLoading,"isLoading")
-	// ** States
-
-	// ** Get data on mount
-
-	// const handlePagination = (page) => {
-	// 	tableChangeHandler({ ...table_data, page: page.selected + 1 });
-	// };
-
-	// ** Function in get data on rows per page
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
@@ -109,15 +97,6 @@ const ProductsList = () => {
 	useEffect(() => {
 		dispatch(productList(queryString));
 	}, [dispatch, queryString]);
-
-	// const handleSort = (column, sortDirection) => {
-	// 	setSort_order(sortDirection);
-	// 	tableChangeHandler({
-	// 		...table_data,
-	// 		sort_order: sortDirection,
-	// 		order_column: column.selector,
-	// 	});
-	// };
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -149,38 +128,6 @@ const ProductsList = () => {
 			shape: e.target.shape.value,
 			cut: e.target.cut.value,
 		});
-	};
-
-	//
-	// const handleFilter = (e) => {
-	// 	let value = e.target.value;
-	// 	tableChangeHandler({ ...table_data, filter_value: value });
-	// 	setFilter_value(value);
-
-	// };
-	// ** Custom Pagination
-	const CustomPagination = () => {
-		// const count = Number(Math.ceil(store.total / rowsPerPage));
-		const count = paginationCount;
-		// return (
-		// 	<ReactPaginate
-		// 		previousLabel={''}
-		// 		nextLabel={''}
-		// 		pageCount={count || 1}
-		// 		activeClassName={'active'}
-
-		// 		forcePage={currentPage !== 0 ? currentPage - 1 : 0}
-		// 		onPageChange={(page) => handlePagination(page)}
-		// 		pageClassName={'page-item'}
-		// 		nextLinkClassName={'page-link'}
-		// 		nextClassName={'page-item next'}
-		// 		previousClassName={'page-item prev'}
-		// 		previousLinkClassName={'page-link'}
-		// 		pageLinkClassName={'page-link'}
-
-		// 		containerClassName={'pagination react-paginate justify-content-end my-2 pr-1'}
-		// 	/>
-		// );
 	};
 
 	const ExcelTypeOne = (e) => {
@@ -252,19 +199,7 @@ const ProductsList = () => {
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
-					// onSort={handleSort}
-					// sortServer={true}
-					// striped={true}
-					// onChangePage={handlePageChange}
-					subHeaderComponent={
-						<CustomHeader
-							ExcelTypeOne={ExcelTypeOne}
-							// handlePerPage={handlePerPage}
-							// searchTerm={searchTerm}
-							// value={filter_value}
-							// handleFilter={handleFilter}
-						/>
-					}
+					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>
 		</Fragment>

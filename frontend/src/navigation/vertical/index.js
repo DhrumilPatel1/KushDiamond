@@ -1,7 +1,7 @@
 // ** Navigation sections imports
-import apps from './apps';
 import dashboards from './dashboards';
+import ftp from './ftp';
 import products from './products';
 
 // ** Merge & Export
-export default [...dashboards, ...apps, ...products];
+export default [...dashboards, ...ftp, ...products];

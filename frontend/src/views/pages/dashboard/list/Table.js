@@ -42,7 +42,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 						<Input type="file" onChange={ExcelTypeOne} hidden />
 					</Button.Ripple>
 
-					<Button className="ml-2" color="primary" tag={Link} to='products/list'>
+					<Button className="ml-2" color="primary" tag={Link} to="products/list">
 						<Plus size={15} />
 						<span className="align-middle ml-50">Add Products</span>
 					</Button>
@@ -52,20 +52,20 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 	);
 };
 
-const ProductsList = () => {
+const roleOptions = [
+	{ value: '', label: 'Select Role' },
+	{ value: 'admin', label: 'Admin' },
+	{ value: 'author', label: 'Author' },
+	{ value: 'editor', label: 'Editor' },
+	{ value: 'maintainer', label: 'Maintainer' },
+	{ value: 'subscriber', label: 'Subscriber' },
+];
+
+const DashboardList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
 
 	const { productData } = useSelector((state) => state.products);
-	// ** States
-
-	// ** Get data on mount
-
-	// const handlePagination = (page) => {
-	// 	tableChangeHandler({ ...table_data, page: page.selected + 1 });
-	// };
-
-	// ** Function in get data on rows per page
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
@@ -93,14 +93,9 @@ const ProductsList = () => {
 		dispatch(productList(queryString));
 	}, [dispatch, queryString]);
 
-	// const handleSort = (column, sortDirection) => {
-	// 	setSort_order(sortDirection);
-	// 	tableChangeHandler({
-	// 		...table_data,
-	// 		sort_order: sortDirection,
-	// 		order_column: column.selector,
-	// 	});
-	// };
+	// useEffect(() => {
+	// 	dispatch(productList(queryString));
+	// }, []);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -134,38 +129,6 @@ const ProductsList = () => {
 		});
 	};
 
-	//
-	// const handleFilter = (e) => {
-	// 	let value = e.target.value;
-	// 	tableChangeHandler({ ...table_data, filter_value: value });
-	// 	setFilter_value(value);
-
-	// };
-	// ** Custom Pagination
-	const CustomPagination = () => {
-		// const count = Number(Math.ceil(store.total / rowsPerPage));
-		const count = paginationCount;
-		// return (
-		// 	<ReactPaginate
-		// 		previousLabel={''}
-		// 		nextLabel={''}
-		// 		pageCount={count || 1}
-		// 		activeClassName={'active'}
-
-		// 		forcePage={currentPage !== 0 ? currentPage - 1 : 0}
-		// 		onPageChange={(page) => handlePagination(page)}
-		// 		pageClassName={'page-item'}
-		// 		nextLinkClassName={'page-link'}
-		// 		nextClassName={'page-item next'}
-		// 		previousClassName={'page-item prev'}
-		// 		previousLinkClassName={'page-link'}
-		// 		pageLinkClassName={'page-link'}
-
-		// 		containerClassName={'pagination react-paginate justify-content-end my-2 pr-1'}
-		// 	/>
-		// );
-	};
-
 	const ExcelTypeOne = (e) => {
 		const files = e.target.files[0];
 		let formData = new FormData();
@@ -187,15 +150,25 @@ const ProductsList = () => {
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
 							<Col lg="3" md="6">
-								<Label for="color">Color:</Label>
+								<Label for="color">Ftp :</Label>
+								<Select
+									isClearable={false}
+									className="react-select"
+									classNamePrefix="select"
+									options={roleOptions}
+									name="ftp"
+								/>
+							</Col>
+							<Col lg="2" md="6">
+								<Label for="color">Color :</Label>
 								<Input id="color" name="color" placeholder="Enter Color" />
 							</Col>
-							<Col lg="3" md="6">
-								<Label for="shape">Shape:</Label>
+							<Col lg="2" md="6">
+								<Label for="shape">Shape :</Label>
 								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
 							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut">Cut:</Label>
+							<Col lg="2" md="6">
+								<Label for="cut">Cut :</Label>
 								<Input type="text" name="cut" placeholder="Enter Cut" />
 							</Col>
 							<Col lg="3" md="6">
@@ -225,23 +198,11 @@ const ProductsList = () => {
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
 					progressPending={productData.length == 0 ? true : false}
-					// onSort={handleSort}
-					// sortServer={true}
-					// striped={true}
-					// onChangePage={handlePageChange}
-					subHeaderComponent={
-						<CustomHeader
-							ExcelTypeOne={ExcelTypeOne}
-							// handlePerPage={handlePerPage}
-							// searchTerm={searchTerm}
-							// value={filter_value}
-							// handleFilter={handleFilter}
-						/>
-					}
+					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>
 		</Fragment>
 	);
 };
 
-export default ProductsList;
+export default DashboardList;

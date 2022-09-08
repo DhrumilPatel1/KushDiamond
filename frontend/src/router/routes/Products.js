@@ -8,7 +8,7 @@ const ProductesRoutes = [
 	},
 	{
 		path: '/products/add',
-		component: lazy(() => import('../../views/components/products/CreateProducts')),
+		component: lazy(() => import('../../views/components/products/AddProducts')),
 	},
 ];
 

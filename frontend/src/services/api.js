@@ -43,10 +43,17 @@ export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 
 export const FtpListApi = async (queryString) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/ftp/list/?`+queryString,{
+		.get(`${BASE_URL_API}/api/ftp/list/?` + queryString, {
 			headers,
-		}).then((response) => response)
+		})
+		.then((response) => response)
 		.catch((err) => console.log(err));
-		
 };
 
+export const FtpCreateApi = async (reqData) => {
+	return await axios.post(`${BASE_URL_API}/api/ftp/create/`, reqData, { headers });
+};
+
+export const FtpDeleteApi = async (delete_id) => {
+	return await axios.delete(`${BASE_URL_API}/api/ftp/modify${delete_id}`, { headers });
+};

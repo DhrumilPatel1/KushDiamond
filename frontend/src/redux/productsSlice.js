@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductApi, ProductExcelUploadTypeOne } from '../services/api';
-import { toast, Slide } from 'react-toastify';
+
 export const productsSlice = createSlice({
 	name: 'products',
 	initialState: {
@@ -25,19 +25,20 @@ export const productsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
-		handleErrorExcel:(state,action)=>{
+		handleErrorExcel: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
 		},
 	},
 });
 
-export const { productGetData, handleErrorList, excelTypeOne,excelTypeOneReset,setLoading } = productsSlice.actions;
+export const { productGetData, handleErrorList, excelTypeOne, excelTypeOneReset, setLoading } =
+	productsSlice.actions;
 
 export default productsSlice.reducer;
 
 export const productList = (queryString) => async (dispatch) => {
-	dispatch(setLoading())
+	dispatch(setLoading());
 	try {
 		const { data } = await ProductApi(queryString);
 		dispatch(productGetData(data));
@@ -52,8 +53,7 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 		const { statusCode } = data;
 		if (statusCode === 200) {
 			dispatch(excelTypeOne(data));
-			toast.success('File upload successfully');
-			dispatch(productList())
+			dispatch(productList());
 		}
 	} catch (err) {
 		dispatch(handleErrorExcel(err));
