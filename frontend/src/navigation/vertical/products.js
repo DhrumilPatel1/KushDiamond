@@ -1,10 +1,10 @@
-import { Home } from 'react-feather';
+import { Box } from 'react-feather';
 
 export default [
 	{
 		id: 'products',
 		title: 'Products',
-		icon: <Home size={20} />,
+		icon: <Box size={20} />,
 		navLink: '/products/list',
 	},
 ];

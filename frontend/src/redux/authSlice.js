@@ -20,8 +20,8 @@ export const authSlice = createSlice({
 		handleSuccessLogin: (state, action) => {
 			state.isLoading = false;
 			state.userData = action.payload?.data;
-			state.abilityData = [{"action": "manage", "subject": "all"}];
-			localStorage.setItem('abilityData', [{"action": "manage", "subject": "all"}])
+			state.abilityData = [{ action: 'manage', subject: 'all' }];
+			localStorage.setItem('ability', [{ action: 'manage', subject: 'all' }]);
 			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
 			localStorage.setItem('accessToken', JSON.stringify(action.payload?.token.access));
 		},
@@ -61,7 +61,6 @@ export const AdminLoginRequest = (userData) => async (dispatch) => {
 		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
-			// toast.error(error.response.data.errors.username || error.response.data.errors.password);
 			return dispatch(handleErrorLogin(error.response.data.errors));
 		} else {
 			return dispatch(handleErrorLogin(error.message));

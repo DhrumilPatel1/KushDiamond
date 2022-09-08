@@ -53,5 +53,5 @@ export const FtpCreateApi = async (reqData) => {
 };
 
 export const FtpDeleteApi = async (delete_id) => {
-	return await axios.delete(`${BASE_URL_API}/api/ftp/modify${delete_id}`,{ headers });
+	return await axios.delete(`${BASE_URL_API}/api/ftp/modify${delete_id}`, { headers });
 };
