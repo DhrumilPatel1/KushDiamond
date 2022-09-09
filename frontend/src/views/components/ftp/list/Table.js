@@ -3,15 +3,13 @@ import { Fragment, useState, useEffect } from 'react';
 // ** Columns
 import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
 // ** Third Party Components
 
-import { ChevronDown, Plus, Share } from 'react-feather';
+import { ChevronDown, Plus } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import { Card, Input, Row, Col, Button } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productExcelUpload, productList } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import { FtpClientList } from '../../../../redux/FtpsSlice';
@@ -49,13 +47,12 @@ const FtpList = () => {
 	const { ftpData, isLoading } = useSelector((state) => state.Ftps);
 
 	const [limit, setPerPage] = useState(datatable_per_page);
-
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
 	const [filterShape, setFilterShape] = useState('');
-
 	const [filterCut, setFilterCut] = useState('');
 	const [filter_value, setFilter_value] = useState('');
+	const [deletedRow, setDeletedRow] = useState([]);
 
 	const table_data = {
 		page: 1,
@@ -114,8 +111,8 @@ const FtpList = () => {
 					responsive
 					paginationServer
 					columns={columns}
-					data={ftpData.results}
-					paginationTotalRows={ftpData.count}
+					data={ftpData?.results}
+					paginationTotalRows={ftpData?.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}

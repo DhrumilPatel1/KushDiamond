@@ -1,13 +1,5 @@
-// ** React Imports
-import { Link } from 'react-router-dom';
-
 // ** Third Party Components
-
-import { Trash2, Eye, Edit } from 'react-feather';
-
-const handleDeleteById = (id) => {
-	console.log(id, 'id');
-};
+import FtpActionIcon from '../FtpActionIcon';
 
 export const columns = [
 	{
@@ -53,20 +45,7 @@ export const columns = [
 		cell: (row) => {
 			return (
 				<div className="d-inline ">
-					<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
-						<Eye size={18} />
-					</Link>
-
-					<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
-						<Edit size={18} />
-					</Link>
-
-					<Trash2
-						className="text-danger"
-						size={18}
-						onClick={() => handleDeleteById(row.id)}
-						style={{ cursor: 'pointer' }}
-					/>
+					<FtpActionIcon id={row.id} />
 				</div>
 			);
 		},
