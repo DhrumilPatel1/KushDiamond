@@ -51,6 +51,10 @@ export const FtpListApi = async (queryString) => {
 		.catch((err) => console.log(err));
 };
 
+export const FtpGetAllApi = async () => {
+	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`);
+};
+
 export const FtpCreateApi = async (reqData) => {
 	return await axios.post(`${BASE_URL_API}/api/ftp/create/`, reqData, { headers });
 };

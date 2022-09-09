@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductApi, ProductExcelUploadTypeOne } from '../services/api';
+import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne } from '../services/api';
 
 export const productsSlice = createSlice({
 	name: 'products',
@@ -7,6 +7,7 @@ export const productsSlice = createSlice({
 		isLoading: false,
 		productData: [],
 		excelTypeOne: [],
+		ftpGetAllData: [],
 		error: null,
 	},
 	reducers: {
@@ -17,6 +18,12 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.productData = action.payload;
 		},
+
+		ftpgetAllDatalist: (state, action) => {
+			state.isLoading = false;
+			state.ftpGetAllData = action.payload?.ftp_data;
+		},
+
 		excelTypeOne: (state, action) => {
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
@@ -32,8 +39,14 @@ export const productsSlice = createSlice({
 	},
 });
 
-export const { productGetData, handleErrorList, excelTypeOne, excelTypeOneReset, setLoading } =
-	productsSlice.actions;
+export const {
+	productGetData,
+	ftpgetAllDatalist,
+	handleErrorList,
+	excelTypeOne,
+	excelTypeOneReset,
+	setLoading,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
 
@@ -44,6 +57,17 @@ export const productList = (queryString) => async (dispatch) => {
 		dispatch(productGetData(data));
 	} catch (err) {
 		dispatch(handleErrorList(err));
+	}
+};
+
+export const FtpGetDataList = () => async (dispatch) => {
+	dispatch(setLoading());
+	try {
+		const { data } = await FtpGetAllApi();
+
+		dispatch(ftpgetAllDatalist(data));
+	} catch (err) {
+		dispatch(ftpErrorList(err));
 	}
 };
 

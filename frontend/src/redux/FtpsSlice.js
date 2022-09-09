@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { FtpCreateApi, FtpDeleteApi, FtpListApi, FtpUpdateApi, FtpViewApi } from '../services/api';
+import {
+	FtpCreateApi,
+	FtpDeleteApi,
+	FtpGetAllApi,
+	FtpListApi,
+	FtpUpdateApi,
+	FtpViewApi,
+} from '../services/api';
 
 export const FtpsSlice = createSlice({
 	name: 'Ftps',
@@ -11,12 +18,14 @@ export const FtpsSlice = createSlice({
 		ftpCreateData: null,
 		ftpDeleteData: [],
 		ftpUpdateData: [],
+		ftpGetAllData: [],
 		error: null,
 	},
 	reducers: {
 		setLoading: (state) => {
 			state.isLoading = true;
 		},
+
 		ftpGetData: (state, action) => {
 			state.isLoading = false;
 			state.ftpData = action.payload;

@@ -5,7 +5,6 @@ import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
-import ReactPaginate from 'react-paginate';
 import { ChevronDown } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
@@ -24,32 +23,28 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productList } from '../../../../redux/productsSlice';
+import { FtpGetDataList, productList } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
+import { selectThemeColors } from '@utils';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const roleOptions = [
-	{ value: '', label: 'Select Role' },
-	{ value: 'admin', label: 'Admin' },
-	{ value: 'author', label: 'Author' },
-	{ value: 'editor', label: 'Editor' },
-	{ value: 'maintainer', label: 'Maintainer' },
-	{ value: 'subscriber', label: 'Subscriber' },
-];
-
-const getVal = roleOptions.map((item) => item);
+const OpenSwal = withReactContent(Swal);
 
 const DashboardList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
+	const { ftpGetAllData } = useSelector((state) => state.products);
 
 	const { productData } = useSelector((state) => state.products);
+	const getAllDropdownValue = ftpGetAllData.map((item) => item);
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
 	const [filterShape, setFilterShape] = useState('');
-	const [ftpvalue, setFtpValue] = useState('');
+	const [ftpvalue, setFtpValue] = useState([]);
 
 	const [filterCut, setFilterCut] = useState('');
 
@@ -66,6 +61,10 @@ const DashboardList = () => {
 	const [queryString, setQueryString] = useState(
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
+
+	useEffect(() => {
+		dispatch(FtpGetDataList());
+	}, []);
 
 	useEffect(() => {
 		dispatch(productList(queryString));
@@ -103,7 +102,25 @@ const DashboardList = () => {
 	};
 
 	const handleChange = (e) => {
-		setFtpValue(e.value);
+		setFtpValue(e);
+	};
+
+	const openPopup = () => {
+		return OpenSwal.fire({
+			title: 'Are you sure?',
+			text: `You won't be able to revert this! ${product.count}`,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'send Feed',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		});
+		// .then((res) => {
+		// 	console.log(res, 'res');
+		// });
 	};
 
 	useEffect(() => {
@@ -123,12 +140,14 @@ const DashboardList = () => {
 								<Label for="color">Ftp :</Label>
 								<Select
 									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Ftp"
+									isMulti
+									name="ftp"
 									className="react-select"
 									classNamePrefix="select"
-									// value={ftpvalue}
+									options={getAllDropdownValue}
 									onChange={(e) => handleChange(e)}
-									options={getVal}
-									name="ftp"
 								/>
 							</Col>
 							<Col lg="2" md="6">
@@ -151,16 +170,15 @@ const DashboardList = () => {
 							</Col>
 							<Col lg="2" md="6">
 								<Label for="send feed"></Label>
-
-								<Button.Ripple
-									type="submit"
-									color="primary"
-									// onClick={() => console.log('hello')}
-									disabled={!ftpvalue}
-									block
-								>
-									Send Feed
-								</Button.Ripple>
+								{ftpvalue && ftpvalue.length > 0 ? (
+									<Button.Ripple type="submit" color="primary" onClick={openPopup} block>
+										Send Feed
+									</Button.Ripple>
+								) : (
+									<Button.Ripple type="submit" color="primary" disabled={true} block>
+										Send Feed
+									</Button.Ripple>
+								)}
 							</Col>
 						</Row>
 					</Form>
