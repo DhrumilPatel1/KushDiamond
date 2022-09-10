@@ -130,18 +130,18 @@ const DashboardList = () => {
 	return (
 		<Fragment>
 			<Card>
-				<CardHeader>
-					{/* <CardTitle tag="h4">Search Filter</CardTitle> */}
-				</CardHeader>
+				{/* <CardHeader>
+					<CardTitle tag="h4">Search Filter</CardTitle>
+				</CardHeader> */}
 				<CardBody>
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
-							<Col lg="2" md="6">
-								<Label for="color">Ftp :</Label>
+							<Col lg="3" md="6">
+								<Label for="color">FTP:</Label>
 								<Select
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Select Ftp"
+									placeholder="Select FTP"
 									isMulti
 									name="ftp"
 									className="react-select"
@@ -151,31 +151,31 @@ const DashboardList = () => {
 								/>
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="color">Color :</Label>
+								<Label for="color">Color:</Label>
 								<Input id="color" name="color" placeholder="Enter Color" />
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="shape">Shape :</Label>
+								<Label for="shape">Shape:</Label>
 								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="cut">Cut :</Label>
+								<Label for="cut">Cut:</Label>
 								<Input type="text" name="cut" placeholder="Enter Cut" />
 							</Col>
-							<Col lg="2" md="6">
+							<Col lg="3" md="3">
 								<Label for="cut"></Label>
-								<Button.Ripple type="submit" color="primary" block>
+								<Button.Ripple type="submit" color="relief-primary" block>
 									Filter
 								</Button.Ripple>
 							</Col>
-							<Col lg="2" md="6">
+							<Col lg="2" md="3">
 								<Label for="send feed"></Label>
 								{ftpvalue && ftpvalue.length > 0 ? (
-									<Button.Ripple type="submit" color="primary" onClick={openPopup} block>
+									<Button.Ripple type="submit" color="relief-danger" onClick={openPopup} block>
 										Send Feed
 									</Button.Ripple>
 								) : (
-									<Button.Ripple type="submit" color="primary" disabled={true} block>
+									<Button.Ripple type="submit" color="relief-danger" disabled={true} block>
 										Send Feed
 									</Button.Ripple>
 								)}

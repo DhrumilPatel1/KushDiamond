@@ -37,13 +37,13 @@ const UpdateFtp = () => {
 
 	useEffect(() => {
 		setValues({
-			// client_name: ftpViewData && ftpViewData.client_name,
-			// protocol: ftpViewData && ftpViewData.protocol,
-			// port: ftpViewData && ftpViewData.port,
-			// hostname: ftpViewData && ftpViewData.hostname,
-			// username: ftpViewData && ftpViewData.username,
-			// password: ftpViewData && ftpViewData.password,
-			// folder_path: ftpViewData && ftpViewData.folder_path,
+			client_name: ftpViewData && ftpViewData.client_name,
+			protocol: ftpViewData && ftpViewData.protocol,
+			port: ftpViewData && ftpViewData.port,
+			hostname: ftpViewData && ftpViewData.hostname,
+			username: ftpViewData && ftpViewData.username,
+			password: ftpViewData && ftpViewData.password,
+			folder_path: ftpViewData && ftpViewData.folder_path,
 		});
 	}, [ftpViewData]);
 
@@ -93,6 +93,7 @@ const UpdateFtp = () => {
 							password: '',
 							folder_path: '',
 						}}
+						enableReinitialize 
 						validationSchema={FtpUpdateSchema}
 					>
 						{({ errors, touched }) => (
