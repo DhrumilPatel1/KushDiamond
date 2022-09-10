@@ -35,7 +35,7 @@ const OpenSwal = withReactContent(Swal);
 const DashboardList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData,FeedData } = useSelector((state) => state.products);
+	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
 	// const { FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
@@ -103,7 +103,6 @@ const DashboardList = () => {
 	};
 
 	const handleChange = (e) => {
-		console.log(e, 'e checked');
 		setFtpValue(e);
 	};
 
@@ -125,9 +124,8 @@ const DashboardList = () => {
 				let ftpValuePass = {
 					ftp: ftpValues,
 				};
-				setFtpValue([])
+				setFtpValue([]);
 				dispatch(sendFeed(ftpValuePass));
-				
 			}
 		});
 	};
@@ -156,6 +154,7 @@ const DashboardList = () => {
 									className="react-select"
 									classNamePrefix="select"
 									options={getAllDropdownValue}
+									value={ftpvalue}
 									onChange={(e) => handleChange(e)}
 								/>
 							</Col>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import {
 	FtpCreateApi,
 	FtpDeleteApi,
@@ -15,10 +15,11 @@ export const FtpsSlice = createSlice({
 		isLoading: false,
 		ftpData: [],
 		ftpViewData: [],
-		ftpCreateData: null,
+		ftpCreateData: [],
 		ftpDeleteData: [],
 		ftpUpdateData: [],
 		ftpGetAllData: [],
+		FtpCreateError: [],
 		error: null,
 	},
 	reducers: {
@@ -38,9 +39,12 @@ export const FtpsSlice = createSlice({
 
 		ftpCreateData: (state, action) => {
 			state.isLoading = false;
-			state.ftpCreateData = action.payload?.data;
+			state.ftpCreateData = action.payload;
 		},
-
+		FtpCreateError: (state, action) => {
+			state.isLoading = false;
+			state.FtpCreateError = action.payload;
+		},
 		ftpUpdateData: (state, action) => {
 			state.isLoading = false;
 			state.ftpUpdateData = action.payload?.data;
@@ -61,6 +65,7 @@ export const FtpsSlice = createSlice({
 			state.error = null;
 			state.ftpCreateData = null;
 			state.ftpUpdateData = [];
+			state.FtpCreateError = [];
 		},
 	},
 });
@@ -73,7 +78,9 @@ export const {
 	setLoading,
 	ftpErrorList,
 	ftpDeleteData,
+	createSuccess,
 	ftpResetAuth,
+	FtpCreateError,
 } = FtpsSlice.actions;
 
 export default FtpsSlice.reducer;
@@ -118,42 +125,45 @@ export const FtpCreateRequest = (ftpData) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await FtpCreateApi(ftpData);
-
-		const { statusCode, error, errors } = data;
+		const { statusCode, error, errors, message } = data;
+		console.log(data, 'checked FTp');
 		if (error) {
 			dispatch(ftpErrorList(errors));
 		}
 		if (statusCode === 201) {
 			dispatch(ftpCreateData(data));
 		}
-	} catch (error) {
-		if (error.response && error.response.data.errors) {
-			return dispatch(ftpErrorList(error.response.data.errors));
-		} else {
-			return dispatch(ftpErrorList(error.message));
+	} catch (err) {
+		const { statusCode } = err.response.data;
+		if (statusCode == 422) {
+			dispatch(FtpCreateError(err.response.data));
 		}
 	}
 };
 
 export const FtpDeleteRequest = (delete_id) => async (dispatch) => {
 	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your data is deleteing...');
 	try {
 		const { data } = await FtpDeleteApi(delete_id);
 
-		const { statusCode, error, errors } = data;
+		const { statusCode, error, errors, message } = data;
 		if (error) {
 			dispatch(ftpErrorList(errors));
 		}
-
 		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
 			dispatch(ftpDeleteData(data));
 			dispatch(ftpGetData(data));
 		}
 	} catch (error) {
-		if (error.response && error.response.data.errors) {
-			return dispatch(ftpErrorList(error.response.data.errors));
-		} else {
-			return dispatch(ftpErrorList(error.message));
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			toast.success(message, {
+				id: toastId,
+			});
 		}
 	}
 };

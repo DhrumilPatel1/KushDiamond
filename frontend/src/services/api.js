@@ -39,9 +39,7 @@ export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 	return await axios
 		.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
 			headers,
-		})
-		.then((response) => response)
-		.catch((err) => console.log(err));
+		});
 };
 
 export const SendFeedAPI = async (SendFeedData) => {

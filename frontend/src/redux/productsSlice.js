@@ -58,6 +58,7 @@ export const {
 	excelTypeOneReset,
 	setLoading,
 	FeedData,
+	handleErrorExcel,
 	FeedDataError,
 } = productsSlice.actions;
 
@@ -85,15 +86,26 @@ export const FtpGetDataList = () => async (dispatch) => {
 };
 
 export const productExcelUpload = (uploadfile) => async (dispatch) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your excel Uploading...');
 	try {
 		const { data } = await ProductExcelUploadTypeOne(uploadfile);
-		const { statusCode } = data;
+		const { statusCode, message } = data;
 		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
 			dispatch(excelTypeOne(data));
 			dispatch(productList());
 		}
-	} catch (err) {
-		dispatch(handleErrorExcel(err));
+	} catch (error) {
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorExcel(message));
+			toast.error(message, {
+				id: toastId,
+			});
+		}
 	}
 };
 

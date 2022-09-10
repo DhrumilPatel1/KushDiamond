@@ -5,9 +5,9 @@ import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide, toast } from 'react-toastify';
+import { Slide } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
-
+import toast from 'react-hot-toast';
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
@@ -22,27 +22,27 @@ const FtpCreateSchema = yup.object().shape({
 });
 
 const CreateFtp = () => {
-	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
+	const { ftpCreateData, error, FtpCreateError } = useSelector((state) => state.Ftps);
+console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		if (ftpCreateData !== null) {
-			toast.success('Account successfully created');
+		if (ftpCreateData?.statusCode === 201) {
+			toast.success(ftpCreateData.message);
+			history.push('/ftp/list');
+		}else if(FtpCreateError?.statusCode === 422) {
+			toast.error(FtpCreateError.message);
 			history.push('/ftp/list');
 		}
 		return () => {
 			dispatch(ftpResetAuth());
 		};
-	}, [ftpCreateData]);
+	}, [ftpCreateData,FtpCreateError]);
 
 	return (
 		<>
-			<Breadcrumbs
-				breadCrumbTitle="FTP Create"
-				breadCrumbParent="Ftp"
-				breadCrumbActive="Create"
-			/>
+			<Breadcrumbs breadCrumbTitle="FTP Create" breadCrumbParent="Ftp" breadCrumbActive="Create" />
 			<Card>
 				<CardBody>
 					<Formik
@@ -62,7 +62,7 @@ const CreateFtp = () => {
 						}}
 					>
 						{({ errors, touched }) => (
-							<Form>
+							<Form autocomplete="off">
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
@@ -150,6 +150,7 @@ const CreateFtp = () => {
 												type="password"
 												name="password"
 												id="password"
+												autoComplete="new-password"
 												className="form-control"
 												placeholder="Enter Your Password"
 											/>
