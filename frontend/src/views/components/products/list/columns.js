@@ -16,8 +16,6 @@ const statusObj = {
 	inactive: 'light-warning',
 };
 
-
-
 export const columns = [
 	{
 		name: 'Sku',
@@ -87,7 +85,7 @@ export const columns = [
 	},
 	{
 		name: 'Actions',
-		minWidth: '100px',
+		minWidth: '150px',
 		cell: (row) => {
 			return (
 				<div className="d-inline ">
@@ -99,16 +97,9 @@ export const columns = [
 						<Edit size={18} />
 					</Link>
 
-					<Trash2
-						className="text-danger"
-						size={18}
-						// onClick={() => handleDeleteById(row.id)}
-						style={{ cursor: 'pointer' }}
-					/>
+					<Trash2 className="text-danger" size={18} style={{ cursor: 'pointer' }} />
 				</div>
 			);
 		},
-		// sortable: true,
 	},
-
 ];
