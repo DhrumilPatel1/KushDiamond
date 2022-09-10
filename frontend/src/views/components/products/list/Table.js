@@ -38,8 +38,14 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 	return (
 		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
 			<Row>
+			<Col xl="6"
+			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+			
+			>
+				<h1>Products List</h1>
+			</Col>
 				<Col
-					xl="12"
+					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
 					<Button.Ripple tag={Label} className="ml-2" color="secondary" caret outline>
@@ -49,7 +55,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 					</Button.Ripple>
 					<Button className="ml-2" color="primary" tag={Link} to="/dashboard">
 						<Plus size={15} />
-						<span className="align-middle ml-50">Add Products</span>
+						<span className="align-middle ml-50">Create</span>
 					</Button>
 				</Col>
 			</Row>
@@ -143,7 +149,7 @@ const ProductsList = () => {
 
 	return (
 		<Fragment>
-			<Card>
+			{/* <Card>
 				<CardHeader>
 					<CardTitle tag="h4">Search Filter</CardTitle>
 				</CardHeader>
@@ -181,7 +187,7 @@ const ProductsList = () => {
 						</Row>
 					</Form>
 				</CardBody>
-			</Card>
+			</Card> */}
 			<Card>
 				<DataTable
 					noHeader

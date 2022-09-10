@@ -53,7 +53,7 @@ const VerticalMenuHeader = (props) => {
 						</span>
 						<h2 className="brand-text mb-0">{themeConfig.app.appName}</h2> */}
 						<span className="brand-logo">
-							<img className="img-fluid" style={{ width: '11px' }} src={source} alt="Login V2" />
+							<img className="img-fluid" style={{ width: '21px' }} src={source} alt="Login V2" />
 						</span>
 						<h2 className="brand-text mb-0" style={{}}>Kush Diamond</h2>
 					</NavLink>

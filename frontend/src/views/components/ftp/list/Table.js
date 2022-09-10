@@ -13,13 +13,20 @@ import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import { FtpClientList } from '../../../../redux/FtpsSlice';
+import {CardTitle,CardHeader} from 'reactstrap';
 // ** Table Header
 const CustomHeader = ({ handleFilter }) => {
 	return (
 		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
 			<Row>
+			<Col xl="6"
+			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+			
+			>
+				<h1>FTP List</h1>
+			</Col>
 				<Col
-					xl="12"
+					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
 					<div className="d-flex align-items-center mb-sm-0 mb-1 mr-1 search-chairman-btn">
@@ -104,6 +111,9 @@ const FtpList = () => {
 	return (
 		<Fragment>
 			<Card>
+			{/* <CardHeader>
+        <CardTitle tag='h1'>Zero Configuration</CardTitle>
+      </CardHeader> */}
 				<DataTable
 					noHeader
 					pagination

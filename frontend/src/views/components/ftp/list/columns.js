@@ -26,14 +26,14 @@ export const columns = [
 
 	{
 		name: 'Port',
-		minWidth: '110px',
+		width: '60px',
 		selector: 'port',
 		sortable: true,
 		cell: (row) => row.port,
 	},
 	{
 		name: 'Password',
-		minWidth: '110px',
+		minWidth: '200px',
 		selector: 'password',
 		sortable: true,
 		cell: (row) => row.password,
@@ -41,7 +41,7 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		minWidth: '100px',
+		// minWidth: '100px',
 		cell: (row) => {
 			return (
 				<div className="d-inline ">

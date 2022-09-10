@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+// import authHeader from "./auth-token";
 const BASE_URL_API = 'http://192.168.1.47:8000';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -7,6 +7,8 @@ let headers = {
 	'Content-Type': 'application/json',
 	Authorization: `Bearer ${accessToken}`,
 };
+
+// console.log("accessToken",authHeader())
 
 const api = axios.create({
 	baseURL: BASE_URL_API,
