@@ -144,7 +144,7 @@ const DashboardList = () => {
 		<Fragment>
 			<Card>
 				<CardHeader>
-					<CardTitle tag="h4">Search Filter</CardTitle>
+					{/* <CardTitle tag="h4">Search Filter</CardTitle> */}
 				</CardHeader>
 				<CardBody>
 					<Form onSubmit={(e) => filterSubmit(e)}>

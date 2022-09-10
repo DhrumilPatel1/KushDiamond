@@ -15,6 +15,7 @@ import { productExcelUpload, productList } from '../../../../redux/productsSlice
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import { FtpClientList } from '../../../../redux/FtpsSlice';
+import {CardTitle,CardHeader} from 'reactstrap';
 // ** Table Header
 const CustomHeader = ({ handleFilter }) => {
 	return (
@@ -107,6 +108,9 @@ const FtpList = () => {
 	return (
 		<Fragment>
 			<Card>
+			<CardHeader>
+        <CardTitle tag='h1'>Zero Configuration</CardTitle>
+      </CardHeader>
 				<DataTable
 					noHeader
 					pagination

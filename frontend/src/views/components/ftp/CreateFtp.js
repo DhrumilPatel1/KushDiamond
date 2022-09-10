@@ -16,7 +16,7 @@ const FtpCreateSchema = yup.object().shape({
 	username: yup.string().required('Username is required'),
 	password: yup
 		.string()
-		.min(8, 'Password must be at least 8 characters')
+		// .min(8, 'Password must be at least 8 characters')
 		.required('Password is required'),
 	folder_path: yup.string().required('Folder Path is required'),
 });
@@ -56,6 +56,7 @@ const CreateFtp = () => {
 							folder_path: '',
 						}}
 						validationSchema={FtpCreateSchema}
+						// validateOnChange
 						onSubmit={(values) => {
 							dispatch(FtpCreateRequest(values));
 						}}

@@ -34,7 +34,7 @@ export const columns = [
 
 	{
 		name: 'Port',
-		minWidth: '110px',
+		width: '60px',
 		selector: 'port',
 		sortable: true,
 		cell: (row) => row.port,
@@ -53,9 +53,9 @@ export const columns = [
 		cell: (row) => {
 			return (
 				<div className="d-inline ">
-					<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
+					{/* <Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
 						<Eye size={18} />
-					</Link>
+					</Link> */}
 
 					<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
 						<Edit size={18} />

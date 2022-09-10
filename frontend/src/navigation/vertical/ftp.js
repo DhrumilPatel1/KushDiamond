@@ -3,7 +3,7 @@ import { Server } from 'react-feather';
 export default [
 	{
 		id: 'ftp',
-		title: 'Ftp',
+		title: 'FTP',
 		icon: <Server size={20} />,
 		navLink: '/ftp/list',
 	},
