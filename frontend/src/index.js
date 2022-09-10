@@ -9,6 +9,7 @@ import { store } from './redux/storeConfig/store';
 // ** Intl, CASL & ThemeColors Context
 import ability from './configs/acl/ability';
 import { ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { AbilityContext } from './utility/context/Can';
 import { ThemeContext } from './utility/context/ThemeColors';
 import { IntlProviderWrapper } from './utility/context/Internationalization';
@@ -48,7 +49,11 @@ ReactDOM.render(
 				<ThemeContext>
 					<IntlProviderWrapper>
 						<LazyApp />
-						<ToastContainer newestOnTop />
+						<Toaster position="top-right" toastOptions={{ style: {
+	  background: '#000',
+	  height: "50px",
+      color: '#fff',
+    }, error : {duration : 5000},success : {duration : 5000}}} />
 					</IntlProviderWrapper>
 				</ThemeContext>
 			</AbilityContext.Provider>

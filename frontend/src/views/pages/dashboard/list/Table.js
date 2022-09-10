@@ -23,19 +23,20 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { FtpGetDataList, productList } from '../../../../redux/productsSlice';
+import { FtpGetDataList, productList, sendFeed } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import toast from 'react-hot-toast';
 
 const OpenSwal = withReactContent(Swal);
 
 const DashboardList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData } = useSelector((state) => state.products);
-
+	const { ftpGetAllData,FeedData } = useSelector((state) => state.products);
+	// const { FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
 
@@ -102,6 +103,7 @@ const DashboardList = () => {
 	};
 
 	const handleChange = (e) => {
+		console.log(e, 'e checked');
 		setFtpValue(e);
 	};
 
@@ -117,10 +119,18 @@ const DashboardList = () => {
 				cancelButton: 'btn btn-outline-danger ml-1',
 			},
 			buttonsStyling: false,
+		}).then((res) => {
+			console.log("res----",res)
+			if (res && res.isConfirmed) {
+				let ftpValues = ftpvalue.map((ele) => ele.value);
+				let ftpValuePass = {
+					ftp: ftpValues,
+				};
+				setFtpValue([])
+				dispatch(sendFeed(ftpValuePass));
+				
+			}
 		});
-		// .then((res) => {
-		// 	console.log(res, 'res');
-		// });
 	};
 
 	useEffect(() => {

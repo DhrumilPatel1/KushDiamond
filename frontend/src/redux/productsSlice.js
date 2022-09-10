@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne } from '../services/api';
+// import { toast } from 'react-toastify';
+import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export const productsSlice = createSlice({
 	name: 'products',
@@ -8,6 +11,7 @@ export const productsSlice = createSlice({
 		productData: [],
 		excelTypeOne: [],
 		ftpGetAllData: [],
+		FeedData: [],
 		error: null,
 	},
 	reducers: {
@@ -36,6 +40,14 @@ export const productsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
+		FeedData: (state, action) => {
+			state.isLoading = false;
+			state.FeedData = action.payload;
+		},
+		FeedDataError: (state, action) => {
+			state.error = action.payload;
+			state.isLoading = false;
+		},
 	},
 });
 
@@ -46,6 +58,8 @@ export const {
 	excelTypeOne,
 	excelTypeOneReset,
 	setLoading,
+	FeedData,
+	FeedDataError,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -81,5 +95,29 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 		}
 	} catch (err) {
 		dispatch(handleErrorExcel(err));
+	}
+};
+
+export const sendFeed = (sendFeedData) => async (dispatch) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait FTP connection establish...');
+	try {
+		const { data } = await SendFeedAPI(sendFeedData);
+		const { statusCode,message } = data;
+		if (statusCode === 200) {
+		 	dispatch(FeedData(data));
+			 toast.success(message, {
+				id: toastId,
+			  })
+		}
+	} catch (error) {
+		const { statusCode, message } = error.response.data;
+		console.log(message,"message e")
+		
+		toast.error(message, {
+			id: toastId,
+		  })
+		dispatch(FeedDataError(message));
+	
 	}
 };
