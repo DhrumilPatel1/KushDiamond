@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
 import toast, { Toaster } from 'react-hot-toast';
 
-
 export const productsSlice = createSlice({
 	name: 'products',
 	initialState: {
@@ -103,21 +102,20 @@ export const sendFeed = (sendFeedData) => async (dispatch) => {
 	const toastId = toast.loading('Please wait FTP connection establish...');
 	try {
 		const { data } = await SendFeedAPI(sendFeedData);
-		const { statusCode,message } = data;
+		const { statusCode, message } = data;
 		if (statusCode === 200) {
-		 	dispatch(FeedData(data));
-			 toast.success(message, {
+			dispatch(FeedData(data));
+			toast.success(message, {
 				id: toastId,
-			  })
+			});
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
-		console.log(message,"message e")
-		
-		toast.error(message, {
-			id: toastId,
-		  })
-		dispatch(FeedDataError(message));
-	
+		if (statusCode === 422) {
+			dispatch(FeedDataError(message));
+			toast.error(message, {
+				id: toastId,
+			});
+		}
 	}
 };
