@@ -8,6 +8,7 @@ import NavbarSearch from './NavbarSearch';
 // ** Third Party Components
 import { Sun, Moon } from 'react-feather';
 import { NavItem, NavLink } from 'reactstrap';
+import NavbarBookmarks from './NavbarBookmarks';
 
 const ThemeNavbar = ({ skin, setSkin }) => {
 	// ** Function to toggle Theme (Light/Dark)
@@ -21,6 +22,7 @@ const ThemeNavbar = ({ skin, setSkin }) => {
 
 	return (
 		<Fragment>
+			
 			<ul className="nav navbar-nav align-items-center ml-auto">
 				<NavItem className="d-none d-lg-block">
 					<NavLink className="nav-link-style">
