@@ -120,7 +120,6 @@ const DashboardList = () => {
 			},
 			buttonsStyling: false,
 		}).then((res) => {
-			console.log("res----",res)
 			if (res && res.isConfirmed) {
 				let ftpValues = ftpvalue.map((ele) => ele.value);
 				let ftpValuePass = {
