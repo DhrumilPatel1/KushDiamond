@@ -23,7 +23,7 @@ const CustomHeader = ({ handleFilter }) => {
 			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 			
 			>
-				<h1>FTP List</h1>
+				<h3>FTP List</h3>
 			</Col>
 				<Col
 					xl="6"
@@ -128,6 +128,8 @@ const FtpList = () => {
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
+					fixedHeader
+					fixedHeaderScrollHeight="400px"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					subHeaderComponent={<CustomHeader value={filter_value} handleFilter={handleFilter} />}

@@ -9,3 +9,39 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.sidebar-group-active{
+	display: flex;
+	align-items: center;
+}
+.main-menu-content{
+	display: flex;
+}
+.react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell{
+	height: 35px !important;
+}
+#main-menu-navigation .nav-item .nav-link{
+	margin: -10px 0 -10px -14px;
+}
+#main-menu-navigation .nav-item{
+	padding: 8px 20px 8px 0 !important;
+}
+.horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .nav-link{
+	padding: 8px 20px !important;
+}
+.feed_select .select__control {
+	height: 29.99px !important;
+	min-height: 29.99px !important;
+	align-content: center;
+}
+.filter_button, .seed_button{
+	padding: 7px 10px;
+}
+.doBktq{
+	min-height: auto !important;
+}
+.deskboard_card{
+	margin: 0 !important;
+}
+.deskboard_card_body{
+	padding: 15px;
+}

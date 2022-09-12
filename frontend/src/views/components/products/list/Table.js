@@ -42,7 +42,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 			
 			>
-				<h1>Products List</h1>
+				<h3>Products List</h3>
 			</Col>
 				<Col
 					xl="6"
@@ -205,6 +205,8 @@ const ProductsList = () => {
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
+					fixedHeader
+					fixedHeaderScrollHeight="400px"
 					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>

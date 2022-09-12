@@ -1,6 +1,6 @@
 // ** React Imports
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 // ** Store & Actions
 import { useSelector, useDispatch } from 'react-redux';
@@ -31,6 +31,9 @@ import { useNavbarColor } from '@hooks/useNavbarColor';
 // ** Styles
 import '@styles/base/core/menu/menu-types/horizontal-menu.scss';
 import { handleContentWidth, handleMenuHidden } from '../../redux/layoutSlice';
+
+const illustration = 1 ? 'image_main.png' : 'image_main.png',
+	source = require(`@src/assets/images/logo/${illustration}`).default;
 
 const HorizontalLayout = (props) => {
 	// ** Props
@@ -126,14 +129,27 @@ const HorizontalLayout = (props) => {
 				{!navbar && (
 					<div className="navbar-header d-xl-block d-none">
 						<ul className="nav navbar-nav">
-							<NavItem>
+							{/* <NavLink to="/" className="navbar-brand">
+								<span className="brand-logo">
+									<img
+										className="img-fluid"
+										style={{ width: '21px' }}
+										src={source}
+										alt="Login V2"
+									/>
+								</span>
+								<h2 className="brand-text mb-0" style={{}}>
+									Kush Diamond
+								</h2>
+							</NavLink> */}
+							{/* <NavItem>
 								<Link to="/" className="navbar-brand">
 									<span className="brand-logo">
 										<img src={themeConfig.app.appLogoImage} alt="logo" />
 									</span>
 									<h2 className="brand-text mb-0">{themeConfig.app.appName}</h2>
 								</Link>
-							</NavItem>
+							</NavItem> */}
 						</ul>
 					</div>
 				)}

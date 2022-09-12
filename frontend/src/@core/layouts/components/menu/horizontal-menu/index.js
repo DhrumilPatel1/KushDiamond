@@ -6,6 +6,10 @@ import navigation from '@src/navigation/horizontal';
 
 // ** Horizontal Menu Components
 import HorizontalNavMenuItems from './HorizontalNavMenuItems';
+import { NavItem } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import NavbarSearch from '../../navbar/NavbarSearch';
+import UserDropdown from '../../navbar/UserDropdown';
 
 const HorizontalMenu = ({ currentActiveItem, routerProps }) => {
 	// ** States
@@ -44,6 +48,12 @@ const HorizontalMenu = ({ currentActiveItem, routerProps }) => {
 					setOpenDropdown={setOpenDropdown}
 					currentActiveItem={currentActiveItem}
 				/>
+			</ul>
+
+			<ul className="nav navbar-nav align-items-center ml-auto">
+				<NavItem className="d-none d-lg-block"></NavItem>
+				<NavbarSearch />
+				<UserDropdown />
 			</ul>
 		</div>
 	);

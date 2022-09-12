@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Slide } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
 import toast from 'react-hot-toast';
+
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
@@ -21,9 +22,16 @@ const FtpCreateSchema = yup.object().shape({
 	folder_path: yup.string().required('Folder Path is required'),
 });
 
+const onchangeFiles = (e) => {
+	for (const file of e.target.files) {
+		console.log(file.webkitRelativePath, 'path');
+		console.log(file, 'file');
+	}
+};
+
 const CreateFtp = () => {
 	const { ftpCreateData, error, FtpCreateError } = useSelector((state) => state.Ftps);
-console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
+	console.log(FtpCreateError?.statusCode, 'FtpCreateError?.statusCode');
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -31,14 +39,14 @@ console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 		if (ftpCreateData?.statusCode === 201) {
 			toast.success(ftpCreateData.message);
 			history.push('/ftp/list');
-		}else if(FtpCreateError?.statusCode === 422) {
+		} else if (FtpCreateError?.statusCode === 422) {
 			toast.error(FtpCreateError.message);
 			history.push('/ftp/list');
 		}
 		return () => {
 			dispatch(ftpResetAuth());
 		};
-	}, [ftpCreateData,FtpCreateError]);
+	}, [ftpCreateData, FtpCreateError]);
 
 	return (
 		<>
@@ -175,6 +183,12 @@ console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 											) : null}
 										</FormGroup>
 									</Col>
+									<input
+										directory=""
+										onChange={(e) => onchangeFiles(e)}
+										webkitdirectory=""
+										type="file"
+									/>
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple className="mr-1" color="primary" type="submit">

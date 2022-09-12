@@ -81,8 +81,10 @@ const DashboardList = () => {
 	};
 
 	const tableChangeHandler = (data) => {
+		console.log(data,"key data")
 		let queryStr = Object.keys(data)
 			.map((key) => {
+			
 				return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
 			})
 			.join('&');
@@ -136,11 +138,11 @@ const DashboardList = () => {
 
 	return (
 		<Fragment>
-			<Card>
-				{/* <CardHeader>
+			{/* <Card> */}
+			{/* <CardHeader>
 					<CardTitle tag="h4">Search Filter</CardTitle>
 				</CardHeader> */}
-				<CardBody>
+			{/* <CardBody>
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
 							<Col lg="3" md="6">
@@ -190,13 +192,79 @@ const DashboardList = () => {
 							</Col>
 						</Row>
 					</Form>
+				</CardBody> */}
+			{/* </Card> */}
+			<Card className="deskboard_card">
+				<CardBody className="deskboard_card_body">
+					<Form onSubmit={(e) => filterSubmit(e)}>
+						<Row>
+							<Col lg="4" md="6">
+								<Label for="color">FTP:</Label>
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select FTP"
+									isMulti
+									name="ftp"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={getAllDropdownValue}
+									value={ftpvalue}
+									onChange={(e) => handleChange(e)}
+								/>
+							</Col>
+							<Col lg="2" md="6">
+								<Label for="color">Color:</Label>
+								<Input id="color" name="color" size="sm" placeholder="Enter Color" />
+							</Col>
+							<Col lg="2" md="6">
+								<Label for="shape">Shape:</Label>
+								<Input type="text" id="shape" size="sm" name="shape" placeholder="Enter Shape" />
+							</Col>
+							<Col lg="2" md="6">
+								<Label for="cut">Cut:</Label>
+								<Input type="text" size="sm" name="cut" placeholder="Enter Cut" />
+							</Col>
+							<Col lg="1" md="3">
+								<Label for="cut"></Label>
+								<Button.Ripple type="submit" size="sm" color="relief-primary" className="filter_button" block>
+									Filter
+								</Button.Ripple>
+							</Col>
+							<Col lg="1" md="3">
+								<Label for="send feed"></Label>
+								{ftpvalue && ftpvalue.length > 0 ? (
+									<Button.Ripple
+										type="submit"
+										size="sm"
+										color="relief-danger"
+										onClick={openPopup}
+										className="seed_button"
+										block
+									>
+										Send Feed
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										type="submit"
+										size="sm"
+										color="relief-danger"
+										disabled={true}
+										className="seed_button"
+										block
+									>
+										Send Feed
+									</Button.Ripple>
+								)}
+							</Col>
+						</Row>
+					</Form>
 				</CardBody>
-			</Card>
-			<Card>
 				<DataTable
 					noHeader
 					pagination
-					subHeader
+					// subHeader
 					responsive
 					paginationServer
 					columns={columns}
@@ -207,6 +275,8 @@ const DashboardList = () => {
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
+					fixedHeader
+					fixedHeaderScrollHeight="400px"
 					paginationPerPage={table_data.per_page}
 					progressPending={productData.length == 0 ? true : false}
 				/>

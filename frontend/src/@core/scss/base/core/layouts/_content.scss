@@ -211,7 +211,8 @@ html {
 			min-height: calc(100% - calc(#{$navbar-height} + #{$footer-height}));
 		}
 		.app-content {
-			padding: #{$content-padding} #{$content-padding} 0 #{$content-padding};
+			// padding: #{$content-padding} #{$content-padding} 0 #{$content-padding};
+		padding: 1rem 1rem 0 1rem;
 		}
 		&.footer-static {
 			.app-content {
