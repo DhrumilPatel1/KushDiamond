@@ -7,9 +7,9 @@ export default [
 		id: 'dashboard',
 		title: 'Kush Diamond',
 		icon: (
-			<NavLink to="/" className="navbar-brand">
+			<NavLink to="/" className="navbar-brand"  >
 				<span className="brand-logo">
-					<img className="img-fluid" style={{ width: '21px' }} src={source} alt="Login V2" />
+					<img className="img-fluid" style={{ width: '21px'}} src={source} alt="Login V2" />
 				</span>
 			</NavLink>
 		),

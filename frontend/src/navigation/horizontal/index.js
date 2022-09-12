@@ -10,5 +10,7 @@ import chartsAndMaps from './charts-maps';
 // ** Merge & Export
 export default [
 	...dashboards,
-	...others
+	...others,
+	...pages,
+	...apps
 ];
