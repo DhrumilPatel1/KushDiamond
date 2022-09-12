@@ -1,13 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-import {
-	FtpCreateApi,
-	FtpDeleteApi,
-	FtpGetAllApi,
-	FtpListApi,
-	FtpUpdateApi,
-	FtpViewApi,
-} from '../services/api';
+import { FtpCreateApi, FtpDeleteApi, FtpListApi, FtpUpdateApi, FtpViewApi } from '../services/api';
 
 export const FtpsSlice = createSlice({
 	name: 'Ftps',
@@ -39,7 +32,7 @@ export const FtpsSlice = createSlice({
 
 		ftpCreateData: (state, action) => {
 			state.isLoading = false;
-			state.ftpCreateData = action.payload;
+			state.ftpCreateData = action.payload?.data;
 		},
 		FtpCreateError: (state, action) => {
 			state.isLoading = false;
@@ -111,7 +104,12 @@ export const FtpUpdateList = (id, updatedata) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await FtpUpdateApi(id, updatedata);
-		dispatch(ftpUpdateData(data));
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message);
+			dispatch(ftpUpdateData(data));
+		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			return dispatch(ftpErrorList(error.response.data.errors));
@@ -125,18 +123,18 @@ export const FtpCreateRequest = (ftpData) => async (dispatch) => {
 	dispatch(setLoading());
 	try {
 		const { data } = await FtpCreateApi(ftpData);
-		const { statusCode, error, errors, message } = data;
-		console.log(data, 'checked FTp');
-		if (error) {
-			dispatch(ftpErrorList(errors));
-		}
+
+		const { statusCode, message } = data;
+
 		if (statusCode === 201) {
+			toast.success(message);
 			dispatch(ftpCreateData(data));
 		}
-	} catch (err) {
-		const { statusCode } = err.response.data;
-		if (statusCode == 422) {
-			dispatch(FtpCreateError(err.response.data));
+	} catch (error) {
+		if (error.response && error.response.data.errors) {
+			return dispatch(ftpErrorList(error.response.data.errors));
+		} else {
+			return dispatch(ftpErrorList(error.message));
 		}
 	}
 };
@@ -161,7 +159,7 @@ export const FtpDeleteRequest = (delete_id) => async (dispatch) => {
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
 		if (statusCode === 422) {
-			toast.success(message, {
+			toast.error(message, {
 				id: toastId,
 			});
 		}

@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { ftpResetAuth, FtpUpdateList, FtpViewList } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide, toast } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
 
 const FtpUpdateSchema = yup.object().shape({
@@ -70,7 +69,6 @@ const UpdateFtp = () => {
 
 	useEffect(() => {
 		if (ftpUpdateData.length !== 0) {
-			toast.success('Account successfully updated');
 			history.push('/ftp/list');
 		}
 		return () => {
@@ -93,7 +91,7 @@ const UpdateFtp = () => {
 							password: '',
 							folder_path: '',
 						}}
-						enableReinitialize 
+						enableReinitialize
 						validationSchema={FtpUpdateSchema}
 					>
 						{({ errors, touched }) => (
@@ -113,7 +111,7 @@ const UpdateFtp = () => {
 											/>
 
 											{(errors.client_name && touched.client_name && values.client_name == '') ||
-											(error && error.client_name && values.client_name == '') ? (
+											(error && error.client_name) ? (
 												<div className="error-sm">{errors.client_name || error.client_name}</div>
 											) : null}
 										</FormGroup>
@@ -131,7 +129,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Protocol"
 											/>
 											{(errors.protocol && touched.protocol && values.protocol == '') ||
-											(error && error.protocol && values.protocol == '') ? (
+											(error && error.protocol) ? (
 												<div className="error-sm">{errors.protocol || error.protocol}</div>
 											) : null}
 										</FormGroup>
@@ -140,7 +138,7 @@ const UpdateFtp = () => {
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="number"
+												type="text"
 												name="port"
 												id="port"
 												className="form-control"
@@ -149,7 +147,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Port"
 											/>
 											{(errors.port && touched.port && values.port == '') ||
-											(error && error.port && values.port == '') ? (
+											(error && error.port) ? (
 												<div className="error-sm">{errors.port || error.port}</div>
 											) : null}
 										</FormGroup>
@@ -167,7 +165,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Hostname"
 											/>
 											{(errors.hostname && touched.hostname && values.hostname == '') ||
-											(error && error.hostname && values.hostname == '') ? (
+											(error && error.hostname) ? (
 												<div className="error-sm">{errors.hostname || error.hostname}</div>
 											) : null}
 										</FormGroup>
@@ -185,7 +183,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Username"
 											/>
 											{(errors.username && touched.username && values.username == '') ||
-											(error && error.username && values.username == '') ? (
+											(error && error.username) ? (
 												<div className="error-sm">{errors.username || error.username}</div>
 											) : null}
 										</FormGroup>
@@ -203,7 +201,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Password"
 											/>
 											{(errors.password && touched.password && values.password == '') ||
-											(error && error.password && values.password == '') ? (
+											(error && error.password) ? (
 												<div className="error-sm">{errors.password || error.password}</div>
 											) : null}
 										</FormGroup>
@@ -221,7 +219,7 @@ const UpdateFtp = () => {
 												placeholder="Enter Your Folder Path"
 											/>
 											{(errors.folder_path && touched.folder_path && values.folder_path == '') ||
-											(error && error.folder_path && values.folder_path == '') ? (
+											(error && error.folder_path) ? (
 												<div className="error-sm">{errors.folder_path || error.folder_path}</div>
 											) : null}
 										</FormGroup>

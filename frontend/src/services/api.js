@@ -8,8 +8,6 @@ let headers = {
 	Authorization: `Bearer ${accessToken}`,
 };
 
-// console.log("accessToken",authHeader())
-
 const api = axios.create({
 	baseURL: BASE_URL_API,
 	headers,
@@ -36,18 +34,14 @@ export const ProductApi = async (queryString) => {
 };
 
 export const ProductExcelUploadTypeOne = async (uploadexcel) => {
-	return await axios
-		.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
-			headers,
-		});
+	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
+		headers,
+	});
 };
 
 export const SendFeedAPI = async (SendFeedData) => {
-	return await axios
-		.post(`${BASE_URL_API}/api/send_feed/`, SendFeedData, {headers});
+	return await axios.post(`${BASE_URL_API}/api/send_feed/`, SendFeedData, { headers });
 };
-
-
 
 export const FtpListApi = async (queryString) => {
 	return await axios
@@ -76,4 +70,10 @@ export const FtpUpdateApi = async (update_id, updatedata) => {
 
 export const FtpDeleteApi = async (delete_id) => {
 	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, { headers });
+};
+
+export const FtpLogListApi = async (queryString) => {
+	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, {
+		headers,
+	});
 };

@@ -2,18 +2,12 @@
 import { Link } from 'react-router-dom';
 
 // ** Third Party Components
-import {
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	Badge,
-} from 'reactstrap';
-import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
+import { Badge } from 'reactstrap';
+import { Trash2, Eye, Edit } from 'react-feather';
 
 const statusObj = {
-	active: 'light-success',
-	inactive: 'light-warning',
+	active: 'success',
+	inactive: 'danger',
 };
 
 export const columns = [

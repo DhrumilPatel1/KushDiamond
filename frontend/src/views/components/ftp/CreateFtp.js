@@ -5,9 +5,8 @@ import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
-import toast from 'react-hot-toast';
+
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
@@ -16,29 +15,31 @@ const FtpCreateSchema = yup.object().shape({
 	username: yup.string().required('Username is required'),
 	password: yup
 		.string()
-		// .min(8, 'Password must be at least 8 characters')
+		.min(8, 'Password must be at least 8 characters')
 		.required('Password is required'),
 	folder_path: yup.string().required('Folder Path is required'),
 });
 
 const CreateFtp = () => {
-	const { ftpCreateData, error, FtpCreateError } = useSelector((state) => state.Ftps);
-console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
+	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		if (ftpCreateData?.statusCode === 201) {
-			toast.success(ftpCreateData.message);
-			history.push('/ftp/list');
-		}else if(FtpCreateError?.statusCode === 422) {
-			toast.error(FtpCreateError.message);
+		if (ftpCreateData && ftpCreateData.length !== 0) {
 			history.push('/ftp/list');
 		}
 		return () => {
 			dispatch(ftpResetAuth());
 		};
-	}, [ftpCreateData,FtpCreateError]);
+	}, [ftpCreateData]);
+
+	const handleChange = (e) => {
+		for (const file of e.target.files) {
+			console.log(file, 'files');
+		}
+	};
 
 	return (
 		<>
@@ -62,7 +63,7 @@ console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 						}}
 					>
 						{({ errors, touched }) => (
-							<Form autocomplete="off">
+							<Form>
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
@@ -99,7 +100,7 @@ console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="number"
+												type="text"
 												name="port"
 												id="port"
 												className="form-control"
@@ -174,6 +175,14 @@ console.log(FtpCreateError?.statusCode,"FtpCreateError?.statusCode")
 												<div className="error-sm">{errors.folder_path || error.folder_path}</div>
 											) : null}
 										</FormGroup>
+									</Col>
+									<Col md="6" sm="12">
+										<input
+											type="file"
+											onChange={(e) => handleChange(e)}
+											webkitdirectory=""
+											directory=""
+										/>
 									</Col>
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
