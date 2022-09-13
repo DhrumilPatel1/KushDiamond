@@ -83,23 +83,23 @@ export const columns = [
 			</Badge>
 		),
 	},
-	{
-		name: 'Actions',
-		minWidth: '150px',
-		cell: (row) => {
-			return (
-				<div className="d-inline ">
-					<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
-						<Eye size={18} />
-					</Link>
+	// {
+	// 	name: 'Actions',
+	// 	minWidth: '150px',
+	// 	cell: (row) => {
+	// 		return (
+	// 			<div className="d-inline ">
+	// 				<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
+	// 					<Eye size={18} />
+	// 				</Link>
 
-					<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
-						<Edit size={18} />
-					</Link>
+	// 				<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
+	// 					<Edit size={18} />
+	// 				</Link>
 
-					<Trash2 className="text-danger" size={18} style={{ cursor: 'pointer' }} />
-				</div>
-			);
-		},
-	},
+	// 				<Trash2 className="text-danger" size={18} style={{ cursor: 'pointer' }} />
+	// 			</div>
+	// 		);
+	// 	},
+	// },
 ];

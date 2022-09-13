@@ -13,18 +13,18 @@ import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import { FtpClientList } from '../../../../redux/FtpsSlice';
-import {CardTitle,CardHeader} from 'reactstrap';
+import { CardTitle, CardHeader } from 'reactstrap';
 // ** Table Header
 const CustomHeader = ({ handleFilter }) => {
 	return (
 		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
 			<Row>
-			<Col xl="6"
-			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-			
-			>
-				<h3>FTP List</h3>
-			</Col>
+				<Col
+					xl="6"
+					className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+				>
+					<h3>FTP List</h3>
+				</Col>
 				<Col
 					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
@@ -34,12 +34,13 @@ const CustomHeader = ({ handleFilter }) => {
 							id="search-invoice"
 							className="ml-50 w-100"
 							type="text"
+							size="sm"
 							name="search"
 							onChange={handleFilter}
 							placeholder="Search"
 						/>
 					</div>
-					<Button className="ml-2" color="primary" tag={Link} to={'/ftp/add'}>
+					<Button className="ml-2" size="sm" color="primary" tag={Link} to={'/ftp/add'}>
 						<Plus size={15} />
 						<span className="align-middle ml-50">Create</span>
 					</Button>
@@ -111,7 +112,7 @@ const FtpList = () => {
 	return (
 		<Fragment>
 			<Card>
-			{/* <CardHeader>
+				{/* <CardHeader>
         <CardTitle tag='h1'>Zero Configuration</CardTitle>
       </CardHeader> */}
 				<DataTable

@@ -49,15 +49,15 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
-					<Button.Ripple tag={Label} className="ml-2" color="secondary" caret outline>
+					<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
 						<Share size={15} />
 						Import
 						<Input type="file" onChange={ExcelTypeOne} hidden />
 					</Button.Ripple>
-					<Button className="ml-2" color="primary" tag={Link} to="/dashboard">
+					{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
 						<Plus size={15} />
 						<span className="align-middle ml-50">Create</span>
-					</Button>
+					</Button> */}
 				</Col>
 			</Row>
 		</div>
