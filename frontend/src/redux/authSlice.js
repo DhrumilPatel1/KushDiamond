@@ -4,13 +4,14 @@ import { toast } from 'react-toastify';
 import { AdminLoginAPI } from '../services/api';
 
 // const config = useJwt.jwtConfig;
-
+const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState: {
 		isLoading: false,
 		userData: null,
 		error: null,
+		Token: accessToken ? accessToken : null,
 		abilityData: null,
 	},
 	reducers: {
@@ -20,10 +21,11 @@ export const authSlice = createSlice({
 		handleSuccessLogin: (state, action) => {
 			state.isLoading = false;
 			state.userData = action.payload?.data;
-			state.abilityData = [{ action: 'manage', subject: 'all' }];
-			localStorage.setItem('ability', [{ action: 'manage', subject: 'all' }]);
+			state.Token = action.payload?.token.access;
+			state.abilityData = action.payload?.ability;
+			localStorage.setItem('abilityData', JSON.stringify(action.payload?.ability));
 			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
-			localStorage.setItem('accessToken', JSON.stringify(action.payload?.token.access));
+			localStorage.setItem('accessToken', JSON.stringify(`Bearer ${action.payload?.token.access}`));
 		},
 		handleErrorLogin: (state, action) => {
 			state.error = action.payload;
@@ -45,7 +47,6 @@ export const authSlice = createSlice({
 
 export const { handleSuccessLogin, handleErrorLogin, setLoading, handleLogout, handleResetAuth } =
 	authSlice.actions;
-
 export default authSlice.reducer;
 
 export const AdminLoginRequest = (userData) => async (dispatch) => {

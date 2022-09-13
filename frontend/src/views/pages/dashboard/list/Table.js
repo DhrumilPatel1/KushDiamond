@@ -63,6 +63,10 @@ const DashboardList = () => {
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
 
+	const ftpParams = {
+		fTPSting: `color=${filterColor}&shape=${filterShape}&cut=${filterCut}`,
+	};
+
 	useEffect(() => {
 		dispatch(FtpGetDataList());
 	}, []);
@@ -81,10 +85,8 @@ const DashboardList = () => {
 	};
 
 	const tableChangeHandler = (data) => {
-		console.log(data,"key data")
 		let queryStr = Object.keys(data)
 			.map((key) => {
-			
 				return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
 			})
 			.join('&');
@@ -93,6 +95,7 @@ const DashboardList = () => {
 
 	const filterSubmit = (e) => {
 		e.preventDefault();
+
 		setFilterColor(e.target.color.value);
 		setFilterShape(e.target.shape.value);
 		setFilterCut(e.target.cut.value);
@@ -109,7 +112,7 @@ const DashboardList = () => {
 	};
 
 	const openPopup = () => {
-		return OpenSwal.fire({
+		OpenSwal.fire({
 			title: 'Are you sure?',
 			text: `You won't be able to revert this! ${productData?.count}`,
 			icon: 'warning',
@@ -127,7 +130,7 @@ const DashboardList = () => {
 					ftp: ftpValues,
 				};
 				setFtpValue([]);
-				dispatch(sendFeed(ftpValuePass));
+				dispatch(sendFeed(ftpValuePass, ftpParams.fTPSting));
 			}
 		});
 	};
@@ -136,6 +139,19 @@ const DashboardList = () => {
 		dispatch(productList());
 	}, []);
 
+	const handleShape = (e) => {
+		e.preventDefault();
+		setFilterShape(e.target.value);
+	};
+
+	const handleCut = (e) => {
+		e.preventDefault();
+		setFilterCut(e.target.value);
+	};
+	const handleColor = (e) => {
+		e.preventDefault();
+		setFilterColor(e.target.value);
+	};
 	return (
 		<Fragment>
 			{/* <Card> */}
@@ -216,19 +232,44 @@ const DashboardList = () => {
 							</Col>
 							<Col lg="2" md="6">
 								<Label for="color">Color:</Label>
-								<Input id="color" name="color" size="sm" placeholder="Enter Color" />
+								<Input
+									id="color"
+									name="color"
+									size="sm"
+									onChange={(e) => handleColor(e)}
+									placeholder="Enter Color"
+								/>
 							</Col>
 							<Col lg="2" md="6">
 								<Label for="shape">Shape:</Label>
-								<Input type="text" id="shape" size="sm" name="shape" placeholder="Enter Shape" />
+								<Input
+									type="text"
+									id="shape"
+									size="sm"
+									name="shape"
+									onChange={(e) => handleShape(e)}
+									placeholder="Enter Shape"
+								/>
 							</Col>
 							<Col lg="2" md="6">
 								<Label for="cut">Cut:</Label>
-								<Input type="text" size="sm" name="cut" placeholder="Enter Cut" />
+								<Input
+									type="text"
+									size="sm"
+									name="cut"
+									onChange={(e) => handleCut(e)}
+									placeholder="Enter Cut"
+								/>
 							</Col>
 							<Col lg="1" md="3">
 								<Label for="cut"></Label>
-								<Button.Ripple type="submit" size="sm" color="relief-primary" className="filter_button" block>
+								<Button.Ripple
+									type="submit"
+									size="sm"
+									color="relief-primary"
+									className="filter_button"
+									block
+								>
 									Filter
 								</Button.Ripple>
 							</Col>

@@ -10,10 +10,10 @@ let headers = {
 
 // console.log("accessToken",authHeader())
 
-const api = axios.create({
-	baseURL: BASE_URL_API,
-	headers,
-});
+// const api = axios.create({
+// 	baseURL: BASE_URL_API,
+// 	headers,
+// });
 
 // console.log("accessToken---------",accessToken)
 // console.log("accessToken---------",BASE_URL_API)
@@ -26,28 +26,24 @@ export const AdminLoginAPI = async (reqData) => {
 	});
 };
 
-export const ProductApi = async (queryString) => {
+export const ProductApi = async (queryString, config) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/product/list/?` + queryString, {
-			headers,
-		})
+		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
 
 export const ProductExcelUploadTypeOne = async (uploadexcel) => {
-	return await axios
-		.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
-			headers,
-		});
+	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
+		headers,
+	});
 };
 
-export const SendFeedAPI = async (SendFeedData) => {
-	return await axios
-		.post(`${BASE_URL_API}/api/send_feed/`, SendFeedData, {headers});
+export const SendFeedAPI = async (SendFeedData, queryString) => {
+	return await axios.post(`${BASE_URL_API}/api/send_feed/?` + queryString, SendFeedData, {
+		headers,
+	});
 };
-
-
 
 export const FtpListApi = async (queryString) => {
 	return await axios

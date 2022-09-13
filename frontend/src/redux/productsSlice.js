@@ -3,6 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
 import toast, { Toaster } from 'react-hot-toast';
 
+const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+let headers = {
+	'Content-Type': 'application/json',
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
+	Authorization: accessToken,
+};
+
 export const productsSlice = createSlice({
 	name: 'products',
 	initialState: {
@@ -64,10 +72,18 @@ export const {
 
 export default productsSlice.reducer;
 
-export const productList = (queryString) => async (dispatch) => {
+export const productList = (queryString) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
-		const { data } = await ProductApi(queryString);
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ProductApi(queryString, config);
 		dispatch(productGetData(data));
 	} catch (err) {
 		dispatch(handleErrorList(err));
@@ -109,11 +125,11 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 	}
 };
 
-export const sendFeed = (sendFeedData) => async (dispatch) => {
+export const sendFeed = (sendFeedData, queryString) => async (dispatch) => {
 	dispatch(setLoading());
 	const toastId = toast.loading('Please wait FTP connection establish...');
 	try {
-		const { data } = await SendFeedAPI(sendFeedData);
+		const { data } = await SendFeedAPI(sendFeedData, queryString);
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			dispatch(FeedData(data));

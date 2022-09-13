@@ -22,12 +22,12 @@ const FtpCreateSchema = yup.object().shape({
 	folder_path: yup.string().required('Folder Path is required'),
 });
 
-const onchangeFiles = (e) => {
-	for (const file of e.target.files) {
-		console.log(file.webkitRelativePath, 'path');
-		console.log(file, 'file');
-	}
-};
+// const onchangeFiles = (e) => {
+// 	for (const file of e.target.files) {
+// 		console.log(file.webkitRelativePath, 'path');
+// 		console.log(file, 'file');
+// 	}
+// };
 
 const CreateFtp = () => {
 	const { ftpCreateData, error, FtpCreateError } = useSelector((state) => state.Ftps);
@@ -183,12 +183,12 @@ const CreateFtp = () => {
 											) : null}
 										</FormGroup>
 									</Col>
-									<input
+									{/* <input
 										directory=""
 										onChange={(e) => onchangeFiles(e)}
 										webkitdirectory=""
 										type="file"
-									/>
+									/> */}
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple className="mr-1" color="primary" type="submit">

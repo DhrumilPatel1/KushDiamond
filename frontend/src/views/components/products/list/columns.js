@@ -12,8 +12,8 @@ import {
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 
 const statusObj = {
-	active: 'light-success',
-	inactive: 'light-warning',
+	active: 'success',
+	inactive: 'danger',
 };
 
 export const columns = [
