@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
 import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export const productsSlice = createSlice({
 	name: 'products',

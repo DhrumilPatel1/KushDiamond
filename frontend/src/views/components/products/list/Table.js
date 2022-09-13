@@ -54,7 +54,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 						Import
 						<Input type="file" onChange={ExcelTypeOne} webkitdirectory mozdirectory hidden />
 					</Button.Ripple>
-					<Button className="ml-2" color="primary" tag={Link} to="/dashboard">
+					<Button className="ml-2" color="primary">
 						<Plus size={15} />
 						<span className="align-middle ml-50">Create</span>
 					</Button>

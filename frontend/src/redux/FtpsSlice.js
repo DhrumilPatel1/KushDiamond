@@ -12,7 +12,6 @@ export const FtpsSlice = createSlice({
 		ftpDeleteData: [],
 		ftpUpdateData: [],
 		ftpGetAllData: [],
-		FtpCreateError: [],
 		error: null,
 	},
 	reducers: {
@@ -34,10 +33,7 @@ export const FtpsSlice = createSlice({
 			state.isLoading = false;
 			state.ftpCreateData = action.payload?.data;
 		},
-		FtpCreateError: (state, action) => {
-			state.isLoading = false;
-			state.FtpCreateError = action.payload;
-		},
+
 		ftpUpdateData: (state, action) => {
 			state.isLoading = false;
 			state.ftpUpdateData = action.payload?.data;
@@ -58,7 +54,6 @@ export const FtpsSlice = createSlice({
 			state.error = null;
 			state.ftpCreateData = null;
 			state.ftpUpdateData = [];
-			state.FtpCreateError = [];
 		},
 	},
 });
@@ -73,7 +68,6 @@ export const {
 	ftpDeleteData,
 	createSuccess,
 	ftpResetAuth,
-	FtpCreateError,
 } = FtpsSlice.actions;
 
 export default FtpsSlice.reducer;

@@ -10,7 +10,12 @@ import Breadcrumbs from '@components/breadcrumbs';
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
-	port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
+	port: yup
+		.number()
+		.positive()
+		.integer()
+		.min(2, 'Port must be at least 2 characters')
+		.required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
 	password: yup
@@ -35,11 +40,11 @@ const CreateFtp = () => {
 		};
 	}, [ftpCreateData]);
 
-	const handleChange = (e) => {
-		for (const file of e.target.files) {
-			console.log(file, 'files');
-		}
-	};
+	// const handleChange = (e) => {
+	// 	for (const file of e.target.files) {
+	// 		console.log(file, 'files');
+	// 	}
+	// };
 
 	return (
 		<>
@@ -176,14 +181,15 @@ const CreateFtp = () => {
 											) : null}
 										</FormGroup>
 									</Col>
-									<Col md="6" sm="12">
+									{/* <Col md="6" sm="12">
 										<input
 											type="file"
 											onChange={(e) => handleChange(e)}
 											webkitdirectory=""
 											directory=""
+											multiple
 										/>
-									</Col>
+									</Col> */}
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple className="mr-1" color="primary" type="submit">

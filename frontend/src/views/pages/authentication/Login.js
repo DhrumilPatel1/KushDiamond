@@ -7,7 +7,8 @@ import '@styles/base/pages/page-auth.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminLoginRequest, handleResetAuth } from '../../../redux/authSlice';
 import { getHomeRouteForLoggedInUser, isObjEmpty } from '@utils';
-import { toast, Slide } from 'react-toastify';
+// import { toast, Slide } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
 import InputPasswordToggle from '@components/input-password-toggle';
@@ -16,22 +17,22 @@ import { AbilityContext } from '@src/utility/context/Can.js';
 const illustration = 1 ? 'image_main.png' : 'image_main.png',
 	source = require(`@src/assets/images/logo/${illustration}`).default;
 
-const ToastContent = ({ name, role }) => (
-	<Fragment>
-		<div className="toastify-header">
-			<div className="title-wrapper">
-				<img className="img-fluid" style={{ width: '30px' }} src={source} alt="Login V2" />
-				<h6 className="toast-title font-weight-bold">Welcome, {name}</h6>
-			</div>
-		</div>
-		<div className="toastify-body">
-			<span>
-				You have successfully logged in as an {role} to Kush Diamond. Now you can start to explore.
-				Enjoy!
-			</span>
-		</div>
-	</Fragment>
-);
+// const ToastContent = ({ name, role }) => (
+// 	<Fragment>
+// 		<div className="toastify-header">
+// 			<div className="title-wrapper">
+// 				<img className="img-fluid" style={{ width: '30px' }} src={source} alt="Login V2" />
+// 				<h6 className="toast-title font-weight-bold">Welcome, {name}</h6>
+// 			</div>
+// 		</div>
+// 		{/* <div className="toastify-body">
+// 			<span>
+// 				You have successfully logged in as an {role} to Kush Diamond. Now you can start to explore.
+// 				Enjoy!
+// 			</span>
+// 		</div> */}
+// 	</Fragment>
+// );
 
 const SignupSchema = yup.object().shape({
 	username: yup.string().required('Email or Mobile No is required'),
@@ -49,14 +50,17 @@ const Login = () => {
 
 	useEffect(() => {
 		if (userData !== null) {
-			toast.success(
-				<ToastContent name={userData.name || userData.username} role={userData.role} />,
-				{
-					transition: Slide,
-					hideProgressBar: true,
-					autoClose: 2000,
-				}
-			);
+			// toast.success(
+			// 	<ToastContent name={userData.name || userData.username} role={userData.role} />,
+			// 	{
+			// 		// hideProgressBar: true,
+			// 		autoClose: 9000,
+			// 		// style: {
+			// 		// 	minWidth: '350px',
+			// 		// 	minHeight: '150px',
+			// 		// },
+			// 	}
+			// );
 			ability.update(abilityData);
 			setTimeout(() => {
 				history.push(getHomeRouteForLoggedInUser(userData.role));
