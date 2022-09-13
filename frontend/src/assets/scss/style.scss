@@ -26,7 +26,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	padding: 8px 20px 8px 0 !important;
 }
 .horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .nav-link{
-	padding: 8px 20px !important;
+	padding: 5px 20px !important;
 }
 .feed_select .select__control {
 	height: 29.99px !important;
@@ -43,11 +43,33 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	margin: 0 !important;
 }
 .deskboard_card_body{
-	padding: 15px;
+	padding: 8px 15px;
 }
 .dropdown{
 	display: flex;
 }
 .footer-static{
-	padding: 0 2rem !important;
+	padding: 0  !important;
+}
+footer.footer{
+	min-height: 2rem;
+}
+.navbar-static .app-content{
+	padding: 1rem !important;
+}
+.rdt_Pagination{
+	min-height: 40px !important;
+}
+.navbar-brand span{
+	font-size: 20px;
+}
+.navbar-brand {
+	font-size: 24px;
+}
+.footer.footer-light.footer-static{
+	padding: 0 14px !important;
+}
+.footer.footer-light.footer-static p{
+	line-height: 1.45;
+	margin-top: 10px;
 }

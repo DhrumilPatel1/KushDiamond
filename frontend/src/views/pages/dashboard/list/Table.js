@@ -199,7 +199,7 @@ const DashboardList = () => {
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
 							<Col lg="4" md="6">
-								<Label for="color">FTP:</Label>
+								{/* <Label for="color">FTP:</Label> */}
 								<Select
 									size="sm"
 									isClearable={false}
@@ -215,25 +215,25 @@ const DashboardList = () => {
 								/>
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="color">Color:</Label>
+								{/* <Label for="color">Color:</Label> */}
 								<Input id="color" name="color" size="sm" placeholder="Enter Color" />
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="shape">Shape:</Label>
+								{/* <Label for="shape">Shape:</Label> */}
 								<Input type="text" id="shape" size="sm" name="shape" placeholder="Enter Shape" />
 							</Col>
 							<Col lg="2" md="6">
-								<Label for="cut">Cut:</Label>
+								{/* <Label for="cut">Cut:</Label> */}
 								<Input type="text" size="sm" name="cut" placeholder="Enter Cut" />
 							</Col>
 							<Col lg="1" md="3">
-								<Label for="cut"></Label>
+								{/* <Label for="cut"></Label> */}
 								<Button.Ripple type="submit" size="sm" color="relief-primary" className="filter_button" block>
 									Filter
 								</Button.Ripple>
 							</Col>
-							<Col lg="1" md="3">
-								<Label for="send feed"></Label>
+							<Col lg="1" md="3" className="pl-0">
+								{/* <Label for="send feed"></Label> */}
 								{ftpvalue && ftpvalue.length > 0 ? (
 									<Button.Ripple
 										type="submit"
