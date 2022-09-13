@@ -1,52 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
-import toast from 'react-hot-toast';
 
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
-	port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
+	port: yup
+		.number()
+		.positive()
+		.integer()
+		.min(2, 'Port must be at least 2 characters')
+		.required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
 	password: yup
 		.string()
-		// .min(8, 'Password must be at least 8 characters')
+		.min(8, 'Password must be at least 8 characters')
 		.required('Password is required'),
 	folder_path: yup.string().required('Folder Path is required'),
 });
 
-// const onchangeFiles = (e) => {
-// 	for (const file of e.target.files) {
-// 		console.log(file.webkitRelativePath, 'path');
-// 		console.log(file, 'file');
-// 	}
-// };
-
 const CreateFtp = () => {
-	const { ftpCreateData, error, FtpCreateError } = useSelector((state) => state.Ftps);
-	console.log(FtpCreateError?.statusCode, 'FtpCreateError?.statusCode');
+	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		if (ftpCreateData?.statusCode === 201) {
-			toast.success(ftpCreateData.message);
-			history.push('/ftp/list');
-		} else if (FtpCreateError?.statusCode === 422) {
-			toast.error(FtpCreateError.message);
+		if (ftpCreateData && ftpCreateData.length !== 0) {
 			history.push('/ftp/list');
 		}
 		return () => {
 			dispatch(ftpResetAuth());
 		};
-	}, [ftpCreateData, FtpCreateError]);
+	}, [ftpCreateData]);
+
+	// const handleChange = (e) => {
+	// 	for (const file of e.target.files) {
+	// 		console.log(file, 'files');
+	// 	}
+	// };
 
 	return (
 		<>
@@ -70,7 +68,7 @@ const CreateFtp = () => {
 						}}
 					>
 						{({ errors, touched }) => (
-							<Form autocomplete="off">
+							<Form>
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
@@ -107,7 +105,7 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="number"
+												type="text"
 												name="port"
 												id="port"
 												className="form-control"
@@ -183,12 +181,15 @@ const CreateFtp = () => {
 											) : null}
 										</FormGroup>
 									</Col>
-									{/* <input
-										directory=""
-										onChange={(e) => onchangeFiles(e)}
-										webkitdirectory=""
-										type="file"
-									/> */}
+									{/* <Col md="6" sm="12">
+										<input
+											type="file"
+											onChange={(e) => handleChange(e)}
+											webkitdirectory=""
+											directory=""
+											multiple
+										/>
+									</Col> */}
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple className="mr-1" color="primary" type="submit">

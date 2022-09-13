@@ -37,18 +37,29 @@ export const FtpsSlice = createSlice({
 			state.ftpViewData = action.payload?.data;
 		},
 
+		// ftpCreateData: (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.ftpCreateData = action.payload;
+		// },
+		// FtpCreateError: (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.FtpCreateError = action.payload;
+		// },
+
 		ftpCreateData: (state, action) => {
 			state.isLoading = false;
-			state.ftpCreateData = action.payload;
+			state.ftpCreateData = action.payload?.data;
 		},
-		FtpCreateError: (state, action) => {
-			state.isLoading = false;
-			state.FtpCreateError = action.payload;
-		},
+
 		ftpUpdateData: (state, action) => {
 			state.isLoading = false;
 			state.ftpUpdateData = action.payload?.data;
 		},
+
+		// ftpUpdateData: (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.ftpUpdateData = action.payload?.data;
+		// },
 
 		ftpErrorList: (state, action) => {
 			state.error = action.payload;
@@ -85,7 +96,7 @@ export const {
 
 export default FtpsSlice.reducer;
 
-export const FtpClientList = (queryString) => async (dispatch,getState) => {
+export const FtpClientList = (queryString) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
 		const config = {
@@ -94,7 +105,7 @@ export const FtpClientList = (queryString) => async (dispatch,getState) => {
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await FtpListApi(queryString,config);
+		const { data } = await FtpListApi(queryString, config);
 
 		dispatch(ftpGetData(data));
 	} catch (err) {
@@ -102,7 +113,7 @@ export const FtpClientList = (queryString) => async (dispatch,getState) => {
 	}
 };
 
-export const FtpViewList = (id) => async (dispatch,getState) => {
+export const FtpViewList = (id) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
 		const config = {
@@ -111,7 +122,7 @@ export const FtpViewList = (id) => async (dispatch,getState) => {
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await FtpViewApi(id,config);
+		const { data } = await FtpViewApi(id, config);
 
 		dispatch(ftpViewData(data));
 	} catch (err) {
@@ -119,7 +130,27 @@ export const FtpViewList = (id) => async (dispatch,getState) => {
 	}
 };
 
-export const FtpUpdateList = (id, updatedata) => async (dispatch,getState) => {
+// export const FtpUpdateList = (id, updatedata) => async (dispatch, getState) => {
+// 	dispatch(setLoading());
+// 	try {
+// 		const config = {
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				Authorization: getState()?.auth?.Token,
+// 			},
+// 		};
+// 		const { data } = await FtpUpdateApi(id, updatedata, config);
+// 		dispatch(ftpUpdateData(data));
+// 	} catch (error) {
+// 		if (error.response && error.response.data.errors) {
+// 			return dispatch(ftpErrorList(error.response.data.errors));
+// 		} else {
+// 			return dispatch(ftpErrorList(error.message));
+// 		}
+// 	}
+// };
+
+export const FtpUpdateList = (id, updatedata) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
 		const config = {
@@ -128,8 +159,13 @@ export const FtpUpdateList = (id, updatedata) => async (dispatch,getState) => {
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await FtpUpdateApi(id, updatedata,config);
-		dispatch(ftpUpdateData(data));
+		const { data } = await FtpUpdateApi(id, updatedata, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message);
+			dispatch(ftpUpdateData(data));
+		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			return dispatch(ftpErrorList(error.response.data.errors));
@@ -139,7 +175,32 @@ export const FtpUpdateList = (id, updatedata) => async (dispatch,getState) => {
 	}
 };
 
-export const FtpCreateRequest = (ftpData) => async (dispatch,getState) => {
+// export const FtpCreateRequest = (ftpData) => async (dispatch,getState) => {
+// 	dispatch(setLoading());
+// 	try {
+// 		const config = {
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				Authorization: getState()?.auth?.Token,
+// 			},
+// 		};
+// 		const { data } = await FtpCreateApi(ftpData,config);
+// 		const { statusCode, error, errors, message } = data;
+// 		if (error) {
+// 			dispatch(ftpErrorList(errors));
+// 		}
+// 		if (statusCode === 201) {
+// 			dispatch(ftpCreateData(data));
+// 		}
+// 	} catch (err) {
+// 		const { statusCode } = err.response.data;
+// 		if (statusCode == 422) {
+// 			dispatch(FtpCreateError(err.response.data));
+// 		}
+// 	}
+// };
+
+export const FtpCreateRequest = (ftpData) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
 		const config = {
@@ -148,24 +209,25 @@ export const FtpCreateRequest = (ftpData) => async (dispatch,getState) => {
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await FtpCreateApi(ftpData,config);
-		const { statusCode, error, errors, message } = data;
-		console.log(data, 'checked FTp');
-		if (error) {
-			dispatch(ftpErrorList(errors));
-		}
+
+		const { data } = await FtpCreateApi(ftpData, config);
+
+		const { statusCode, message } = data;
+
 		if (statusCode === 201) {
+			toast.success(message);
 			dispatch(ftpCreateData(data));
 		}
-	} catch (err) {
-		const { statusCode } = err.response.data;
-		if (statusCode == 422) {
-			dispatch(FtpCreateError(err.response.data));
+	} catch (error) {
+		if (error.response && error.response.data.errors) {
+			return dispatch(ftpErrorList(error.response.data.errors));
+		} else {
+			return dispatch(ftpErrorList(error.message));
 		}
 	}
 };
 
-export const FtpDeleteRequest = (delete_id) => async (dispatch,getState) => {
+export const FtpDeleteRequest = (delete_id) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	const toastId = toast.loading('Please wait your data is deleteing...');
 	try {
@@ -175,7 +237,7 @@ export const FtpDeleteRequest = (delete_id) => async (dispatch,getState) => {
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await FtpDeleteApi(delete_id,config);
+		const { data } = await FtpDeleteApi(delete_id, config);
 
 		const { statusCode, error, errors, message } = data;
 		if (error) {
