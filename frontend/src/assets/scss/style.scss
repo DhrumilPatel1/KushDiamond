@@ -77,3 +77,18 @@ footer.footer{
 	line-height: 1.45;
 	margin-top: 10px;
 }
+.app-user-list .card{
+	margin-bottom: 0;
+}
+#main-menu-navigation .nav-item:first-child .nav-link span{
+	font-size: 20px;
+	align-self: end;
+}
+.invoice-list-table-header .btn {
+	padding: 7px 20px;
+	line-height: 1.2;
+	margin-bottom: 0;
+}
+.react-dataTable header{
+	min-height: 42px;
+}
