@@ -65,7 +65,7 @@ const BreadCrumbs = (props) => {
 			</div>
 			<div className="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
 				<div className="form-group breadcrum-right dropdown">
-					<UncontrolledButtonDropdown>
+					{/* <UncontrolledButtonDropdown>
 						<DropdownToggle
 							color="primary"
 							size="sm"
@@ -91,7 +91,7 @@ const BreadCrumbs = (props) => {
 								<span className="align-middle">Calendar</span>
 							</DropdownItem>
 						</DropdownMenu>
-					</UncontrolledButtonDropdown>
+					</UncontrolledButtonDropdown> */}
 				</div>
 			</div>
 		</div>

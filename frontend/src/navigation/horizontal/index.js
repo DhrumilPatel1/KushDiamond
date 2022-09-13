@@ -14,9 +14,9 @@ import products from './products';
 export default [
 	...dashboards,
 	...ftp,
-	...products,
-	...others,
-	...pages,
-	...apps,
+	 ...products,
+	// ...others,
+	// ...pages,
+	// ...apps,
 	
 ];

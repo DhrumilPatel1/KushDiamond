@@ -5,7 +5,7 @@ const illustration = 1 ? 'image_main.png' : 'image_main.png',
 export default [
 	{
 		id: 'kush diamond',
-		title: 'Kush Diamond',
+		title: "Kush Diamond",
 		icon: (
 			<NavLink to="/" className="navbar-brand"  >
 				<span className="brand-logo">
