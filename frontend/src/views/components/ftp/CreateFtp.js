@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide, toast } from 'react-toastify';
 import Breadcrumbs from '@components/breadcrumbs';
 
 const FtpCreateSchema = yup.object().shape({
@@ -16,19 +15,19 @@ const FtpCreateSchema = yup.object().shape({
 	username: yup.string().required('Username is required'),
 	password: yup
 		.string()
-		// .min(8, 'Password must be at least 8 characters')
+		.min(8, 'Password must be at least 8 characters')
 		.required('Password is required'),
 	folder_path: yup.string().required('Folder Path is required'),
 });
 
 const CreateFtp = () => {
 	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		if (ftpCreateData !== null) {
-			toast.success('Account successfully created');
+		if (ftpCreateData && ftpCreateData.length !== 0) {
 			history.push('/ftp/list');
 		}
 		return () => {
@@ -36,13 +35,15 @@ const CreateFtp = () => {
 		};
 	}, [ftpCreateData]);
 
+	const handleChange = (e) => {
+		for (const file of e.target.files) {
+			console.log(file, 'files');
+		}
+	};
+
 	return (
 		<>
-			<Breadcrumbs
-				breadCrumbTitle="FTP Create"
-				breadCrumbParent="Ftp"
-				breadCrumbActive="Create"
-			/>
+			<Breadcrumbs breadCrumbTitle="FTP Create" breadCrumbParent="Ftp" breadCrumbActive="Create" />
 			<Card>
 				<CardBody>
 					<Formik
@@ -99,7 +100,7 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="number"
+												type="text"
 												name="port"
 												id="port"
 												className="form-control"
@@ -150,6 +151,7 @@ const CreateFtp = () => {
 												type="password"
 												name="password"
 												id="password"
+												autoComplete="new-password"
 												className="form-control"
 												placeholder="Enter Your Password"
 											/>
@@ -173,6 +175,14 @@ const CreateFtp = () => {
 												<div className="error-sm">{errors.folder_path || error.folder_path}</div>
 											) : null}
 										</FormGroup>
+									</Col>
+									<Col md="6" sm="12">
+										<input
+											type="file"
+											onChange={(e) => handleChange(e)}
+											webkitdirectory=""
+											directory=""
+										/>
 									</Col>
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">

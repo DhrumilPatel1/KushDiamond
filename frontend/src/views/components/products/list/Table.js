@@ -35,15 +35,16 @@ import { Link } from 'react-router-dom';
 
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
+	// const inputRef = useRef(null);
 	return (
 		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
 			<Row>
-			<Col xl="6"
-			className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-			
-			>
-				<h1>Products List</h1>
-			</Col>
+				<Col
+					xl="6"
+					className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+				>
+					<h1>Products List</h1>
+				</Col>
 				<Col
 					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
@@ -51,7 +52,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 					<Button.Ripple tag={Label} className="ml-2" color="secondary" caret outline>
 						<Share size={15} />
 						Import
-						<Input type="file" onChange={ExcelTypeOne} hidden />
+						<Input type="file" onChange={ExcelTypeOne} webkitdirectory mozdirectory hidden />
 					</Button.Ripple>
 					<Button className="ml-2" color="primary" tag={Link} to="/dashboard">
 						<Plus size={15} />
@@ -149,45 +150,6 @@ const ProductsList = () => {
 
 	return (
 		<Fragment>
-			{/* <Card>
-				<CardHeader>
-					<CardTitle tag="h4">Search Filter</CardTitle>
-				</CardHeader>
-				<CardBody>
-					<Form onSubmit={(e) => filterSubmit(e)}>
-						<Row>
-							<Col lg="3" md="6">
-								<Label for="color">Ftp :</Label>
-								<Select
-									isClearable={false}
-									className="react-select"
-									classNamePrefix="select"
-									options={roleOptions}
-									name="ftp"
-								/>
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="color">Color :</Label>
-								<Input id="color" name="color" placeholder="Enter Color" />
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="shape">Shape :</Label>
-								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="cut">Cut :</Label>
-								<Input type="text" name="cut" placeholder="Enter Cut" />
-							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut"></Label>
-								<Button.Ripple type="submit" color="primary" block>
-									Filter
-								</Button.Ripple>
-							</Col>
-						</Row>
-					</Form>
-				</CardBody>
-			</Card> */}
 			<Card>
 				<DataTable
 					noHeader
