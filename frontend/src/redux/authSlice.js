@@ -21,7 +21,7 @@ export const authSlice = createSlice({
 		handleSuccessLogin: (state, action) => {
 			state.isLoading = false;
 			state.userData = action.payload?.data;
-			state.Token = action.payload?.token.access;
+			state.Token = `Bearer ${action.payload?.token.access}`;
 			state.abilityData = action.payload?.ability;
 			localStorage.setItem('abilityData', JSON.stringify(action.payload?.ability));
 			localStorage.setItem('userData', JSON.stringify(action.payload?.data));
