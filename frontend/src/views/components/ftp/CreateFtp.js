@@ -12,8 +12,6 @@ const FtpCreateSchema = yup.object().shape({
 	protocol: yup.string().required('Protocol is required'),
 	port: yup
 		.number()
-		.positive()
-		.integer()
 		.min(2, 'Port must be at least 2 characters')
 		.required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
@@ -105,7 +103,7 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="text"
+												type="number"
 												name="port"
 												id="port"
 												className="form-control"
