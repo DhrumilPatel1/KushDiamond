@@ -17,14 +17,14 @@ import { CardTitle, CardHeader } from 'reactstrap';
 // ** Table Header
 const CustomHeader = ({ handleFilter }) => {
 	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
+		<div className="invoice-list-table-header w-100 mr-1 ml-50 ">
 			<Row>
-				<Col
-					xl="6"
-					className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-				>
-					<h3>FTP List</h3>
-				</Col>
+			<Col xl="6"
+			className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+			
+			>
+				<h3>FTP List</h3>
+			</Col>
 				<Col
 					xl="6"
 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
@@ -32,7 +32,7 @@ const CustomHeader = ({ handleFilter }) => {
 					<div className="d-flex align-items-center mb-sm-0 mb-1 mr-1 search-chairman-btn">
 						<Input
 							id="search-invoice"
-							className="ml-50 w-100"
+							className="ml-50 w-100 form-control-sm "
 							type="text"
 							size="sm"
 							name="search"
@@ -42,7 +42,7 @@ const CustomHeader = ({ handleFilter }) => {
 					</div>
 					<Button className="ml-2" size="sm" color="primary" tag={Link} to={'/ftp/add'}>
 						<Plus size={15} />
-						<span className="align-middle ml-50">Create</span>
+						<span className="align-middle ml-50" size="sm">Create</span>
 					</Button>
 				</Col>
 			</Row>

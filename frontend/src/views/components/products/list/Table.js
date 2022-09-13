@@ -37,11 +37,11 @@ import { Link } from 'react-router-dom';
 // ** Table Header
 const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
 	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
+		<div className="invoice-list-table-header w-100 mr-1 ml-50">
 			<Row>
 				<Col
 					xl="6"
-					className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
 					<h3>Products List</h3>
 				</Col>

@@ -12,7 +12,7 @@ export default [
 					<img className="img-fluid" style={{ width: '21px'}} src={source} alt="Login V2" />
 				</span>
 			</NavLink>
-		),
+		), 
 	},
 	{
 		id: 'dashboard',
