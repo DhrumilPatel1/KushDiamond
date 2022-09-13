@@ -75,7 +75,6 @@ export default productsSlice.reducer;
 export const productList = (queryString) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
-		console.log(getState(),"Token Get")
 		const config = {
 			headers: {
 				'Content-Type': 'application/json',
@@ -89,10 +88,17 @@ export const productList = (queryString) => async (dispatch, getState) => {
 	}
 };
 
-export const FtpGetDataList = () => async (dispatch) => {
+export const FtpGetDataList = () => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
-		const { data } = await FtpGetAllApi();
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+
+		const { data } = await FtpGetAllApi(config);
 
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
@@ -100,11 +106,17 @@ export const FtpGetDataList = () => async (dispatch) => {
 	}
 };
 
-export const productExcelUpload = (uploadfile) => async (dispatch) => {
+export const productExcelUpload = (uploadfile) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	const toastId = toast.loading('Please wait your excel Uploading...');
 	try {
-		const { data } = await ProductExcelUploadTypeOne(uploadfile);
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ProductExcelUploadTypeOne(uploadfile, config);
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
@@ -124,11 +136,17 @@ export const productExcelUpload = (uploadfile) => async (dispatch) => {
 	}
 };
 
-export const sendFeed = (sendFeedData, queryString) => async (dispatch) => {
+export const sendFeed = (sendFeedData, queryString) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	const toastId = toast.loading('Please wait FTP connection establish...');
 	try {
-		const { data } = await SendFeedAPI(sendFeedData, queryString);
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await SendFeedAPI(sendFeedData, queryString, config);
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			dispatch(FeedData(data));

@@ -33,43 +33,37 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
-export const ProductExcelUploadTypeOne = async (uploadexcel) => {
-	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
-		headers,
-	});
+export const ProductExcelUploadTypeOne = async (uploadexcel,config) => {
+	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel,config);
 };
 
-export const SendFeedAPI = async (SendFeedData, queryString) => {
-	return await axios.post(`${BASE_URL_API}/api/send_feed/?` + queryString, SendFeedData, {
-		headers,
-	});
+export const SendFeedAPI = async (SendFeedData, queryString, config) => {
+	return await axios.post(`${BASE_URL_API}/api/send_feed/?` + queryString, SendFeedData, config);
 };
 
-export const FtpListApi = async (queryString) => {
+export const FtpListApi = async (queryString, config) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/ftp/list/?` + queryString, {
-			headers,
-		})
+		.get(`${BASE_URL_API}/api/ftp/list/?` + queryString, config)
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
 
-export const FtpGetAllApi = async () => {
-	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`);
+export const FtpGetAllApi = async (config) => {
+	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`, config);
 };
 
-export const FtpCreateApi = async (reqData) => {
-	return await axios.post(`${BASE_URL_API}/api/ftp/create/`, reqData, { headers });
+export const FtpCreateApi = async (reqData, config) => {
+	return await axios.post(`${BASE_URL_API}/api/ftp/create/`, reqData, config);
 };
 
-export const FtpViewApi = async (view_id) => {
-	return await axios.get(`${BASE_URL_API}/api/ftpclientview/${view_id}`, { headers });
+export const FtpViewApi = async (view_id, config) => {
+	return await axios.get(`${BASE_URL_API}/api/ftpclientview/${view_id}`, config);
 };
 
-export const FtpUpdateApi = async (update_id, updatedata) => {
-	return await axios.put(`${BASE_URL_API}/api/ftp/modify/${update_id}`, updatedata, { headers });
+export const FtpUpdateApi = async (update_id, updatedata, config) => {
+	return await axios.put(`${BASE_URL_API}/api/ftp/modify/${update_id}`, updatedata, config);
 };
 
-export const FtpDeleteApi = async (delete_id) => {
-	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, { headers });
+export const FtpDeleteApi = async (delete_id, config) => {
+	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, config);
 };
