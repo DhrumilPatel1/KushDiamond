@@ -3,10 +3,10 @@ import { Heart } from 'react-feather';
 
 const Footer = () => {
 	return (
-		<p className="clearfix mb-0">
-			<span className="float-md-left d-block d-md-inline-block mt-25">
+		<p className="clearfix">
+			<span className="float-md-left d-block d-md-inline-block">
 				COPYRIGHT © {new Date().getFullYear()}{' '}
-				<a href="http://localhost:3000/dashboard" target="_blank" rel="noopener noreferrer">
+				<a  target="_blank" rel="noopener noreferrer">
 					Kush Diamond
 				</a>
 				<span className="d-none d-sm-inline-block">, All rights Reserved</span>
