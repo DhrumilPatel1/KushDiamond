@@ -114,7 +114,7 @@ const DashboardList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `You won't be able to revert this! ${productData?.count}`,
+			text: `Products filtered total count: ${productData?.count}`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'send Feed',

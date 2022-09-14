@@ -190,7 +190,7 @@ const UpdateFtp = () => {
 										<FormGroup>
 											<Label for="password">Password</Label>
 											<Field
-												type="password"
+												type="text"
 												name="password"
 												id="password"
 												className="form-control"
