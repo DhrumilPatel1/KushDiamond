@@ -105,7 +105,7 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="port">Port</Label>
 											<Field
-												type="text"
+												type="number"
 												name="port"
 												id="port"
 												className="form-control"

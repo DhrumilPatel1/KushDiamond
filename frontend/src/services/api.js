@@ -1,6 +1,5 @@
 import axios from 'axios';
-// import authHeader from "./auth-token";
-const BASE_URL_API = 'http://192.168.1.47:8000';
+const BASE_URL_API = 'http://192.168.1.10:8000';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
@@ -12,9 +11,6 @@ const api = axios.create({
 	baseURL: BASE_URL_API,
 	headers,
 });
-
-// console.log("accessToken---------",accessToken)
-// console.log("accessToken---------",BASE_URL_API)
 
 export const AdminLoginAPI = async (reqData) => {
 	return await axios.post(`${BASE_URL_API}/api/login/`, reqData, {
