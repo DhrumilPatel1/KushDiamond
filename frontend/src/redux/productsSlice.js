@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
-import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
+import {
+	FtpGetAllApi,
+	ImageUploadApi,
+	ProductApi,
+	ProductExcelUploadTypeOne,
+	SendFeedAPI,
+} from '../services/api';
 import toast from 'react-hot-toast';
 
 export const productsSlice = createSlice({
@@ -8,6 +14,7 @@ export const productsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		productData: [],
+		ImageUploaFileData: [],
 		excelTypeOne: [],
 		ftpGetAllData: [],
 		FeedData: [],
@@ -31,6 +38,10 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
 		},
+		ImageUploaFileData: (state, action) => {
+			state.isLoading = false;
+			state.ImageUploaFileData = action.payload;
+		},
 		handleErrorList: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
@@ -53,6 +64,7 @@ export const productsSlice = createSlice({
 export const {
 	productGetData,
 	ftpgetAllDatalist,
+	ImageUploaFileData,
 	handleErrorList,
 	excelTypeOne,
 	excelTypeOneReset,
@@ -74,6 +86,30 @@ export const productList = (queryString) => async (dispatch) => {
 	}
 };
 
+export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
+	dispatch(setLoading());
+	try {
+		const { data } = await ImageUploadApi(img_upload);
+		console.log(data, 'data');
+
+		const { statusCode, message } = data;
+
+		if (statusCode === 200) {
+			toast.success(message);
+			dispatch(ImageUploaFileData(data));
+		}
+	} catch (error) {
+		console.log(error, 'error');
+		if (error.response && error.response.data.errors) {
+			console.log('1');
+			return dispatch(handleErrorList(error.response.data.errors));
+		} else {
+			console.log('2');
+			return dispatch(handleErrorList(error.message));
+		}
+	}
+};
+
 export const FtpGetDataList = () => async (dispatch) => {
 	dispatch(setLoading());
 	try {
@@ -81,7 +117,7 @@ export const FtpGetDataList = () => async (dispatch) => {
 
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
-		dispatch(ftpErrorList(err));
+		dispatch(handleErrorList(err));
 	}
 };
 

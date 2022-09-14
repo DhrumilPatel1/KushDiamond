@@ -73,3 +73,9 @@ export const FtpLogListApi = async (queryString) => {
 		headers,
 	});
 };
+
+export const ImageUploadApi = async (imgFile) => {
+	return await axios.post(`${BASE_URL_API}/api/uploadfile/8`, imgFile, {
+		headers,
+	});
+};

@@ -40,12 +40,6 @@ const CreateFtp = () => {
 		};
 	}, [ftpCreateData]);
 
-	// const handleChange = (e) => {
-	// 	for (const file of e.target.files) {
-	// 		console.log(file, 'files');
-	// 	}
-	// };
-
 	return (
 		<>
 			<Breadcrumbs breadCrumbTitle="FTP Create" breadCrumbParent="Ftp" breadCrumbActive="Create" />
@@ -62,7 +56,6 @@ const CreateFtp = () => {
 							folder_path: '',
 						}}
 						validationSchema={FtpCreateSchema}
-						// validateOnChange
 						onSubmit={(values) => {
 							dispatch(FtpCreateRequest(values));
 						}}
@@ -181,15 +174,6 @@ const CreateFtp = () => {
 											) : null}
 										</FormGroup>
 									</Col>
-									{/* <Col md="6" sm="12">
-										<input
-											type="file"
-											onChange={(e) => handleChange(e)}
-											webkitdirectory=""
-											directory=""
-											multiple
-										/>
-									</Col> */}
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple className="mr-1" color="primary" type="submit">
