@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL_API = 'http://192.168.1.10:8000';
+const BASE_URL_API = 'http://192.168.1.32:8000';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {

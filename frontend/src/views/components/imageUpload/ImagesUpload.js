@@ -1,19 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-// import * as yup from 'yup';
+import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
-// import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { ImagesUploadRequest } from '../../../redux/productsSlice';
-
-// const ImageUploadSchema = yup.object().shape({
-// 	product_img: yup.mixed().required('You need to provide a file'),
-// });
 
 const ImagesUpload = () => {
 	const dispatch = useDispatch();
 
 	const { ImageUploaFileData, error } = useSelector((state) => state.products);
-	console.log(error, 'error');
 
 	const [image, setImage] = useState([]);
 
@@ -26,7 +19,15 @@ const ImagesUpload = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		let formData = new FormData();
-		[...image].forEach((file) => formData.append('product_img', file));
+
+		[...image].forEach((file) => {
+			formData.append('product_img', file),
+				formData.append(
+					'folder_name',
+					file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/') + 1)
+				);
+		});
+
 		dispatch(ImagesUploadRequest(formData));
 		e.target.reset();
 	};
@@ -43,14 +44,13 @@ const ImagesUpload = () => {
 									<Input
 										type="file"
 										name="product_img"
+										accept="image/*"
 										onChange={(e) => handleChange(e)}
 										webkitdirectory=""
 										directory=""
 										multiple
 									/>
-									{/* {errors.product_img && touched.product_img ? (
-										<div className="error-sm">{errors.product_img}</div>
-									) : null} */}
+									{error && error.message ? <div className="error-sm">{error.message}</div> : null}
 								</FormGroup>
 							</Col>
 							<Col sm="12">
@@ -58,9 +58,6 @@ const ImagesUpload = () => {
 									<Button.Ripple className="mr-1" color="primary" type="submit">
 										Submit
 									</Button.Ripple>
-									{/* <Button.Ripple color="secondary" tag={Link} to="/ftp/list" outline>
-												Back
-											</Button.Ripple> */}
 								</FormGroup>
 							</Col>
 						</Row>

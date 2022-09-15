@@ -58,6 +58,11 @@ export const productsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
+		ProductResetData: (state) => {
+			state.isLoading = false;
+			state.error = null;
+			state.ImageUploaFileData = [];
+		},
 	},
 });
 
@@ -72,6 +77,7 @@ export const {
 	FeedData,
 	handleErrorExcel,
 	FeedDataError,
+	ProductResetData,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -88,9 +94,9 @@ export const productList = (queryString) => async (dispatch) => {
 
 export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
 	dispatch(setLoading());
+
 	try {
 		const { data } = await ImageUploadApi(img_upload);
-		console.log(data, 'data');
 
 		const { statusCode, message } = data;
 
@@ -99,12 +105,9 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
 			dispatch(ImageUploaFileData(data));
 		}
 	} catch (error) {
-		console.log(error, 'error');
 		if (error.response && error.response.data.errors) {
-			console.log('1');
 			return dispatch(handleErrorList(error.response.data.errors));
 		} else {
-			console.log('2');
 			return dispatch(handleErrorList(error.message));
 		}
 	}
