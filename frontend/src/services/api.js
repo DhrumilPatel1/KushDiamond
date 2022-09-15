@@ -29,6 +29,10 @@ export const ProductApi = async (queryString) => {
 		.catch((err) => console.log(err));
 };
 
+export const ProductsDetailApi = async (view_id) => {
+	return await axios.get(`${BASE_URL_API}/api/productview/${view_id}`, { headers });
+};
+
 export const ProductExcelUploadTypeOne = async (uploadexcel) => {
 	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, {
 		headers,
@@ -75,7 +79,7 @@ export const FtpLogListApi = async (queryString) => {
 };
 
 export const ImageUploadApi = async (imgFile) => {
-	return await axios.post(`${BASE_URL_API}/api/uploadfile/8`, imgFile, {
+	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, {
 		headers,
 	});
 };

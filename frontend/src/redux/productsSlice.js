@@ -5,6 +5,7 @@ import {
 	ImageUploadApi,
 	ProductApi,
 	ProductExcelUploadTypeOne,
+	ProductsDetailApi,
 	SendFeedAPI,
 } from '../services/api';
 import toast from 'react-hot-toast';
@@ -14,6 +15,7 @@ export const productsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		productData: [],
+		productViewData: [],
 		ImageUploaFileData: [],
 		excelTypeOne: [],
 		ftpGetAllData: [],
@@ -27,6 +29,11 @@ export const productsSlice = createSlice({
 		productGetData: (state, action) => {
 			state.isLoading = false;
 			state.productData = action.payload;
+		},
+
+		productViewData: (state, action) => {
+			state.isLoading = false;
+			state.productViewData = action.payload;
 		},
 
 		ftpgetAllDatalist: (state, action) => {
@@ -68,6 +75,7 @@ export const productsSlice = createSlice({
 
 export const {
 	productGetData,
+	productViewData,
 	ftpgetAllDatalist,
 	ImageUploaFileData,
 	handleErrorList,
@@ -97,6 +105,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
 
 	try {
 		const { data } = await ImageUploadApi(img_upload);
+		console.log(data, 'data');
 
 		const { statusCode, message } = data;
 
@@ -105,6 +114,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
 			dispatch(ImageUploaFileData(data));
 		}
 	} catch (error) {
+		console.log(error.response, 'error.response');
 		if (error.response && error.response.data.errors) {
 			return dispatch(handleErrorList(error.response.data.errors));
 		} else {
@@ -121,6 +131,23 @@ export const FtpGetDataList = () => async (dispatch) => {
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
 		dispatch(handleErrorList(err));
+	}
+};
+
+export const ProductsDetialRequest = (details_id) => async (dispatch) => {
+	dispatch(setLoading());
+	try {
+		const { data } = await ProductsDetailApi(details_id);
+		const { statusCode } = data;
+		if (statusCode === 200) {
+			dispatch(productViewData(data));
+		}
+	} catch (error) {
+		console.log(error.response);
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			toast.error(message);
+		}
 	}
 };
 

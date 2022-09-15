@@ -7,6 +7,7 @@ const ImagesUpload = () => {
 	const dispatch = useDispatch();
 
 	const { ImageUploaFileData, error } = useSelector((state) => state.products);
+	console.log(error, 'error');
 
 	const [image, setImage] = useState([]);
 
