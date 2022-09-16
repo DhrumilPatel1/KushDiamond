@@ -17,13 +17,13 @@ import { FtpLogListRequest } from '../../../../redux/FtpLogSlice';
 // ** Table Header
 const CustomHeader = () => {
 	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75">
+		<div className="invoice-list-table-header w-100 mr-1 ml-50">
 			<Row>
 				<Col
 					xl="6"
-					className="d-flex justify-content-lg-start justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
-					<h1>FTPLog List</h1>
+					<h3>FTP Log List</h3>
 				</Col>
 			</Row>
 		</div>

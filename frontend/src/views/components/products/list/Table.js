@@ -51,7 +51,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 				>
 					<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
 						<Share size={15} />
-						Import
+						Import Excel
 						<Input type="file" onChange={ExcelTypeOne} hidden />
 					</Button.Ripple>
 					{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
