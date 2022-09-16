@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
-import { FtpGetAllApi, ProductApi, ProductExcelUploadTypeOne, SendFeedAPI } from '../services/api';
+import { FtpGetAllApi, ImageUploadApi, ProductApi, ProductExcelUploadTypeOne, ProductsDetailApi, SendFeedAPI } from '../services/api';
 import toast, { Toaster } from 'react-hot-toast';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -16,6 +16,8 @@ export const productsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		productData: [],
+		productViewData: [],
+		ImageUploaFileData: [],
 		excelTypeOne: [],
 		ftpGetAllData: [],
 		FeedData: [],
@@ -30,6 +32,11 @@ export const productsSlice = createSlice({
 			state.productData = action.payload;
 		},
 
+		productViewData: (state, action) => {
+			state.isLoading = false;
+			state.productViewData = action.payload;
+		},
+
 		ftpgetAllDatalist: (state, action) => {
 			state.isLoading = false;
 			state.ftpGetAllData = action.payload?.ftp_data;
@@ -39,6 +46,12 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
 		},
+
+		ImageUploaFileData: (state, action) => {
+			state.isLoading = false;
+			state.ImageUploaFileData = action.payload;
+		},
+
 		handleErrorList: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
@@ -55,12 +68,19 @@ export const productsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
+		ProductResetData: (state) => {
+			state.isLoading = false;
+			state.error = null;
+			state.ImageUploaFileData = [];
+		},
 	},
 });
 
 export const {
 	productGetData,
+	productViewData,
 	ftpgetAllDatalist,
+	ImageUploaFileData,
 	handleErrorList,
 	excelTypeOne,
 	excelTypeOneReset,
@@ -68,6 +88,7 @@ export const {
 	FeedData,
 	handleErrorExcel,
 	FeedDataError,
+	ProductResetData,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -88,6 +109,34 @@ export const productList = (queryString) => async (dispatch, getState) => {
 	}
 };
 
+export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) => {
+	dispatch(setLoading());
+
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ImageUploadApi(img_upload, config);
+		console.log(data, 'data');
+
+		const { statusCode, message } = data;
+
+		if (statusCode === 200) {
+			toast.success(message);
+			dispatch(ImageUploaFileData(data));
+		}
+	} catch (error) {
+		if (error.response && error.response.data.errors) {
+			return dispatch(handleErrorList(error.response.data.errors));
+		} else {
+			return dispatch(handleErrorList(error.message));
+		}
+	}
+};
+
 export const FtpGetDataList = () => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
@@ -103,6 +152,29 @@ export const FtpGetDataList = () => async (dispatch, getState) => {
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));
+	}
+};
+
+export const ProductsDetialRequest = (details_id) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ProductsDetailApi(details_id, config);
+		const { statusCode } = data;
+		if (statusCode === 200) {
+			dispatch(productViewData(data));
+		}
+	} catch (error) {
+		console.log(error.response);
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			toast.error(message);
+		}
 	}
 };
 

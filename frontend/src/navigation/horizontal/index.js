@@ -8,15 +8,17 @@ import formsAndTables from './forms-tables';
 import chartsAndMaps from './charts-maps';
 import ftp from './ftp';
 import products from './products';
-
+import ftplog from './ftplog';
+import imageUpload from './imageUpload';
 
 // ** Merge & Export
 export default [
 	...dashboards,
 	...ftp,
-	 ...products,
+	// ...ftplog,
+	...products,
+	...imageUpload,
 	// ...others,
 	// ...pages,
 	// ...apps,
-	
 ];

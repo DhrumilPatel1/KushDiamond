@@ -37,15 +37,6 @@ export const FtpsSlice = createSlice({
 			state.ftpViewData = action.payload?.data;
 		},
 
-		// ftpCreateData: (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.ftpCreateData = action.payload;
-		// },
-		// FtpCreateError: (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.FtpCreateError = action.payload;
-		// },
-
 		ftpCreateData: (state, action) => {
 			state.isLoading = false;
 			state.ftpCreateData = action.payload?.data;
@@ -55,11 +46,6 @@ export const FtpsSlice = createSlice({
 			state.isLoading = false;
 			state.ftpUpdateData = action.payload?.data;
 		},
-
-		// ftpUpdateData: (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.ftpUpdateData = action.payload?.data;
-		// },
 
 		ftpErrorList: (state, action) => {
 			state.error = action.payload;
@@ -130,26 +116,6 @@ export const FtpViewList = (id) => async (dispatch, getState) => {
 	}
 };
 
-// export const FtpUpdateList = (id, updatedata) => async (dispatch, getState) => {
-// 	dispatch(setLoading());
-// 	try {
-// 		const config = {
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 				Authorization: getState()?.auth?.Token,
-// 			},
-// 		};
-// 		const { data } = await FtpUpdateApi(id, updatedata, config);
-// 		dispatch(ftpUpdateData(data));
-// 	} catch (error) {
-// 		if (error.response && error.response.data.errors) {
-// 			return dispatch(ftpErrorList(error.response.data.errors));
-// 		} else {
-// 			return dispatch(ftpErrorList(error.message));
-// 		}
-// 	}
-// };
-
 export const FtpUpdateList = (id, updatedata) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
@@ -174,31 +140,6 @@ export const FtpUpdateList = (id, updatedata) => async (dispatch, getState) => {
 		}
 	}
 };
-
-// export const FtpCreateRequest = (ftpData) => async (dispatch,getState) => {
-// 	dispatch(setLoading());
-// 	try {
-// 		const config = {
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 				Authorization: getState()?.auth?.Token,
-// 			},
-// 		};
-// 		const { data } = await FtpCreateApi(ftpData,config);
-// 		const { statusCode, error, errors, message } = data;
-// 		if (error) {
-// 			dispatch(ftpErrorList(errors));
-// 		}
-// 		if (statusCode === 201) {
-// 			dispatch(ftpCreateData(data));
-// 		}
-// 	} catch (err) {
-// 		const { statusCode } = err.response.data;
-// 		if (statusCode == 422) {
-// 			dispatch(FtpCreateError(err.response.data));
-// 		}
-// 	}
-// };
 
 export const FtpCreateRequest = (ftpData) => async (dispatch, getState) => {
 	dispatch(setLoading());

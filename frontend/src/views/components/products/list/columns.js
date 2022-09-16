@@ -10,6 +10,7 @@ import {
 	Badge,
 } from 'reactstrap';
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
+import ProductsActionIcon from '../ProductsActionIcon';
 
 const statusObj = {
 	active: 'success',
@@ -82,6 +83,18 @@ export const columns = [
 				{row.is_active === true ? 'active' : 'inactive'}
 			</Badge>
 		),
+	},
+
+	{
+		name: 'Actions',
+		// minWidth: '100px',
+		cell: (row) => {
+			return (
+				<div className="d-inline ">
+					<ProductsActionIcon id={row.id} />
+				</div>
+			);
+		},
 	},
 	// {
 	// 	name: 'Actions',

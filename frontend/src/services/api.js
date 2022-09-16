@@ -33,8 +33,12 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
-export const ProductExcelUploadTypeOne = async (uploadexcel,config) => {
-	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel,config);
+export const ProductsDetailApi = async (view_id, config) => {
+	return await axios.get(`${BASE_URL_API}/api/productview/${view_id}`, config);
+};
+
+export const ProductExcelUploadTypeOne = async (uploadexcel, config) => {
+	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, config);
 };
 
 export const SendFeedAPI = async (SendFeedData, queryString, config) => {
@@ -66,4 +70,12 @@ export const FtpUpdateApi = async (update_id, updatedata, config) => {
 
 export const FtpDeleteApi = async (delete_id, config) => {
 	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, config);
+};
+
+export const FtpLogListApi = async (queryString,config) => {
+	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, config);
+};
+
+export const ImageUploadApi = async (imgFile, config) => {
+	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, config);
 };
