@@ -7,7 +7,6 @@ const ImagesUpload = () => {
 	const dispatch = useDispatch();
 
 	const { ImageUploaFileData, error } = useSelector((state) => state.products);
-	console.log(error, 'error');
 
 	const [image, setImage] = useState([]);
 
@@ -42,6 +41,7 @@ const ImagesUpload = () => {
 							<Col md="6" sm="12">
 								<FormGroup>
 									<Label for="folder_path">Image Upload</Label>
+
 									<Input
 										type="file"
 										name="product_img"

@@ -114,7 +114,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch) => {
 			dispatch(ImageUploaFileData(data));
 		}
 	} catch (error) {
-		console.log(error.response, 'error.response');
+		
 		if (error.response && error.response.data.errors) {
 			return dispatch(handleErrorList(error.response.data.errors));
 		} else {
