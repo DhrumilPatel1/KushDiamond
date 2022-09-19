@@ -92,3 +92,19 @@ footer.footer{
 .react-dataTable header{
 	min-height: 42px;
 }
+
+.label_width{
+	width: 70%;
+} 
+.stone_image_container img{
+	width: 230px;
+    height: 160px;
+    margin: 10px auto;
+    display: block;
+    object-fit: cover;
+	max-width: 100%;
+}
+.upload_btn{
+	margin: 0 auto;
+    display: block;
+}

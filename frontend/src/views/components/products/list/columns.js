@@ -87,7 +87,7 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		// minWidth: '100px',
+		minWidth: '135px',
 		cell: (row) => {
 			return (
 				<div className="d-inline ">
