@@ -1,10 +1,10 @@
-import { Box, Package } from 'react-feather';
+import { Box, Image, Package, Server } from 'react-feather';
 
 export default [
 	{
 		id: 'products',
 		title: 'Products',
-		icon: <Package size={20} />,
+		icon: <Box size={20} />,
 		// navLink: '/products/list',
 		children: [
 			{
@@ -16,7 +16,7 @@ export default [
 			{
 				id: 'products',
 				title: 'Products',
-				icon: <Server size={12} />,
+				icon: <Package size={12} />,
 				navLink: '/products/list',
 			},
 		],
