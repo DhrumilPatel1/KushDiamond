@@ -17,7 +17,7 @@ export default [
 	...ftp,
 	// ...ftplog,
 	...products,
-	...imageUpload,
+	// ...imageUpload,
 	// ...others,
 	// ...pages,
 	// ...apps,
