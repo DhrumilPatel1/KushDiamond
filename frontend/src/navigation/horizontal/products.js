@@ -1,4 +1,4 @@
-import { Box, Package } from 'react-feather';
+import { Box, Package,Server } from 'react-feather';
 
 export default [
 	{
