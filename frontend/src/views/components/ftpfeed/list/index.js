@@ -4,7 +4,7 @@ import Table from './Table';
 // ** Styles
 import '@styles/react/apps/app-users.scss';
 
-const DashboardList = () => {
+const FtpFeedList = () => {
 	return (
 		<div className="app-user-list">
 			{/* <h1>Dashboard</h1> */}
@@ -13,4 +13,4 @@ const DashboardList = () => {
 	);
 };
 
-export default DashboardList;
+export default FtpFeedList;

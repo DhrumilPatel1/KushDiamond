@@ -1,5 +1,6 @@
 // ** Third Party Components
 import { Badge } from 'reactstrap';
+import moment from 'moment';
 
 const statusObj = {
 	success: 'light-success',
@@ -7,6 +8,20 @@ const statusObj = {
 };
 
 export const columns = [
+	{
+		name: 'Host',
+		minWidth: '130px',
+		selector: 'client',
+		sortable: true,
+		cell: (row) => row.client,
+	},
+	{
+		name: 'Date',
+		minWidth: '130px',
+		selector: 'created_at',
+		sortable: true,
+		cell: (row) => moment(row.created_at).format('DD/MM/YYYY'),
+	},
 	{
 		name: 'File',
 		minWidth: '130px',

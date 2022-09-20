@@ -2,14 +2,14 @@ import { Server } from 'react-feather';
 
 export default [
 	{
-		id: 'ftp_setup',
-		title: 'FTP Setup',
+		id: 'ftp',
+		title: 'FTP',
 		icon: <Server size={20} />,
 		// navLink: '/ftp/list',
 		children: [
 			{
-				id: 'ftp',
-				title: 'FTP',
+				id: 'ftp_list',
+				title: 'FTP List',
 				icon: <Server size={12} />,
 				navLink: '/ftp/list',
 			},
@@ -18,6 +18,12 @@ export default [
 				title: 'FTP Log',
 				icon: <Server size={20} />,
 				navLink: '/ftplog/list',
+			},
+			{
+				id: 'ftpfeed',
+				title: 'FTP Feed',
+				icon: <Server size={20} />,
+				navLink: '/ftpfeed/list',
 			},
 		],
 	},

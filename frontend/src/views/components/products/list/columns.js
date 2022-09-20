@@ -70,6 +70,78 @@ export const columns = [
 	},
 
 	{
+		name: 'Lab',
+		minWidth: '100px',
+		selector: 'lab',
+		sortable: true,
+		cell: (row) => row.lab,
+	},
+
+	{
+		name: 'Cut',
+		minWidth: '100x',
+		selector: 'cut',
+		sortable: true,
+		cell: (row) => (row.cut == '' ? '-' : row.cut),
+	},
+
+	{
+		name: 'Dept',
+		minWidth: '100px',
+		selector: 'dept',
+		sortable: true,
+		cell: (row) => (row.dept == '' ? '-' : row.dept),
+	},
+
+	{
+		name: 'Fl',
+		minWidth: '100px',
+		selector: 'fl',
+		sortable: true,
+		cell: (row) => (row.fl == '' ? '-' : row.fl),
+	},
+
+	{
+		name: 'Girdle',
+		minWidth: '190px',
+		selector: 'girdle',
+		sortable: true,
+		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+	},
+
+	{
+		name: 'Cul',
+		minWidth: '100px',
+		selector: 'cul',
+		sortable: true,
+		cell: (row) => (row.cul == '' ? '-' : row.cul),
+	},
+
+	{
+		name: 'Pol',
+		minWidth: '100px',
+		selector: 'pol',
+		sortable: true,
+		cell: (row) => (row.pol == '' ? '-' : row.pol),
+	},
+
+	{
+		name: 'Rap',
+		minWidth: '100px',
+		selector: 'rap',
+		sortable: true,
+		cell: (row) => (row.rap == '' ? '-' : row.rap),
+	},
+
+	{
+		name: 'Sym',
+		minWidth: '100px',
+		selector: 'sym',
+		sortable: true,
+		cell: (row) => (row.sym == '' ? '-' : row.sym),
+	},
+
+	{
 		name: 'Status',
 		minWidth: '138px',
 		selector: 'is_active',
@@ -96,23 +168,4 @@ export const columns = [
 			);
 		},
 	},
-	// {
-	// 	name: 'Actions',
-	// 	minWidth: '150px',
-	// 	cell: (row) => {
-	// 		return (
-	// 			<div className="d-inline ">
-	// 				<Link to={`/admin/instructions/view/${row.id}`} className="text-primary">
-	// 					<Eye size={18} />
-	// 				</Link>
-
-	// 				<Link to={`/admin/instructions/edit/${row.id}`} className="text-warning mx-1">
-	// 					<Edit size={18} />
-	// 				</Link>
-
-	// 				<Trash2 className="text-danger" size={18} style={{ cursor: 'pointer' }} />
-	// 			</div>
-	// 		);
-	// 	},
-	// },
 ];

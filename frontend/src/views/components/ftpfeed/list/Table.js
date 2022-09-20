@@ -32,14 +32,14 @@ import toast from 'react-hot-toast';
 
 const OpenSwal = withReactContent(Swal);
 
-const DashboardList = () => {
+const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
 	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
 	// const { FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
-console.log(productData,"productData")
+	console.log(productData, 'productData');
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
@@ -326,4 +326,4 @@ console.log(productData,"productData")
 	);
 };
 
-export default DashboardList;
+export default FtpFeedList;

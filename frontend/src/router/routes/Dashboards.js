@@ -4,7 +4,7 @@ const DashboardRoutes = [
 	{
 		path: '/dashboard',
 		exact: true,
-		component: lazy(() => import('../../views/pages/dashboard/list')),
+		component: lazy(() => import('../../views/pages/dashboard/analytics')),
 	},
 ];
 
