@@ -94,8 +94,14 @@ footer.footer{
 	margin-bottom: 0;
 }
 .react-dataTable header{
-	min-height: 42px;
+	min-height: 8px;
 }
+
+.header_text_size{
+	font-size: 15px;
+}
+
+
 .horizontal-menu .horizontal-menu-wrapper .header-navbar{
 min-height: 2.45rem !important;
 }
@@ -123,4 +129,12 @@ min-height: 2.45rem !important;
 }
 .dGqwdB{
 	border:  0 !important;
+	height: 30px !important;
 }
+
+
+
+// .react-read-more-read-less-more{
+// 	margin-left: 80px;
+// }
+

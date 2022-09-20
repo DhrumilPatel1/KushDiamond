@@ -23,7 +23,7 @@ const CustomHeader = ({ handleFilter }) => {
 			className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 			
 			>
-				<h3>FTP List</h3>
+				<h3 className='header_text_size'>FTP List</h3>
 			</Col>
 				<Col
 					xl="6"
@@ -108,7 +108,7 @@ const FtpList = () => {
 	useEffect(() => {
 		dispatch(FtpClientList());
 	}, []);
-
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
 	return (
 		<Fragment>
 			<Card>
@@ -130,7 +130,7 @@ const FtpList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					fixedHeader
-					fixedHeaderScrollHeight="400px"
+					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					subHeaderComponent={<CustomHeader value={filter_value} handleFilter={handleFilter} />}

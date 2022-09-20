@@ -23,7 +23,7 @@ const CustomHeader = () => {
 					xl="6"
 					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
-					<h3>FTP Log List</h3>
+					<h3 className='header_text_size'>FTP Log List</h3>
 				</Col>
 			</Row>
 		</div>
@@ -72,6 +72,8 @@ const FtpLogList = () => {
 		setQueryString(queryStr);
 	};
 
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
+
 	return (
 		<Fragment>
 			<Card>
@@ -92,7 +94,7 @@ const FtpLogList = () => {
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					fixedHeader
-					fixedHeaderScrollHeight="450px"
+					fixedHeaderScrollHeight={dynamicHeight}
 					subHeaderComponent={<CustomHeader />}
 				/>
 			</Card>

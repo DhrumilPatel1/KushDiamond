@@ -152,6 +152,8 @@ const FtpFeedList = () => {
 		e.preventDefault();
 		setFilterColor(e.target.value);
 	};
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
+
 	return (
 		<Fragment>
 			{/* <Card> */}
@@ -317,7 +319,7 @@ const FtpFeedList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					fixedHeader
-					fixedHeaderScrollHeight="450px"
+					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
 					progressPending={productData.length == 0 ? true : false}
 				/>

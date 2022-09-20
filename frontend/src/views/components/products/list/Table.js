@@ -43,7 +43,7 @@ const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTyp
 					xl="6"
 					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 				>
-					<h3>Products List</h3>
+					<h3 className='header_text_size'>Products List</h3>
 				</Col>
 				<Col
 					xl="6"
@@ -139,6 +139,8 @@ const ProductsList = () => {
 		dispatch(productList());
 	}, []);
 
+	const dynamicHeight = Math.min(productData?.results?.length * 4 + 1, 70) + 'vh'
+
 	return (
 		<Fragment>
 			{/* <Card>
@@ -198,7 +200,7 @@ const ProductsList = () => {
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					fixedHeader
-					fixedHeaderScrollHeight="450px"
+					fixedHeaderScrollHeight={dynamicHeight}
 					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>

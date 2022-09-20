@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 
 
 const EditProducts = () => {
 	return (
-		<Card>
+		<Card style={{height:"600px"}}>
 			<CardBody>
 				<Form>
 					<Row>
