@@ -198,7 +198,7 @@ const ProductsList = () => {
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					fixedHeader
-					fixedHeaderScrollHeight="400px"
+					fixedHeaderScrollHeight="450px"
 					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>

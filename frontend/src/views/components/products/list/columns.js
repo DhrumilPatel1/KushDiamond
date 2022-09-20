@@ -13,8 +13,8 @@ import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 import ProductsActionIcon from '../ProductsActionIcon';
 
 const statusObj = {
-	active: 'success',
-	inactive: 'danger',
+	active: 'light-success',
+	inactive: 'light-danger',
 };
 
 export const columns = [

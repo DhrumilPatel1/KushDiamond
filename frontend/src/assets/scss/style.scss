@@ -16,8 +16,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .main-menu-content{
 	display: flex;
 }
-.react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell{
-	height: 35px !important;
+.react-dataTable  .rdt_TableBody .rdt_TableRow .rdt_TableCell{
+	height: 0 !important;
+}
+.rdt_TableRow:nth-child(even){
+	background-color: #FAFAFA;
 }
 #main-menu-navigation .nav-item .nav-link{
 	margin: -10px 0 -10px -14px;
@@ -58,11 +61,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 footer.footer{
 	min-height: 2rem;
 }
-.navbar-static .app-content{
-	padding: 1rem !important;
+.navbar-static .app-content {
+	padding: 10px 15px 0 15px !important;
 }
+
 .rdt_Pagination{
-	min-height: 40px !important;
+	min-height: 0px !important;
 }
 .navbar-brand span{
 	font-size: 20px;
@@ -91,4 +95,14 @@ footer.footer{
 }
 .react-dataTable header{
 	min-height: 42px;
+}
+.horizontal-menu .horizontal-menu-wrapper .header-navbar{
+min-height: 2.45rem !important;
+}
+[dir] .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
+    padding: 0.77rem 1.5rem !important;
+}
+
+.horizontal-layout.navbar-static .content {
+    min-height: calc(100% - calc(4.45rem + calc(3.35rem + 3.15rem))) !important;
 }

@@ -2,8 +2,8 @@
 import { Badge } from 'reactstrap';
 
 const statusObj = {
-	success: 'success',
-	error: 'danger',
+	success: 'light-success',
+	error: 'light-danger',
 };
 
 export const columns = [

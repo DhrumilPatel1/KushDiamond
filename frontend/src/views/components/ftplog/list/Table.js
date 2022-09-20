@@ -91,6 +91,8 @@ const FtpLogList = () => {
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
+					fixedHeader
+					fixedHeaderScrollHeight="450px"
 					subHeaderComponent={<CustomHeader />}
 				/>
 			</Card>

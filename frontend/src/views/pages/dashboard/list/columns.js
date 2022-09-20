@@ -12,11 +12,9 @@ import {
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 
 const statusObj = {
-	active: 'success',
-	inactive: 'danger',
+	active: 'light-success',
+	inactive: 'light-danger',
 };
-
-
 
 export const columns = [
 	{
@@ -69,6 +67,80 @@ export const columns = [
 		sortable: true,
 		cell: (row) => row.certificate_no,
 	},
+
+	{
+		name: 'Lab',
+		minWidth: '100px',
+		selector: 'lab',
+		sortable: true,
+		cell: (row) => row.lab,
+	},
+
+	{
+		name: 'Cut',
+		minWidth: '100x',
+		selector: 'cut',
+		sortable: true,
+		cell: (row) => (row.cut == '' ? '-' : row.cut),
+	},
+
+	{
+		name: 'Dept',
+		minWidth: '100px',
+		selector: 'dept',
+		sortable: true,
+		cell: (row) => (row.dept == '' ? '-' : row.dept),
+	},
+
+	{
+		name: 'Fl',
+		minWidth: '100px',
+		selector: 'fl',
+		sortable: true,
+		cell: (row) => (row.fl == '' ? '-' : row.fl),
+	},
+
+	{
+		name: 'Girdle',
+		minWidth: '190px',
+		selector: 'girdle',
+		sortable: true,
+		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+	},
+
+	{
+		name: 'Cul',
+		minWidth: '100px',
+		selector: 'cul',
+		sortable: true,
+		cell: (row) => (row.cul == '' ? '-' : row.cul),
+	},
+
+	{
+		name: 'Pol',
+		minWidth: '100px',
+		selector: 'pol',
+		sortable: true,
+		cell: (row) => (row.pol == '' ? '-' : row.pol),
+	},
+
+	{
+		name: 'Rap',
+		minWidth: '100px',
+		selector: 'rap',
+		sortable: true,
+		cell: (row) => (row.rap == '' ? '-' : row.rap),
+	},
+	
+	{
+		name: 'Sym',
+		minWidth: '100px',
+		selector: 'sym',
+		sortable: true,
+		cell: (row) => (row.sym == '' ? '-' : row.sym),
+	},
+
+	
 
 	{
 		name: 'Status',

@@ -39,7 +39,7 @@ const DashboardList = () => {
 	// const { FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
-
+console.log(productData,"productData")
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
@@ -317,7 +317,7 @@ const DashboardList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					fixedHeader
-					fixedHeaderScrollHeight="400px"
+					fixedHeaderScrollHeight="450px"
 					paginationPerPage={table_data.per_page}
 					progressPending={productData.length == 0 ? true : false}
 				/>
