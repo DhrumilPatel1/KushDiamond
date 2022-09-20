@@ -106,3 +106,18 @@ min-height: 2.45rem !important;
 .horizontal-layout.navbar-static .content {
     min-height: calc(100% - calc(4.45rem + calc(3.35rem + 3.15rem))) !important;
 }
+.label_width{
+	width: 70%;
+} 
+.stone_image_container img{
+	width: 230px;
+    height: 160px;
+    margin: 10px auto;
+    display: block;
+    object-fit: cover;
+	max-width: 100%;
+}
+.upload_btn{
+	margin: 0 auto;
+    display: block;
+}
