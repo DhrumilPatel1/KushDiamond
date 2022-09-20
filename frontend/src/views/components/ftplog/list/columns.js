@@ -1,37 +1,42 @@
 // ** Third Party Components
 import { Badge } from 'reactstrap';
 import moment from 'moment';
-
+import ReactReadMoreReadLess from 'react-read-more-read-less';
 const statusObj = {
 	success: 'light-success',
 	error: 'light-danger',
 };
 
+// const moreFun = (rowsid)=>{
+// console.log(id,"checked ids")
+// }
+
 export const columns = [
 	{
 		name: 'Host',
-		minWidth: '130px',
+		width: '190px',
 		selector: 'client',
 		sortable: true,
+
 		cell: (row) => row.client,
 	},
 	{
 		name: 'Date',
-		minWidth: '130px',
+		width: '150px',
 		selector: 'created_at',
 		sortable: true,
 		cell: (row) => moment(row.created_at).format('DD/MM/YYYY'),
 	},
 	{
 		name: 'File',
-		minWidth: '130px',
+		width: '260px',
 		selector: 'file',
 		sortable: true,
 		cell: (row) => row.file,
 	},
 	{
 		name: 'Status',
-		minWidth: '90px',
+		width: '130px',
 		selector: 'status',
 		sortable: true,
 		cell: (row) => (
@@ -42,7 +47,7 @@ export const columns = [
 	},
 	{
 		name: 'Error Status',
-		minWidth: '100px',
+		width: '1500px',
 		selector: 'error_status',
 		sortable: true,
 		cell: (row) => (row.error_status ? row.error_status : '-'),

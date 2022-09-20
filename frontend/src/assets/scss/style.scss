@@ -94,8 +94,14 @@ footer.footer{
 	margin-bottom: 0;
 }
 .react-dataTable header{
-	min-height: 42px;
+	min-height: 8px;
 }
+
+.header_text_size{
+	font-size: 15px;
+}
+
+
 .horizontal-menu .horizontal-menu-wrapper .header-navbar{
 min-height: 2.45rem !important;
 }
@@ -123,6 +129,18 @@ min-height: 2.45rem !important;
 }
 .dGqwdB{
 	border:  0 !important;
+<<<<<<< HEAD
 }
 // .select__menu{
 // }
+=======
+	height: 30px !important;
+}
+
+
+
+// .react-read-more-read-less-more{
+// 	margin-left: 80px;
+// }
+
+>>>>>>> 79e74f9ffd185282180ec80d7e27f8cbe0c2f66b

@@ -139,6 +139,8 @@ const ProductsList = () => {
 		dispatch(productList());
 	}, []);
 
+	const dynamicHeight = Math.min(productData?.results?.length * 4 + 1, 70) + 'vh'
+
 	return (
 		<Fragment>
 			<Card className="deskboard_card">
@@ -183,8 +185,8 @@ const ProductsList = () => {
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					fixedHeader
-					fixedHeaderScrollHeight="450px"
-					// subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
+					fixedHeaderScrollHeight={dynamicHeight}
+				
 				/>
 			</Card>
 		</Fragment>
