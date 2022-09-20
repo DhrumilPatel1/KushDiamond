@@ -36,10 +36,8 @@ const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
 	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
-	// const { FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
-	console.log(productData, 'productData');
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
@@ -215,7 +213,6 @@ const FtpFeedList = () => {
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
 							<Col lg="4" md="6">
-								{/* <Label for="color">FTP:</Label> */}
 								<Select
 									size="sm"
 									isClearable={false}

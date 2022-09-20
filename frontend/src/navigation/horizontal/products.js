@@ -14,8 +14,8 @@ export default [
 				navLink: '/uploadImage',
 			},
 			{
-				id: 'products',
-				title: 'Products',
+				id: 'products list',
+				title: 'Products List',
 				icon: <Package size={12} />,
 				navLink: '/products/list',
 			},

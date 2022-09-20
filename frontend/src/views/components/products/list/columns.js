@@ -20,42 +20,42 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'Sku',
-		minWidth: '190px',
+		minWidth: '170px',
 		selector: 'sku',
 		sortable: true,
 		cell: (row) => row.sku,
 	},
 	{
 		name: 'Shape',
-		minWidth: '130px',
+		minWidth: '115px',
 		selector: 'shape',
 		sortable: true,
 		cell: (row) => row.shape,
 	},
 	{
 		name: 'Carat',
-		minWidth: '90px',
+		minWidth: '80px',
 		selector: 'carat',
 		sortable: true,
 		cell: (row) => row.carat,
 	},
 	{
 		name: 'Color',
-		minWidth: '170px',
+		minWidth: '140px',
 		selector: 'color',
 		sortable: true,
 		cell: (row) => row.color,
 	},
 	{
 		name: 'Measurement',
-		minWidth: '210px',
+		minWidth: '160px',
 		selector: 'measurement',
 		sortable: true,
 		cell: (row) => row.measurement,
 	},
 	{
 		name: 'Price',
-		minWidth: '120px',
+		minWidth: '100px',
 		selector: 'price',
 		sortable: true,
 		cell: (row) => row.price,
@@ -63,7 +63,7 @@ export const columns = [
 
 	{
 		name: 'Certificate No',
-		minWidth: '190px',
+		minWidth: '175px',
 		selector: 'certificate_no',
 		sortable: true,
 		cell: (row) => row.certificate_no,
@@ -71,7 +71,7 @@ export const columns = [
 
 	{
 		name: 'Lab',
-		minWidth: '100px',
+		minWidth: '80px',
 		selector: 'lab',
 		sortable: true,
 		cell: (row) => row.lab,
@@ -79,7 +79,7 @@ export const columns = [
 
 	{
 		name: 'Cut',
-		minWidth: '100x',
+		minWidth: '40px',
 		selector: 'cut',
 		sortable: true,
 		cell: (row) => (row.cut == '' ? '-' : row.cut),
@@ -87,7 +87,7 @@ export const columns = [
 
 	{
 		name: 'Dept',
-		minWidth: '100px',
+		minWidth: '60px',
 		selector: 'dept',
 		sortable: true,
 		cell: (row) => (row.dept == '' ? '-' : row.dept),
@@ -95,7 +95,7 @@ export const columns = [
 
 	{
 		name: 'Fl',
-		minWidth: '100px',
+		minWidth: '60px',
 		selector: 'fl',
 		sortable: true,
 		cell: (row) => (row.fl == '' ? '-' : row.fl),
@@ -103,7 +103,7 @@ export const columns = [
 
 	{
 		name: 'Girdle',
-		minWidth: '190px',
+		minWidth: '150px',
 		selector: 'girdle',
 		sortable: true,
 		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
@@ -111,7 +111,7 @@ export const columns = [
 
 	{
 		name: 'Cul',
-		minWidth: '100px',
+		minWidth: '70px',
 		selector: 'cul',
 		sortable: true,
 		cell: (row) => (row.cul == '' ? '-' : row.cul),
@@ -119,7 +119,7 @@ export const columns = [
 
 	{
 		name: 'Pol',
-		minWidth: '100px',
+		minWidth: '70px',
 		selector: 'pol',
 		sortable: true,
 		cell: (row) => (row.pol == '' ? '-' : row.pol),
@@ -127,7 +127,7 @@ export const columns = [
 
 	{
 		name: 'Rap',
-		minWidth: '100px',
+		minWidth: '70px',
 		selector: 'rap',
 		sortable: true,
 		cell: (row) => (row.rap == '' ? '-' : row.rap),
@@ -135,7 +135,7 @@ export const columns = [
 
 	{
 		name: 'Sym',
-		minWidth: '100px',
+		minWidth: '70px',
 		selector: 'sym',
 		sortable: true,
 		cell: (row) => (row.sym == '' ? '-' : row.sym),
@@ -143,7 +143,7 @@ export const columns = [
 
 	{
 		name: 'Status',
-		minWidth: '138px',
+		minWidth: '100px',
 		selector: 'is_active',
 		sortable: true,
 		cell: (row) => (
@@ -159,7 +159,7 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		minWidth: '135px',
+		minWidth: '110px',
 		cell: (row) => {
 			return (
 				<div className="d-inline ">

@@ -34,35 +34,35 @@ import {
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 
-// ** Table Header
-const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
-	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50">
-			<Row>
-				<Col
-					xl="6"
-					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-				>
-					<h3>Products List</h3>
-				</Col>
-				<Col
-					xl="6"
-					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-				>
-					<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
-						<Share size={15} />
-						Import Excel
-						<Input type="file" onChange={ExcelTypeOne} hidden />
-					</Button.Ripple>
-					{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
-						<Plus size={15} />
-						<span className="align-middle ml-50">Create</span>
-					</Button> */}
-				</Col>
-			</Row>
-		</div>
-	);
-};
+// // ** Table Header
+// const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
+// 	return (
+// 		<div className="invoice-list-table-header w-100 mr-1 ml-50">
+// 			<Row>
+// 				<Col
+// 					xl="6"
+// 					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+// 				>
+// 					<h3>Products List</h3>
+// 				</Col>
+// 				<Col
+// 					xl="6"
+// 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+// 				>
+// 					<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
+// 						<Share size={15} />
+// 						Import Excel
+// 						<Input type="file" onChange={ExcelTypeOne} hidden />
+// 					</Button.Ripple>
+// 					{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
+// 						<Plus size={15} />
+// 						<span className="align-middle ml-50">Create</span>
+// 					</Button> */}
+// 				</Col>
+// 			</Row>
+// 		</div>
+// 	);
+// };
 
 const ProductsList = () => {
 	// ** Store Vars
@@ -141,50 +141,35 @@ const ProductsList = () => {
 
 	return (
 		<Fragment>
-			{/* <Card>
-				<CardHeader>
-					<CardTitle tag="h4">Search Filter</CardTitle>
-				</CardHeader>
-				<CardBody>
-					<Form onSubmit={(e) => filterSubmit(e)}>
-						<Row>
-							<Col lg="3" md="6">
-								<Label for="color">Ftp :</Label>
-								<Select
-									isClearable={false}
-									className="react-select"
-									classNamePrefix="select"
-									options={roleOptions}
-									name="ftp"
-								/>
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="color">Color :</Label>
-								<Input id="color" name="color" placeholder="Enter Color" />
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="shape">Shape :</Label>
-								<Input type="text" id="shape" name="shape" placeholder="Enter Shape" />
-							</Col>
-							<Col lg="2" md="6">
-								<Label for="cut">Cut :</Label>
-								<Input type="text" name="cut" placeholder="Enter Cut" />
-							</Col>
-							<Col lg="3" md="6">
-								<Label for="cut"></Label>
-								<Button.Ripple type="submit" color="primary" block>
-									Filter
-								</Button.Ripple>
-							</Col>
-						</Row>
-					</Form>
+			<Card className="deskboard_card">
+				<CardBody className="deskboard_card_body">
+					<Row>
+						<Col
+							xl="6"
+							// className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+						>
+							<h3>Products List</h3>
+						</Col>
+						<Col
+							xl="6"
+							className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+						>
+							<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
+								<Share size={15} />
+								Import Excel
+								<Input type="file" onChange={ExcelTypeOne} hidden />
+							</Button.Ripple>
+							{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
+						<Plus size={15} />
+						<span className="align-middle ml-50">Create</span>
+					</Button> */}
+						</Col>
+					</Row>
 				</CardBody>
-			</Card> */}
-			<Card>
 				<DataTable
 					noHeader
 					pagination
-					subHeader
+					// subHeader
 					responsive
 					paginationServer
 					columns={columns}
@@ -199,7 +184,7 @@ const ProductsList = () => {
 					progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight="450px"
-					subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
+					// subHeaderComponent={<CustomHeader ExcelTypeOne={ExcelTypeOne} />}
 				/>
 			</Card>
 		</Fragment>

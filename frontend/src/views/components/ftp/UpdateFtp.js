@@ -222,10 +222,10 @@ const UpdateFtp = () => {
 									</Col>
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
-											<Button.Ripple className="mr-1" color="primary" type="submit">
+											<Button.Ripple size="sm" className="mr-1" color="primary" type="submit">
 												Submit
 											</Button.Ripple>
-											<Button.Ripple color="secondary" tag={Link} to="/ftp/list" outline>
+											<Button.Ripple size="sm" color="secondary" tag={Link} to="/ftp/list" outline>
 												Back
 											</Button.Ripple>
 										</FormGroup>

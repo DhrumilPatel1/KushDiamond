@@ -4,21 +4,21 @@ import FtpActionIcon from '../FtpActionIcon';
 export const columns = [
 	{
 		name: 'Client Name',
-		minWidth: '210px',
+		width: '210px',
 		selector: 'client_name',
 		sortable: true,
 		cell: (row) => row.client_name,
 	},
 	{
 		name: 'Hostname',
-		minWidth: '250px',
+		width: '240px',
 		selector: 'hostname',
 		sortable: true,
 		cell: (row) => row.hostname,
 	},
 	{
 		name: 'Username',
-		minWidth: '170px',
+		width: '180px',
 		selector: 'Username',
 		sortable: true,
 		cell: (row) => row.username,
@@ -26,14 +26,14 @@ export const columns = [
 
 	{
 		name: 'Port',
-		width: '60px',
+		width: '100px',
 		selector: 'port',
 		sortable: true,
 		cell: (row) => row.port,
 	},
 	{
 		name: 'Password',
-		minWidth: '200px',
+		width: '400px',
 		selector: 'password',
 		sortable: true,
 		cell: (row) => row.password,
@@ -41,7 +41,7 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		// minWidth: '100px',
+		width: '110px',
 		cell: (row) => {
 			return (
 				<div className="d-inline ">

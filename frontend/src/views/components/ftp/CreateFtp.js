@@ -10,10 +10,7 @@ import Breadcrumbs from '@components/breadcrumbs';
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
-	port: yup
-		.number()
-		.min(2, 'Port must be at least 2 characters')
-		.required('Port is required'),
+	port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
 	password: yup
@@ -190,10 +187,10 @@ const CreateFtp = () => {
 									</Col> */}
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
-											<Button.Ripple className="mr-1" color="primary" type="submit">
+											<Button.Ripple size="sm" className="mr-1" color="primary" type="submit">
 												Submit
 											</Button.Ripple>
-											<Button.Ripple color="secondary" tag={Link} to="/ftp/list" outline>
+											<Button.Ripple size="sm" color="secondary" tag={Link} to="/ftp/list" outline>
 												Back
 											</Button.Ripple>
 										</FormGroup>
