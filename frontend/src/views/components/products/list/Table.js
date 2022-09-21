@@ -100,7 +100,7 @@ const ProductsList = () => {
 		setPerPage(newPerPage);
 		tableChangeHandler({ ...table_data, page: page, per_page: newPerPage });
 	};
-
+	
 	const handlePageChange = (page) => {
 		tableChangeHandler({ ...table_data, page: page });
 	};
@@ -139,7 +139,7 @@ const ProductsList = () => {
 		dispatch(productList());
 	}, []);
 
-	const dynamicHeight = Math.min(productData?.results?.length * 4 + 1, 70) + 'vh'
+	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh'
 
 	return (
 		<Fragment>
@@ -150,7 +150,7 @@ const ProductsList = () => {
 							xl="6"
 							// className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 						>
-							<h3>Products List</h3>
+							<h3 className='header_text_size'>Products List</h3>
 						</Col>
 						<Col
 							xl="6"
