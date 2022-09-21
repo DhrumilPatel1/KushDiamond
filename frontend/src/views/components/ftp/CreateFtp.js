@@ -14,7 +14,7 @@ const FtpCreateSchema = yup.object().shape({
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
 	password: yup.string().required('Password is required'),
-	folder_path: yup.string().required('Folder Path is required'),
+	
 });
 
 const CreateFtp = () => {
