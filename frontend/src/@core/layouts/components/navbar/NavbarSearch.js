@@ -24,11 +24,11 @@ const NavbarSearch = () => {
 	const [navbarSearch, setNavbarSearch] = useState(false);
 
 	// ** ComponentDidMount
-	useEffect(() => {
-		axios.get('/api/main-search/data').then(({ data }) => {
-			setSuggestions(data.searchArr);
-		});
-	}, []);
+	// useEffect(() => {
+	// 	axios.get('/api/main-search/data').then(({ data }) => {
+	// 		setSuggestions(data.searchArr);
+	// 	});
+	// }, []);
 
 	// ** Removes query in store
 	const handleClearQueryInStore = () => dispatch(handleSearchQuery(''));
@@ -94,7 +94,7 @@ const NavbarSearch = () => {
 						filterKey="title"
 						filterHeaderKey="groupTitle"
 						grouped={true}
-						placeholder="Explore Vuexy..."
+						placeholder="Explore Kush Diamond..."
 						autoFocus={true}
 						onSuggestionItemClick={handleSuggestionItemClick}
 						externalClick={handleExternalClick}
