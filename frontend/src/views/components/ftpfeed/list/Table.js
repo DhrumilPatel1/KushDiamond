@@ -150,7 +150,7 @@ const FtpFeedList = () => {
 		e.preventDefault();
 		setFilterColor(e.target.value);
 	};
-	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 
 	return (
 		<Fragment>
@@ -260,6 +260,7 @@ const FtpFeedList = () => {
 									placeholder="Enter Cut"
 								/>
 							</Col>
+
 							<Col lg="1" md="3">
 								{/* <Label for="cut"></Label> */}
 								<Button.Ripple
