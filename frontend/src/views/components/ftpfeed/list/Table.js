@@ -112,10 +112,10 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `Products filtered total count: ${productData?.count}`,
+			text: `You want to feed these ${productData?.count} product.`,
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonText: 'send Feed',
+			confirmButtonText: 'Send Feed',
 			customClass: {
 				confirmButton: 'btn btn-primary',
 				cancelButton: 'btn btn-outline-danger ml-1',

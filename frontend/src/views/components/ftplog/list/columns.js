@@ -13,7 +13,7 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'Client',
-		width: '350px',
+		width: '450px',
 		selector: 'client',
 		sortable: true,
 
