@@ -12,7 +12,7 @@ const statusObj = {
 
 export const columns = [
 	{
-		name: 'Host',
+		name: 'Client',
 		width: '190px',
 		selector: 'client',
 		sortable: true,
@@ -21,10 +21,10 @@ export const columns = [
 	},
 	{
 		name: 'Date',
-		width: '150px',
+		width: '210px',
 		selector: 'created_at',
 		sortable: true,
-		cell: (row) => moment(row.created_at).format('DD/MM/YYYY'),
+		cell: (row) => moment(row.created_at).format("MMM DD YYYY h:mm A"),
 	},
 	{
 		name: 'File',

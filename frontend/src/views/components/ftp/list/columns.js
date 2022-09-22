@@ -4,21 +4,21 @@ import FtpActionIcon from '../FtpActionIcon';
 export const columns = [
 	{
 		name: 'Client Name',
-		width: '210px',
+		width: '230px',
 		selector: 'client_name',
 		sortable: true,
 		cell: (row) => row.client_name,
 	},
 	{
 		name: 'Hostname',
-		width: '240px',
+		width: '450px',
 		selector: 'hostname',
 		sortable: true,
 		cell: (row) => row.hostname,
 	},
 	{
 		name: 'Username',
-		width: '180px',
+		width: '210px',
 		selector: 'Username',
 		sortable: true,
 		cell: (row) => row.username,
@@ -31,13 +31,13 @@ export const columns = [
 		sortable: true,
 		cell: (row) => row.port,
 	},
-	{
-		name: 'Password',
-		width: '400px',
-		selector: 'password',
-		sortable: true,
-		cell: (row) => row.password,
-	},
+	// {
+	// 	name: 'Password',
+	// 	width: '400px',
+	// 	selector: 'password',
+	// 	sortable: true,
+	// 	cell: (row) => row.password,
+	// },
 
 	{
 		name: 'Actions',

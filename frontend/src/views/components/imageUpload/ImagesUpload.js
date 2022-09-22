@@ -41,7 +41,7 @@ const ImagesUpload = () => {
 						<Row>
 							<Col md="6" sm="12">
 								<FormGroup>
-									<Label for="folder_path">Image Upload</Label>
+									<Label for="folder_path">Folder Upload</Label>
 
 									<Input
 										type="file"

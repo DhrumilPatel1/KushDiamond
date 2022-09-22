@@ -52,7 +52,7 @@ const HorizontalMenu = ({ currentActiveItem, routerProps }) => {
 
 			<ul className="nav navbar-nav align-items-center ml-auto">
 				<NavItem className="d-none d-lg-block"></NavItem>
-				<NavbarSearch />
+				{/* <NavbarSearch /> */}
 				<UserDropdown />
 			</ul>
 		</div>

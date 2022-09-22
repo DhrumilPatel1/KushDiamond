@@ -72,6 +72,7 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.error = null;
 			state.ImageUploaFileData = [];
+			state.excelTypeOne = []
 		},
 	},
 });
@@ -111,7 +112,7 @@ export const productList = (queryString) => async (dispatch, getState) => {
 
 export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) => {
 	dispatch(setLoading());
-
+	const toastId = toast.loading('Please wait your excel Uploading...');
 	try {
 		const config = {
 			headers: {
@@ -125,15 +126,26 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 		const { statusCode, message } = data;
 
 		if (statusCode === 200) {
-			toast.success(message);
+			toast.success(message, {
+				id: toastId,
+			});
 			dispatch(ImageUploaFileData(data));
 		}
 	} catch (error) {
-		if (error.response && error.response.data.errors) {
-			return dispatch(handleErrorList(error.response.data.errors));
-		} else {
-			return dispatch(handleErrorList(error.message));
+		const { statusCode, errors } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorList(errors));
+			toast.error(errors.message, {
+				id: toastId,
+			});
 		}
+
+
+		// if (error.response && error.response.data.errors) {
+		// 	return dispatch(handleErrorList(error.response.data.errors));
+		// } else {
+		// 	return dispatch(handleErrorList(error.message));
+		// }
 	}
 };
 

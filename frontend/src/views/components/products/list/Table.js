@@ -26,7 +26,6 @@ import {
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
-	excelTypeOneReset,
 	productExcelUpload,
 	productList,
 	ProductResetData,
@@ -91,7 +90,7 @@ const ProductsList = () => {
 	const [queryString, setQueryString] = useState(
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
-
+	
 	useEffect(() => {
 		dispatch(productList(queryString));
 	}, [dispatch, queryString]);
@@ -114,25 +113,26 @@ const ProductsList = () => {
 		setQueryString(queryStr);
 	};
 
-	const filterSubmit = (e) => {
-		e.preventDefault();
-		console.log(e.target.ftp.value, 'e.target.shape.value');
-		setFilterColor(e.target.color.value);
-		setFilterShape(e.target.shape.value);
-		setFilterCut(e.target.cut.value);
-		tableChangeHandler({
-			...table_data,
-			color: e.target.color.value,
-			shape: e.target.shape.value,
-			cut: e.target.cut.value,
-		});
-	};
+	// const filterSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	console.log(e.target.ftp.value, 'e.target.shape.value');
+	// 	setFilterColor(e.target.color.value);
+	// 	setFilterShape(e.target.shape.value);
+	// 	setFilterCut(e.target.cut.value);
+	// 	tableChangeHandler({
+	// 		...table_data,
+	// 		color: e.target.color.value,
+	// 		shape: e.target.shape.value,
+	// 		cut: e.target.cut.value,
+	// 	});
+	// };
 
 	const ExcelTypeOne = (e) => {
 		const files = e.target.files[0];
 		let formData = new FormData();
 		formData.append('file', files);
 		dispatch(productExcelUpload(formData));
+		dispatch(ProductResetData())
 	};
 
 	useEffect(() => {
@@ -140,7 +140,6 @@ const ProductsList = () => {
 	}, []);
 
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh'
-
 	return (
 		<Fragment>
 			<Card className="deskboard_card">
