@@ -13,11 +13,8 @@ const FtpCreateSchema = yup.object().shape({
 	port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
-	password: yup
-		.string()
-		.min(8, 'Password must be at least 8 characters')
-		.required('Password is required'),
-	folder_path: yup.string().required('Folder Path is required'),
+	password: yup.string().required('Password is required'),
+	
 });
 
 const CreateFtp = () => {
@@ -34,12 +31,6 @@ const CreateFtp = () => {
 			dispatch(ftpResetAuth());
 		};
 	}, [ftpCreateData]);
-
-	// const handleChange = (e) => {
-	// 	for (const file of e.target.files) {
-	// 		console.log(file, 'files');
-	// 	}
-	// };
 
 	return (
 		<>
@@ -176,15 +167,7 @@ const CreateFtp = () => {
 											) : null}
 										</FormGroup>
 									</Col>
-									{/* <Col md="6" sm="12">
-										<input
-											type="file"
-											onChange={(e) => handleChange(e)}
-											webkitdirectory=""
-											directory=""
-											multiple
-										/>
-									</Col> */}
+
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple size="sm" className="mr-1" color="primary" type="submit">

@@ -1,7 +1,6 @@
 // ** Third Party Components
 import { Badge } from 'reactstrap';
 import moment from 'moment';
-import ReactReadMoreReadLess from 'react-read-more-read-less';
 const statusObj = {
 	success: 'light-success',
 	error: 'light-danger',
