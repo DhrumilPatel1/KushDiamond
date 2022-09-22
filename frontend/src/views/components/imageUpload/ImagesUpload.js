@@ -6,7 +6,7 @@ import { ImagesUploadRequest } from '../../../redux/productsSlice';
 const ImagesUpload = () => {
 	const dispatch = useDispatch();
 
-	const { ImageUploaFileData, error } = useSelector((state) => state.products);
+	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 
 	const [image, setImage] = useState([]);
 
@@ -17,7 +17,7 @@ const ImagesUpload = () => {
 	};
 
 	const handleSubmit = (e) => {
-		console.log("hello");
+		console.log('hello');
 		e.preventDefault();
 		let formData = new FormData();
 
@@ -57,9 +57,15 @@ const ImagesUpload = () => {
 							</Col>
 							<Col sm="12">
 								<FormGroup className="d-flex mb-0">
-									<Button.Ripple className="mr-1" color="primary" type="submit">
-										Submit
-									</Button.Ripple>
+									{isLoading == true ? (
+										<Button.Ripple className="mr-1" color="primary" type="submit" disabled>
+											Submit
+										</Button.Ripple>
+									) : (
+										<Button.Ripple className="mr-1" color="primary" type="submit">
+											Submit
+										</Button.Ripple>
+									)}
 								</FormGroup>
 							</Col>
 						</Row>

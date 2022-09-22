@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
-import { FtpGetAllApi, ImageUploadApi, ProductApi, ProductExcelUploadTypeOne, ProductsDetailApi, SendFeedAPI } from '../services/api';
+import {
+	FtpGetAllApi,
+	ImageUploadApi,
+	ProductApi,
+	ProductExcelUploadTypeOne,
+	ProductsDetailApi,
+	SendFeedAPI,
+} from '../services/api';
 import toast, { Toaster } from 'react-hot-toast';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -72,7 +79,7 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.error = null;
 			state.ImageUploaFileData = [];
-			state.excelTypeOne = []
+			state.excelTypeOne = [];
 		},
 	},
 });
@@ -122,9 +129,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 		};
 		const { data } = await ImageUploadApi(img_upload, config);
 		console.log(data, 'data');
-
 		const { statusCode, message } = data;
-
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,
@@ -139,8 +144,6 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 				id: toastId,
 			});
 		}
-
-
 		// if (error.response && error.response.data.errors) {
 		// 	return dispatch(handleErrorList(error.response.data.errors));
 		// } else {

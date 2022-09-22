@@ -23,7 +23,6 @@ export const columns = [
 		minWidth: '170px',
 		selector: 'sku',
 		sortable: true,
-		fixed: "right",
 		cell: (row) => row.sku,
 	},
 	{
