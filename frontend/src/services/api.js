@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
-// const BASE_URL_API = 'http://52.44.30.44';
-const BASE_URL_API = 'http://192.168.1.32:8000';
+ const BASE_URL_API = 'http://52.44.30.44';
+//const BASE_URL_API = 'http://192.168.1.32:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -45,7 +45,6 @@ export const ExcelTypetwo = async (exceltwo, config) => {
 	return await axios.post(`${BASE_URL_API}/api/upload2/`, exceltwo, config);
 };
 
-
 export const SendFeedAPI = async (SendFeedData, queryString, config) => {
 	return await axios.post(`${BASE_URL_API}/api/send_feed/?` + queryString, SendFeedData, config);
 };
@@ -77,7 +76,7 @@ export const FtpDeleteApi = async (delete_id, config) => {
 	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, config);
 };
 
-export const FtpLogListApi = async (queryString,config) => {
+export const FtpLogListApi = async (queryString, config) => {
 	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, config);
 };
 
