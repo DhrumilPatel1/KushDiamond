@@ -1,4 +1,4 @@
-import { Box, Image, Package, Server } from 'react-feather';
+import { Box, File, Image, Package, Server } from 'react-feather';
 
 export default [
 	{
@@ -18,6 +18,12 @@ export default [
 				title: 'Products List',
 				icon: <Package size={12} />,
 				navLink: '/products/list',
+			},
+			{
+				id: 'excel_log',
+				title: 'Excel Log',
+				icon: <File size={20} />,
+				navLink: '/excelLog/list',
 			},
 		],
 	},

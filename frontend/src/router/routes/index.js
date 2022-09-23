@@ -5,7 +5,7 @@ import FtpRoutes from './Ftp';
 import FtpLogRoutes from './FtpLog';
 import ImageUploadRoutes from './ImageUpload';
 import FtpFeedRoutes from './FtpFeed';
-
+import ExcelLogRoutes from './ExcelLog';
 
 // ** Document title
 const TemplateTitle = 'Kush Diamond';
@@ -18,6 +18,7 @@ const Routes = [
 	...DashboardRoutes,
 	...AuthenticationRoutes,
 	...ProductesRoutes,
+	...ExcelLogRoutes,
 	...FtpRoutes,
 	...FtpLogRoutes,
 	...FtpFeedRoutes,

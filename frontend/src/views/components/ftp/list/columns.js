@@ -11,7 +11,7 @@ export const columns = [
 	},
 	{
 		name: 'Hostname',
-		width: '650px',
+		width: '450px',
 		selector: 'hostname',
 		sortable: true,
 		cell: (row) => row.hostname,

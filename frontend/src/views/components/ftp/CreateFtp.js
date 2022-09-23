@@ -10,12 +10,12 @@ import Breadcrumbs from '@components/breadcrumbs';
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
 	protocol: yup.string().required('Protocol is required'),
-	port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
+	// port: yup.number().min(2, 'Port must be at least 2 characters').required('Port is required'),
+	port: yup.number().required('Port is required'),
 	hostname: yup.string().required('Hostname is required'),
 	username: yup.string().required('Username is required'),
 	password: yup.string().required('Password is required'),
 	folder_path: yup.string().required('Folder path is required'),
-	
 });
 
 const CreateFtp = () => {
@@ -49,7 +49,6 @@ const CreateFtp = () => {
 							folder_path: '',
 						}}
 						validationSchema={FtpCreateSchema}
-						// validateOnChange
 						onSubmit={(values) => {
 							dispatch(FtpCreateRequest(values));
 						}}
@@ -76,13 +75,26 @@ const CreateFtp = () => {
 									<Col md="6" sm="12">
 										<FormGroup>
 											<Label for="protocol">Protocol</Label>
-											<Field
-												type="text"
+											{/* <Field
+												type="select"
 												name="protocol"
 												id="protocol"
 												className="form-control"
 												placeholder="Enter Your Protocol"
-											/>
+											>
+												<option value="lokaler">Lokaler</option>
+												<option value="jobb">Jobb</option>
+											</Field> */}
+											<Field
+												component="select"
+												id="protocol"
+												name="protocol"
+												className="form-control"
+											>
+												<option value="">Select Protocol</option>
+												<option value="FTP">FTP</option>
+												<option value="SFTP">SFTP</option>
+											</Field>
 											{(errors.protocol && touched.protocol) || (error && error.protocol) ? (
 												<div className="error-sm">{errors.protocol || error.protocol}</div>
 											) : null}
@@ -91,13 +103,18 @@ const CreateFtp = () => {
 									<Col md="6" sm="12">
 										<FormGroup>
 											<Label for="port">Port</Label>
-											<Field
+											{/* <Field
 												type="number"
 												name="port"
 												id="port"
 												className="form-control"
 												placeholder="Enter Your Port"
-											/>
+											/> */}
+											<Field component="select" id="port" name="port" className="form-control">
+												<option value="">Select Port</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+											</Field>
 
 											{(errors.port && touched.port) || (error && error.port) ? (
 												<div className="error-sm">{errors.port || error.port}</div>

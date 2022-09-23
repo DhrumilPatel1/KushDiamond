@@ -8,12 +8,11 @@ const statusObj = {
 
 export const columns = [
 	{
-		name: 'Client',
-		width: '450px',
-		selector: 'client',
+		name: 'File',
+		width: '200px',
+		selector: 'file',
 		sortable: true,
-
-		cell: (row) => row.client,
+		cell: (row) => row.file,
 	},
 	{
 		name: 'Date',
@@ -21,13 +20,6 @@ export const columns = [
 		selector: 'created_at',
 		sortable: true,
 		cell: (row) => moment(row.created_at).format('MMM DD YYYY h:mm A'),
-	},
-	{
-		name: 'File',
-		width: '260px',
-		selector: 'file',
-		sortable: true,
-		cell: (row) => row.file,
 	},
 	{
 		name: 'Status',
@@ -46,7 +38,7 @@ export const columns = [
 	},
 	{
 		name: 'Error Status',
-		width: '1500px',
+		width: '400px',
 		selector: 'error_status',
 		sortable: true,
 		cell: (row) => (row.error_status ? row.error_status : '-'),
