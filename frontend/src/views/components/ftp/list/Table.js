@@ -30,7 +30,6 @@ const FtpList = () => {
 		filter_value: filter_value,
 		order_column: 'updated_at',
 	};
-
 	const [queryString, setQueryString] = useState(
 		`page=${table_data.page}&search=${table_data.filter_value}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);

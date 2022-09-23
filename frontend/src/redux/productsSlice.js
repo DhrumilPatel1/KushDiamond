@@ -119,7 +119,7 @@ export const productList = (queryString) => async (dispatch, getState) => {
 
 export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) => {
 	dispatch(setLoading());
-	const toastId = toast.loading('Please wait your excel Uploading...');
+	const toastId = toast.loading('Please wait your folder is Uploading...');
 	try {
 		const config = {
 			headers: {

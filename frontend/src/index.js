@@ -57,8 +57,8 @@ ReactDOM.render(
 									height: '50px',
 									color: '#fff',
 								},
-								error: { duration: 1000 },
-								success: { duration: 1000 },
+								error: { duration: 3000 },
+								success: { duration: 3000 },
 							}}
 						/>
 					</IntlProviderWrapper>

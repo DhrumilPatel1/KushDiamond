@@ -25,43 +25,11 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import {
-	productExcelUpload,
-	productList,
-	ProductResetData,
-} from '../../../../redux/productsSlice';
+import { productExcelUpload, productList, ProductResetData } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 
 // // ** Table Header
-// const CustomHeader = ({ handlePerPage, limit, handleFilter, searchTerm, ExcelTypeOne }) => {
-// 	return (
-// 		<div className="invoice-list-table-header w-100 mr-1 ml-50">
-// 			<Row>
-// 				<Col
-// 					xl="6"
-// 					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-// 				>
-// 					<h3>Products List</h3>
-// 				</Col>
-// 				<Col
-// 					xl="6"
-// 					className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-// 				>
-// 					<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
-// 						<Share size={15} />
-// 						Import Excel
-// 						<Input type="file" onChange={ExcelTypeOne} hidden />
-// 					</Button.Ripple>
-// 					{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
-// 						<Plus size={15} />
-// 						<span className="align-middle ml-50">Create</span>
-// 					</Button> */}
-// 				</Col>
-// 			</Row>
-// 		</div>
-// 	);
-// };
 
 const ProductsList = () => {
 	// ** Store Vars
@@ -74,7 +42,7 @@ const ProductsList = () => {
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
 	const [filterShape, setFilterShape] = useState('');
-
+	const [filter_value, setFilter_value] = useState('');
 	const [filterCut, setFilterCut] = useState('');
 
 	const table_data = {
@@ -88,9 +56,9 @@ const ProductsList = () => {
 	};
 
 	const [queryString, setQueryString] = useState(
-		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
+		`page=${table_data.page}&search=${table_data.filter_value}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
-	
+
 	useEffect(() => {
 		dispatch(productList(queryString));
 	}, [dispatch, queryString]);
@@ -99,7 +67,7 @@ const ProductsList = () => {
 		setPerPage(newPerPage);
 		tableChangeHandler({ ...table_data, page: page, per_page: newPerPage });
 	};
-	
+
 	const handlePageChange = (page) => {
 		tableChangeHandler({ ...table_data, page: page });
 	};
@@ -113,33 +81,25 @@ const ProductsList = () => {
 		setQueryString(queryStr);
 	};
 
-	// const filterSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	console.log(e.target.ftp.value, 'e.target.shape.value');
-	// 	setFilterColor(e.target.color.value);
-	// 	setFilterShape(e.target.shape.value);
-	// 	setFilterCut(e.target.cut.value);
-	// 	tableChangeHandler({
-	// 		...table_data,
-	// 		color: e.target.color.value,
-	// 		shape: e.target.shape.value,
-	// 		cut: e.target.cut.value,
-	// 	});
-	// };
+	const handleFilter = (e) => {
+		let value = e.target.value;
+		tableChangeHandler({ ...table_data, search: value });
+		setFilter_value(value);
+	};
 
 	const ExcelTypeOne = (e) => {
 		const files = e.target.files[0];
 		let formData = new FormData();
 		formData.append('file', files);
 		dispatch(productExcelUpload(formData));
-		dispatch(ProductResetData())
+		dispatch(ProductResetData());
 	};
 
 	useEffect(() => {
 		dispatch(productList());
 	}, []);
 
-	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh'
+	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
 			<Card className="deskboard_card">
@@ -149,12 +109,22 @@ const ProductsList = () => {
 							xl="6"
 							// className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 						>
-							<h3 className='header_text_size'>Products List</h3>
+							<h3 className="header_text_size">Products List</h3>
 						</Col>
+
 						<Col
 							xl="6"
 							className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 						>
+							<Input
+								id="search-invoice"
+								className="ml-50 w-100 form-control-sm product_search_button"
+								type="text"
+								size="sm"
+								name="search"
+								onChange={handleFilter}
+								placeholder="Search"
+							/>
 							<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
 								<Share size={15} />
 								Import Excel
@@ -185,7 +155,6 @@ const ProductsList = () => {
 					progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
-				
 				/>
 			</Card>
 		</Fragment>
