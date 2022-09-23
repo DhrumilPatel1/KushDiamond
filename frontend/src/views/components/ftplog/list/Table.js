@@ -7,28 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ChevronDown } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Row, Col } from 'reactstrap';
+import { Card, Row, Col, CardBody } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
-import { FtpClientList } from '../../../../redux/FtpsSlice';
 import { FtpLogListRequest } from '../../../../redux/FtpLogSlice';
-
-// ** Table Header
-const CustomHeader = () => {
-	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50">
-			<Row>
-				<Col
-					xl="6"
-					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-				>
-					<h3 className='header_text_size'>FTP Log List</h3>
-				</Col>
-			</Row>
-		</div>
-	);
-};
 
 const FtpLogList = () => {
 	const dispatch = useDispatch();
@@ -72,15 +55,21 @@ const FtpLogList = () => {
 		setQueryString(queryStr);
 	};
 
-	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 
 	return (
 		<Fragment>
 			<Card>
+				<CardBody className="deskboard_card_body">
+					<Row>
+						<Col xl="6">
+							<h3 className="header_text_size">FTP Log List</h3>
+						</Col>
+					</Row>
+				</CardBody>
 				<DataTable
 					noHeader
 					pagination
-					subHeader
 					responsive
 					paginationServer
 					columns={columns}
@@ -95,7 +84,6 @@ const FtpLogList = () => {
 					progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
-					subHeaderComponent={<CustomHeader />}
 				/>
 			</Card>
 		</Fragment>
