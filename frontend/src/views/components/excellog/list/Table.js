@@ -18,7 +18,6 @@ const ExcelLogList = () => {
 	const dispatch = useDispatch();
 
 	const { excelLogList, isLoading } = useSelector((state) => state.ExcelLog);
-	console.log(excelLogList, 'excelLogList');
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');

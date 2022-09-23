@@ -41,7 +41,6 @@ const ForgotPassword = () => {
 	const onClick = () => {
 		const { email } = value;
 		const user = { email };
-		console.log(user, 'user');
 	};
 
 	return (

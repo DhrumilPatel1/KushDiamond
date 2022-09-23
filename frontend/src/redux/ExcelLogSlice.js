@@ -14,7 +14,6 @@ export const ExcelLogSlice = createSlice({
 		},
 
 		excelLogData: (state, action) => {
-			console.log(action.payload, 'payload');
 			state.isLoading = false;
 			state.excelLogList = action.payload;
 		},
@@ -40,10 +39,9 @@ export const ExcelLogListRequest = (queryString) => async (dispatch, getState) =
 			},
 		};
 		const { data } = await ExcelLogListApi(queryString, config);
-		console.log(data, 'data');
+
 		dispatch(excelLogData(data));
 	} catch (error) {
-		console.log(error, 'error');
 		dispatch(excelLogErrorList(error));
 	}
 };

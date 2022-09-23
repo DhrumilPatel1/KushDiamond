@@ -135,7 +135,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 			},
 		};
 		const { data } = await ImageUploadApi(img_upload, config);
-		console.log(data, 'data');
+
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
@@ -192,7 +192,6 @@ export const ProductsDetialRequest = (details_id) => async (dispatch, getState) 
 			dispatch(productViewData(data));
 		}
 	} catch (error) {
-		console.log(error.response);
 		const { statusCode, message } = error.response.data;
 		if (statusCode === 422) {
 			toast.error(message);
