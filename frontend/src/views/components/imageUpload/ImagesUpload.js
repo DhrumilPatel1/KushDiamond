@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { ImagesUploadRequest } from '../../../redux/productsSlice';
+import {
+	excelTypeTwo,
+	ExcelUploadTypeTwo,
+	ImagesUploadRequest,
+	ProductResetData,
+} from '../../../redux/productsSlice';
+import { Share } from 'react-feather';
+import { useRef } from 'react';
 
 const ImagesUpload = () => {
+	
 	const dispatch = useDispatch();
-
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
-
 	const [image, setImage] = useState([]);
-
+	const [excelFile, setexcelFile] = useState(false);
 	const handleChange = (e) => {
 		const ProductImg = e.target.files;
-
 		setImage(ProductImg);
 	};
-
 	const handleSubmit = (e) => {
-		console.log('hello');
 		e.preventDefault();
 		let formData = new FormData();
 
@@ -28,18 +31,48 @@ const ImagesUpload = () => {
 					file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/') + 1)
 				);
 		});
-
 		dispatch(ImagesUploadRequest(formData));
 		e.target.reset();
+		setImage([]);
 	};
 
+	const ExcelTypeTwo = (e) => {
+		const files = e.target.files[0];
+		setexcelFile(files);
+	};
+
+	const excelUpload = (e) => {
+		e.preventDefault();
+		let formData = new FormData();
+		formData.append('file', excelFile);
+		dispatch(ExcelUploadTypeTwo(formData));
+		setexcelFile(false);
+		e.target.reset();
+	};
 	return (
 		<>
 			<Card>
 				<CardBody>
-					<Form onSubmit={(e) => handleSubmit(e)}>
-						<Row>
-							<Col md="6" sm="12">
+					<Row>
+						<Col md="3" sm="12">
+							<Form onSubmit={(e) => excelUpload(e)}>
+								<FormGroup>
+									<Label for="folder_path">Excel Upload Type Two</Label>
+									<Input type="file" onChange={(e) => ExcelTypeTwo(e)} />
+								</FormGroup>
+								{isLoading == true || excelFile == false ? (
+									<Button.Ripple className="mr-1" color="dark" type="submit" disabled>
+										Submit
+									</Button.Ripple>
+								) : (
+									<Button.Ripple className="mr-1" color="dark" type="submit">
+										Submit
+									</Button.Ripple>
+								)}
+							</Form>
+						</Col>
+						<Col md="3" sm="12">
+							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
 									<Label for="folder_path">Folder Upload</Label>
 									<Input
@@ -53,10 +86,9 @@ const ImagesUpload = () => {
 									/>
 									{error && error.message ? <div className="error-sm">{error.message}</div> : null}
 								</FormGroup>
-							</Col>
-							<Col sm="12">
+
 								<FormGroup className="d-flex mb-0">
-									{isLoading == true ? (
+									{isLoading == true || image.length === 0 ? (
 										<Button.Ripple className="mr-1" color="primary" type="submit" disabled>
 											Submit
 										</Button.Ripple>
@@ -66,9 +98,9 @@ const ImagesUpload = () => {
 										</Button.Ripple>
 									)}
 								</FormGroup>
-							</Col>
-						</Row>
-					</Form>
+							</Form>
+						</Col>
+					</Row>
 				</CardBody>
 			</Card>
 		</>

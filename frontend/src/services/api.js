@@ -1,8 +1,7 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
-// const BASE_URL_API = 'http://52.44.30.44';
-const BASE_URL_API = 'http://192.168.1.32:8000';
-
+ const BASE_URL_API = 'http://52.44.30.44';
+//const BASE_URL_API = 'http://192.168.1.32:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -40,6 +39,10 @@ export const ProductsDetailApi = async (view_id, config) => {
 
 export const ProductExcelUploadTypeOne = async (uploadexcel, config) => {
 	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, config);
+};
+
+export const ExcelTypetwo = async (exceltwo, config) => {
+	return await axios.post(`${BASE_URL_API}/api/upload2/`, exceltwo, config);
 };
 
 export const SendFeedAPI = async (SendFeedData, queryString, config) => {
