@@ -71,7 +71,7 @@ const ProductsList = () => {
 	const handlePageChange = (page) => {
 		tableChangeHandler({ ...table_data, page: page });
 	};
-
+	
 	const tableChangeHandler = (data) => {
 		let queryStr = Object.keys(data)
 			.map((key) => {
