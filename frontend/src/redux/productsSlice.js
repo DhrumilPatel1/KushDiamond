@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
 import {
+	ExcelTypetwo,
 	FtpGetAllApi,
 	ImageUploadApi,
 	ProductApi,
@@ -26,6 +27,7 @@ export const productsSlice = createSlice({
 		productViewData: [],
 		ImageUploaFileData: [],
 		excelTypeOne: [],
+		excelTypeTwo: [],
 		ftpGetAllData: [],
 		FeedData: [],
 		error: null,
@@ -53,7 +55,10 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
 		},
-
+		excelTypeTwo: (state, action) => {
+			state.isLoading = false;
+			state.excelTypeTwo = action.payload;
+		},
 		ImageUploaFileData: (state, action) => {
 			state.isLoading = false;
 			state.ImageUploaFileData = action.payload;
@@ -80,6 +85,7 @@ export const productsSlice = createSlice({
 			state.error = null;
 			state.ImageUploaFileData = [];
 			state.excelTypeOne = [];
+			state.excelTypeTwo = [];
 		},
 	},
 });
@@ -97,6 +103,7 @@ export const {
 	handleErrorExcel,
 	FeedDataError,
 	ProductResetData,
+	excelTypeTwo,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -211,6 +218,35 @@ export const productExcelUpload = (uploadfile) => async (dispatch, getState) => 
 			});
 			dispatch(excelTypeOne(data));
 			dispatch(productList());
+		}
+	} catch (error) {
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorExcel(message));
+			toast.error(message, {
+				id: toastId,
+			});
+		}
+	}
+};
+
+export const ExcelUploadTypeTwo = (exceluploadtwo) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your excel type two Uploading...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ExcelTypetwo(exceluploadtwo, config);
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(excelTypeTwo(data));
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;

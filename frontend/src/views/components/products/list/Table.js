@@ -52,11 +52,12 @@ const ProductsList = () => {
 		color: filterColor,
 		shape: filterShape,
 		cut: filterCut,
+		search: filter_value,
 		order_column: 'updated_at',
 	};
 
 	const [queryString, setQueryString] = useState(
-		`page=${table_data.page}&search=${table_data.filter_value}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
+		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}`
 	);
 
 	useEffect(() => {
@@ -71,7 +72,7 @@ const ProductsList = () => {
 	const handlePageChange = (page) => {
 		tableChangeHandler({ ...table_data, page: page });
 	};
-	
+
 	const tableChangeHandler = (data) => {
 		let queryStr = Object.keys(data)
 			.map((key) => {
@@ -92,7 +93,6 @@ const ProductsList = () => {
 		let formData = new FormData();
 		formData.append('file', files);
 		dispatch(productExcelUpload(formData));
-		dispatch(ProductResetData());
 	};
 
 	useEffect(() => {
