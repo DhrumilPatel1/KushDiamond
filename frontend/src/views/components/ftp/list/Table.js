@@ -116,7 +116,7 @@ const FtpList = () => {
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
-					progressPending={isLoading}
+					// progressPending={isLoading}
 					// subHeaderComponent={<CustomHeader value={filter_value} handleFilter={handleFilter} />}
 				/>
 			</Card>

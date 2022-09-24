@@ -152,7 +152,7 @@ const ProductsList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
-					progressPending={isLoading}
+					// progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 				/>
