@@ -9,10 +9,16 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'Client',
-		width: '450px',
+		width: '220px',
+		selector: 'client_name',
+		sortable: true,
+		cell: (row) => row.client_name,
+	},
+	{
+		name: 'Host Name',
+		width: '430px',
 		selector: 'client',
 		sortable: true,
-
 		cell: (row) => row.client,
 	},
 	{
