@@ -4,7 +4,7 @@ export default [
 	{
 		id: 'ftp',
 		title: 'FTP',
-		icon: <Server size={20} />,
+		icon: <Server size={20}/>,
 		// navLink: '/ftp/list',
 		children: [
 			{

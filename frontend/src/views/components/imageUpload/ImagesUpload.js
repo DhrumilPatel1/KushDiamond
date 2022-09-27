@@ -61,7 +61,7 @@ const ImagesUpload = () => {
 							</Form>
 						</Col> */}
 						<Col md="3" sm="12">
-						<p>NOTE *</p>
+						{/* <p>NOTE *</p> */}
 							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
 									<Label for="folder_path">Folder Upload</Label>

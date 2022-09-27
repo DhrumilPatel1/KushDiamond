@@ -11,9 +11,8 @@ const ProductsActionIcon = (props) => {
 	const [modal, setModal] = useState(null);
 	const dispatch = useDispatch();
 	const { productViewData, error } = useSelector((state) => state.products);
-	console.log(productViewData, 'modal');
+
 	const toggleModal = (id) => {
-		console.log(id, 'id');
 		if (modal !== id) {
 			setModal(id);
 			dispatch(ProductsDetialRequest(id));
@@ -50,14 +49,15 @@ const ProductsActionIcon = (props) => {
 				<ModalHeader toggle={() => toggleModal(props.id)}></ModalHeader>
 				<ModalBody>
 					{productViewData && productViewData?.images?.length > 0 ? (
-						<div className="image_slider">
-							<ImageGallery
-								items={getAllImages}
-								showPlayButton={false}
-								// showFullscreenButton={false}
-							/>
-							;
-						</div>
+						<>
+							<div className="image_slider">
+								<ImageGallery
+									items={getAllImages}
+									showPlayButton={false}
+									// showFullscreenButton={false}
+								/>
+							</div>
+						</>
 					) : (
 						<>
 							<h1>Images Not Found</h1>
@@ -71,9 +71,9 @@ const ProductsActionIcon = (props) => {
 				</ModalFooter>
 			</Modal>
 
-			<Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
+			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />
-			</Link> 
+			</Link> */}
 		</>
 	);
 };
