@@ -157,7 +157,7 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="password">Password</Label>
 											<Field
-												type="text"
+												type="password"
 												name="password"
 												id="password"
 												autoComplete="new-password"
