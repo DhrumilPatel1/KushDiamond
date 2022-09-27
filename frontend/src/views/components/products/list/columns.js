@@ -1,14 +1,4 @@
-// ** React Imports
 import { Link } from 'react-router-dom';
-
-// ** Third Party Components
-import {
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	Badge,
-} from 'reactstrap';
 import { MoreVertical, Trash2, Eye, Edit } from 'react-feather';
 import ProductsActionIcon from '../ProductsActionIcon';
 
@@ -20,30 +10,43 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'Sku',
-		minWidth: '170px',
+		minWidth: '130px',
 		selector: 'sku',
 		sortable: true,
+		sticky: true,
+		center: true,
+		style: {
+			// position:"absolute",
+			// left: 20,
+			// overflow:"hidden"
+		},
 		cell: (row) => row.sku,
 	},
 	{
 		name: 'Shape',
-		minWidth: '115px',
+		minWidth: '50px',
 		selector: 'shape',
 		sortable: true,
+		center: true,
+		style: {
+			// marginLeft:169,
+		},
 		cell: (row) => row.shape,
 	},
 	{
 		name: 'Carat',
-		minWidth: '80px',
+		minWidth: '50px',
 		selector: 'carat',
 		sortable: true,
+		center: true,
 		cell: (row) => row.carat,
 	},
 	{
 		name: 'Color',
-		minWidth: '140px',
+		minWidth: '130px',
 		selector: 'color',
 		sortable: true,
+		center: true,
 		cell: (row) => row.color,
 	},
 	{
@@ -51,14 +54,16 @@ export const columns = [
 		minWidth: '160px',
 		selector: 'measurement',
 		sortable: true,
+		center: true,
 		cell: (row) => row.measurement,
 	},
 	{
-		name: 'Price',
-		minWidth: '100px',
+		name: 'Price($)',
+		minWidth: '120px',
 		selector: 'price',
 		sortable: true,
-		cell: (row) => row.price,
+		center: true,
+		cell: (row) => row.price.toLocaleString('en-US'),
 	},
 
 	{
@@ -74,6 +79,7 @@ export const columns = [
 		minWidth: '80px',
 		selector: 'lab',
 		sortable: true,
+		center: true,
 		cell: (row) => row.lab,
 	},
 
@@ -82,6 +88,7 @@ export const columns = [
 		minWidth: '40px',
 		selector: 'cut',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.cut == '' ? '-' : row.cut),
 	},
 
@@ -90,6 +97,7 @@ export const columns = [
 		minWidth: '60px',
 		selector: 'dept',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.dept == '' ? '-' : row.dept),
 	},
 
@@ -98,6 +106,7 @@ export const columns = [
 		minWidth: '60px',
 		selector: 'fl',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.fl == '' ? '-' : row.fl),
 	},
 
@@ -106,6 +115,7 @@ export const columns = [
 		minWidth: '150px',
 		selector: 'girdle',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
 	},
 
@@ -114,6 +124,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'cul',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.cul == '' ? '-' : row.cul),
 	},
 
@@ -122,6 +133,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'pol',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.pol == '' ? '-' : row.pol),
 	},
 
@@ -130,6 +142,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'rap',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.rap == '' ? '-' : row.rap),
 	},
 
@@ -138,28 +151,30 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'sym',
 		sortable: true,
+		center: true,
 		cell: (row) => (row.sym == '' ? '-' : row.sym),
 	},
 
-	{
-		name: 'Status',
-		minWidth: '100px',
-		selector: 'is_active',
-		sortable: true,
-		cell: (row) => (
-			<Badge
-				className="text-capitalize"
-				color={statusObj[row.is_active === true ? 'active' : 'inactive']}
-				pill
-			>
-				{row.is_active === true ? 'active' : 'inactive'}
-			</Badge>
-		),
-	},
+	// {
+	// 	name: 'Status',
+	// 	minWidth: '100px',
+	// 	selector: 'is_active',
+	// 	sortable: true,
+	// 	cell: (row) => (
+	// 		<Badge
+	// 			className="text-capitalize"
+	// 			color={statusObj[row.is_active === true ? 'active' : 'inactive']}
+	// 			pill
+	// 		>
+	// 			{row.is_active === true ? 'active' : 'inactive'}
+	// 		</Badge>
+	// 	),
+	// },
 
 	{
 		name: 'Actions',
-		minWidth: '110px',
+		minWidth: '100px',
+		center: true,
 		cell: (row) => {
 			return (
 				<div className="d-inline ">

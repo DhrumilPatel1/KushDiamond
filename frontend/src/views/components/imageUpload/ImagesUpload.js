@@ -15,7 +15,7 @@ const ImagesUpload = () => {
 	const dispatch = useDispatch();
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 	const [image, setImage] = useState([]);
-	const [excelFile, setexcelFile] = useState(false);
+
 	const handleChange = (e) => {
 		const ProductImg = e.target.files;
 		setImage(ProductImg);
@@ -36,25 +36,14 @@ const ImagesUpload = () => {
 		setImage([]);
 	};
 
-	const ExcelTypeTwo = (e) => {
-		const files = e.target.files[0];
-		setexcelFile(files);
-	};
 
-	const excelUpload = (e) => {
-		e.preventDefault();
-		let formData = new FormData();
-		formData.append('file', excelFile);
-		dispatch(ExcelUploadTypeTwo(formData));
-		setexcelFile(false);
-		e.target.reset();
-	};
+	
 	return (
 		<>
 			<Card>
 				<CardBody>
 					<Row>
-						<Col md="3" sm="12">
+						{/* <Col md="3" sm="12">
 							<Form onSubmit={(e) => excelUpload(e)}>
 								<FormGroup>
 									<Label for="folder_path">Excel Upload Type Two</Label>
@@ -70,8 +59,9 @@ const ImagesUpload = () => {
 									</Button.Ripple>
 								)}
 							</Form>
-						</Col>
+						</Col> */}
 						<Col md="3" sm="12">
+						<p>NOTE *</p>
 							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
 									<Label for="folder_path">Folder Upload</Label>

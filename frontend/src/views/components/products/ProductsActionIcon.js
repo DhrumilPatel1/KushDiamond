@@ -8,9 +8,9 @@ const ProductsActionIcon = (props) => {
 			<Link to={`/products/details/${props.id}`} className="text-primary">
 				<Eye size={18} />
 			</Link>
-			<Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
+			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />
-			</Link>
+			</Link> */}
 		</>
 	);
 };

@@ -88,12 +88,7 @@ const ProductsList = () => {
 		setFilter_value(value);
 	};
 
-	const ExcelTypeOne = (e) => {
-		const files = e.target.files[0];
-		let formData = new FormData();
-		formData.append('file', files);
-		dispatch(productExcelUpload(formData));
-	};
+
 
 	useEffect(() => {
 		dispatch(productList());
@@ -109,7 +104,7 @@ const ProductsList = () => {
 							xl="6"
 							// className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
 						>
-							<h3 className="header_text_size">Products List</h3>
+							<h3>Products List</h3>
 						</Col>
 
 						<Col
@@ -125,15 +120,7 @@ const ProductsList = () => {
 								onChange={handleFilter}
 								placeholder="Search"
 							/>
-							<Button.Ripple tag={Label} className="ml-2" size="sm" color="secondary" caret outline>
-								<Share size={15} />
-								Import Excel
-								<Input type="file" onChange={ExcelTypeOne} hidden />
-							</Button.Ripple>
-							{/* <Button className="ml-2" color="primary" size="sm" tag={Link} to="/dashboard">
-						<Plus size={15} />
-						<span className="align-middle ml-50">Create</span>
-					</Button> */}
+							
 						</Col>
 					</Row>
 				</CardBody>

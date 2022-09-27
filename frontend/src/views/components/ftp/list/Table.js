@@ -72,7 +72,7 @@ const FtpList = () => {
 				<CardBody className="deskboard_card_body">
 					<Row>
 						<Col xl="6">
-							<h3 className="header_text_size">FTP List</h3>
+							<h3>FTP List</h3>
 						</Col>
 						<Col
 							xl="6"

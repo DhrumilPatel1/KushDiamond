@@ -12,6 +12,7 @@ export const columns = [
 		width: '220px',
 		selector: 'client_name',
 		sortable: true,
+		
 		cell: (row) => row.client_name,
 	},
 	{
