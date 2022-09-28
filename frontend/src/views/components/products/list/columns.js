@@ -173,7 +173,7 @@ export const columns = [
 
 	{
 		name: 'Actions',
-		minWidth: '100px',
+		minWidth: '140px',
 		center: true,
 		cell: (row) => {
 			return (

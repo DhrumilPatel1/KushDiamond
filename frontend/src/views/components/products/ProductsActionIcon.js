@@ -35,7 +35,7 @@ const ProductsActionIcon = (props) => {
 		<>
 			<Eye
 				size={18}
-				className="text-primary"
+				className="text-primary mx-1"
 				onClick={() => toggleModal(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
@@ -70,6 +70,11 @@ const ProductsActionIcon = (props) => {
 					</Button>
 				</ModalFooter>
 			</Modal>
+
+						
+			<Link to={`/products/detail/${props.id}`} className="text-primary">
+				<Eye size={18} />
+			</Link>
 
 			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />

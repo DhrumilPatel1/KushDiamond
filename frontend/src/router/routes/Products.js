@@ -11,6 +11,10 @@ const ProductesRoutes = [
 		component: lazy(() => import('../../views/components/products/AddProducts')),
 	},
 	{
+		path: '/products/detail/:id',
+		component: lazy(() => import('../../views/components/products/ProductsDetail')),
+	},
+	{
 		path: '/products/edit/:id',
 		component: lazy(() => import('../../views/components/products/EditProducts')),
 	},

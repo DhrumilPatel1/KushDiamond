@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Lightbox from "yet-another-react-lightbox";
-
+import Lightbox from 'yet-another-react-lightbox';
 
 const EditProducts = () => {
-
-	return (
-		<>
-		sssssss
-	</>
-	);
+	return <>sssssss</>;
 };
 
 export default EditProducts;
