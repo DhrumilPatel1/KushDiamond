@@ -82,6 +82,8 @@ const ProductsList = () => {
 		setQueryString(queryStr);
 	};
 
+	
+
 	const handleFilter = (e) => {
 		let value = e.target.value;
 		tableChangeHandler({ ...table_data, search: value });
