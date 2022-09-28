@@ -11,7 +11,6 @@ import { Share } from 'react-feather';
 import { useRef } from 'react';
 
 const ImagesUpload = () => {
-	
 	const dispatch = useDispatch();
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 	const [image, setImage] = useState([]);
@@ -36,8 +35,6 @@ const ImagesUpload = () => {
 		setImage([]);
 	};
 
-
-	
 	return (
 		<>
 			<Card>
@@ -61,7 +58,7 @@ const ImagesUpload = () => {
 							</Form>
 						</Col> */}
 						<Col md="3" sm="12">
-						{/* <p>NOTE *</p> */}
+							{/* <p>NOTE *</p> */}
 							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
 									<Label for="folder_path">Folder Upload</Label>
@@ -76,7 +73,6 @@ const ImagesUpload = () => {
 									/>
 									{error && error.message ? <div className="error-sm">{error.message}</div> : null}
 								</FormGroup>
-
 								<FormGroup className="d-flex mb-0">
 									{isLoading == true || image.length === 0 ? (
 										<Button.Ripple className="mr-1" color="primary" type="submit" disabled>
