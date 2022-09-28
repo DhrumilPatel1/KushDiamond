@@ -19,7 +19,6 @@ import lgPager from 'lightgallery/plugins/pager';
 import lgRotate from 'lightgallery/plugins/rotate';
 import lgShare from 'lightgallery/plugins/share';
 
-
 import videoicon from '../../../VideoIcon-image/videoicon2.png';
 const ProductsActionIcon = (props) => {
 	const onInit = () => {
@@ -69,7 +68,7 @@ const ProductsActionIcon = (props) => {
 		<>
 			<Image
 				size={18}
-				className="text-dark"
+				className="text-dark mr-2"
 				onClick={() => toggleModal(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
@@ -87,7 +86,7 @@ const ProductsActionIcon = (props) => {
 						download={false}
 						zoom={false}
 						//speed={500}
-					
+
 						videojs
 						autoplayVideoOnSlide
 						onHasVideo={onHasVideo}
@@ -95,7 +94,7 @@ const ProductsActionIcon = (props) => {
 						onBeforeSlide={onBeforeSlide}
 						videojsTheme="video-js"
 						// strings={{ playVideo: "Play video" }}
-						plugins={[lgThumbnail, lgVideo, lgZoom,lgFullscreen]}
+						plugins={[lgThumbnail, lgVideo, lgZoom, lgFullscreen]}
 					>
 						<a href="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png">
 							<img src="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png" />
@@ -116,7 +115,7 @@ const ProductsActionIcon = (props) => {
 					{productViewData && productViewData?.images?.length > 0 ? (
 						console.log(getAllImages, 'productViewData')
 					) : (
-						<>{/* <h1>Images Not Found</h1> */}</>
+						<>{<h1>Images Not Found</h1>}</>
 					)}
 				</ModalBody>
 				<ModalFooter>
@@ -126,7 +125,6 @@ const ProductsActionIcon = (props) => {
 				</ModalFooter>
 			</Modal>
 
-						
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
 				<Eye size={18} />
 			</Link>
