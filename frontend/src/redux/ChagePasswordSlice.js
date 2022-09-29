@@ -49,15 +49,13 @@ export const ChangePasswordRequest = (changePassword) => async (dispatch, getSta
 		};
 
 		const { data } = await ChangePasswordApi(changePassword, config);
-		console.log(data, 'data');
 
 		dispatch(changePasswordList(data));
 	} catch (error) {
-		console.log(error.response, 'response');
 		if (error.response && error.response.data.errors) {
-			dispatch(forgotpasswordErrorList(error.response.data.errors));
+			dispatch(changepasswordErrorList(error.response.data.errors));
 		} else {
-			dispatch(forgotpasswordErrorList(error.message));
+			dispatch(changepasswordErrorList(error.message));
 		}
 	}
 };

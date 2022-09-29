@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,9 @@ import { ChangePasswordRequest } from '../../../redux/ChagePasswordSlice';
 
 const ChangePasswordSchema = yup.object().shape({
 	old_password: yup.string().required('Old password is required'),
-	new_password: yup.string().required('New password is required'),
+	new_password: yup.string().required('New password is required')
+	.min(8, "Must be 8 characters or more")
+		.matches(/[@$!%*#?&]+/, "One special character"),
 	confirmPassword: yup
 		.string()
 		.required('Confirm password is required')
@@ -18,6 +20,18 @@ const ChangePasswordSchema = yup.object().shape({
 
 const ChangePassword = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const { changePasswordData, error } = useSelector((state) => state.changePassword);
+	console.log(changePasswordData.statusCode, 'dashboard message');
+	useEffect(() => {
+		if (changePasswordData.statusCode == 200) {
+			history.push('/dashboard');
+		}
+	}, [changePasswordData]);
+	// useEffect(()=>{
+	// 	if()
+	// },[changePasswordData])
+
 	return (
 		<>
 			<Breadcrumbs
@@ -35,6 +49,7 @@ const ChangePassword = () => {
 						}}
 						validationSchema={ChangePasswordSchema}
 						onSubmit={(values) => {
+							console.log(values, 'values');
 							dispatch(ChangePasswordRequest(values));
 						}}
 					>
@@ -51,8 +66,8 @@ const ChangePassword = () => {
 												className="form-control"
 												placeholder="Enter Your Old Password"
 											/>
-											{errors.old_password && touched.old_password ? (
-												<div className="error-sm">{errors.old_password}</div>
+											{(errors.old_password && touched.old_password) || error?.old_password ? (
+												<div className="error-sm">{errors.old_password || error?.old_password}</div>
 											) : null}
 										</FormGroup>
 									</Col>

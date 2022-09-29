@@ -19,26 +19,24 @@ import lgPager from 'lightgallery/plugins/pager';
 import lgRotate from 'lightgallery/plugins/rotate';
 import lgShare from 'lightgallery/plugins/share';
 import videoicon from '../../../VideoIcon-image/videoicon3.png';
-import Slider from "react-slick";
-
+import Slider from 'react-slick';
 
 const settings = {
 	dots: true,
 	infinite: true,
 	speed: 500,
 	slidesToShow: 1,
-	slidesToScroll: 1
-  };
+	slidesToScroll: 1,
+};
 
 const ProductsActionIcon = (props) => {
-
 	var settings = {
 		dots: true,
 		infinite: true,
 		speed: 500,
 		slidesToShow: 1,
-		slidesToScroll: 1
-	  };
+		slidesToScroll: 1,
+	};
 
 	const onInit = () => {
 		console.log('lightGallery has been initialized');
@@ -84,11 +82,8 @@ const ProductsActionIcon = (props) => {
 			return getAllImages.push(images);
 		});
 
-
-	
 	return (
 		<>
-
 			<Image
 				size={18}
 				className="text-dark ml-2"
@@ -104,14 +99,12 @@ const ProductsActionIcon = (props) => {
 			>
 				<ModalHeader className="dialog_model" toggle={() => toggleModal(props.id)}></ModalHeader>
 				<ModalBody className="model_body">
-
 					<LightGallery
 						onInit={onInit}
 						download={false}
 						zoom={false}
 						//speed={500}
 						onBeforeNextSlide={true}
-						
 						videojs
 						autoplayVideoOnSlide
 						onHasVideo={onHasVideo}
@@ -135,8 +128,6 @@ const ProductsActionIcon = (props) => {
 						>
 							<img width="200" height="168" class="img-responsive" src={videoicon} />
 						</a>
-	
-
 					</LightGallery>
 
 					{/* {productViewData && productViewData?.images?.length > 0 ? (

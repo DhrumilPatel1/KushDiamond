@@ -27,11 +27,11 @@ export const AdminLoginAPI = async (reqData) => {
 };
 
 export const ForgotPasswordAPI = async (reqData) => {
-	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
+	return await axios.post(`http://192.168.1.32:8000/password-reset/`, reqData);
 };
 
 export const ChangePasswordApi = async (changePassword, config) => {
-	return await axios.put(`${BASE_URL_API}/api/changepassword`, changePassword, config);
+	return await axios.put(`${BASE_URL_API}/api/changepassword/`, changePassword, config);
 };
 
 export const ProductApi = async (queryString, config) => {

@@ -8,6 +8,7 @@ import FtpLog from './FtpLogSlice';
 import ExcelLog from './ExcelLogSlice';
 import forgotPassword from './ForgotPasswordSlice';
 import user from './userSlice';
+import changePassword from './ChagePasswordSlice';
 
 const rootReducer = {
 	navbar,
@@ -19,6 +20,7 @@ const rootReducer = {
 	FtpLog,
 	ExcelLog,
 	user,
+	changePassword,
 };
 
 export default rootReducer;
