@@ -6,7 +6,8 @@ import products from './productsSlice';
 import Ftps from './FtpsSlice';
 import FtpLog from './FtpLogSlice';
 import ExcelLog from './ExcelLogSlice';
+import forgotPassword from './ForgotPasswordSlice';
 
-const rootReducer = { navbar, layout, auth, products, Ftps, FtpLog, ExcelLog };
+const rootReducer = { navbar, layout, auth, forgotPassword, products, Ftps, FtpLog, ExcelLog };
 
 export default rootReducer;

@@ -10,6 +10,7 @@ import ftp from './ftp';
 import products from './products';
 import ftplog from './ftplog';
 import imageUpload from './imageUpload';
+import user from './user';
 
 // ** Merge & Export
 export default [
@@ -17,6 +18,7 @@ export default [
 	...ftp,
 	// ...ftplog,
 	...products,
+	...user,
 	// ...imageUpload,
 	// ...others,
 	// ...pages,
