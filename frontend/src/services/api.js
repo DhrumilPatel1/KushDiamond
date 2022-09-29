@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
- //const BASE_URL_API = 'http://52.44.30.44';
+//const BASE_URL_API = 'http://52.44.30.44';
 const BASE_URL_API = 'http://52.44.30.44';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
@@ -24,6 +24,10 @@ export const AdminLoginAPI = async (reqData) => {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
 	});
+};
+
+export const ForgotPasswordAPI = async (reqData) => {
+	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
 };
 
 export const ProductApi = async (queryString, config) => {

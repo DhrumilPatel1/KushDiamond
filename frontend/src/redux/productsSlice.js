@@ -9,7 +9,7 @@ import {
 	ProductsDetailApi,
 	SendFeedAPI,
 } from '../services/api';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
