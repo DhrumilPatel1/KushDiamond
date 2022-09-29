@@ -12,10 +12,34 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-video.css';
 import lgVideo from 'lightgallery/plugins/video';
+import lgAutoplay from 'lightgallery/plugins/autoplay';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
+import lgHash from 'lightgallery/plugins/hash';
+import lgPager from 'lightgallery/plugins/pager';
+import lgRotate from 'lightgallery/plugins/rotate';
+import lgShare from 'lightgallery/plugins/share';
+import videoicon from '../../../VideoIcon-image/videoicon3.png';
+import Slider from "react-slick";
 
-import videoicon from '../../../VideoIcon-image/videoicon2.png';
+
+const settings = {
+	dots: true,
+	infinite: true,
+	speed: 500,
+	slidesToShow: 1,
+	slidesToScroll: 1
+  };
+
 const ProductsActionIcon = (props) => {
+
+	var settings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1
+	  };
+
 	const onInit = () => {
 		console.log('lightGallery has been initialized');
 	};
@@ -59,11 +83,15 @@ const ProductsActionIcon = (props) => {
 			};
 			return getAllImages.push(images);
 		});
+
+
+	
 	return (
 		<>
+
 			<Image
 				size={18}
-				className="text-dark mr-2"
+				className="text-dark ml-2"
 				onClick={() => toggleModal(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
@@ -76,12 +104,14 @@ const ProductsActionIcon = (props) => {
 			>
 				<ModalHeader className="dialog_model" toggle={() => toggleModal(props.id)}></ModalHeader>
 				<ModalBody className="model_body">
+
 					<LightGallery
 						onInit={onInit}
 						download={false}
 						zoom={false}
 						//speed={500}
-
+						onBeforeNextSlide={true}
+						
 						videojs
 						autoplayVideoOnSlide
 						onHasVideo={onHasVideo}
@@ -89,7 +119,7 @@ const ProductsActionIcon = (props) => {
 						onBeforeSlide={onBeforeSlide}
 						videojsTheme="video-js"
 						// strings={{ playVideo: "Play video" }}
-						plugins={[lgThumbnail, lgVideo, lgZoom, lgFullscreen]}
+						plugins={[lgThumbnail, lgVideo, lgZoom]}
 					>
 						<a href="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png">
 							<img src="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png" />
@@ -105,13 +135,15 @@ const ProductsActionIcon = (props) => {
 						>
 							<img width="200" height="168" class="img-responsive" src={videoicon} />
 						</a>
+	
+
 					</LightGallery>
 
-					{productViewData && productViewData?.images?.length > 0 ? (
+					{/* {productViewData && productViewData?.images?.length > 0 ? (
 						console.log(getAllImages, 'productViewData')
 					) : (
 						<>{<h1>Images Not Found</h1>}</>
-					)}
+					)} */}
 				</ModalBody>
 				<ModalFooter>
 					<Button color="secondary" size="sm" onClick={() => toggleModal(props.id)} outline>
@@ -121,7 +153,7 @@ const ProductsActionIcon = (props) => {
 			</Modal>
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
-				<Eye size={18} />
+				<Eye size={18} className="ml-1" />
 			</Link>
 
 			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
