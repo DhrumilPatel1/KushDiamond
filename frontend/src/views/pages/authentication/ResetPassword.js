@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ChevronLeft } from 'react-feather';
 import InputPassword from '@components/input-password-toggle';
 import { Card, CardBody, CardTitle, CardText, Form, FormGroup, Label, Button } from 'reactstrap';
@@ -6,6 +6,7 @@ import { useSkin } from '@hooks/useSkin';
 import '@styles/base/pages/page-auth.scss';
 
 const ResetPassword = () => {
+	const { link } = useParams();
 	const [skin, setSkin] = useSkin();
 
 	const illustration = skin === 'dark' ? 'image_main.png' : 'image_main.png',

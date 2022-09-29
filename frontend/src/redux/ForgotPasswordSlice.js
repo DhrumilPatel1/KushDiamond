@@ -46,9 +46,7 @@ export const ForgotPasswordLinkRequest = (forgotlink) => async (dispatch, getSta
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-
 		const { data } = await ForgotPasswordAPI(forgotlink, config);
-
 		dispatch(forgotPasswordLink(data));
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
