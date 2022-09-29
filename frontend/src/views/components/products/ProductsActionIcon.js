@@ -18,8 +18,7 @@ import lgHash from 'lightgallery/plugins/hash';
 import lgPager from 'lightgallery/plugins/pager';
 import lgRotate from 'lightgallery/plugins/rotate';
 import lgShare from 'lightgallery/plugins/share';
-
-import videoicon from '../../../VideoIcon-image/videoicon2.png';
+import videoicon from '../../../VideoIcon-image/videoicon3.png';
 const ProductsActionIcon = (props) => {
 	const onInit = () => {
 		console.log('lightGallery has been initialized');
@@ -64,11 +63,47 @@ const ProductsActionIcon = (props) => {
 			};
 			return getAllImages.push(images);
 		});
+
+	const [items, setItems] = useState([
+		{
+			id: '1',
+			src: 'https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+			thumb:
+				'https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=240&q=80',
+			subHtml: `<div class="lightGallery-captions inline-gallery-container">
+					<h4>Photo by <a href="https://unsplash.com/@dann">Dan</a></h4>
+					<p>Published on November 13, 2018</p>
+				</div>`,
+		},
+		{
+			id: '2',
+			src: 'https://images.unsplash.com/photo-1473876988266-ca0860a443b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+			thumb:
+				'https://images.unsplash.com/photo-1473876988266-ca0860a443b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=240&q=80',
+			responsive:
+				'https://images.unsplash.com/photo-1473876988266-ca0860a443b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+			subHtml: `<div class="lightGallery-captions">
+					<h4>Photo by <a href="https://unsplash.com/@kylepyt">Kyle Peyton</a></h4>
+					<p>Published on September 14, 2016</p>
+				</div>`,
+		},
+		{
+			id: '3',
+			src: 'https://images.unsplash.com/photo-1588953936179-d2a4734c5490?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1400&q=80',
+			thumb:
+				'https://images.unsplash.com/photo-1588953936179-d2a4734c5490?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=240&q=80',
+			subHtml: `<div class="lightGallery-captions">
+					<h4>Photo by <a href="https://unsplash.com/@jxnsartstudio">Garrett Jackson</a></h4>
+					<p>Published on May 8, 2020</p>
+				</div>`,
+		},
+	]);
+
 	return (
 		<>
 			<Image
 				size={18}
-				className="text-dark mr-2"
+				className="text-dark ml-2"
 				onClick={() => toggleModal(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
@@ -86,7 +121,7 @@ const ProductsActionIcon = (props) => {
 						download={false}
 						zoom={false}
 						//speed={500}
-
+						dynamicEl={items}
 						videojs
 						autoplayVideoOnSlide
 						onHasVideo={onHasVideo}
@@ -112,11 +147,11 @@ const ProductsActionIcon = (props) => {
 						</a>
 					</LightGallery>
 
-					{productViewData && productViewData?.images?.length > 0 ? (
+					{/* {productViewData && productViewData?.images?.length > 0 ? (
 						console.log(getAllImages, 'productViewData')
 					) : (
 						<>{<h1>Images Not Found</h1>}</>
-					)}
+					)} */}
 				</ModalBody>
 				<ModalFooter>
 					<Button color="secondary" size="sm" onClick={() => toggleModal(props.id)} outline>
@@ -126,7 +161,7 @@ const ProductsActionIcon = (props) => {
 			</Modal>
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
-				<Eye size={18} />
+				<Eye size={18} className="ml-1" />
 			</Link>
 
 			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
