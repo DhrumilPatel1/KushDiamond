@@ -7,6 +7,8 @@ import ImageUploadRoutes from './ImageUpload';
 import FtpFeedRoutes from './FtpFeed';
 import ExcelLogRoutes from './ExcelLog';
 import ProductExcel from './ProductExcel';
+import UserRoutes from './User';
+import ChangePasswordRoutes from './ChangePassword';
 
 // ** Document title
 const TemplateTitle = 'Kush Diamond';
@@ -17,6 +19,7 @@ const DefaultRoute = '/dashboard';
 // ** Merge Routes
 const Routes = [
 	...DashboardRoutes,
+	...ChangePasswordRoutes,
 	...AuthenticationRoutes,
 	...ProductesRoutes,
 	...ProductExcel,
@@ -25,6 +28,7 @@ const Routes = [
 	...FtpLogRoutes,
 	...FtpFeedRoutes,
 	...ImageUploadRoutes,
+	...UserRoutes,
 ];
 
 export { DefaultRoute, TemplateTitle, Routes };

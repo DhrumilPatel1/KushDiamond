@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 
 // ** Third Party Components
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
-import { User, Power } from 'react-feather';
+import { User, Power, Lock } from 'react-feather';
 
 // ** Default Avatar Image
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg';
@@ -54,9 +54,9 @@ const UserDropdown = () => {
 				<Avatar img={userAvatar} imgHeight="40" imgWidth="40" status="online" />
 			</DropdownToggle>
 			<DropdownMenu right>
-				<DropdownItem tag={Link} to="/pages/profile">
-					<User size={14} className="mr-75" />
-					<span className="align-middle">Profile</span>
+				<DropdownItem tag={Link} to="/changePassword">
+					<Lock size={14} className="mr-75" />
+					<span className="align-middle">Change Password</span>
 				</DropdownItem>
 				<DropdownItem tag={Link} to="/login" onClick={() => dispatch(handleLogout())}>
 					<Power size={14} className="mr-75" />

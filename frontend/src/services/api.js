@@ -30,6 +30,10 @@ export const ForgotPasswordAPI = async (reqData) => {
 	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
 };
 
+export const ChangePasswordApi = async (changePassword, config) => {
+	return await axios.put(`${BASE_URL_API}/api/changepassword`, changePassword, config);
+};
+
 export const ProductApi = async (queryString, config) => {
 	return await axios
 		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
@@ -90,4 +94,9 @@ export const ImageUploadApi = async (imgFile, config) => {
 
 export const ExcelLogListApi = async (queryString, config) => {
 	return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
+};
+
+export const UserGetAllApi = async (queryString, config) => {
+	// return await axios.get(`${BASE_URL_API}/api/staff/list/`, config);
+	return await axios.get(`http://192.168.1.32:8000/api/staff/list/?` + queryString, config);
 };

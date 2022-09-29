@@ -15,7 +15,6 @@ export const ForgotPasswordSlice = createSlice({
 		},
 
 		forgotPasswordLink: (state, action) => {
-			console.log(action.payload, 'action.payload');
 			state.isLoading = false;
 			state.forgotPasswordData = action.payload;
 		},
@@ -49,12 +48,9 @@ export const ForgotPasswordLinkRequest = (forgotlink) => async (dispatch, getSta
 		};
 
 		const { data } = await ForgotPasswordAPI(forgotlink, config);
-		console.log(data, 'data');
+
 		dispatch(forgotPasswordLink(data));
 	} catch (error) {
-		// console.log(error.response, 'errorresponse');
-		// console.log(error.response.data.message, 'errorresponse1');
-		// console.log(error.response.data.errors, 'errorresponse2');
 		if (error.response && error.response.data.errors) {
 			dispatch(forgotpasswordErrorList(error.response.data.errors));
 		} else {
