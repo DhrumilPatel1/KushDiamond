@@ -3,45 +3,51 @@ import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
+import { UserCreateRequest, userResetAuth } from '../../../redux/userSlice';
 
 const FtpCreateSchema = yup.object().shape({
-	client_name: yup.string().required('Client Name is required'),
-	protocol: yup.string().required('Protocol is required'),
-	port: yup.number().required('Port is required'),
+	staff_name: yup.string().required('Username is required'),
+	email: yup.string().email('Invalid email').required('Email is required'),
+	mobile_no: yup.number().required('Mobile No is required'),
+	password: yup.string().required('Password is required'),
 });
 
 const CreateUser = () => {
-	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
+	const { userCreateData, error } = useSelector((state) => state.user);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	// useEffect(() => {
-	// 	if (ftpCreateData && ftpCreateData.length !== 0) {
-	// 		history.push('/ftp/list');
-	// 	}
-	// 	return () => {
-	// 		dispatch(ftpResetAuth());
-	// 	};
-	// }, [ftpCreateData]);
+	useEffect(() => {
+		if (userCreateData && userCreateData.length !== 0) {
+			history.push('/user/list');
+		}
+		return () => {
+			dispatch(userResetAuth());
+		};
+	}, [userCreateData]);
 
 	return (
 		<>
-			<Breadcrumbs breadCrumbTitle="FTP Create" breadCrumbParent="Ftp" breadCrumbActive="Create" />
+			<Breadcrumbs
+				breadCrumbTitle="User Create"
+				breadCrumbParent="User"
+				breadCrumbActive="Create"
+			/>
 			<Card>
 				<CardBody>
 					<Formik
 						initialValues={{
-							client_name: '',
+							staff_name: '',
+							email: '',
+							mobile_no: '',
 							password: '',
-							
 						}}
 						validationSchema={FtpCreateSchema}
 						onSubmit={(values) => {
-							dispatch(FtpCreateRequest(values));
+							dispatch(UserCreateRequest(values));
 						}}
 					>
 						{({ errors, touched }) => (
@@ -49,18 +55,50 @@ const CreateUser = () => {
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
-											<Label for="client_name">Client Name</Label>
+											<Label for="staff_name">User Name</Label>
 											<Field
 												type="text"
-												name="client_name"
-												id="client_name"
+												name="staff_name"
+												id="staff_name"
 												className="form-control"
-												placeholder="Enter Your Client Name"
+												placeholder="Enter Your User Name"
 											/>
-											{/* {(errors.client_name && touched.client_name) ||
-											(error && error.client_name) ? (
-												<div className="error-sm">{errors.client_name || error.client_name}</div>
-											) : null} */}
+											{(errors.staff_name && touched.staff_name) || (error && error.staff_name) ? (
+												<div className="error-sm">{errors.staff_name || error.staff_name}</div>
+											) : null}
+										</FormGroup>
+									</Col>
+
+									<Col md="6" sm="12">
+										<FormGroup>
+											<Label for="email">Email</Label>
+											<Field
+												type="email"
+												name="email"
+												id="email"
+												className="form-control"
+												placeholder="Enter Your Email"
+											/>
+
+											{(errors.email && touched.email) || (error && error.email) ? (
+												<div className="error-sm">{errors.email || error.email}</div>
+											) : null}
+										</FormGroup>
+									</Col>
+									<Col md="6" sm="12">
+										<FormGroup>
+											<Label for="mobile_no">Mobile No</Label>
+											<Field
+												type="number"
+												name="mobile_no"
+												id="mobile_no"
+												className="form-control"
+												placeholder="Enter Your Mobile No"
+											/>
+
+											{(errors.mobile_no && touched.mobile_no) || (error && error.mobile_no) ? (
+												<div className="error-sm">{errors.mobile_no || error.mobile_no}</div>
+											) : null}
 										</FormGroup>
 									</Col>
 									<Col md="6" sm="12">
@@ -70,13 +108,12 @@ const CreateUser = () => {
 												type="password"
 												name="password"
 												id="password"
-												autoComplete="new-password"
 												className="form-control"
 												placeholder="Enter Your Password"
 											/>
-											{/* {(errors.password && touched.password) || (error && error.password) ? (
+											{(errors.password && touched.password) || (error && error.password) ? (
 												<div className="error-sm">{errors.password || error.password}</div>
-											) : null} */}
+											) : null}
 										</FormGroup>
 									</Col>
 
@@ -85,7 +122,7 @@ const CreateUser = () => {
 											<Button.Ripple size="sm" className="mr-1" color="primary" type="submit">
 												Submit
 											</Button.Ripple>
-											<Button.Ripple size="sm" color="secondary" tag={Link} to="/ftp/list" outline>
+											<Button.Ripple size="sm" color="secondary" tag={Link} to="/user/list" outline>
 												Back
 											</Button.Ripple>
 										</FormGroup>

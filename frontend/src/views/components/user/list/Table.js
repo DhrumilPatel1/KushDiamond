@@ -86,7 +86,7 @@ const UserList = () => {
 									placeholder="Search"
 								/>
 							</div> */}
-							<Button className="ml-2" size="sm" color="primary" tag={Link} to={'/ftp/add'}>
+							<Button className="ml-2" size="sm" color="primary" tag={Link} to={'/user/add'}>
 								<Plus size={15} />
 								<span className="align-middle ml-50" size="sm">
 									Create
