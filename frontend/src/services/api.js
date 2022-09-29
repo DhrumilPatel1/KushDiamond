@@ -97,10 +97,9 @@ export const ExcelLogListApi = async (queryString, config) => {
 };
 
 export const UserGetAllApi = async (queryString, config) => {
-	// return await axios.get(`${BASE_URL_API}/api/staff/list/`, config);
-	return await axios.get(`http://192.168.1.32:8000/api/staff/list/?` + queryString, config);
+	return await axios.get(`${BASE_URL_API}/api/staff/list/?` + queryString, config);
 };
 
 export const UserCreateApi = async (reqData, config) => {
-	return await axios.post(`http://192.168.1.32:8000/api/staff/create/`, reqData, config);
+	return await axios.post(`${BASE_URL_API}/api/staff/create/`, reqData, config);
 };

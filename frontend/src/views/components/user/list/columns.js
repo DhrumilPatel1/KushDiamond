@@ -1,5 +1,5 @@
 // ** Third Party Components
-// import FtpActionIcon from '../FtpActionIcon';
+import UserActionIcon from '../UserActionIcon';
 
 export const columns = [
 	{
@@ -24,15 +24,15 @@ export const columns = [
 		cell: (row) => row.mobile_no,
 	},
 
-	// {
-	// 	name: 'Actions',
-	// 	width: '110px',
-	// 	cell: (row) => {
-	// 		return (
-	// 			<div className="d-inline ">
-	// 				<FtpActionIcon id={row.id} />
-	// 			</div>
-	// 		);
-	// 	},
-	// },
+	{
+		name: 'Actions',
+		width: '110px',
+		cell: (row) => {
+			return (
+				<div className="d-inline ">
+					<UserActionIcon id={row.id} />
+				</div>
+			);
+		},
+	},
 ];

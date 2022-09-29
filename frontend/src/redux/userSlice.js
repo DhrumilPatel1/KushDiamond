@@ -71,7 +71,6 @@ export const UserCreateRequest = (userData) => async (dispatch, getState) => {
 		};
 
 		const { data } = await UserCreateApi(userData, config);
-		console.log(data, 'data');
 
 		const { statusCode, message } = data;
 
