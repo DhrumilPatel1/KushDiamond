@@ -9,7 +9,7 @@ import ExcelLog from './ExcelLogSlice';
 import forgotPassword from './ForgotPasswordSlice';
 import user from './userSlice';
 import changePassword from './ChagePasswordSlice';
-
+import ResetPassword from './ResetPasswordSlice'
 const rootReducer = {
 	navbar,
 	layout,
@@ -20,6 +20,7 @@ const rootReducer = {
 	FtpLog,
 	ExcelLog,
 	user,
+	ResetPassword,
 	changePassword,
 };
 
