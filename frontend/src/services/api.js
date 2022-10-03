@@ -28,7 +28,7 @@ export const AdminLoginAPI = async (reqData) => {
 };
 
 export const ForgotPasswordAPI = async (reqData) => {
-	return await axios.post(`http://192.168.1.32:8000/password-reset/`, reqData);
+	return await axios.post(`http://192.168.1.76:8000/password-reset/`, reqData);
 };
 
 export const ChangePasswordApi = async (changePassword, config) => {
@@ -36,7 +36,7 @@ export const ChangePasswordApi = async (changePassword, config) => {
 };
 
 export const ResetPasswordApi = async (changePassword,link, config) => {
-	return await axios.patch(`http://192.168.1.32:8000/password-reset/${link}/`, changePassword, config);
+	return await axios.patch(`http://192.168.1.76:8000/password-reset/${link}/`, changePassword, config);
 };
 
 
