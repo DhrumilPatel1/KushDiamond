@@ -9,9 +9,11 @@ import { ChangePasswordRequest } from '../../../redux/ChagePasswordSlice';
 
 const ChangePasswordSchema = yup.object().shape({
 	old_password: yup.string().required('Old password is required'),
-	new_password: yup.string().required('New password is required')
-	.min(8, "Must be 8 characters or more")
-		.matches(/[@$!%*#?&]+/, "One special character"),
+	new_password: yup
+		.string()
+		.required('New password is required')
+		.min(8, 'Must be 8 characters or more')
+		.matches(/[@$!%*#?&]+/, 'One special character'),
 	confirmPassword: yup
 		.string()
 		.required('Confirm password is required')
@@ -22,7 +24,7 @@ const ChangePassword = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { changePasswordData, error } = useSelector((state) => state.changePassword);
-	console.log(changePasswordData.statusCode, 'dashboard message');
+
 	useEffect(() => {
 		if (changePasswordData.statusCode == 200) {
 			history.push('/dashboard');
@@ -35,9 +37,9 @@ const ChangePassword = () => {
 	return (
 		<>
 			<Breadcrumbs
-				breadCrumbTitle="Chage Password"
+				breadCrumbTitle="Change Password"
 				breadCrumbParent="Account"
-				breadCrumbActive="Chage Password"
+				breadCrumbActive="Change Password"
 			/>
 			<Card>
 				<CardBody>

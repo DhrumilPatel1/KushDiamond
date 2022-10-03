@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-import { ChangePasswordApi, ResetPasswordApi } from '../services/api';
+import { ResetPasswordApi } from '../services/api';
 
 export const ResetPasswordSlice = createSlice({
 	name: 'ResetPassword',
@@ -15,7 +15,6 @@ export const ResetPasswordSlice = createSlice({
 		},
 
 		ResetPasswordList: (state, action) => {
-			console.log(action.payload, 'action.payload');
 			state.isLoading = false;
 			state.ResetPasswordData = action.payload;
 		},
@@ -33,8 +32,13 @@ export const ResetPasswordSlice = createSlice({
 	},
 });
 
-export const { ResetPasswordList, setLoading, ResetpasswordErrorList, changepasswordResetData } =
-	ResetPasswordSlice.actions;
+export const {
+	ResetPasswordList,
+	setLoading,
+	ResetpasswordErrorList,
+	ResetpasswordResetData,
+	changepasswordResetData,
+} = ResetPasswordSlice.actions;
 
 export default ResetPasswordSlice.reducer;
 
@@ -50,7 +54,11 @@ export const ResetPasswordRequest = (resetPassword, link) => async (dispatch, ge
 
 		const { data } = await ResetPasswordApi(resetPassword, link, config);
 
-		dispatch(ResetPasswordList(data));
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			dispatch(ResetPasswordList(data));
+			toast.success(message);
+		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			dispatch(ResetpasswordErrorList(error.response.data.errors));

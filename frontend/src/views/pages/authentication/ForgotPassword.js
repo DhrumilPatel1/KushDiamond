@@ -33,8 +33,6 @@ const ForgotPassword = () => {
 	});
 
 	const { forgotPasswordData, error } = useSelector((state) => state.forgotPassword);
-	console.log(forgotPasswordData, 'forgotPasswordData');
-	console.log(error, 'error');
 
 	return (
 		<div className="auth-wrapper auth-v1 px-2">
@@ -78,8 +76,8 @@ const ForgotPassword = () => {
 							}}
 							validationSchema={ForgotPasswordSchema}
 							onSubmit={(values) => {
-								console.log(values, 'values');
 								dispatch(ForgotPasswordLinkRequest(values));
+								values.email = '';
 							}}
 						>
 							{({ errors, touched }) => (

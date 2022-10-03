@@ -1,20 +1,20 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { ChevronLeft } from 'react-feather';
 import { Card, CardBody, CardTitle, CardText, FormGroup, Label, Button, Input } from 'reactstrap';
 import { useSkin } from '@hooks/useSkin';
 import '@styles/base/pages/page-auth.scss';
 import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { ResetPasswordRequest } from '../../../redux/ResetPasswordSlice';
+import { ResetpasswordResetData, ResetPasswordRequest } from '../../../redux/ResetPasswordSlice';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const resetPassword = yup.object().shape({
 	password: yup.string().required('New password is required'),
-	password: yup
-		.string()
-		.required('New password is required')
-		.min(8, 'Must be 8 characters or more')
-		.matches(/[@$!%*#?&]+/, 'One special character'),
+	password: yup.string().required('New password is required'),
+	// .min(8, 'Must be 8 characters or more')
+	// .matches(/[@$!%*#?&]+/, 'One special character'),
 	confirm_password: yup
 		.string()
 		.required('Confirm password is required')
@@ -26,6 +26,17 @@ const ResetPassword = () => {
 	const ResetLink = mq + '/' + link;
 
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const { ResetPasswordData } = useSelector((state) => state.ResetPassword);
+
+	useEffect(() => {
+		if (ResetPasswordData && ResetPasswordData.length !== 0) {
+			history.push('/');
+		}
+		return () => {
+			dispatch(ResetpasswordResetData());
+		};
+	}, [ResetPasswordData]);
 
 	const [skin, setSkin] = useSkin();
 
