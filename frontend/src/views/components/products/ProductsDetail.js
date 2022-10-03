@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { ProductsDetialRequest } from '../../../redux/productsSlice';
+import { ProductResetData, ProductsDetialRequest } from '../../../redux/productsSlice';
 import Breadcrumbs from '@components/breadcrumbs';
 // import ImageGallery from 'react-image-gallery';
 // import 'react-image-gallery/styles/scss/image-gallery.scss';
@@ -39,6 +39,10 @@ const ProductsDetail = () => {
 	// 		};
 	// 		return getAllImages.push(images);
 	// 	});
+
+	const resetData = ()=>{
+		dispatch(ProductResetData())
+	}
 
 	return (
 		<>
@@ -362,6 +366,7 @@ const ProductsDetail = () => {
 									className="mx-2"
 									color="secondary"
 									tag={Link}
+									onClick={resetData}
 									to="/products/list"
 									outline
 								>

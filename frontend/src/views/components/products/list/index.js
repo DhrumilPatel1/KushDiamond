@@ -24,19 +24,16 @@ const ProductsList = () => {
 	const dispatch = useDispatch();
 	const { productViewData, error } = useSelector((state) => state.products);
 	const clickOpenGallarey = (id) => {
-		console.log('call this', id);
 		dispatch(ProductsDetialRequest(id));
 	};
 
 	const onInit = (detail) => {
 		imageref.current = detail.instance;
-
-		console.log('lightGallery has been initialized');
+		// imageref.current.closeGallery();
 	};
 
 	let onBeforeOpen = (detail) => {
 		console.log('onBeforeOpen', detail);
-		// imageref.current.closeGallery();
 	};
 
 	let onHasVideo = (detail) => {
@@ -82,17 +79,21 @@ const ProductsList = () => {
 		dispatch(ProductResetData());
 	};
 
+	// console.log(getAllImages?.length,"checked length")
+
 	useEffect(() => {
-		if (getAllImages?.length > 0) {
+		if (getAllImages?.length > 0 && getAllImages != null) {
+			imageref.current.refresh();
 			imageref.current.openGallery();
+		} else if (getAllImages?.lengt === 0) {
+			imageref.current.closeGallery();
 		}
-	}, [getAllImages]);
+	}, [dispatch, getAllImages]);
 
 	return (
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
 			<Table clickOpenGallarey={clickOpenGallarey} />
-
 			<LightGallery
 				onInit={onInit}
 				download={false}

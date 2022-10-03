@@ -245,6 +245,7 @@ const ProductsList = (props) => {
 
 	useEffect(() => {
 		dispatch(productList(queryString));
+		
 	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
