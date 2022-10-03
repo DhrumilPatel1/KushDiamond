@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Edit, Eye, File, Image } from 'react-feather';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -43,13 +43,13 @@ const ProductsActionIcon = (props) => {
 
 	return (
 		<>
-			<Link to={`/products/view/${props.id}`} className="text-primary">
 			<Image
 				size={18}
 				className="text-dark ml-2"
+				onClick={() => props.clickOpenGallarey(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
-			</Link>
+
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
 				<Eye size={18} className="ml-1" />
 			</Link>

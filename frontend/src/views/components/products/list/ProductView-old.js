@@ -55,16 +55,17 @@ export default function ProductView() {
 	}, []);
 
 	var getAllImages = [];
-	const getImages =
-		productViewData &&
-		productViewData?.images?.map((image) => {
+	productViewData &&
+		productViewData?.images?.forEach((image) => {
 			var images = {
 				original: image,
 				thumbnail: image,
 			};
+      console.log(image,"image")
 			getAllImages.push(images.original);
 		});
 
+    console.log(productViewData,"getAllImages")
 	return (
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
@@ -84,15 +85,15 @@ export default function ProductView() {
 				// strings={{ playVideo: "Play video" }}
 				plugins={[lgThumbnail, lgVideo, lgZoom]}
 			>
-				
-					{getAllImages?.map((items, index) => (
-           
-							<a href={items} key={index}>
-								<img src={items} />
-							</a>
-					
-					))}
-				
+				{getAllImages?.map((items, index) => (
+
+          
+
+					<a href={items} key={index}>
+						<img src={items.url} className="gallary_images" />
+					</a>
+				))}
+
 				{/* <a href="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png">
 					<img src="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png" />
 				</a>

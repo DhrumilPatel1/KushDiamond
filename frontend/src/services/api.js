@@ -35,10 +35,13 @@ export const ChangePasswordApi = async (changePassword, config) => {
 	return await axios.put(`${BASE_URL_API}/api/changepassword/`, changePassword, config);
 };
 
-export const ResetPasswordApi = async (changePassword,link, config) => {
-	return await axios.patch(`http://192.168.1.76:8000/password-reset/${link}/`, changePassword, config);
+export const ResetPasswordApi = async (changePassword, link, config) => {
+	return await axios.patch(
+		`http://192.168.1.76:8000/password-reset/${link}/`,
+		changePassword,
+		config
+	);
 };
-
 
 export const ProductApi = async (queryString, config) => {
 	return await axios
@@ -115,8 +118,3 @@ export const UserDeleteApi = async (userId, config) => {
 export const UserViewApi = async (userId, config) => {
 	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
 };
-
-
-
-
-
