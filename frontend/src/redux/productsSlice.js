@@ -86,6 +86,7 @@ export const productsSlice = createSlice({
 			state.ImageUploaFileData = [];
 			state.excelTypeOne = [];
 			state.excelTypeTwo = [];
+			state.productViewData = [];
 		},
 	},
 });
