@@ -19,7 +19,7 @@ const ProductesRoutes = [
 		component: lazy(() => import('../../views/components/products/EditProducts')),
 	},
 	{
-		path: '/product/view/:id',
+		path: '/products/view/:id',
 		component: lazy(() => import('../../views/components/products/list/ProductView')),
 	},
 ];

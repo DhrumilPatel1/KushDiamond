@@ -47,7 +47,6 @@ const ProductsActionIcon = (props) => {
 			<Image
 				size={18}
 				className="text-dark ml-2"
-				// onClick={() => props.clickOpenGallarey(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
 			</Link>
