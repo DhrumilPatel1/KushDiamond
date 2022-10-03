@@ -187,6 +187,7 @@ export const ProductsDetialRequest = (details_id) => async (dispatch, getState) 
 			},
 		};
 		const { data } = await ProductsDetailApi(details_id, config);
+		console.log(data,"api data ")
 		const { statusCode } = data;
 		if (statusCode === 200) {
 			dispatch(productViewData(data));

@@ -108,3 +108,14 @@ export const UserGetAllApi = async (queryString, config) => {
 export const UserCreateApi = async (reqData, config) => {
 	return await axios.post(`${BASE_URL_API}/api/staff/create/`, reqData, config);
 };
+export const UserDeleteApi = async (userId, config) => {
+	return await axios.delete(`${BASE_URL_API}/api/staff/modify/${userId}`, config);
+};
+export const UserViewApi = async (userId, config) => {
+	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
+};
+
+
+
+
+

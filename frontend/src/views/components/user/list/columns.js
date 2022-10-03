@@ -27,6 +27,7 @@ export const columns = [
 	{
 		name: 'Actions',
 		width: '110px',
+		center:true,
 		cell: (row) => {
 			return (
 				<div className="d-inline ">

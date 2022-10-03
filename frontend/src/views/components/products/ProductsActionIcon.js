@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Edit, Eye, File, Image } from 'react-feather';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -13,115 +13,46 @@ import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-video.css';
 import lgVideo from 'lightgallery/plugins/video';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
-
 import videoicon from '../../../VideoIcon-image/videoicon2.png';
+
 const ProductsActionIcon = (props) => {
-	const onInit = () => {
-		console.log('lightGallery has been initialized');
-	};
+	// const imageref = useRef(null)
 
-	let onHasVideo = (detail) => {
-		console.log('dety', detail);
-	};
+	// const onInit = (detail) => {
+	// 	imageref.current=detail.instance
 
-	let onPosterClick = (detail) => {
-		console.log('dety', detail);
-	};
-	const onBeforeSlide = (detail) => {
-		const { index, prevIndex } = detail;
-		console.log(index, prevIndex);
-	};
+	// 	console.log('lightGallery has been initialized');
+	// };
 
-	const [modal, setModal] = useState(null);
-	const [modalCss, setModalCss] = useState(false);
+	// let onBeforeOpen = (detail) =>{
+	// 	console.log('onBeforeOpen', detail);
+	// 	imageref.current.closeGallary();
+	// }
 
-	console.log(modalCss, 'modalCss');
+	// let onHasVideo = (detail) => {
+	// 	console.log('dety', detail);
+	// };
 
-	const dispatch = useDispatch();
-	const { productViewData, error } = useSelector((state) => state.products);
+	// let onPosterClick = (detail) => {
+	// 	console.log('dety', detail);
+	// };
+	// const onBeforeSlide = (detail) => {
+	// 	const { index, prevIndex } = detail;
+	// 	console.log(index, prevIndex);
+	// };
 
-	const toggleModal = (id) => {
-		if (modal !== id) {
-			setModal(id);
-			dispatch(ProductsDetialRequest(id));
-		} else {
-			setModal(null);
-		}
-	};
-
-	var getAllImages = [];
-	const getImages =
-		productViewData &&
-		productViewData?.images?.map((image) => {
-			var images = {
-				original: image,
-				thumbnail: image,
-			};
-			return getAllImages.push(images);
-		});
 	return (
 		<>
+			<Link to={`/products/view/${props.id}`} className="text-primary">
 			<Image
 				size={18}
-				className="text-dark mr-2"
-				onClick={() => toggleModal(props.id)}
+				className="text-dark ml-2"
+				// onClick={() => props.clickOpenGallarey(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
-
-			<Modal
-				isOpen={modal === props.id}
-				toggle={() => toggleModal(props.id)}
-				className={`modal-dialog-centered modal-xl`}
-				key={props.id}
-			>
-				<ModalHeader className="dialog_model" toggle={() => toggleModal(props.id)}></ModalHeader>
-				<ModalBody className="model_body">
-					<LightGallery
-						onInit={onInit}
-						download={false}
-						zoom={false}
-						//speed={500}
-
-						videojs
-						autoplayVideoOnSlide
-						onHasVideo={onHasVideo}
-						onPosterClick={onPosterClick}
-						onBeforeSlide={onBeforeSlide}
-						videojsTheme="video-js"
-						// strings={{ playVideo: "Play video" }}
-						plugins={[lgThumbnail, lgVideo, lgZoom, lgFullscreen]}
-					>
-						<a href="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png">
-							<img src="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png" />
-						</a>
-						<a href="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png">
-							<img src="https://realestateim.s3.ap-south-1.amazonaws.com/products//var/www/html/kush_diamond/media/char1_22092022_0951.png" />
-						</a>
-						<a
-							className="video-js"
-							// data-lg-size="1280-720"
-							data-video='{"source": [{"src":"https://realestateim.s3.ap-south-1.amazonaws.com/products/Cartoon+Status+Video+(1)_27092022_1119.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true, "controls": true}}'
-							data-poster={videoicon}
-						>
-							<img width="200" height="168" class="img-responsive" src={videoicon} />
-						</a>
-					</LightGallery>
-
-					{productViewData && productViewData?.images?.length > 0 ? (
-						console.log(getAllImages, 'productViewData')
-					) : (
-						<>{<h1>Images Not Found</h1>}</>
-					)}
-				</ModalBody>
-				<ModalFooter>
-					<Button color="secondary" size="sm" onClick={() => toggleModal(props.id)} outline>
-						Cancel
-					</Button>
-				</ModalFooter>
-			</Modal>
-
+			</Link>
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
-				<Eye size={18} />
+				<Eye size={18} className="ml-1" />
 			</Link>
 
 			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
