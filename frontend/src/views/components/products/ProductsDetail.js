@@ -1,48 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import {
-	Button,
-	Card,
-	CardBody,
-	Col,
-	CustomInput,
-	Form,
-	FormGroup,
-	Input,
-	Label,
-	Row,
-} from 'reactstrap';
+import React, { useEffect } from 'react';
+import { Button, Card, CardBody, Col, CustomInput, FormGroup, Input, Label, Row } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ProductResetData, ProductsDetialRequest } from '../../../redux/productsSlice';
 import Breadcrumbs from '@components/breadcrumbs';
-// import ImageGallery from 'react-image-gallery';
-// import 'react-image-gallery/styles/scss/image-gallery.scss';
 
 const ProductsDetail = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
 	const { productViewData, error } = useSelector((state) => state.products);
-	console.log(productViewData);
 
 	useEffect(() => {
 		dispatch(ProductsDetialRequest(id));
 	}, []);
 
-	// var getAllImages = [];
-	// const getImages =
-	// 	productViewData &&
-	// 	productViewData?.images?.map((image) => {
-	// 		var images = {
-	// 			original: image,
-	// 			thumbnail: image,
-	// 		};
-	// 		return getAllImages.push(images);
-	// 	});
-
-	const resetData = ()=>{
-		dispatch(ProductResetData())
-	}
+	const resetData = () => {
+		dispatch(ProductResetData());
+	};
 
 	return (
 		<>
@@ -51,24 +26,7 @@ const ProductsDetail = () => {
 				breadCrumbParent="products"
 				breadCrumbActive="Details"
 			/>
-			{/* <Card>
-				<CardHeader>
-					<CardTitle tag="h4">Gallery</CardTitle>
-				</CardHeader>
-				{productViewData && productViewData?.images?.length > 0 ? (
-					<CardBody>
-						<Row>
-							<Col xl="6">
-								<div className="image_slider">
-									<ImageGallery items={getAllImages} showPlayButton={false} />;
-								</div>
-							</Col>
-						</Row>
-					</CardBody>
-				) : (
-					'Images Not Found'
-				)}
-			</Card> */}
+
 			<Card>
 				<CardBody>
 					<Row>

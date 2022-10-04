@@ -46,11 +46,6 @@ const ProductsList = (props) => {
 			sortable: true,
 			sticky: true,
 			center: true,
-			style: {
-				// position:"absolute",
-				// left: 20,
-				// overflow:"hidden"
-			},
 			cell: (row) => row.sku,
 		},
 		{
@@ -246,7 +241,6 @@ const ProductsList = (props) => {
 
 	useEffect(() => {
 		dispatch(productList(queryString));
-		
 	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
@@ -283,26 +277,75 @@ const ProductsList = (props) => {
 			<Card className="deskboard_card">
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col
-							xl="6"
-							// className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-						>
+						<Col lg="4">
 							<h3>Products List</h3>
 						</Col>
 
-						<Col
+						<Col lg="8" className="d-flex">
+							<Col
+								lg="2"
+								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+							>
+								<Button.Ripple
+									size="sm"
+									color="relief-primary"
+									className="filter_button"
+									tag={Link}
+									to="/product/excel"
+								>
+									Product Excel
+								</Button.Ripple>
+							</Col>
+
+							<Col
+								lg="2"
+								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+							>
+								<Button.Ripple
+									size="sm"
+									color="relief-primary"
+									className="filter_button"
+									tag={Link}
+									to="/product/inventory"
+								>
+									Invertory Excel
+								</Button.Ripple>
+							</Col>
+
+							<Col
+								lg="2"
+								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+							>
+								<Button.Ripple
+									size="sm"
+									color="relief-primary"
+									className="filter_button"
+									tag={Link}
+									to="/shopifySync"
+								>
+									Shopify Sync
+								</Button.Ripple>
+							</Col>
+
+							{/* <Col
 							xl="6"
-							className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-						>
-							<Input
-								id="search-invoice"
-								className="ml-50 w-100 form-control-sm product_search_button"
-								type="text"
-								size="sm"
-								name="search"
-								onChange={handleFilter}
-								placeholder="Search"
-							/>
+							//className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+						> */}
+							<Col
+								lg="4"
+								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
+							>
+								<Input
+									id="search-invoice"
+									className="ml-50 w-100 form-control-sm"
+									// style={{ width: '100% !important' }}
+									type="text"
+									size="sm"
+									name="search"
+									onChange={handleFilter}
+									placeholder="Search"
+								/>
+							</Col>
 						</Col>
 					</Row>
 				</CardBody>

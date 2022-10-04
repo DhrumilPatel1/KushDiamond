@@ -9,6 +9,7 @@ import ExcelLogRoutes from './ExcelLog';
 import ProductExcel from './ProductExcel';
 import UserRoutes from './User';
 import ChangePasswordRoutes from './ChangePassword';
+import ShopifySyncRoutes from './ShopifySync';
 
 // ** Document title
 const TemplateTitle = 'Kush Diamond';
@@ -29,6 +30,7 @@ const Routes = [
 	...FtpFeedRoutes,
 	...ImageUploadRoutes,
 	...UserRoutes,
+	...ShopifySyncRoutes,
 ];
 
 export { DefaultRoute, TemplateTitle, Routes };

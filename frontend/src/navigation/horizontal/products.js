@@ -1,4 +1,4 @@
-import { Box, File, Image, Package, Server } from 'react-feather';
+import { Box, File, Image, Package, Server, ShoppingBag } from 'react-feather';
 
 export default [
 	{
@@ -39,6 +39,13 @@ export default [
 				title: 'Excel Log',
 				icon: <File size={20} />,
 				navLink: '/excelLog/list',
+			},
+
+			{
+				id: 'shopify_sync',
+				title: 'Shopify Sync',
+				icon: <ShoppingBag size={20} />,
+				navLink: '/shopifySync',
 			},
 		],
 	},
