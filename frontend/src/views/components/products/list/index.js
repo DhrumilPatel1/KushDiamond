@@ -74,7 +74,7 @@ const ProductsList = () => {
 				return getAllImages.push(images);
 			}
 		});
-
+		
 	const clearData = () => {
 		dispatch(ProductResetData());
 	};
