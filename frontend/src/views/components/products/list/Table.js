@@ -207,9 +207,10 @@ const ProductsList = (props) => {
 			minWidth: '140px',
 			center: true,
 			cell: (row) => {
+				// console.log("row called------------------")
 				return (
 					<div className="d-inline ">
-						<ProductsActionIcon clickOpenGallarey={props.clickOpenGallarey} id={row.id} />
+						<ProductsActionIcon clickOpenGallarey={(row) => props.clickOpenGallarey(row)} row={row}   id={row.id} />
 					</div>
 				);
 			},
@@ -271,7 +272,7 @@ const ProductsList = (props) => {
 		tableChangeHandler({ ...table_data, search: value });
 		setFilter_value(value);
 	};
-
+	
 	useEffect(() => {
 		dispatch(productList());
 	}, []);

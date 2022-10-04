@@ -43,12 +43,23 @@ const ProductsActionIcon = (props) => {
 
 	return (
 		<>
-			<Image
+			{/* <Image
 				size={18}
 				className="text-dark ml-2"
-				onClick={() => props.clickOpenGallarey(props.id)}
+				onClick={() => props.clickOpenGallarey(props.id,props.row)}
 				style={{ cursor: 'pointer' }}
-			/>
+			/> */}
+
+			{props?.row?.product_images?.length > 0 ? (
+				<Image
+					size={18}
+					className="text-dark ml-2"
+					onClick={() => props.clickOpenGallarey(props.row.product_images)}
+					style={{ cursor: 'pointer' }}
+				/>
+			) : (
+				<Image size={18} className="text-dark ml-2" style={{ cursor: 'not-allowed' }} />
+			)}
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
 				<Eye size={18} className="ml-1" />
