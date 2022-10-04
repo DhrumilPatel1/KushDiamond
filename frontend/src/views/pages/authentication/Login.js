@@ -26,7 +26,7 @@ const ToastContent = ({ name, role }) => (
 		</div>
 		<div className="toastify-body">
 			<span>
-				You have successfully logged in as an {role} to Kush Diamond. Now you can start to explore.
+				You have successfully logged in as an {name} to Kush Diamond. Now you can start to explore.
 				Enjoy!
 			</span>
 		</div>
