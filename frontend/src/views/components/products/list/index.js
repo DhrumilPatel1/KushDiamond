@@ -12,7 +12,6 @@ import 'lightgallery/css/lg-video.css';
 import lgVideo from 'lightgallery/plugins/video';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
 import videoicon from '../../../../VideoIcon-image/videoicon2.png';
-
 // ** Styles
 import '@styles/react/apps/app-users.scss';
 import { ProductResetData, ProductsDetialRequest } from '../../../../redux/productsSlice';
