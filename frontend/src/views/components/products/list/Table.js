@@ -205,7 +205,11 @@ const ProductsList = (props) => {
 				// console.log("row called------------------")
 				return (
 					<div className="d-inline ">
-						<ProductsActionIcon clickOpenGallarey={(row) => props.clickOpenGallarey(row)} row={row}   id={row.id} />
+						<ProductsActionIcon
+							clickOpenGallarey={(row) => props.clickOpenGallarey(row)}
+							row={row}
+							id={row.id}
+						/>
 					</div>
 				);
 			},

@@ -9,7 +9,9 @@ import ExcelLog from './ExcelLogSlice';
 import forgotPassword from './ForgotPasswordSlice';
 import user from './userSlice';
 import changePassword from './ChagePasswordSlice';
-import ResetPassword from './ResetPasswordSlice'
+import ResetPassword from './ResetPasswordSlice';
+import ShopifySync from './ShopifySyncSlice';
+
 const rootReducer = {
 	navbar,
 	layout,
@@ -22,6 +24,7 @@ const rootReducer = {
 	user,
 	ResetPassword,
 	changePassword,
+	ShopifySync,
 };
 
 export default rootReducer;
