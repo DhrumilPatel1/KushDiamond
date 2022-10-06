@@ -120,7 +120,7 @@ const ProductsList = (props) => {
 
 		{
 			name: 'Dept',
-			minWidth: '60px',
+			minWidth: '110px',
 			selector: 'dept',
 			// sortable: true,
 			center: true,

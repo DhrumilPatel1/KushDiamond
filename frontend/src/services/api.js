@@ -90,7 +90,7 @@ export const FtpDeleteApi = async (delete_id, config) => {
 };
 
 export const FtpLogListApi = async (queryString, config) => {
-	return await axios.get(` http://192.168.1.76:8000/api/ftp_log/?` + queryString, config);
+	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, config);
 };
 
 export const ImageUploadApi = async (imgFile, config) => {
