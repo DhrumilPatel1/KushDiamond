@@ -40,11 +40,11 @@ export default function ProductExcelTypeOne() {
 							<p>
 								NOTE *<br></br>
 								<b>
-									Product ***** Is The List Of The Product Which Content Existing Product Or New
+									Product Excel Is The List Of The Product Which Content Existing Product Or New
 									Product, This Product Will Be Either If SKU Found In The Database. The Product
 									Will Be Updated, If Not Found New The Product Will Be Added. This Excel Upload
-									Does Not Do Anything With Shopify Account. If You Want To Syncronize Product With
-									Shopify Account Please Use The Functionality Of The Excel Type One(Inventory
+									Does Not Do Anything With Shopify Account. If You Want To Synchronize Product With
+									Shopify Account Please Use The Functionality Of The Excel Type Two(Inventory
 									Excel).
 								</b>
 							</p>

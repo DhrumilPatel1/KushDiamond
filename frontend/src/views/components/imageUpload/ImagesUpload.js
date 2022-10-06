@@ -63,8 +63,13 @@ const ImagesUpload = () => {
 								)}
 							</Form>
 						</Col> */}
-						<Col md="3" sm="12">
-							{/* <p>NOTE *</p> */}
+						<Col md="12" sm="12">
+						<p>
+								NOTE *<br></br>
+								<b>
+									Folder Name is mandatory as SKU No. Only Image And Video Format are allowed.
+								</b>
+							</p>
 							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
 									<Label for="folder_path">Folder Upload</Label>
