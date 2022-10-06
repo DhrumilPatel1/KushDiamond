@@ -8,7 +8,7 @@ import Breadcrumbs from '@components/breadcrumbs';
 import { UserCreateRequest, userResetAuth } from '../../../redux/userSlice';
 
 const FtpCreateSchema = yup.object().shape({
-	staff_name: yup.string().required('Username is required'),
+	username: yup.string().required('Username is required'),
 	email: yup.string().email('Invalid email').required('Email is required'),
 	mobile_no: yup.number().required('Mobile No is required'),
 	password: yup
@@ -44,7 +44,7 @@ const CreateUser = () => {
 				<CardBody>
 					<Formik
 						initialValues={{
-							staff_name: '',
+							username: '',
 							email: '',
 							mobile_no: '',
 							password: '',
@@ -59,11 +59,11 @@ const CreateUser = () => {
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
-											<Label for="staff_name">User Name</Label>
+											<Label for="username">User Name</Label>
 											<Field
 												type="text"
-												name="staff_name"
-												id="staff_name"
+												name="username"
+												id="username"
 												autoComplete="off"
 												className="form-control"
 												placeholder="Enter Your User Name"
