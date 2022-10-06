@@ -54,15 +54,15 @@ export default function ProductExcelTypeOne() {
 									<Input type="file" onChange={(e) => ExcelTypeOne(e)} />
 								</FormGroup>
 								{isLoading == true || excelFile == false ? (
-									<Button.Ripple className="mr-1" color="dark" type="submit" disabled>
+									<Button.Ripple className="mr-1" size="sm" color="dark" type="submit" disabled>
 										Submit
 									</Button.Ripple>
 								) : (
-									<Button.Ripple className="mr-1" color="dark" type="submit">
+									<Button.Ripple className="mr-1" size="sm" color="dark" type="submit">
 										Submit
 									</Button.Ripple>
 								)}
-								<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+								<Button.Ripple className="mr-1" size="sm" color="dark" onClick={(e) => hisToryeBack(e)}>
 									Back
 								</Button.Ripple>
 							</Form>

@@ -86,15 +86,15 @@ const ImagesUpload = () => {
 								</FormGroup>
 								<FormGroup className="d-flex mb-0">
 									{isLoading == true || image.length === 0 ? (
-										<Button.Ripple className="mr-1" color="primary" type="submit" disabled>
+										<Button.Ripple className="mr-1" size="sm" color="primary" type="submit" disabled>
 											Submit
 										</Button.Ripple>
 									) : (
-										<Button.Ripple className="mr-1" color="primary" type="submit">
+										<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
 											Submit
 										</Button.Ripple>
 									)}
-									<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+									<Button.Ripple className="mr-1" size="sm" color="dark" onClick={(e) => hisToryeBack(e)}>
 										Back
 									</Button.Ripple>
 								</FormGroup>

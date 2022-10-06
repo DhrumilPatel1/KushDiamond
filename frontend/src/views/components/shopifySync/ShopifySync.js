@@ -27,11 +27,17 @@ const ShopifySync = () => {
 								onClick={(e) => handleSubmit(e)}
 								color="primary"
 								type="submit"
+								size="sm"
 							>
 								Sync
 							</Button.Ripple>
 
-							<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+							<Button.Ripple
+								className="mr-1"
+								size="sm"
+								color="dark"
+								onClick={(e) => hisToryeBack(e)}
+							>
 								Back
 							</Button.Ripple>
 						</Col>
