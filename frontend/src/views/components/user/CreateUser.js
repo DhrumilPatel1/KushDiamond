@@ -11,7 +11,11 @@ const FtpCreateSchema = yup.object().shape({
 	staff_name: yup.string().required('Username is required'),
 	email: yup.string().email('Invalid email').required('Email is required'),
 	mobile_no: yup.number().required('Mobile No is required'),
-	password: yup.string().required('Password is required'),
+	password: yup
+		.string()
+		.required('Password is required')
+		.min(8, 'Must be 8 characters or more')
+		.matches(/[@$!%*#?&]+/, 'One special character'),
 });
 
 const CreateUser = () => {
@@ -60,6 +64,7 @@ const CreateUser = () => {
 												type="text"
 												name="staff_name"
 												id="staff_name"
+												autoComplete="off"
 												className="form-control"
 												placeholder="Enter Your User Name"
 											/>
@@ -76,6 +81,7 @@ const CreateUser = () => {
 												type="email"
 												name="email"
 												id="email"
+												autoComplete="off"
 												className="form-control"
 												placeholder="Enter Your Email"
 											/>

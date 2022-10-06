@@ -52,7 +52,7 @@ const ChangePassword = () => {
 						validationSchema={ChangePasswordSchema}
 						onSubmit={(values) => {
 							// console.log(values, 'values');
-							// dispatch(ChangePasswordRequest(values));
+							 dispatch(ChangePasswordRequest(values));
 						}}
 					>
 						{({ errors, touched }) => (

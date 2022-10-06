@@ -15,14 +15,16 @@ const ShopifySync = () => {
 				<CardBody>
 					<Row>
 						<Col md="3" sm="12">
-							<p>NOTE *</p>
-							<Form onSubmit={(e) => handleSubmit(e)}>
-								<FormGroup className="d-flex mb-0">
-									<Button.Ripple className="mr-1" color="primary" type="submit">
-										Submit
-									</Button.Ripple>
-								</FormGroup>
-							</Form>
+							{/* <p>NOTE *</p> */}
+							<h2>Shopify Sync</h2>
+							<Button.Ripple
+								className="mr-1"
+								onClick={(e) => handleSubmit(e)}
+								color="primary"
+								type="submit"
+							>
+								Submit
+							</Button.Ripple>
 						</Col>
 					</Row>
 				</CardBody>
