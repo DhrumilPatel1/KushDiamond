@@ -266,10 +266,6 @@ const ProductsList = (props) => {
 		setFilter_value(value);
 	};
 
-	// useEffect(() => {
-	// 	dispatch(productList());
-	// }, []);
-
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
@@ -280,11 +276,8 @@ const ProductsList = (props) => {
 							<h3>Products List</h3>
 						</Col>
 
-						<Col lg="8" className="d-flex">
-							<Col
-								lg="2"
-								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-							>
+						<Col lg="8" className="d-flex justify-content-end">
+							<Col lg="2">
 								<Button.Ripple
 									size="sm"
 									color="relief-primary"
@@ -296,10 +289,7 @@ const ProductsList = (props) => {
 								</Button.Ripple>
 							</Col>
 
-							<Col
-								lg="2"
-								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-							>
+							<Col lg="2">
 								<Button.Ripple
 									size="sm"
 									color="relief-primary"
@@ -311,10 +301,7 @@ const ProductsList = (props) => {
 								</Button.Ripple>
 							</Col>
 
-							<Col
-								lg="2"
-								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-							>
+							<Col lg="2">
 								<Button.Ripple
 									size="sm"
 									color="relief-primary"
@@ -326,18 +313,10 @@ const ProductsList = (props) => {
 								</Button.Ripple>
 							</Col>
 
-							{/* <Col
-							xl="6"
-							//className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-						> */}
-							<Col
-								lg="4"
-								// className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-							>
+							<Col lg="4">
 								<Input
 									id="search-invoice"
 									className="ml-50 w-100 form-control-sm"
-									// style={{ width: '100% !important' }}
 									type="text"
 									size="sm"
 									name="search"
@@ -351,7 +330,6 @@ const ProductsList = (props) => {
 				<DataTable
 					noHeader
 					pagination
-					// subHeader
 					responsive
 					paginationServer
 					columns={columns}
