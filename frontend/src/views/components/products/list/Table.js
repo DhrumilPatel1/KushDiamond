@@ -277,16 +277,18 @@ const ProductsList = (props) => {
 			<Card className="deskboard_card">
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col lg="4">
+						<Col xl="4">
+							{/* <Col lg="6"> */}
 							<h3>Products List</h3>
 						</Col>
 
-						<Col lg="8" className="d-flex justify-content-end">
-							<Col lg="2">
+						{/* <Col lg="6" className="d-flex justify-content-end"> */}
+						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
+							<Col lg="2" className="px-0">
 								<Button.Ripple
 									size="sm"
-									color="relief-primary"
-									className="filter_button"
+									// color="dark"
+									className="w-100 form-control-sm "
 									tag={Link}
 									to="/product/excel"
 								>
@@ -294,11 +296,11 @@ const ProductsList = (props) => {
 								</Button.Ripple>
 							</Col>
 
-							<Col lg="2">
+							<Col lg="2 px-0" className="px-0">
 								<Button.Ripple
 									size="sm"
-									color="relief-primary"
-									className="filter_button"
+									color="danger"
+									className="ml-1 w-100 form-control-sm "
 									tag={Link}
 									to="/product/inventory"
 								>
@@ -306,11 +308,11 @@ const ProductsList = (props) => {
 								</Button.Ripple>
 							</Col>
 
-							<Col lg="2">
+							<Col lg="2" className="px-0">
 								<Button.Ripple
 									size="sm"
-									color="relief-primary"
-									className="filter_button"
+									color="success"
+									className="ml-2 w-100 form-control-sm "
 									tag={Link}
 									to="/shopifySync"
 								>
@@ -321,7 +323,7 @@ const ProductsList = (props) => {
 							<Col lg="4">
 								<Input
 									id="search-invoice"
-									className="ml-50 w-100 form-control-sm"
+									className="ml-2 w-100 form-control-sm"
 									type="text"
 									size="sm"
 									name="search"

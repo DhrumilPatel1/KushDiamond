@@ -13,18 +13,19 @@ export default [
 				icon: <Package size={12} />,
 				navLink: '/products/list',
 			},
-			{
-				id: 'image_upload',
-				title: 'Image Upload',
-				icon: <Image size={20} />,
-				navLink: '/uploadImage',
-			},
 
 			{
 				id: 'Product Excel',
 				title: 'Product Excel',
 				icon: <File size={20} />,
 				navLink: '/product/excel',
+			},
+
+			{
+				id: 'image_upload',
+				title: 'Image Upload',
+				icon: <Image size={20} />,
+				navLink: '/uploadImage',
 			},
 
 			{

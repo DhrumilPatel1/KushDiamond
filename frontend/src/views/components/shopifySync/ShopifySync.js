@@ -10,7 +10,7 @@ const ShopifySync = () => {
 		e.preventDefault();
 		dispatch(ShopifySyncRequest());
 	};
-	
+
 	return (
 		<>
 			<Card>
@@ -25,7 +25,7 @@ const ShopifySync = () => {
 								color="primary"
 								type="submit"
 							>
-								Submit
+								Sync
 							</Button.Ripple>
 						</Col>
 					</Row>

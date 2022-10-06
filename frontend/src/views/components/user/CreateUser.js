@@ -68,8 +68,8 @@ const CreateUser = () => {
 												className="form-control"
 												placeholder="Enter Your User Name"
 											/>
-											{(errors.staff_name && touched.staff_name) || (error && error.staff_name) ? (
-												<div className="error-sm">{errors.staff_name || error.staff_name}</div>
+											{(errors.username && touched.username) || (error && error.username) ? (
+												<div className="error-sm">{errors.username || error.username}</div>
 											) : null}
 										</FormGroup>
 									</Col>

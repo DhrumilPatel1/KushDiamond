@@ -5,9 +5,9 @@ export const columns = [
 	{
 		name: 'User Name',
 		width: '230px',
-		selector: 'staff_name',
+		selector: 'username',
 		sortable: true,
-		cell: (row) => row.staff_name,
+		cell: (row) => row.username,
 	},
 	{
 		name: 'Email',
@@ -27,7 +27,7 @@ export const columns = [
 	{
 		name: 'Actions',
 		width: '110px',
-		center:true,
+		center: true,
 		cell: (row) => {
 			return (
 				<div className="d-inline ">
