@@ -58,7 +58,7 @@ const ProductsActionIcon = (props) => {
 					style={{ cursor: 'pointer' }}
 				/>
 			) : (
-				<Image size={18} className="text-dark ml-2 image_d" style={{ cursor: 'not-allowed' }} />
+				<Image size={18} className="text-dark ml-2 gallary_dissabled" style={{ cursor: 'not-allowed' }} />
 			)}
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
