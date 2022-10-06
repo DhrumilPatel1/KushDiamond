@@ -1,7 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Edit, Eye, File, Image } from 'react-feather';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Tooltip,
+	UncontrolledTooltip,
+} from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductsDetialRequest } from '../../../redux/productsSlice';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
@@ -51,14 +59,25 @@ const ProductsActionIcon = (props) => {
 			/> */}
 
 			{props?.row?.product_images?.length > 0 ? (
+				<>
+					<Image
+						id="UnControlledExample"
+						size={18}
+						className="text-dark ml-2"
+						onClick={() => props.clickOpenGallarey(props.row.product_images)}
+						style={{ cursor: 'pointer' }}
+					/>
+
+					<UncontrolledTooltip placement="top" target="UnControlledExample">
+						View Gallary
+					</UncontrolledTooltip>
+				</>
+			) : (
 				<Image
 					size={18}
-					className="text-dark ml-2"
-					onClick={() => props.clickOpenGallarey(props.row.product_images)}
-					style={{ cursor: 'pointer' }}
+					className="text-dark ml-2 gallary_disabled"
+					style={{ cursor: 'not-allowed' }}
 				/>
-			) : (
-				<Image size={18} className="text-dark ml-2 gallary_disabled" style={{ cursor: 'not-allowed' }} />
 			)}
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
