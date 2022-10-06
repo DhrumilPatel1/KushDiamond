@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
 import { ExcelUploadTypeTwo } from '../../../../redux/productsSlice';
 
 export default function productInventory() {
 	const dispatch = useDispatch();
-
+	const history = useHistory()
 	const [excelFile, setexcelFile] = useState(false);
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 
@@ -22,6 +23,11 @@ export default function productInventory() {
 	const ExcelTypeTwo = (e) => {
 		const files = e.target.files[0];
 		setexcelFile(files);
+	};
+
+
+	const hisToryeBack = () => {
+		history.goBack();
 	};
 
 	return (
@@ -46,6 +52,9 @@ export default function productInventory() {
 										Submit
 									</Button.Ripple>
 								)}
+									<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+										Back
+									</Button.Ripple>
 							</Form>
 						</Col>
 					</Row>
