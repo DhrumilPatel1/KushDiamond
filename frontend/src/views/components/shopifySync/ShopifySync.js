@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { ShopifySyncRequest } from '../../../redux/ShopifySyncSlice';
 
 const ShopifySync = () => {
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(ShopifySyncRequest());
 	};
-
+	
 	return (
 		<>
 			<Card>

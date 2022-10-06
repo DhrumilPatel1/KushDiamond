@@ -30,18 +30,19 @@ export const { ShopifySyncData, setLoading, ShopifySyncErrorList } = ShopifySync
 export default ShopifySyncSlice.reducer;
 
 export const ShopifySyncRequest = (syncData) => async (dispatch, getState) => {
-	dispatch(setLoading());
-	try {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: getState()?.auth?.Token,
-			},
-		};
-		const { data } = await ShopifySyncApi(syncData, config);
+	// console.log("called done")
+	// dispatch(setLoading());
+	// try {
+	// 	const config = {
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			Authorization: getState()?.auth?.Token,
+	// 		},
+	// 	};
+	// 	const { data } = await ShopifySyncApi(syncData, config);
 
-		dispatch(ShopifySyncData(data));
-	} catch (error) {
-		dispatch(ShopifySyncErrorList(error));
-	}
+	// 	dispatch(ShopifySyncData(data));
+	// } catch (error) {
+	// 	dispatch(ShopifySyncErrorList(error));
+	// }
 };
