@@ -71,14 +71,11 @@ const FtpList = () => {
 			<Card>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col xl="6">
+						<Col xl="4">
 							<h3>FTP List</h3>
 						</Col>
-						<Col
-							xl="6"
-							className="d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-						>
-							<div className="d-flex align-items-center mb-sm-0 mb-1 mr-1 search-chairman-btn">
+						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
+							<div>
 								<Input
 									id="search-invoice"
 									className="ml-50 w-100 form-control-sm "

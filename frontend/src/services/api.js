@@ -114,3 +114,7 @@ export const UserDeleteApi = async (userId, config) => {
 export const UserViewApi = async (userId, config) => {
 	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
 };
+
+export const ShopifySyncApi = async (syncData, config) => {
+	return await axios.get(`${BASE_URL_API}/api/sync/product`, syncData, config);
+};
