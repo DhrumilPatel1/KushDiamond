@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 const ProductsList = () => {
-	console.log('called----------------');
 	const imageref = useRef(null);
 	const dispatch = useDispatch();
 	// const { productViewData, error } = useSelector((state) => state.products);
@@ -39,15 +38,15 @@ const ProductsList = () => {
 						id: index,
 						src: image.url,
 						thumb: image.url,
-						subHtml:
-							"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
+						// subHtml:
+						// 	"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
 					};
 					arr.push(images);
 				} else if (image.type == 'Video') {
 					var images = {
 						id: index,
 						thumb: videoicon,
-						subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
+						// subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
 						video: {
 							source: [{ src: `${image.url}`, type: 'video/mp4' }],
 							attributes: { preload: false, playsinline: true, controls: true },
@@ -68,7 +67,7 @@ const ProductsList = () => {
 	// };
 
 	const onInit = useCallback((detail) => {
-		console.log('oninti#############');
+		// console.log('oninti#############');
 		if (detail) {
 			imageref.current = detail.instance;
 		}
@@ -115,7 +114,7 @@ const ProductsList = () => {
 	// 	});
 
 	const clearData = useCallback(() => {
-		console.log('Onclose++++++++++++++++++++++++++++', imageGalleryArray);
+		// console.log('Onclose++++++++++++++++++++++++++++', imageGalleryArray);
 		setImageGalleryArray([]);
 	}, [imageGalleryArray]);
 
@@ -123,7 +122,7 @@ const ProductsList = () => {
 	// console.log(getAllImages, 'getAllImages');
 
 	useEffect(() => {
-		console.log('use Effect=======================', imageGalleryArray);
+		// console.log('use Effect=======================', imageGalleryArray);
 		if (imageGalleryArray.length > 0) {
 			// imageref.current.refresh();
 			imageref.current.openGallery();
@@ -131,7 +130,6 @@ const ProductsList = () => {
 	}, [imageGalleryArray]);
 
 	function Boxes({ name }) {
-		// console.log("mihir---------------")
 		return <h1>{name}</h1>;
 	}
 
@@ -139,7 +137,7 @@ const ProductsList = () => {
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
 			<Table clickOpenGallarey={(e) => clickOpenGallarey(e)} />
-			<Boxes name="mihir" />
+			<Boxes/>
 			<LightGallery
 				onInit={onInit}
 				download={false}

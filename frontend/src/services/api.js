@@ -28,7 +28,7 @@ export const AdminLoginAPI = async (reqData) => {
 };
 
 export const ForgotPasswordAPI = async (reqData) => {
-	return await axios.post(`http://192.168.1.76:8000/password-reset/`, reqData);
+	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
 };
 
 export const ChangePasswordApi = async (changePassword, config) => {
@@ -36,16 +36,12 @@ export const ChangePasswordApi = async (changePassword, config) => {
 };
 
 export const ResetPasswordApi = async (changePassword, link, config) => {
-	return await axios.patch(
-		`http://192.168.1.76:8000/password-reset/${link}/`,
-		changePassword,
-		config
-	);
+	return await axios.patch(`${BASE_URL_API}/password-reset/${link}/`, changePassword, config);
 };
 
 export const ProductApi = async (queryString, config) => {
 	return await axios
-		.get(`http://192.168.1.76:8000/api/product/list/?` + queryString, config)
+		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
@@ -98,7 +94,7 @@ export const FtpLogListApi = async (queryString, config) => {
 };
 
 export const ImageUploadApi = async (imgFile, config) => {
-	return await axios.post(`http://192.168.1.76:8000/api/uploadfile/`, imgFile, config);
+	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, config);
 };
 
 export const ExcelLogListApi = async (queryString, config) => {
