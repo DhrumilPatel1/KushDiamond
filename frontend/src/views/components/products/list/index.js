@@ -1,5 +1,5 @@
 // ** User List Component
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 
 import Table from './Table';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
@@ -12,7 +12,6 @@ import 'lightgallery/css/lg-video.css';
 import lgVideo from 'lightgallery/plugins/video';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
 import videoicon from '../../../../VideoIcon-image/videoicon2.png';
-
 // ** Styles
 import '@styles/react/apps/app-users.scss';
 import { ProductResetData, ProductsDetialRequest } from '../../../../redux/productsSlice';
@@ -20,97 +19,145 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 const ProductsList = () => {
+	console.log('called----------------');
 	const imageref = useRef(null);
 	const dispatch = useDispatch();
-	const { productViewData, error } = useSelector((state) => state.products);
-	const clickOpenGallarey = (id) => {
-		dispatch(ProductsDetialRequest(id));
-	};
+	// const { productViewData, error } = useSelector((state) => state.products);
 
-	const onInit = (detail) => {
-		imageref.current = detail.instance;
-		// imageref.current.closeGallery();
-	};
+	const [productViewData, setProductViewData] = useState([]);
+	const [imageGalleryArray, setImageGalleryArray] = useState([]);
 
-	let onBeforeOpen = (detail) => {
-		console.log('onBeforeOpen', detail);
-	};
+	const clickOpenGallarey = useCallback(
+		(rowsData) => {
+			console.log('----------------------------', rowsData);
+			let arr = [];
+			rowsData.forEach((image, index) => {
+				// console.log(image, 'image map');
 
-	let onHasVideo = (detail) => {
-		console.log('dety', detail);
-	};
+				if (image.type == 'Image') {
+					var images = {
+						id: index,
+						src: image.url,
+						thumb: image.url,
+						subHtml:
+							"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
+					};
+					arr.push(images);
+				} else if (image.type == 'Video') {
+					var images = {
+						id: index,
+						thumb: videoicon,
+						subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
+						video: {
+							source: [{ src: `${image.url}`, type: 'video/mp4' }],
+							attributes: { preload: false, playsinline: true, controls: true },
+						},
+					};
+					arr.push(images);
+				}
+			});
+			setImageGalleryArray(arr);
+		},
+		[imageGalleryArray]
+	);
 
-	let onPosterClick = (detail) => {
-		console.log('dety', detail);
-	};
-	const onBeforeSlide = (detail) => {
-		const { index, prevIndex } = detail;
-		console.log(index, prevIndex);
-	};
+	// const onInit = (detail) => {
+	// 	console.log("oninti#############")
+	// 	imageref.current = detail.instance;
+	// 	// imageref.current.closeGallery();
+	// };
 
-	var getAllImages = [];
-	const getImages =
-		productViewData &&
-		productViewData?.images?.map((image, index) => {
-			if (image.type == 'Image') {
-				var images = {
-					id: index,
-					src: image.url,
-					thumb: image.url,
-					subHtml:
-						"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
-				};
-				return getAllImages.push(images);
-			} else if (image.type == 'Video') {
-				var images = {
-					id: index,
-					thumb: videoicon,
-					subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
-					video: {
-						source: [{ src: `${image.url}`, type: 'video/mp4' }],
-						attributes: { preload: false, playsinline: true, controls: true },
-					},
-				};
-				return getAllImages.push(images);
-			}
-		});
+	const onInit = useCallback((detail) => {
+		console.log('oninti#############');
+		if (detail) {
+			imageref.current = detail.instance;
+		}
+	}, []);
+	// let onHasVideo = (detail) => {
+	// 	console.log('dety', detail);
+	// };
 
-	const clearData = () => {
-		dispatch(ProductResetData());
-	};
+	// let onPosterClick = (detail) => {
+	// 	console.log('dety', detail);
+	// };
+	// const onBeforeSlide = (detail) => {
+	// 	const { index, prevIndex } = detail;
+	// 	console.log(index, prevIndex);
+	// };
 
-	// console.log(getAllImages?.length,"checked length")
+	// var getAllImages = [];
+	// const getImages =
+	// 	productViewData &&
+	// 	productViewData.product_images?.map((image, index) => {
+	// 		// console.log(image, 'image map');
+
+	// 		if (image.type == 'Image') {
+	// 			var images = {
+	// 				id: index,
+	// 				src: image.url,
+	// 				thumb: image.url,
+	// 				subHtml:
+	// 					"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
+	// 			};
+	// 			return getAllImages.push(images);
+	// 		} else if (image.type == 'Video') {
+	// 			var images = {
+	// 				id: index,
+	// 				thumb: videoicon,
+	// 				subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
+	// 				video: {
+	// 					source: [{ src: `${image.url}`, type: 'video/mp4' }],
+	// 					attributes: { preload: false, playsinline: true, controls: true },
+	// 				},
+	// 			};
+	// 			return getAllImages.push(images);
+	// 		}
+	// 	});
+
+	const clearData = useCallback(() => {
+		console.log('Onclose++++++++++++++++++++++++++++', imageGalleryArray);
+		setImageGalleryArray([]);
+	}, [imageGalleryArray]);
+
+	// console.log(getAllImages, 'checked length');
+	// console.log(getAllImages, 'getAllImages');
 
 	useEffect(() => {
-		if (getAllImages?.length > 0 && getAllImages != null) {
-			imageref.current.refresh();
+		console.log('use Effect=======================', imageGalleryArray);
+		if (imageGalleryArray.length > 0) {
+			// imageref.current.refresh();
 			imageref.current.openGallery();
-		} else if (getAllImages?.lengt === 0) {
-			imageref.current.closeGallery();
 		}
-	}, [dispatch, getAllImages]);
+	}, [imageGalleryArray]);
+
+	function Boxes({ name }) {
+		// console.log("mihir---------------")
+		return <h1>{name}</h1>;
+	}
 
 	return (
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
-			<Table clickOpenGallarey={clickOpenGallarey} />
+			<Table clickOpenGallarey={(e) => clickOpenGallarey(e)} />
+			<Boxes name="mihir" />
 			<LightGallery
 				onInit={onInit}
 				download={false}
-				zoom={false}
+				zoom={true}
+				fullScreen
 				//speed={500}
 				dynamic
-				onBeforeOpen={onBeforeOpen}
+				// onBeforeOpen={onBeforeOpen}
 				videojs
 				autoplayVideoOnSlide
-				onHasVideo={onHasVideo}
-				onPosterClick={onPosterClick}
-				onBeforeSlide={onBeforeSlide}
+				// onHasVideo={onHasVideo}
+				// onPosterClick={onPosterClick}
+				// onBeforeSlide={onBeforeSlide}
 				videojsTheme="video-js"
 				// strings={{ playVideo: "Play video" }}
 				plugins={[lgThumbnail, lgVideo, lgZoom, lgFullscreen]}
-				dynamicEl={getAllImages}
-				onAfterClose={clearData}
+				dynamicEl={imageGalleryArray}
+				// onAfterClose={() => clearData()}
 			>
 				{/* {
 					getAllImages?.map((items,index) => (
