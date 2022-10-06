@@ -51,6 +51,9 @@ export const ForgotPasswordLinkRequest = (forgotlink) => async (dispatch, getSta
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			dispatch(forgotpasswordErrorList(error.response.data.errors));
+		} else if (error.response.status === 500) {
+			dispatch(forgotpasswordErrorList(error.response.statusText));
+			toast.error(error.response.statusText);
 		} else {
 			dispatch(forgotpasswordErrorList(error.response.data.message));
 			toast.error(error.response.data.message);

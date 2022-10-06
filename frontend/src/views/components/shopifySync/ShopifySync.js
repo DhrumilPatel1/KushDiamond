@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShopifySyncRequest } from '../../../redux/ShopifySyncSlice';
+import { useHistory } from 'react-router-dom';
 
 const ShopifySync = () => {
 	const dispatch = useDispatch();
-
+	const history = useHistory();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(ShopifySyncRequest());
 	};
-	
+	const hisToryeBack = () => {
+		history.goBack();
+	};
 	return (
 		<>
 			<Card>
@@ -26,6 +29,10 @@ const ShopifySync = () => {
 								type="submit"
 							>
 								Submit
+							</Button.Ripple>
+
+							<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+								Back
 							</Button.Ripple>
 						</Col>
 					</Row>

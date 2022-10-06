@@ -9,9 +9,11 @@ import {
 } from '../../../redux/productsSlice';
 import { Share } from 'react-feather';
 import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const ImagesUpload = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 	const [image, setImage] = useState([]);
 
@@ -33,6 +35,10 @@ const ImagesUpload = () => {
 		dispatch(ImagesUploadRequest(formData));
 		e.target.reset();
 		setImage([]);
+	};
+
+	const hisToryeBack = () => {
+		history.goBack();
 	};
 
 	return (
@@ -83,6 +89,9 @@ const ImagesUpload = () => {
 											Submit
 										</Button.Ripple>
 									)}
+									<Button.Ripple className="mr-1" color="dark" onClick={(e) => hisToryeBack(e)}>
+										Back
+									</Button.Ripple>
 								</FormGroup>
 							</Form>
 						</Col>
