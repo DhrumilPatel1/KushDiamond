@@ -9,19 +9,14 @@ import { useDeferredValue, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { changepasswordResetData } from '../../../../redux/ChagePasswordSlice';
+import { productList } from '../../../../redux/productsSlice';
+import useProductData from '../../../../CustomeHook/useProductData';
 
 const AnalyticsDashboard = () => {
 	// const { colors } = useContext(ThemeColors)
-	const  dispatch =useDispatch()
+	const dispatch = useDispatch();
 	const { changePasswordData, error } = useSelector((state) => state.changePassword);
-
-	useEffect(()=>{
-		if(changePasswordData.statusCode==200){
-		toast.success(changePasswordData.message)
-		dispatch(changepasswordResetData())
-		}
-		},[changePasswordData])
-
+	const {productData} = useProductData();
 	return (
 		<div id="dashboard-analytics">
 			<Row className="match-height">
@@ -32,7 +27,7 @@ const AnalyticsDashboard = () => {
 					<SubscribersGained />
 				</Col>
 				<Col lg="3" sm="6">
-					<OrdersReceived />
+					<OrdersReceived productCount={productData.results?.length} />
 				</Col>
 			</Row>
 		</div>

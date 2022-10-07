@@ -94,7 +94,7 @@ const ImagesUpload = () => {
 											Submit
 										</Button.Ripple>
 									)}
-									<Button.Ripple className="mr-1" size="sm" color="dark" onClick={(e) => hisToryeBack(e)}>
+									<Button.Ripple className="mr-1" size="sm" outline onClick={(e) => hisToryeBack(e)}>
 										Back
 									</Button.Ripple>
 								</FormGroup>

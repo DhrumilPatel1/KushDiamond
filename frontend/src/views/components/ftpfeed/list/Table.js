@@ -52,6 +52,10 @@ const FtpFeedList = () => {
 	const dispatch = useDispatch();
 	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
 	const { productData } = useSelector((state) => state.products);
+
+
+
+
 	const getAllDropdownValue = ftpGetAllData.map((item) => item);
 	const [limit, setPerPage] = useState(datatable_per_page);
 
@@ -154,6 +158,15 @@ const FtpFeedList = () => {
 
 	const handleShape = (e) => {
 		e.preventDefault();
+
+		tableChangeHandler({
+			...table_data,
+			color: e.target.color.value,
+			shape: e.target.shape.value,
+			cut: e.target.cut.value,
+		});
+
+
 		setFilterShape(e.target.value);
 	};
 
@@ -163,6 +176,8 @@ const FtpFeedList = () => {
 	};
 	const handleColor = (e) => {
 		e.preventDefault();
+
+		console.log(e.target.value,"e.target.value")
 		setFilterColor(e.target.value);
 	};
 
@@ -237,7 +252,7 @@ const FtpFeedList = () => {
 				<CardBody className="deskboard_card_body">
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
-							<Col lg="4" md="6">
+							<Col lg="5" md="6">
 								<Select
 									size="sm"
 									isClearable={false}
@@ -254,38 +269,80 @@ const FtpFeedList = () => {
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="color">Color:</Label> */}
-								<Input
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Color"
+									isMulti
+									name="ftp"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={getAllDropdownValue}
+									value={ftpvalue}
+									onChange={(e) => handleChange(e)}
+								/>
+
+								{/* <Input
 									id="color"
 									name="color"
 									onChange={(e) => handleColor(e)}
 									size="sm"
 									placeholder="Enter Color"
-								/>
+								/> */}
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="shape">Shape:</Label> */}
-								<Input
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Shape"
+									isMulti
+									name="ftp"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={getAllDropdownValue}
+									value={ftpvalue}
+									onChange={(e) => handleChange(e)}
+								/>
+								{/* <Input
 									type="text"
 									id="shape"
 									size="sm"
 									onChange={(e) => handleShape(e)}
 									name="shape"
 									placeholder="Enter Shape"
-								/>
+								/> */}
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="cut">Cut:</Label> */}
-								<Input
+
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Cut"
+									isMulti
+									name="ftp"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={getAllDropdownValue}
+									value={ftpvalue}
+									onChange={(e) => handleChange(e)}
+								/>
+
+								{/* <Input
 									type="text"
 									size="sm"
 									name="cut"
 									onChange={(e) => handleCut(e)}
 									placeholder="Enter Cut"
-								/>
+								/> */}
 							</Col>
 
-							<Col lg="1" md="3">
-								{/* <Label for="cut"></Label> */}
+							{/* <Col lg="1" md="3">
+								
 								<Button.Ripple
 									type="submit"
 									size="sm"
@@ -295,7 +352,7 @@ const FtpFeedList = () => {
 								>
 									Filter
 								</Button.Ripple>
-							</Col>
+							</Col> */}
 							<Col lg="1" md="3" className="pl-0">
 								{/* <Label for="send feed"></Label> */}
 								{ftpvalue && ftpvalue.length > 0 ? (

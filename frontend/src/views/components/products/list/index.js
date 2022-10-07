@@ -38,15 +38,15 @@ const ProductsList = () => {
 						id: index,
 						src: image.url,
 						thumb: image.url,
-						// subHtml:
-						// 	"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
+						subHtml:
+							"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
 					};
 					arr.push(images);
 				} else if (image.type == 'Video') {
 					var images = {
 						id: index,
 						thumb: videoicon,
-						// subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
+						subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
 						video: {
 							source: [{ src: `${image.url}`, type: 'video/mp4' }],
 							attributes: { preload: false, playsinline: true, controls: true },
@@ -137,10 +137,10 @@ const ProductsList = () => {
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
 			<Table clickOpenGallarey={(e) => clickOpenGallarey(e)} />
-			<Boxes/>
+			<Boxes />
 			<LightGallery
 				onInit={onInit}
-				download={false}
+				download={true}
 				zoom={true}
 				fullScreen
 				//speed={500}

@@ -29,6 +29,7 @@ import { productExcelUpload, productList, ProductResetData } from '../../../../r
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import ProductsActionIcon from '../ProductsActionIcon';
+import useProductData from '../../../../CustomeHook/useProductData';
 
 // // ** Table Header
 
@@ -79,7 +80,7 @@ const ProductsList = (props) => {
 			name: 'Measurement',
 			minWidth: '160px',
 			selector: 'measurement',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => row.measurement,
 		},
@@ -106,7 +107,7 @@ const ProductsList = (props) => {
 			name: 'Lab',
 			minWidth: '80px',
 			selector: 'lab',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => row.lab,
 		},
@@ -115,7 +116,7 @@ const ProductsList = (props) => {
 			name: 'Cut',
 			minWidth: '40px',
 			selector: 'cut',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.cut == '' ? '-' : row.cut),
 		},
@@ -133,7 +134,7 @@ const ProductsList = (props) => {
 			name: 'Fl',
 			minWidth: '60px',
 			selector: 'fl',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.fl == '' ? '-' : row.fl),
 		},
@@ -142,7 +143,7 @@ const ProductsList = (props) => {
 			name: 'Girdle',
 			minWidth: '150px',
 			selector: 'girdle',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.girdle == '' ? '-' : row.girdle),
 		},
@@ -151,7 +152,7 @@ const ProductsList = (props) => {
 			name: 'Cul',
 			minWidth: '70px',
 			selector: 'cul',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.cul == '' ? '-' : row.cul),
 		},
@@ -160,7 +161,7 @@ const ProductsList = (props) => {
 			name: 'Pol',
 			minWidth: '70px',
 			selector: 'pol',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.pol == '' ? '-' : row.pol),
 		},
@@ -169,7 +170,7 @@ const ProductsList = (props) => {
 			name: 'Rap',
 			minWidth: '70px',
 			selector: 'rap',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.rap == '' ? '-' : row.rap),
 		},
@@ -178,7 +179,7 @@ const ProductsList = (props) => {
 			name: 'Sym',
 			minWidth: '70px',
 			selector: 'sym',
-			sortable: true,
+			// sortable: true,
 			center: true,
 			cell: (row) => (row.sym == '' ? '-' : row.sym),
 		},
@@ -220,7 +221,9 @@ const ProductsList = (props) => {
 
 	const dispatch = useDispatch();
 
-	const { productData, isLoading } = useSelector((state) => state.products);
+	// const { productData, isLoading } = useSelector((state) => state.products);
+
+	const { productData, isLoading } = useProductData();
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
