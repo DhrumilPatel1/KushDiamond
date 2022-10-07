@@ -15,6 +15,13 @@ export const columns = [
 		cell: (row) => row.file,
 	},
 	{
+		name: 'Type',
+		width: '200px',
+		selector: 'type',
+		sortable: true,
+		cell: (row) => row.type,
+	},
+	{
 		name: 'Date',
 		width: '210px',
 		selector: 'created_at',
