@@ -3,21 +3,21 @@ import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media } from
 import Avatar from '@components/avatar';
 import { DollarSign, Package } from 'react-feather';
 
-const OrdersReceived = () => {
+const OrdersReceived = ({ productCount }) => {
 	const data = [
 		{
-			title: '1.423k',
-			subtitle: 'Products',
+			title: productCount,
+			subtitle: 'Total Products',
 			color: 'light-warning',
 			icon: <Package size={24} />,
 		},
 
-		{
-			title: '$9745',
-			subtitle: 'Revenue',
-			color: 'light-success',
-			icon: <DollarSign size={24} />,
-		},
+		// {
+		// 	title: '$9745',
+		// 	subtitle: 'Revenue',
+		// 	color: 'light-success',
+		// 	icon: <DollarSign size={24} />,
+		// },
 	];
 	const renderData = () => {
 		return data.map((item, index) => {

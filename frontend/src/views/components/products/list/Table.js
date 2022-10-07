@@ -29,6 +29,7 @@ import { productExcelUpload, productList, ProductResetData } from '../../../../r
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import ProductsActionIcon from '../ProductsActionIcon';
+import useProductData from '../../../../CustomeHook/useProductData';
 
 // // ** Table Header
 
@@ -122,8 +123,9 @@ const ProductsList = (props) => {
 			name: 'Dept',
 			minWidth: '110px',
 			selector: 'dept',
+			right:true,
 			// sortable: true,
-			center: true,
+			// center: true,
 			cell: (row) => (row.dept == '' ? '-' : row.dept),
 		},
 
@@ -218,7 +220,9 @@ const ProductsList = (props) => {
 
 	const dispatch = useDispatch();
 
-	const { productData, isLoading } = useSelector((state) => state.products);
+	// const { productData, isLoading } = useSelector((state) => state.products);
+
+	const { productData, isLoading } = useProductData();
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
