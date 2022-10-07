@@ -1,4 +1,4 @@
-import { Cast, Cloud, FileText, Server } from 'react-feather';
+import { Cast, FileText, Server, Table } from 'react-feather';
 
 export default [
 	{
@@ -10,7 +10,7 @@ export default [
 			{
 				id: 'ftp_list',
 				title: 'FTP List',
-				icon: <Cloud size={12} />,
+				icon: <Table size={12} />,
 				navLink: '/ftp/list',
 			},
 

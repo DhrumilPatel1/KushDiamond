@@ -49,6 +49,7 @@ ReactDOM.render(
 				<ThemeContext>
 					<IntlProviderWrapper>
 						<LazyApp />
+						<ToastContainer newestOnTop />
 						<Toaster
 							position="top-right"
 							toastOptions={{

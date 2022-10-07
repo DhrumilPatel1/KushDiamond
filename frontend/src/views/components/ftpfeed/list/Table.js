@@ -5,7 +5,7 @@ import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
-import { ChevronDown } from 'react-feather';
+import { ChevronDown, X } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
 	Card,
@@ -28,9 +28,24 @@ import { datatable_per_page, datatable_per_raw } from '../../../../configs/const
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
+import { toast, Slide } from 'react-toastify';
+import Avatar from '@components/avatar';
 
 const OpenSwal = withReactContent(Swal);
+
+const ErrorToast = () => (
+	<Fragment>
+		<div className="toastify-header">
+			<div className="title-wrapper">
+				<Avatar size="sm" color="danger" icon={<X size={12} />} />
+			</div>
+			<span className="toast-title" style={{ fontWeight: '200' }}>
+				Please select client for FTP Feed &amp; color,shape or cut
+			</span>
+		</div>
+	</Fragment>
+);
 
 const FtpFeedList = () => {
 	// ** Store Vars
@@ -150,6 +165,14 @@ const FtpFeedList = () => {
 		e.preventDefault();
 		setFilterColor(e.target.value);
 	};
+
+	const sendFeedClick = () => {
+		toast.error(<ErrorToast />, {
+			transition: Slide,
+			hideProgressBar: true,
+			autoClose: 2000,
+		});
+	};
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 
 	return (
@@ -219,7 +242,7 @@ const FtpFeedList = () => {
 									size="sm"
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Select FTP"
+									placeholder="Select Client for FTP Feed"
 									isMulti
 									name="ftp"
 									className="react-select feed_select"
@@ -291,7 +314,8 @@ const FtpFeedList = () => {
 										type="submit"
 										size="sm"
 										color="relief-danger"
-										disabled={true}
+										onClick={() => sendFeedClick()}
+										style={{ opacity: '0.6' }}
 										className="seed_button"
 										block
 									>

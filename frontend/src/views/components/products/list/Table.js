@@ -1,7 +1,7 @@
 // ** React Imports
 import { Fragment, useState, useEffect } from 'react';
 // ** Columns
-import { columns } from './columns';
+// import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
@@ -64,7 +64,7 @@ const ProductsList = (props) => {
 			minWidth: '50px',
 			selector: 'carat',
 			sortable: true,
-			center: true,
+			right: true,
 			cell: (row) => row.carat,
 		},
 		{
@@ -88,7 +88,8 @@ const ProductsList = (props) => {
 			minWidth: '120px',
 			selector: 'price',
 			sortable: true,
-			center: true,
+			// center: true,
+			right: true,
 			cell: (row) => row.price.toLocaleString('en-US'),
 		},
 
@@ -97,6 +98,7 @@ const ProductsList = (props) => {
 			minWidth: '175px',
 			selector: 'certificate_no',
 			sortable: true,
+			center: true,
 			cell: (row) => row.certificate_no,
 		},
 
@@ -120,10 +122,10 @@ const ProductsList = (props) => {
 
 		{
 			name: 'Dept',
-			minWidth: '60px',
+			minWidth: '50px',
 			selector: 'dept',
 			sortable: true,
-			center: true,
+			right: true,
 			cell: (row) => (row.dept == '' ? '-' : row.dept),
 		},
 
