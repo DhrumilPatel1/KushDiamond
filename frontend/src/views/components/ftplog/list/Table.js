@@ -35,7 +35,6 @@ const FtpLogList = () => {
 	const [queryString, setQueryString] = useState(
 		`page=${table_data.page}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&client_name=${table_data.client_name}`
 	);
-	console.log(queryString, 'queryString');
 
 	useEffect(() => {
 		dispatch(FtpLogListRequest(queryString));
