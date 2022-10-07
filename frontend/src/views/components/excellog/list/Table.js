@@ -67,7 +67,7 @@ const ExcelLogList = () => {
 				<CardBody className="deskboard_card_body">
 					<Row>
 						<Col xl="6">
-							<h3>Excel Log List</h3>
+							<h3>Excel Upload Log List</h3>
 						</Col>
 					</Row>
 				</CardBody>

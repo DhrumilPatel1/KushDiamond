@@ -12,7 +12,11 @@ export const columns = [
 		width: '200px',
 		selector: 'file',
 		sortable: true,
-		cell: (row) => row.file,
+		cell: (row) => (
+			<a href={row.file} download={row.file}>
+				{row.file}
+			</a>
+		),
 	},
 	{
 		name: 'Date',

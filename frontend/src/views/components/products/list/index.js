@@ -31,7 +31,7 @@ const ProductsList = () => {
 			console.log('----------------------------', rowsData);
 			let arr = [];
 			rowsData.forEach((image, index) => {
-				// console.log(image, 'image map');
+				console.log(image, 'image map');
 
 				if (image.type == 'Image') {
 					var images = {

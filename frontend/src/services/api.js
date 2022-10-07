@@ -2,7 +2,7 @@ import axios from 'axios';
 // import authHeader from "./auth-token";
 //const BASE_URL_API = 'http://52.44.30.44';
 const BASE_URL_API = 'http://52.44.30.44';
-
+const LOCAL_URL = 'http://192.168.1.76:8000'
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const FtpListApi = async (queryString, config) => {
 };
 
 export const FtpGetAllApi = async (config) => {
-	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`, config);
+	return await axios.get(`${LOCAL_URL}/api/get_ftp_data/`, config);
 };
 
 export const FtpCreateApi = async (reqData, config) => {

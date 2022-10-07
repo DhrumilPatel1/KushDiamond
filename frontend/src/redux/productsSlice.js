@@ -171,7 +171,7 @@ export const FtpGetDataList = () => async (dispatch, getState) => {
 		};
 
 		const { data } = await FtpGetAllApi(config);
-
+	console.log(data,"data FTP")
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));

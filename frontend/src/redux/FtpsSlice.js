@@ -19,6 +19,7 @@ export const FtpsSlice = createSlice({
 		ftpDeleteData: [],
 		ftpUpdateData: [],
 		ftpGetAllData: [],
+
 		FtpCreateError: [],
 		error: null,
 	},
@@ -30,6 +31,11 @@ export const FtpsSlice = createSlice({
 		ftpGetData: (state, action) => {
 			state.isLoading = false;
 			state.ftpData = action.payload;
+		},
+
+		ftpgetAllDatalist: (state, action) => {
+			state.isLoading = false;
+			state.ftpGetAllData = action.payload?.data;
 		},
 
 		ftpViewData: (state, action) => {
@@ -73,6 +79,7 @@ export const {
 	ftpCreateData,
 	ftpUpdateData,
 	setLoading,
+	ftpgetAllDatalist,
 	ftpErrorList,
 	ftpDeleteData,
 	createSuccess,
@@ -98,6 +105,26 @@ export const FtpClientList = (queryString) => async (dispatch, getState) => {
 		dispatch(ftpErrorList(err));
 	}
 };
+
+
+export const FtpGetDataDrowpDown = () => async (dispatch, getState) => {
+		dispatch(setLoading());
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: getState()?.auth?.Token,
+				},
+			};
+			const { data } = await FtpGetAllApi(config);
+			dispatch(ftpgetAllDatalist(data));
+			
+		} catch (err) {
+			dispatch(ftpErrorList(err))
+	
+		}
+	};
+
 
 export const FtpViewList = (id) => async (dispatch, getState) => {
 	dispatch(setLoading());

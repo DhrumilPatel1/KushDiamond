@@ -29,15 +29,15 @@ export default [
 			},
 
 			{
-				id: 'Invertory Excel',
-				title: 'Invertory Excel',
+				id: 'Inventory Excel',
+				title: 'Inventory Excel',
 				icon: <File size={20} />,
 				navLink: '/product/inventory',
 			},
 
 			{
 				id: 'excel_log',
-				title: 'Excel Log',
+				title: 'Excel Upload Log',
 				icon: <File size={20} />,
 				navLink: '/excelLog/list',
 			},

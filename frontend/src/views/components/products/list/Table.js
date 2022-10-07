@@ -123,10 +123,9 @@ const ProductsList = (props) => {
 
 		{
 			name: 'Dept',
-			minWidth: '50px',
+			minWidth: '110px',
 			selector: 'dept',
 			sortable: true,
-			right: true,
 			cell: (row) => (row.dept == '' ? '-' : row.dept),
 		},
 
@@ -309,7 +308,7 @@ const ProductsList = (props) => {
 									tag={Link}
 									to="/product/inventory"
 								>
-									Invertory Excel
+									Inventory Excel
 								</Button.Ripple>
 							</Col>
 

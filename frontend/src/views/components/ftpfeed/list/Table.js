@@ -31,6 +31,7 @@ import withReactContent from 'sweetalert2-react-content';
 // import toast from 'react-hot-toast';
 import { toast, Slide } from 'react-toastify';
 import Avatar from '@components/avatar';
+import { FtpGetDataDrowpDown } from '../../../../redux/FtpsSlice';
 
 const OpenSwal = withReactContent(Swal);
 
@@ -50,21 +51,21 @@ const ErrorToast = () => (
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
+	const { ftpGetAllData, FeedData } = useSelector((state) => state.Ftps);
 	const { productData } = useSelector((state) => state.products);
 
+	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
+	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
+	const cutDropDownValue = ftpGetAllData.product_cut?.map((item) => item);
+	const shapeDropDownValue = ftpGetAllData.product_shape?.map((item) => item);
 
-
-
-	const getAllDropdownValue = ftpGetAllData.map((item) => item);
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
-	const [filterColor, setFilterColor] = useState('');
-	const [filterShape, setFilterShape] = useState('');
+	const [filterColor, setFilterColor] = useState(false);
+	const [filterShape, setFilterShape] = useState(false);
+	const [filterCut, setFilterCut] = useState(false);
 	const [ftpvalue, setFtpValue] = useState([]);
-
-	const [filterCut, setFilterCut] = useState('');
 
 	const table_data = {
 		page: 1,
@@ -84,6 +85,9 @@ const FtpFeedList = () => {
 		fTPSting: `color=${filterColor}&shape=${filterShape}&cut=${filterCut}`,
 	};
 
+	useEffect(() => {
+		dispatch(FtpGetDataDrowpDown());
+	}, []);
 	useEffect(() => {
 		dispatch(FtpGetDataList());
 	}, []);
@@ -113,15 +117,17 @@ const FtpFeedList = () => {
 	const filterSubmit = (e) => {
 		e.preventDefault();
 
+		console.log(e.target.color.value, 'e.target.color.value');
+
 		setFilterColor(e.target.color.value);
 		setFilterShape(e.target.shape.value);
 		setFilterCut(e.target.cut.value);
-		tableChangeHandler({
-			...table_data,
-			color: e.target.color.value,
-			shape: e.target.shape.value,
-			cut: e.target.cut.value,
-		});
+		// tableChangeHandler({
+		// 	...table_data,
+		// 	color: e.target.color.value,
+		// 	shape: e.target.shape.value,
+		// 	cut: e.target.cut.value,
+		// });
 	};
 
 	const handleChange = (e) => {
@@ -147,6 +153,7 @@ const FtpFeedList = () => {
 					ftp: ftpValues,
 				};
 				setFtpValue([]);
+
 				dispatch(sendFeed(ftpValuePass, ftpParams.fTPSting));
 			}
 		});
@@ -156,34 +163,39 @@ const FtpFeedList = () => {
 		dispatch(productList());
 	}, []);
 
-	const handleShape = (e) => {
-		e.preventDefault();
-
+	const handleShape = (e, color, filterCut) => {
 		tableChangeHandler({
 			...table_data,
-			color: e.target.color.value,
-			shape: e.target.shape.value,
-			cut: e.target.cut.value,
+			color: color == false ? '' : color.label,
+			shape: e.label,
+			cut: filterCut == false ? '' : filterCut.label,
 		});
 
-
-		setFilterShape(e.target.value);
+		setFilterShape(e);
 	};
 
-	const handleCut = (e) => {
-		e.preventDefault();
-		setFilterCut(e.target.value);
+	const handleCut = (e, color, filterShape) => {
+		tableChangeHandler({
+			...table_data,
+			color: color == false ? '' : color.label,
+			cut: e.label,
+			shape: filterShape == false ? '' : filterShape.label,
+		});
+		setFilterCut(e);
 	};
-	const handleColor = (e) => {
-		e.preventDefault();
-
-		console.log(e.target.value,"e.target.value")
-		setFilterColor(e.target.value);
+	const handleColor = (e, filterCuts, filterShapes) => {
+		tableChangeHandler({
+			...table_data,
+			color: e.label,
+			shape: filterShapes == false ? '' : filterShapes.lable,
+			cut: filterCuts == false ? '' : filterCuts.label,
+		});
+		setFilterColor(e);
 	};
 
 	const sendFeedClick = () => {
 		toast.error(<ErrorToast />, {
-			transition: Slide,
+			// transition: Slide,
 			hideProgressBar: true,
 			autoClose: 2000,
 		});
@@ -273,14 +285,13 @@ const FtpFeedList = () => {
 									size="sm"
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Color"
-									isMulti
-									name="ftp"
+									placeholder="Select Color"
 									className="react-select feed_select"
+									name="color"
 									classNamePrefix="select"
-									options={getAllDropdownValue}
-									value={ftpvalue}
-									onChange={(e) => handleChange(e)}
+									options={colorDropDownValue}
+									value={filterColor}
+									onChange={(e) => handleColor(e, filterCut, filterShape)}
 								/>
 
 								{/* <Input
@@ -297,14 +308,13 @@ const FtpFeedList = () => {
 									size="sm"
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Shape"
-									isMulti
-									name="ftp"
+									placeholder="Select Shape"
+									name="shape"
 									className="react-select feed_select"
 									classNamePrefix="select"
-									options={getAllDropdownValue}
-									value={ftpvalue}
-									onChange={(e) => handleChange(e)}
+									options={shapeDropDownValue}
+									value={filterShape}
+									onChange={(e) => handleShape(e, filterColor, filterCut)}
 								/>
 								{/* <Input
 									type="text"
@@ -322,14 +332,14 @@ const FtpFeedList = () => {
 									size="sm"
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Cut"
-									isMulti
-									name="ftp"
+									placeholder="Select Cut"
+									name="cut"
 									className="react-select feed_select"
 									classNamePrefix="select"
-									options={getAllDropdownValue}
-									value={ftpvalue}
-									onChange={(e) => handleChange(e)}
+									options={cutDropDownValue}
+									onChange={(e) => handleCut(e, filterColor, filterShape)}
+									value={filterCut}
+									// onChange={(e) => handleChange(e)}
 								/>
 
 								{/* <Input
