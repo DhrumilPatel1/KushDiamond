@@ -5,7 +5,7 @@ import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
-import { ChevronDown } from 'react-feather';
+import { ChevronDown, X } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
 	Card,
@@ -28,24 +28,44 @@ import { datatable_per_page, datatable_per_raw } from '../../../../configs/const
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
+import { toast, Slide } from 'react-toastify';
+import Avatar from '@components/avatar';
+import { FtpGetDataDrowpDown } from '../../../../redux/FtpsSlice';
 
 const OpenSwal = withReactContent(Swal);
+
+const ErrorToast = () => (
+	<Fragment>
+		<div className="toastify-header">
+			<div className="title-wrapper">
+				<Avatar size="sm" color="danger" icon={<X size={12} />} />
+			</div>
+			<span className="toast-title" style={{ fontWeight: '200' }}>
+				Please select client for FTP Feed &amp; color,shape or cut
+			</span>
+		</div>
+	</Fragment>
+);
 
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData, FeedData } = useSelector((state) => state.products);
+	const { ftpGetAllData, FeedData } = useSelector((state) => state.Ftps);
 	const { productData } = useSelector((state) => state.products);
-	const getAllDropdownValue = ftpGetAllData.map((item) => item);
+
+	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
+	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
+	const cutDropDownValue = ftpGetAllData.product_cut?.map((item) => item);
+	const shapeDropDownValue = ftpGetAllData.product_shape?.map((item) => item);
+
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
-	const [filterColor, setFilterColor] = useState('');
-	const [filterShape, setFilterShape] = useState('');
+	const [filterColor, setFilterColor] = useState(false);
+	const [filterShape, setFilterShape] = useState(false);
+	const [filterCut, setFilterCut] = useState(false);
 	const [ftpvalue, setFtpValue] = useState([]);
-
-	const [filterCut, setFilterCut] = useState('');
 
 	const table_data = {
 		page: 1,
@@ -65,6 +85,9 @@ const FtpFeedList = () => {
 		fTPSting: `color=${filterColor}&shape=${filterShape}&cut=${filterCut}`,
 	};
 
+	useEffect(() => {
+		dispatch(FtpGetDataDrowpDown());
+	}, []);
 	useEffect(() => {
 		dispatch(FtpGetDataList());
 	}, []);
@@ -94,15 +117,17 @@ const FtpFeedList = () => {
 	const filterSubmit = (e) => {
 		e.preventDefault();
 
+		console.log(e.target.color.value, 'e.target.color.value');
+
 		setFilterColor(e.target.color.value);
 		setFilterShape(e.target.shape.value);
 		setFilterCut(e.target.cut.value);
-		tableChangeHandler({
-			...table_data,
-			color: e.target.color.value,
-			shape: e.target.shape.value,
-			cut: e.target.cut.value,
-		});
+		// tableChangeHandler({
+		// 	...table_data,
+		// 	color: e.target.color.value,
+		// 	shape: e.target.shape.value,
+		// 	cut: e.target.cut.value,
+		// });
 	};
 
 	const handleChange = (e) => {
@@ -112,10 +137,10 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `Products filtered total count: ${productData?.count}`,
+			text: `You want to feed these ${productData?.count} product.`,
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonText: 'send Feed',
+			confirmButtonText: 'Send Feed',
 			customClass: {
 				confirmButton: 'btn btn-primary',
 				cancelButton: 'btn btn-outline-danger ml-1',
@@ -128,6 +153,7 @@ const FtpFeedList = () => {
 					ftp: ftpValues,
 				};
 				setFtpValue([]);
+
 				dispatch(sendFeed(ftpValuePass, ftpParams.fTPSting));
 			}
 		});
@@ -137,18 +163,42 @@ const FtpFeedList = () => {
 		dispatch(productList());
 	}, []);
 
-	const handleShape = (e) => {
-		e.preventDefault();
-		setFilterShape(e.target.value);
+	const handleShape = (e, color, filterCut) => {
+		tableChangeHandler({
+			...table_data,
+			color: color == false ? '' : color.label,
+			shape: e.label,
+			cut: filterCut == false ? '' : filterCut.label,
+		});
+
+		setFilterShape(e);
 	};
 
-	const handleCut = (e) => {
-		e.preventDefault();
-		setFilterCut(e.target.value);
+	const handleCut = (e, color, filterShape) => {
+		tableChangeHandler({
+			...table_data,
+			color: color == false ? '' : color.label,
+			cut: e.label,
+			shape: filterShape == false ? '' : filterShape.label,
+		});
+		setFilterCut(e);
 	};
-	const handleColor = (e) => {
-		e.preventDefault();
-		setFilterColor(e.target.value);
+	const handleColor = (e, filterCuts, filterShapes) => {
+		tableChangeHandler({
+			...table_data,
+			color: e.label,
+			shape: filterShapes == false ? '' : filterShapes.lable,
+			cut: filterCuts == false ? '' : filterCuts.label,
+		});
+		setFilterColor(e);
+	};
+
+	const sendFeedClick = () => {
+		toast.error(<ErrorToast />, {
+			// transition: Slide,
+			hideProgressBar: true,
+			autoClose: 2000,
+		});
 	};
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 
@@ -214,12 +264,12 @@ const FtpFeedList = () => {
 				<CardBody className="deskboard_card_body">
 					<Form onSubmit={(e) => filterSubmit(e)}>
 						<Row>
-							<Col lg="4" md="6">
+							<Col lg="5" md="6">
 								<Select
 									size="sm"
 									isClearable={false}
 									theme={selectThemeColors}
-									placeholder="Select FTP"
+									placeholder="Select Client for FTP Feed"
 									isMulti
 									name="ftp"
 									className="react-select feed_select"
@@ -231,38 +281,78 @@ const FtpFeedList = () => {
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="color">Color:</Label> */}
-								<Input
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Color"
+									className="react-select feed_select"
+									name="color"
+									classNamePrefix="select"
+									options={colorDropDownValue}
+									value={filterColor}
+									onChange={(e) => handleColor(e, filterCut, filterShape)}
+								/>
+
+								{/* <Input
 									id="color"
 									name="color"
 									onChange={(e) => handleColor(e)}
 									size="sm"
 									placeholder="Enter Color"
-								/>
+								/> */}
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="shape">Shape:</Label> */}
-								<Input
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Shape"
+									name="shape"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={shapeDropDownValue}
+									value={filterShape}
+									onChange={(e) => handleShape(e, filterColor, filterCut)}
+								/>
+								{/* <Input
 									type="text"
 									id="shape"
 									size="sm"
 									onChange={(e) => handleShape(e)}
 									name="shape"
 									placeholder="Enter Shape"
-								/>
+								/> */}
 							</Col>
 							<Col lg="2" md="6">
 								{/* <Label for="cut">Cut:</Label> */}
-								<Input
+
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Cut"
+									name="cut"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={cutDropDownValue}
+									onChange={(e) => handleCut(e, filterColor, filterShape)}
+									value={filterCut}
+									// onChange={(e) => handleChange(e)}
+								/>
+
+								{/* <Input
 									type="text"
 									size="sm"
 									name="cut"
 									onChange={(e) => handleCut(e)}
 									placeholder="Enter Cut"
-								/>
+								/> */}
 							</Col>
 
-							<Col lg="1" md="3">
-								{/* <Label for="cut"></Label> */}
+							{/* <Col lg="1" md="3">
+								
 								<Button.Ripple
 									type="submit"
 									size="sm"
@@ -272,7 +362,7 @@ const FtpFeedList = () => {
 								>
 									Filter
 								</Button.Ripple>
-							</Col>
+							</Col> */}
 							<Col lg="1" md="3" className="pl-0">
 								{/* <Label for="send feed"></Label> */}
 								{ftpvalue && ftpvalue.length > 0 ? (
@@ -291,7 +381,8 @@ const FtpFeedList = () => {
 										type="submit"
 										size="sm"
 										color="relief-danger"
-										disabled={true}
+										onClick={() => sendFeedClick()}
+										style={{ opacity: '0.6' }}
 										className="seed_button"
 										block
 									>

@@ -1,48 +1,38 @@
 import { Link } from 'react-router-dom';
-import * as yup from 'yup';
 import { useSkin } from '@hooks/useSkin';
 import { ChevronLeft } from 'react-feather';
+import * as yup from 'yup';
+import { Formik, Form, Field } from 'formik';
 import {
 	Card,
 	CardBody,
 	CardTitle,
 	CardText,
-	Form,
 	FormGroup,
 	Label,
 	Input,
 	Button,
-	FormFeedback,
+	Row,
+	Col,
 } from 'reactstrap';
 import '@styles/base/pages/page-auth.scss';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ForgotPasswordLinkRequest } from '../../../redux/ForgotPasswordSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ForgotPassword = () => {
 	const [skin, setSkin] = useSkin();
-
-	const ForgotPasswordSchema = yup.object().shape({
-		email: yup.string().email().required('The email field is required'),
-	});
-
-	const { register, errors, handleSubmit } = useForm({
-		mode: 'onChange',
-		resolver: yupResolver(ForgotPasswordSchema),
-	});
+	const dispatch = useDispatch();
 
 	const illustration = skin === 'dark' ? 'image_main.png' : 'image_main.png',
 		source = require(`@src/assets/images/logo/${illustration}`).default;
 
-	const [value, setValue] = useState({
-		email: '',
+	const ForgotPasswordSchema = yup.object().shape({
+		email: yup.string().required('Email is required'),
 	});
 
-	const onClick = () => {
-		const { email } = value;
-		const user = { email };
-		console.log(user, 'user');
-	};
+	const { forgotPasswordData, error } = useSelector((state) => state.forgotPassword);
 
 	return (
 		<div className="auth-wrapper auth-v1 px-2">
@@ -61,25 +51,56 @@ const ForgotPassword = () => {
 						<CardText className="mb-2">
 							Enter your email and we'll send you instructions to reset your password
 						</CardText>
-						<Form className="auth-forgot-password-form mt-2" onClick={handleSubmit(onClick)}>
+						{/* <Form className="auth-forgot-password-form mt-2" onClick={handleSubmit(onClick)}> */}
+						{/* <Form className="auth-forgot-password-form mt-2">
 							<FormGroup>
 								<Label for="email">Email</Label>
 								<Input
 									id="email"
 									type="email"
 									name="email"
-									innerRef={register({ required: true })}
-									invalid={errors.email && true}
-									defaultValue={value.email}
-									onChange={(e) => (value['email'] = e.target.value)}
+									// innerRef={register({ required: true })}
+									// invalid={errors.email && true}
+									// defaultValue={value.email}
+									// onChange={(e) => (value['email'] = e.target.value)}
 									placeholder="john@example.com"
 								/>
-								{errors && errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
 							</FormGroup>
 							<Button.Ripple color="primary" block>
 								Send reset link
 							</Button.Ripple>
-						</Form>
+						</Form> */}
+						<Formik
+							initialValues={{
+								email: '',
+							}}
+							validationSchema={ForgotPasswordSchema}
+							onSubmit={(values) => {
+								dispatch(ForgotPasswordLinkRequest(values));
+								values.email = '';
+							}}
+						>
+							{({ errors, touched }) => (
+								<Form className="auth-forgot-password-form mt-2">
+									<FormGroup>
+										<Label for="email">Email</Label>
+										<Field
+											type="text"
+											name="email"
+											id="email"
+											className="form-control"
+											placeholder="Enter Your Email"
+										/>
+										{errors && errors.email && touched.email ? (
+											<div className="error-sm">{errors.email}</div>
+										) : null}
+									</FormGroup>
+									<Button.Ripple color="primary" type="submit" block>
+										Send reset link
+									</Button.Ripple>
+								</Form>
+							)}
+						</Formik>
 						<p className="text-center mt-2">
 							<Link to="/">
 								<ChevronLeft className="mr-25" size={14} />

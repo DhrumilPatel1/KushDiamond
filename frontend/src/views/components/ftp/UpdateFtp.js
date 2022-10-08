@@ -123,7 +123,7 @@ const UpdateFtp = () => {
 									<Col md="6" sm="12">
 										<FormGroup>
 											<Label for="protocol">Protocol</Label>
-											<Field
+											{/* <Field
 												type="text"
 												name="protocol"
 												id="protocol"
@@ -131,7 +131,19 @@ const UpdateFtp = () => {
 												value={values.protocol}
 												onChange={(e) => onInputChange(e)}
 												placeholder="Enter Your Protocol"
-											/>
+											/> */}
+											<Field
+												component="select"
+												id="protocol"
+												name="protocol"
+												value={values.protocol}
+												onChange={(e) => onInputChange(e)}
+												className="form-control"
+											>
+												<option value="">Select Protocol</option>
+												<option value="FTP">FTP</option>
+												<option value="SFTP">SFTP</option>
+											</Field>
 											{error && error.protocol ? (
 												<div className="error-sm">{error.protocol}</div>
 											) : null}
@@ -140,7 +152,7 @@ const UpdateFtp = () => {
 									<Col md="6" sm="12">
 										<FormGroup>
 											<Label for="port">Port</Label>
-											<Field
+											{/* <Field
 												type="text"
 												name="port"
 												id="port"
@@ -148,7 +160,19 @@ const UpdateFtp = () => {
 												value={values.port}
 												onChange={(e) => onInputChange(e)}
 												placeholder="Enter Your Port"
-											/>
+											/> */}
+											<Field
+												component="select"
+												id="port"
+												name="port"
+												value={values.port}
+												onChange={(e) => onInputChange(e)}
+												className="form-control"
+											>
+												<option value="">Select Port</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+											</Field>
 											{error && error.port ? <div className="error-sm">{error.port}</div> : null}
 										</FormGroup>
 									</Col>

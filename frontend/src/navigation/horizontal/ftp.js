@@ -1,4 +1,4 @@
-import { Cast, Cloud, FileText, Server } from 'react-feather';
+import { Cast, FileText, Server, Table } from 'react-feather';
 
 export default [
 	{
@@ -10,20 +10,22 @@ export default [
 			{
 				id: 'ftp_list',
 				title: 'FTP List',
-				icon: <Cloud size={12} />,
+				icon: <Table size={12} />,
 				navLink: '/ftp/list',
 			},
+
 			{
-				id: 'ftplog',
-				title: 'FTP Log',
-				icon: <FileText size={20} />,
-				navLink: '/ftplog/list',
-			},
-			{
-				id: 'ftpfeed',
+				id: 'ftp_feed',
 				title: 'FTP Feed',
 				icon: <Cast size={20} />,
 				navLink: '/ftpfeed/list',
+			},
+
+			{
+				id: 'ftp_fee_log',
+				title: 'FTP Feed Log',
+				icon: <FileText size={20} />,
+				navLink: '/ftplog/list',
 			},
 		],
 	},

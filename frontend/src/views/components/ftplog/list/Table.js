@@ -7,28 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ChevronDown } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Row, Col } from 'reactstrap';
+import { Card, Row, Col, CardBody, Input } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
-import { FtpClientList } from '../../../../redux/FtpsSlice';
 import { FtpLogListRequest } from '../../../../redux/FtpLogSlice';
-
-// ** Table Header
-const CustomHeader = () => {
-	return (
-		<div className="invoice-list-table-header w-100 mr-1 ml-50">
-			<Row>
-				<Col
-					xl="6"
-					className="d-flex justify-content-lg-start align-items-center justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1"
-				>
-					<h3 className='header_text_size'>FTP Log List</h3>
-				</Col>
-			</Row>
-		</div>
-	);
-};
 
 const FtpLogList = () => {
 	const dispatch = useDispatch();
@@ -39,15 +22,18 @@ const FtpLogList = () => {
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
 
+	const [filter_value, setFilter_value] = useState('');
+
 	const table_data = {
 		page: 1,
 		per_page: limit,
+		client_name: filter_value,
 		sort_order: sort_order,
 		order_column: 'updated_at',
 	};
 
 	const [queryString, setQueryString] = useState(
-		`page=${table_data.page}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
+		`page=${table_data.page}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&client_name=${table_data.client_name}`
 	);
 
 	useEffect(() => {
@@ -72,15 +58,38 @@ const FtpLogList = () => {
 		setQueryString(queryStr);
 	};
 
-	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh'
+	const handleFilter = (e) => {
+		let value = e.target.value;
+		tableChangeHandler({ ...table_data, client_name: value });
+		setFilter_value(value);
+	};
+
+	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 
 	return (
 		<Fragment>
 			<Card>
+				<CardBody className="deskboard_card_body">
+					<Row>
+						<Col xl="8">
+							<h3>FTP Log List</h3>
+						</Col>
+						<Col xl="4" className="d-flex justify-content-lg-end">
+							{/* <Input
+								id="search-invoice"
+								className="w-50"
+								type="text"
+								size="sm"
+								name="search"
+								onChange={handleFilter}
+								placeholder="Search"
+							/> */}
+						</Col>
+					</Row>
+				</CardBody>
 				<DataTable
 					noHeader
 					pagination
-					subHeader
 					responsive
 					paginationServer
 					columns={columns}
@@ -92,10 +101,9 @@ const FtpLogList = () => {
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
-					progressPending={isLoading}
+					// progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
-					subHeaderComponent={<CustomHeader />}
 				/>
 			</Card>
 		</Fragment>

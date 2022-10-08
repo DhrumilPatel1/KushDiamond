@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 
 
 const EditProducts = () => {
 	return (
-		<Card style={{height:"600px"}}>
+		<Card style={{ height: '600px' }}>
 			<CardBody>
 				<Form>
 					<Row>
@@ -210,19 +210,15 @@ const EditProducts = () => {
 							<Col md="4">
 								<div className="stone_image_container">
 									<div>
-										<Button.Ripple  color="primary" className="upload_btn">
+										<Button.Ripple color="primary" className="upload_btn">
 											Upload
 										</Button.Ripple>
-										<img
-											src="https://demo.idiamondcloud.com/images/stone_image_01.jpg"
-										/>
+										<img src="https://demo.idiamondcloud.com/images/stone_image_01.jpg" />
 									</div>
 
 									<div>
-										<img
-											src="https://demo.idiamondcloud.com/images/stone_image_01.jpg"
-										/>
-										<Button.Ripple  color="primary" className="upload_btn">
+										<img src="https://demo.idiamondcloud.com/images/stone_image_01.jpg" />
+										<Button.Ripple color="primary" className="upload_btn">
 											Upload
 										</Button.Ripple>
 									</div>

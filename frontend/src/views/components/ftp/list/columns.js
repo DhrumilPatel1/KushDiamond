@@ -18,7 +18,7 @@ export const columns = [
 	},
 	{
 		name: 'Username',
-		width: '210px',
+		width: '250px',
 		selector: 'Username',
 		sortable: true,
 		cell: (row) => row.username,
@@ -26,7 +26,7 @@ export const columns = [
 
 	{
 		name: 'Port',
-		width: '100px',
+		width: '150px',
 		selector: 'port',
 		sortable: true,
 		cell: (row) => row.port,

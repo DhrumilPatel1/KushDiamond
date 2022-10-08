@@ -49,11 +49,19 @@ ReactDOM.render(
 				<ThemeContext>
 					<IntlProviderWrapper>
 						<LazyApp />
-						<Toaster position="top-right" toastOptions={{ style: {
-	  background: '#000',
-	  height: "50px",
-      color: '#fff',
-    }, error : {duration : 5000},success : {duration : 5000}}} />
+						<ToastContainer newestOnTop />
+						<Toaster
+							position="top-right"
+							toastOptions={{
+								style: {
+									background: '#000',
+									height: '50px',
+									color: '#fff',
+								},
+								error: { duration: 3000 },
+								success: { duration: 3000 },
+							}}
+						/>
 					</IntlProviderWrapper>
 				</ThemeContext>
 			</AbilityContext.Provider>

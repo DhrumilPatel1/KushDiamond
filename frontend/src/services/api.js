@@ -1,7 +1,8 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
-const BASE_URL_API = 'http://192.168.1.76:8000';
-
+//const BASE_URL_API = 'http://52.44.30.44';
+const BASE_URL_API = 'http://52.44.30.44';
+const LOCAL_URL = 'http://192.168.1.76:8000'
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -26,6 +27,18 @@ export const AdminLoginAPI = async (reqData) => {
 	});
 };
 
+export const ForgotPasswordAPI = async (reqData) => {
+	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
+};
+
+export const ChangePasswordApi = async (changePassword, config) => {
+	return await axios.put(`${BASE_URL_API}/api/changepassword/`, changePassword, config);
+};
+
+export const ResetPasswordApi = async (changePassword, link, config) => {
+	return await axios.patch(`${BASE_URL_API}/password-reset/${link}/`, changePassword, config);
+};
+
 export const ProductApi = async (queryString, config) => {
 	return await axios
 		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
@@ -41,6 +54,10 @@ export const ProductExcelUploadTypeOne = async (uploadexcel, config) => {
 	return await axios.post(`${BASE_URL_API}/api/upload1/`, uploadexcel, config);
 };
 
+export const ExcelTypetwo = async (exceltwo, config) => {
+	return await axios.post(`${BASE_URL_API}/api/upload2/`, exceltwo, config);
+};
+
 export const SendFeedAPI = async (SendFeedData, queryString, config) => {
 	return await axios.post(`${BASE_URL_API}/api/send_feed/?` + queryString, SendFeedData, config);
 };
@@ -53,7 +70,7 @@ export const FtpListApi = async (queryString, config) => {
 };
 
 export const FtpGetAllApi = async (config) => {
-	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`, config);
+	return await axios.get(`${LOCAL_URL}/api/get_ftp_data/`, config);
 };
 
 export const FtpCreateApi = async (reqData, config) => {
@@ -72,10 +89,33 @@ export const FtpDeleteApi = async (delete_id, config) => {
 	return await axios.delete(`${BASE_URL_API}/api/ftp/modify/${delete_id}`, config);
 };
 
-export const FtpLogListApi = async (queryString,config) => {
+export const FtpLogListApi = async (queryString, config) => {
 	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, config);
 };
 
 export const ImageUploadApi = async (imgFile, config) => {
 	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, config);
+};
+
+export const ExcelLogListApi = async (queryString, config) => {
+	// return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
+	return await axios.get(`http://192.168.1.76:8000/api/product_log/?` + queryString, config);
+};
+
+export const UserGetAllApi = async (queryString, config) => {
+	return await axios.get(`${BASE_URL_API}/api/staff/list/?` + queryString, config);
+};
+
+export const UserCreateApi = async (reqData, config) => {
+	return await axios.post(`${BASE_URL_API}/api/staff/create/`, reqData, config);
+};
+export const UserDeleteApi = async (userId, config) => {
+	return await axios.delete(`${BASE_URL_API}/api/staff/modify/${userId}`, config);
+};
+export const UserViewApi = async (userId, config) => {
+	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
+};
+
+export const ShopifySyncApi = async (config) => {
+	return await axios.get(`${BASE_URL_API}/api/sync/product`, config);
 };

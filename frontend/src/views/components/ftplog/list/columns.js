@@ -3,20 +3,23 @@ import { Badge } from 'reactstrap';
 import moment from 'moment';
 const statusObj = {
 	success: 'light-success',
-	error: 'light-danger',
+	failed: 'light-danger',
 };
-
-// const moreFun = (rowsid)=>{
-// console.log(id,"checked ids")
-// }
 
 export const columns = [
 	{
 		name: 'Client',
-		width: '190px',
+		width: '220px',
+		selector: 'client_name',
+		sortable: true,
+		
+		cell: (row) => row.client_name,
+	},
+	{
+		name: 'Host Name',
+		width: '430px',
 		selector: 'client',
 		sortable: true,
-
 		cell: (row) => row.client,
 	},
 	{
@@ -24,7 +27,7 @@ export const columns = [
 		width: '210px',
 		selector: 'created_at',
 		sortable: true,
-		cell: (row) => moment(row.created_at).format("MMM DD YYYY h:mm A"),
+		cell: (row) => moment(row.created_at).format('MMM DD YYYY h:mm A'),
 	},
 	{
 		name: 'File',
@@ -39,8 +42,12 @@ export const columns = [
 		selector: 'status',
 		sortable: true,
 		cell: (row) => (
-			<Badge className="text-capitalize" color={statusObj[row.status]} pill>
-				{row.status}
+			<Badge
+				className="text-capitalize"
+				color={statusObj[row.status === 'error' ? 'failed' : 'success']}
+				pill
+			>
+				{row.status === 'error' ? 'failed' : 'success'}
 			</Badge>
 		),
 	},

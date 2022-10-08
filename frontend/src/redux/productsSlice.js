@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { toast } from 'react-toastify';
-import { FtpGetAllApi, ImageUploadApi, ProductApi, ProductExcelUploadTypeOne, ProductsDetailApi, SendFeedAPI } from '../services/api';
-import toast, { Toaster } from 'react-hot-toast';
+import {
+	ExcelTypetwo,
+	FtpGetAllApi,
+	ImageUploadApi,
+	ProductApi,
+	ProductExcelUploadTypeOne,
+	ProductsDetailApi,
+	SendFeedAPI,
+} from '../services/api';
+import toast from 'react-hot-toast';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
@@ -19,6 +27,7 @@ export const productsSlice = createSlice({
 		productViewData: [],
 		ImageUploaFileData: [],
 		excelTypeOne: [],
+		excelTypeTwo: [],
 		ftpGetAllData: [],
 		FeedData: [],
 		error: null,
@@ -46,7 +55,10 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
 		},
-
+		excelTypeTwo: (state, action) => {
+			state.isLoading = false;
+			state.excelTypeTwo = action.payload;
+		},
 		ImageUploaFileData: (state, action) => {
 			state.isLoading = false;
 			state.ImageUploaFileData = action.payload;
@@ -72,7 +84,9 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.error = null;
 			state.ImageUploaFileData = [];
-			state.excelTypeOne = []
+			state.excelTypeOne = [];
+			state.excelTypeTwo = [];
+			state.productViewData = [];
 		},
 	},
 });
@@ -90,6 +104,7 @@ export const {
 	handleErrorExcel,
 	FeedDataError,
 	ProductResetData,
+	excelTypeTwo,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -112,7 +127,7 @@ export const productList = (queryString) => async (dispatch, getState) => {
 
 export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) => {
 	dispatch(setLoading());
-	const toastId = toast.loading('Please wait your excel Uploading...');
+	const toastId = toast.loading('Please wait your folder is Uploading...');
 	try {
 		const config = {
 			headers: {
@@ -121,10 +136,8 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 			},
 		};
 		const { data } = await ImageUploadApi(img_upload, config);
-		console.log(data, 'data');
 
 		const { statusCode, message } = data;
-
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,
@@ -139,8 +152,6 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 				id: toastId,
 			});
 		}
-
-
 		// if (error.response && error.response.data.errors) {
 		// 	return dispatch(handleErrorList(error.response.data.errors));
 		// } else {
@@ -160,7 +171,7 @@ export const FtpGetDataList = () => async (dispatch, getState) => {
 		};
 
 		const { data } = await FtpGetAllApi(config);
-
+	console.log(data,"data FTP")
 		dispatch(ftpgetAllDatalist(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));
@@ -177,12 +188,12 @@ export const ProductsDetialRequest = (details_id) => async (dispatch, getState) 
 			},
 		};
 		const { data } = await ProductsDetailApi(details_id, config);
+
 		const { statusCode } = data;
 		if (statusCode === 200) {
 			dispatch(productViewData(data));
 		}
 	} catch (error) {
-		console.log(error.response);
 		const { statusCode, message } = error.response.data;
 		if (statusCode === 422) {
 			toast.error(message);
@@ -208,6 +219,35 @@ export const productExcelUpload = (uploadfile) => async (dispatch, getState) => 
 			});
 			dispatch(excelTypeOne(data));
 			dispatch(productList());
+		}
+	} catch (error) {
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorExcel(message));
+			toast.error(message, {
+				id: toastId,
+			});
+		}
+	}
+};
+
+export const ExcelUploadTypeTwo = (exceluploadtwo) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your excel type two Uploading...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ExcelTypetwo(exceluploadtwo, config);
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(excelTypeTwo(data));
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;

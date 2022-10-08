@@ -11,13 +11,17 @@ const ProductesRoutes = [
 		component: lazy(() => import('../../views/components/products/AddProducts')),
 	},
 	{
-		path: '/products/details/:id',
+		path: '/products/detail/:id',
 		component: lazy(() => import('../../views/components/products/ProductsDetail')),
 	},
 	{
 		path: '/products/edit/:id',
 		component: lazy(() => import('../../views/components/products/EditProducts')),
 	},
+	// {
+	// 	path: '/products/view/:id',
+	// 	component: lazy(() => import('../../views/components/products/list/ProductView-old')),
+	// },
 ];
 
 export default ProductesRoutes;
