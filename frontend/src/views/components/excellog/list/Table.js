@@ -26,7 +26,7 @@ const ExcelLogList = () => {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
-		order_column: 'updated_at',
+		order_column: 'created_at',
 	};
 
 	const [queryString, setQueryString] = useState(
