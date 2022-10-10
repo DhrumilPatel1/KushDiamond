@@ -240,7 +240,7 @@ const ProductsList = (props) => {
 		shape: filterShape,
 		cut: filterCut,
 		search: filter_value,
-		order_column: 'updated_at',
+		order_column: 'created_at',
 	};
 
 	const [queryString, setQueryString] = useState(

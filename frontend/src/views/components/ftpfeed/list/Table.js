@@ -74,7 +74,7 @@ const FtpFeedList = () => {
 		color: filterColor == false ? '' : filterColor,
 		shape: filterShape == false ? '' : filterShape,
 		cut: filterCut == false ? '' : filterCut,
-		order_column: 'updated_at',
+		order_column: 'created_at',
 	};
 
 	const [queryString, setQueryString] = useState(

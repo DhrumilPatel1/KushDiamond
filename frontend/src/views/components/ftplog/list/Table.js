@@ -29,7 +29,7 @@ const FtpLogList = () => {
 		per_page: limit,
 		client_name: filter_value,
 		sort_order: sort_order,
-		order_column: 'updated_at',
+		order_column: 'created_at',
 	};
 
 	const [queryString, setQueryString] = useState(
