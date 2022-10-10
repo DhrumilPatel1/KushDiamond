@@ -88,7 +88,7 @@ const FtpFeedList = () => {
 	);
 
 	const ftpParams = {
-		fTPSting: `color=${filterColor}&shape=${filterShape}&cut=${filterCut}`,
+		fTPSting: `color=${filterColor.label}&shape=${filterShape.label}&cut=${filterCut.label}`,
 	};
 
 	useEffect(() => {
@@ -119,9 +119,10 @@ const FtpFeedList = () => {
 
 	const filterSubmit = (e) => {
 		e.preventDefault();
-		setFilterColor(e.target.color.value);
-		setFilterShape(e.target.shape.value);
-		setFilterCut(e.target.cut.value);
+		// console.log(filterColor,"e.target.color.value")
+		// setFilterColor(e.target.color.value);
+		// setFilterShape(e.target.shape.value);
+		// setFilterCut(e.target.cut.value);
 		// tableChangeHandler({
 		// 	...table_data,
 		// 	color: e.target.color.value,
@@ -153,7 +154,6 @@ const FtpFeedList = () => {
 					ftp: ftpValues,
 				};
 				setFtpValue([]);
-
 				dispatch(sendFeed(ftpValuePass, ftpParams.fTPSting));
 			}
 		});
@@ -212,7 +212,6 @@ const FtpFeedList = () => {
 		});
 	};
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
-
 	return (
 		<Fragment>
 			{/* <Card> */}
