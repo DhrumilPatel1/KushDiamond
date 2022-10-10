@@ -28,7 +28,7 @@ export const columns = [
 		name: 'Port',
 		width: '150px',
 		selector: 'port',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => row.port,
 	},
 	// {
