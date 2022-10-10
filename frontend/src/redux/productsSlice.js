@@ -46,11 +46,6 @@ export const productsSlice = createSlice({
 			state.productViewData = action.payload;
 		},
 
-		ftpgetAllDatalist: (state, action) => {
-			state.isLoading = false;
-			state.ftpGetAllData = action.payload?.ftp_data;
-		},
-
 		excelTypeOne: (state, action) => {
 			state.isLoading = false;
 			state.excelTypeOne = action.payload;
@@ -94,7 +89,6 @@ export const productsSlice = createSlice({
 export const {
 	productGetData,
 	productViewData,
-	ftpgetAllDatalist,
 	ImageUploaFileData,
 	handleErrorList,
 	excelTypeOne,
@@ -157,24 +151,6 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 		// } else {
 		// 	return dispatch(handleErrorList(error.message));
 		// }
-	}
-};
-
-export const FtpGetDataList = () => async (dispatch, getState) => {
-	dispatch(setLoading());
-	try {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: getState()?.auth?.Token,
-			},
-		};
-
-		const { data } = await FtpGetAllApi(config);
-	console.log(data,"data FTP")
-		dispatch(ftpgetAllDatalist(data));
-	} catch (err) {
-		dispatch(ftpErrorList(err));
 	}
 };
 
