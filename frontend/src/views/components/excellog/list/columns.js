@@ -13,7 +13,7 @@ export const columns = [
 		selector: 'file',
 		// sortable: true,
 		cell: (row) => (
-			<a href={row.file} download={row.file}>
+			<a href={row.file_url} download={row.file_url}>
 				{row.file}
 			</a>
 		),
