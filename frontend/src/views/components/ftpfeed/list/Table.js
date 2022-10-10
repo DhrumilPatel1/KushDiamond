@@ -54,6 +54,8 @@ const FtpFeedList = () => {
 	const { ftpGetAllData, FeedData } = useSelector((state) => state.Ftps);
 	const { productData } = useSelector((state) => state.products);
 
+	console.log(productData, 'productData');
+
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
 	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
 	const cutDropDownValue = ftpGetAllData.product_cut?.map((item) => item);
@@ -71,9 +73,9 @@ const FtpFeedList = () => {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
-		color: filterColor,
-		shape: filterShape,
-		cut: filterCut,
+		color: filterColor == false ? '' : filterColor,
+		shape: filterShape == false ? '' : filterShape,
+		cut: filterCut == false ? '' : filterCut,
 		order_column: 'updated_at',
 	};
 
@@ -137,7 +139,7 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `You want to feed these ${productData?.count} product.`,
+			text: `You want to feed these ${productData?.count} product in FTP feed.`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Send Feed',
@@ -410,7 +412,7 @@ const FtpFeedList = () => {
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
-					progressPending={productData.length == 0 ? true : false}
+					// progressPending={productData.length == 0 ? true : false}
 				/>
 			</Card>
 		</Fragment>

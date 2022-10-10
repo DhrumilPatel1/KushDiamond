@@ -31,15 +31,16 @@ const ProductsList = () => {
 			console.log('----------------------------', rowsData);
 			let arr = [];
 			rowsData.forEach((image, index) => {
-				console.log(image, 'image map');
+				
 
 				if (image.type == 'Image') {
+					
 					var images = {
 						id: index,
 						src: image.url,
 						thumb: image.url,
 						subHtml:
-							"<h4>Bowness Bay</h4><p>A beautiful Sunrise this morning taken En-route to Keswick not one as planned but I'm extremely happy I was passing the right place at the right time....</p>",
+						image.image_name
 					};
 					arr.push(images);
 				} else if (image.type == 'Video') {
