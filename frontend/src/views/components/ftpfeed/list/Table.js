@@ -23,7 +23,7 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { FtpGetDataList, productList, sendFeed } from '../../../../redux/productsSlice';
+import { productList, sendFeed } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
@@ -89,9 +89,6 @@ const FtpFeedList = () => {
 
 	useEffect(() => {
 		dispatch(FtpGetDataDrowpDown());
-	}, []);
-	useEffect(() => {
-		dispatch(FtpGetDataList());
 	}, []);
 
 	useEffect(() => {
