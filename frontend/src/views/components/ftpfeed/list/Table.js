@@ -54,8 +54,6 @@ const FtpFeedList = () => {
 	const { ftpGetAllData, FeedData } = useSelector((state) => state.Ftps);
 	const { productData } = useSelector((state) => state.products);
 
-	console.log(productData, 'productData');
-
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
 	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
 	const cutDropDownValue = ftpGetAllData.product_cut?.map((item) => item);
@@ -115,9 +113,6 @@ const FtpFeedList = () => {
 
 	const filterSubmit = (e) => {
 		e.preventDefault();
-
-		console.log(e.target.color.value, 'e.target.color.value');
-
 		setFilterColor(e.target.color.value);
 		setFilterShape(e.target.shape.value);
 		setFilterCut(e.target.cut.value);

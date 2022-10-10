@@ -28,7 +28,6 @@ const ProductsList = () => {
 
 	const clickOpenGallarey = useCallback(
 		(rowsData) => {
-			console.log('----------------------------', rowsData);
 			let arr = [];
 			rowsData.forEach((image, index) => {
 				
