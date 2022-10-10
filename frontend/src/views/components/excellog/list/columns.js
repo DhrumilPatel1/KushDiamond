@@ -11,7 +11,7 @@ export const columns = [
 		name: 'File',
 		width: '200px',
 		selector: 'file',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => (
 			<a href={row.file} download={row.file}>
 				{row.file}
@@ -22,7 +22,7 @@ export const columns = [
 		name: 'Type',
 		width: '200px',
 		selector: 'type',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => (row.type == null ? '-' : row.type),
 	},
 	{
@@ -36,7 +36,7 @@ export const columns = [
 		name: 'Status',
 		width: '130px',
 		selector: 'status',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => (
 			<Badge
 				className="text-capitalize"
@@ -51,7 +51,7 @@ export const columns = [
 		name: 'Error Status',
 		width: '400px',
 		selector: 'error_status',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => (row.error_status ? row.error_status : '-'),
 	},
 ];
