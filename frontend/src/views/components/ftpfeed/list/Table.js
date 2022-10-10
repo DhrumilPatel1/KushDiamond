@@ -57,23 +57,28 @@ const FtpFeedList = () => {
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
 	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
 	const cutDropDownValue = ftpGetAllData.product_cut?.map((item) => item);
+
 	const shapeDropDownValue = ftpGetAllData.product_shape?.map((item) => item);
 
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
-	const [filterColor, setFilterColor] = useState(false);
-	const [filterShape, setFilterShape] = useState(false);
-	const [filterCut, setFilterCut] = useState(false);
+	const [filterColor, setFilterColor] = useState('');
+	const [filterShape, setFilterShape] = useState('');
+	const [filterCut, setFilterCut] = useState('');
 	const [ftpvalue, setFtpValue] = useState([]);
+
+	// console.log(filterColor, 'filterColor');
+	// console.log(filterShape, 'filterShape');
+	// console.log(filterCut, 'filterCut');
 
 	const table_data = {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
-		color: filterColor == false ? '' : filterColor,
-		shape: filterShape == false ? '' : filterShape,
-		cut: filterCut == false ? '' : filterCut,
+		color: filterColor.label == undefined ? '' : filterColor.label,
+		shape: filterShape.label == undefined ? '' : filterShape.label,
+		cut: filterCut.label == undefined ? '' : filterCut.label,
 		order_column: 'created_at',
 	};
 
@@ -160,20 +165,19 @@ const FtpFeedList = () => {
 	const handleShape = (e, color, filterCut) => {
 		tableChangeHandler({
 			...table_data,
-			color: color == false ? '' : color.label,
+			color: color.label != undefined ? color.label : table_data.color,
 			shape: e.label,
-			cut: filterCut == false ? '' : filterCut.label,
+			cut: filterCut.label != undefined ? filterCut.label : table_data.cut,
 		});
-
 		setFilterShape(e);
 	};
 
 	const handleCut = (e, color, filterShape) => {
 		tableChangeHandler({
 			...table_data,
-			color: color == false ? '' : color.label,
+			color: color.label != undefined ? color.label : table_data.color,
+			shape: filterShape.label != undefined ? filterShape.label : table_data.shape,
 			cut: e.label,
-			shape: filterShape == false ? '' : filterShape.label,
 		});
 		setFilterCut(e);
 	};
@@ -181,8 +185,8 @@ const FtpFeedList = () => {
 		tableChangeHandler({
 			...table_data,
 			color: e.label,
-			shape: filterShapes == false ? '' : filterShapes.lable,
-			cut: filterCuts == false ? '' : filterCuts.label,
+			shape: filterShapes.lable != undefined ? filterShapes.lable : table_data.shape,
+			cut: filterCuts.label != undefined ? filterCuts.label : table_data.cut,
 		});
 		setFilterColor(e);
 	};
