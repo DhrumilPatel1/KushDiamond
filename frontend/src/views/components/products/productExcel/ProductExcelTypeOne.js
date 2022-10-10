@@ -30,7 +30,7 @@ export default function ProductExcelTypeOne() {
 	const hisToryeBack = () => {
 		history.goBack();
 	};
-
+	
 	return (
 		<div>
 			<Card>
@@ -48,6 +48,9 @@ export default function ProductExcelTypeOne() {
 									Excel).
 								</b>
 							</p>
+
+							<a href="http://52.44.30.44/media/excel1/sample1.xlsx">Download Sample Formate</a>
+
 							<Form onSubmit={(e) => excelUploadTypeOne(e)}>
 								<FormGroup>
 									<Label for="folder_path">Product Excel</Label>
@@ -58,11 +61,11 @@ export default function ProductExcelTypeOne() {
 										Submit
 									</Button.Ripple>
 								) : (
-									<Button.Ripple className="mr-1" size="sm"  color="primary" type="submit">
+									<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
 										Submit
 									</Button.Ripple>
 								)}
-								<Button.Ripple className="mr-1" size="sm"  outline onClick={(e) => hisToryeBack(e)}>
+								<Button.Ripple className="mr-1" size="sm" outline onClick={(e) => hisToryeBack(e)}>
 									Back
 								</Button.Ripple>
 							</Form>

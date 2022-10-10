@@ -64,6 +64,7 @@ const FtpFeedList = () => {
 
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
+
 	const [filterShape, setFilterShape] = useState('');
 	const [filterCut, setFilterCut] = useState('');
 	const [ftpvalue, setFtpValue] = useState([]);
@@ -165,30 +166,42 @@ const FtpFeedList = () => {
 	const handleShape = (e, color, filterCut) => {
 		tableChangeHandler({
 			...table_data,
-			color: color.label != undefined ? color.label : table_data.color,
-			shape: e.label,
-			cut: filterCut.label != undefined ? filterCut.label : table_data.cut,
+			color: color.label != undefined && color.label != 'Reset' ? color.label : table_data.color,
+			shape: e.label == 'Reset' ? '' : e.label,
+			cut:
+				filterCut.label != undefined && filterCut.label != 'Reset'
+					? filterCut.label
+					: table_data.cut,
 		});
-		setFilterShape(e);
+		setFilterShape(e.label == 'Reset' ? 'Select Shape' : e);
 	};
 
 	const handleCut = (e, color, filterShape) => {
 		tableChangeHandler({
 			...table_data,
-			color: color.label != undefined ? color.label : table_data.color,
-			shape: filterShape.label != undefined ? filterShape.label : table_data.shape,
-			cut: e.label,
+			color: color.label != undefined && color.label != 'Reset' ? color.label : table_data.color,
+			shape:
+				filterShape.label != undefined && filterShape.label != 'Reset'
+					? filterShape.label
+					: table_data.shape,
+			cut: e.label == 'Reset' ? '' : e.label,
 		});
-		setFilterCut(e);
+		setFilterCut(e.label == 'Reset' ? 'Select Cut' : e);
 	};
 	const handleColor = (e, filterCuts, filterShapes) => {
 		tableChangeHandler({
 			...table_data,
-			color: e.label,
-			shape: filterShapes.lable != undefined ? filterShapes.lable : table_data.shape,
-			cut: filterCuts.label != undefined ? filterCuts.label : table_data.cut,
+			color: e.label == 'Reset' ? '' : e.label,
+			shape:
+				filterShapes.lable != undefined && filterShapes.label != 'Reset'
+					? filterShapes.lable
+					: table_data.shape,
+			cut:
+				filterCuts.label != undefined && filterCuts.label != 'Reset'
+					? filterCuts.label
+					: table_data.cut,
 		});
-		setFilterColor(e);
+		setFilterColor(e.label == 'Reset' ? 'Select Color' : e);
 	};
 
 	const sendFeedClick = () => {

@@ -70,7 +70,7 @@ export const FtpListApi = async (queryString, config) => {
 };
 
 export const FtpGetAllApi = async (config) => {
-	return await axios.get(`${BASE_URL_API}/api/get_ftp_data/`, config);
+	return await axios.get(`${LOCAL_URL}/api/get_ftp_data/`, config);
 };
 
 export const FtpCreateApi = async (reqData, config) => {
@@ -90,7 +90,7 @@ export const FtpDeleteApi = async (delete_id, config) => {
 };
 
 export const FtpLogListApi = async (queryString, config) => {
-	return await axios.get(`${BASE_URL_API}/api/ftp_log/?` + queryString, config);
+	return await axios.get(`${LOCAL_URL}/api/ftp_log/?` + queryString, config);
 };
 
 export const ImageUploadApi = async (imgFile, config) => {

@@ -72,7 +72,7 @@ const FtpLogList = () => {
 				<CardBody className="deskboard_card_body">
 					<Row>
 						<Col xl="8">
-							<h3>FTP Log List</h3>
+							<h3>FTP Feed Log List</h3>
 						</Col>
 						<Col xl="4" className="d-flex justify-content-lg-end">
 							{/* <Input
