@@ -12,7 +12,7 @@ export const columns = [
 		minWidth: '170px',
 		selector: 'sku',
 		sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.sku,
 	},
 	{
@@ -20,7 +20,7 @@ export const columns = [
 		minWidth: '115px',
 		selector: 'shape',
 		sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.shape,
 	},
 	{
@@ -28,7 +28,7 @@ export const columns = [
 		minWidth: '80px',
 		selector: 'carat',
 		sortable: true,
-		center:true,
+		right: true,
 		cell: (row) => row.carat,
 	},
 	{
@@ -36,7 +36,7 @@ export const columns = [
 		minWidth: '140px',
 		selector: 'color',
 		sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.color,
 	},
 	{
@@ -44,7 +44,7 @@ export const columns = [
 		minWidth: '160px',
 		selector: 'measurement',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.measurement,
 	},
 	{
@@ -52,7 +52,7 @@ export const columns = [
 		minWidth: '100px',
 		selector: 'price',
 		sortable: true,
-		center:true,
+		right: true,
 		cell: (row) => row.price,
 	},
 
@@ -61,7 +61,7 @@ export const columns = [
 		minWidth: '175px',
 		selector: 'certificate_no',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.certificate_no,
 	},
 
@@ -70,25 +70,25 @@ export const columns = [
 		minWidth: '80px',
 		selector: 'lab',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => row.lab,
 	},
 
 	{
 		name: 'Cut',
-		minWidth: '40x',
+		minWidth: '60x',
 		selector: 'cut',
 		sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.cut == '' ? '-' : row.cut),
 	},
 
 	{
 		name: 'Dept',
-		minWidth: '60px',
+		minWidth: '110px',
 		selector: 'dept',
 		sortable: true,
-		center:true,
+		right: true,
 		cell: (row) => (row.dept == '' ? '-' : row.dept),
 	},
 
@@ -97,7 +97,7 @@ export const columns = [
 		minWidth: '60px',
 		selector: 'fl',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.fl == '' ? '-' : row.fl),
 	},
 
@@ -106,7 +106,7 @@ export const columns = [
 		minWidth: '150px',
 		selector: 'girdle',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
 	},
 
@@ -115,7 +115,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'cul',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.cul == '' ? '-' : row.cul),
 	},
 
@@ -124,7 +124,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'pol',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.pol == '' ? '-' : row.pol),
 	},
 
@@ -133,7 +133,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'rap',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.rap == '' ? '-' : row.rap),
 	},
 
@@ -142,7 +142,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'sym',
 		// sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (row.sym == '' ? '-' : row.sym),
 	},
 
@@ -151,7 +151,7 @@ export const columns = [
 		minWidth: '100px',
 		selector: 'is_active',
 		sortable: true,
-		center:true,
+		center: true,
 		cell: (row) => (
 			<Badge
 				className="text-capitalize"

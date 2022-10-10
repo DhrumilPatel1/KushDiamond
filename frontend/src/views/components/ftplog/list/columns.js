@@ -12,7 +12,7 @@ export const columns = [
 		width: '220px',
 		selector: 'client_name',
 		sortable: true,
-		
+
 		cell: (row) => row.client_name,
 	},
 	{
@@ -31,10 +31,15 @@ export const columns = [
 	},
 	{
 		name: 'File',
-		width: '260px',
+		width: '320px',
 		selector: 'file',
 		sortable: true,
-		cell: (row) => row.file,
+		// cell: (row) => row.file,
+		cell: (row) => (
+			<a href={row.file} download={row.file}>
+				{row.file}
+			</a>
+		),
 	},
 	{
 		name: 'Status',
