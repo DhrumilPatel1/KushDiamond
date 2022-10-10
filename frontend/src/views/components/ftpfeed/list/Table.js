@@ -48,6 +48,19 @@ const ErrorToast = () => (
 	</Fragment>
 );
 
+const ErrorToastFilter = () => (
+	<Fragment>
+		<div className="toastify-header">
+			<div className="title-wrapper">
+				<Avatar size="sm" color="danger" icon={<X size={12} />} />
+			</div>
+			<span className="toast-title" style={{ fontWeight: '200' }}>
+				Color Or Shape Or cut value is empty please Select the value that is in your feed data
+			</span>
+		</div>
+	</Fragment>
+);
+
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
@@ -88,7 +101,9 @@ const FtpFeedList = () => {
 	);
 
 	const ftpParams = {
-		fTPSting: `color=${filterColor.label}&shape=${filterShape.label}&cut=${filterCut.label}`,
+		fTPSting: `color=${filterColor.label == undefined ? '' : filterColor.label}&shape=${
+			filterShape.label == undefined ? '' : filterShape.label
+		}&cut=${filterCut.label == undefined ? '' : filterCut.label}`,
 	};
 
 	useEffect(() => {
@@ -153,6 +168,7 @@ const FtpFeedList = () => {
 				let ftpValuePass = {
 					ftp: ftpValues,
 				};
+
 				setFtpValue([]);
 				dispatch(sendFeed(ftpValuePass, ftpParams.fTPSting));
 			}
@@ -211,6 +227,15 @@ const FtpFeedList = () => {
 			autoClose: 2000,
 		});
 	};
+
+	const sendFilter = () => {
+		toast.error(<ErrorToastFilter />, {
+			// transition: Slide,
+			hideProgressBar: true,
+			autoClose: 2000,
+		});
+	};
+
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
 	return (
 		<Fragment>
@@ -375,7 +400,7 @@ const FtpFeedList = () => {
 							</Col> */}
 							<Col lg="1" md="3" className="pl-0">
 								{/* <Label for="send feed"></Label> */}
-								{ftpvalue && ftpvalue.length > 0 ? (
+								{ftpvalue && ftpvalue.length > 0 && productData?.results?.length > 0 ? (
 									<Button.Ripple
 										type="submit"
 										size="sm"
@@ -391,7 +416,9 @@ const FtpFeedList = () => {
 										type="submit"
 										size="sm"
 										color="relief-danger"
-										onClick={() => sendFeedClick()}
+										onClick={
+											productData?.results?.length == 0 ? () => sendFilter() : () => sendFeedClick()
+										}
 										style={{ opacity: '0.6' }}
 										className="seed_button"
 										block
