@@ -23,7 +23,7 @@ export const columns = [
 		width: '200px',
 		selector: 'type',
 		sortable: true,
-		cell: (row) => row.type,
+		cell: (row) => (row.type == null ? '-' : row.type),
 	},
 	{
 		name: 'Date',

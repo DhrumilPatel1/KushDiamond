@@ -99,7 +99,7 @@ export const ImageUploadApi = async (imgFile, config) => {
 
 export const ExcelLogListApi = async (queryString, config) => {
 	// return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
-	return await axios.get(`http://192.168.1.76:8000/api/product_log/?` + queryString, config);
+	return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
 };
 
 export const UserGetAllApi = async (queryString, config) => {
