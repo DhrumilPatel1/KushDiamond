@@ -47,6 +47,7 @@ const ProductsList = (props) => {
 			sortable: true,
 			sticky: true,
 			center: true,
+
 			cell: (row) => row.sku,
 		},
 		{
@@ -275,6 +276,12 @@ const ProductsList = (props) => {
 		setFilter_value(value);
 	};
 
+	// const [selectedData, setSelectedData] = useState();
+
+	// const selectRows = (state) => {
+	// 	setSelectedData(state.selectedRows);
+	//   };
+
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
@@ -341,6 +348,8 @@ const ProductsList = (props) => {
 				<DataTable
 					noHeader
 					pagination
+					// selectableRows
+					// onSelectedRowsChange={selectRows}
 					responsive
 					paginationServer
 					columns={columns}
