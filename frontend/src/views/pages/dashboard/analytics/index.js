@@ -27,7 +27,7 @@ const AnalyticsDashboard = () => {
 					<SubscribersGained />
 				</Col>
 				<Col lg="3" sm="6">
-					<OrdersReceived productCount={productData.results?.length} />
+					<OrdersReceived productCount={productData?.count} />
 				</Col>
 			</Row>
 		</div>
