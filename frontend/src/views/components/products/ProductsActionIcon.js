@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Edit, Eye, File, Image } from 'react-feather';
+import { Eye, Image, Trash2 } from 'react-feather';
 import {
 	Button,
 	Modal,
@@ -10,8 +10,8 @@ import {
 	Tooltip,
 	UncontrolledTooltip,
 } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { ProductsDetialRequest } from '../../../redux/productsSlice';
+import { useDispatch } from 'react-redux';
+import { ImageUploadDeleteRequest } from '../../../redux/productsSlice';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import LightGallery from 'lightgallery/react';
@@ -22,8 +22,13 @@ import 'lightgallery/css/lg-video.css';
 import lgVideo from 'lightgallery/plugins/video';
 import lgFullscreen from 'lightgallery/plugins/fullscreen';
 import videoicon from '../../../VideoIcon-image/videoicon2.png';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const ToastSwal = withReactContent(Swal);
 
 const ProductsActionIcon = (props) => {
+	const dispatch = useDispatch();
 	// const imageref = useRef(null)
 
 	// const onInit = (detail) => {
@@ -49,6 +54,28 @@ const ProductsActionIcon = (props) => {
 	// 	console.log(index, prevIndex);
 	// };
 
+	const handleDeleteById = (id) => {
+		ToastSwal.fire({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover this images!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((deleteRecord) => {
+			if (deleteRecord.value) {
+				dispatch(ImageUploadDeleteRequest(id));
+			}
+		});
+	};
+
+	// console.log(props?.row?.product_images,"props?.row?.product_images")
+
+	// console.log(props?.row?.product_images, 'props?.row?.product_images');
 	return (
 		<>
 			{/* <Image
@@ -83,6 +110,13 @@ const ProductsActionIcon = (props) => {
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
 				<Eye size={18} className="ml-1" />
 			</Link>
+
+			<Trash2
+				className="text-danger ml-1"
+				size={18}
+				onClick={() => handleDeleteById(props.id)}
+				style={{ cursor: 'pointer' }}
+			/>
 
 			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />

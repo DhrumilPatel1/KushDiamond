@@ -201,8 +201,8 @@ const ProductsList = (props) => {
 
 		{
 			name: 'Actions',
-			minWidth: '140px',
-			center: true,
+			minWidth: '150px',
+			// center: true,
 			cell: (row) => {
 				// console.log("row called------------------")
 				return (

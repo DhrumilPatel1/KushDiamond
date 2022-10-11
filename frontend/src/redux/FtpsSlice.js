@@ -221,7 +221,7 @@ export const FtpDeleteRequest = (delete_id) => async (dispatch, getState) => {
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
 		if (statusCode === 422) {
-			toast.success(message, {
+			toast.error(message, {
 				id: toastId,
 			});
 		}

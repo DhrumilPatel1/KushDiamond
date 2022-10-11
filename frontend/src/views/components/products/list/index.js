@@ -30,19 +30,15 @@ const ProductsList = () => {
 		(rowsData) => {
 			let arr = [];
 			rowsData.forEach((image, index) => {
-				
-
-				if (image.type == 'Image') {
-					
+				if (image?.type == 'Image') {
 					var images = {
 						id: index,
 						src: image.url,
 						thumb: image.url,
-						subHtml:
-						image.image_name
+						subHtml: image.image_name,
 					};
 					arr.push(images);
-				} else if (image.type == 'Video') {
+				} else if (image?.type == 'Video') {
 					var images = {
 						id: index,
 						thumb: videoicon,

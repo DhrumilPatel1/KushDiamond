@@ -2,7 +2,7 @@ import axios from 'axios';
 // import authHeader from "./auth-token";
 //const BASE_URL_API = 'http://52.44.30.44';
 const BASE_URL_API = 'http://52.44.30.44';
-// const LOCAL_URL = 'http://192.168.1.76:8000';
+const LOCAL_URL = 'http://192.168.1.76:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const ResetPasswordApi = async (changePassword, link, config) => {
 
 export const ProductApi = async (queryString, config) => {
 	return await axios
-		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
+		.get(`${LOCAL_URL}/api/product/list/?` + queryString, config)
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
@@ -94,11 +94,14 @@ export const FtpLogListApi = async (queryString, config) => {
 };
 
 export const ImageUploadApi = async (imgFile, config) => {
-	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, config);
+	return await axios.post(`${LOCAL_URL}/api/uploadfile/`, imgFile, config);
+};
+
+export const ImageUploadDeleteApi = async (delete_id, config) => {
+	return await axios.delete(`${LOCAL_URL}/api/product_image/delete/${delete_id}`, config);
 };
 
 export const ExcelLogListApi = async (queryString, config) => {
-	// return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
 	return await axios.get(`${BASE_URL_API}/api/product_log/?` + queryString, config);
 };
 

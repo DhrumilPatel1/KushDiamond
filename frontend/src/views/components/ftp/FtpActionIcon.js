@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FtpClientList, FtpDeleteRequest } from '../../../redux/FtpsSlice';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { toast } from 'react-toastify';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -26,7 +25,6 @@ const FtpActionIcon = (props) => {
 			buttonsStyling: false,
 		}).then(async (deleteRecord) => {
 			if (deleteRecord.value) {
-				toast.success('Account successfully deleted.');
 				await dispatch(FtpDeleteRequest(id));
 				dispatch(FtpClientList());
 			}

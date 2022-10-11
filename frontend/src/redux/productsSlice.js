@@ -4,6 +4,7 @@ import {
 	ExcelTypetwo,
 	FtpGetAllApi,
 	ImageUploadApi,
+	ImageUploadDeleteApi,
 	ProductApi,
 	ProductExcelUploadTypeOne,
 	ProductsDetailApi,
@@ -26,6 +27,7 @@ export const productsSlice = createSlice({
 		productData: [],
 		productViewData: [],
 		ImageUploaFileData: [],
+		imageuploadDeleteData: [],
 		excelTypeOne: [],
 		excelTypeTwo: [],
 		ftpGetAllData: [],
@@ -59,6 +61,11 @@ export const productsSlice = createSlice({
 			state.ImageUploaFileData = action.payload;
 		},
 
+		ImageUploadDataDeleteList: (state, action) => {
+			state.isLoading = false;
+			state.imageuploadDeleteData = action.payload;
+		},
+
 		handleErrorList: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
@@ -90,6 +97,7 @@ export const {
 	productGetData,
 	productViewData,
 	ImageUploaFileData,
+	ImageUploadDataDeleteList,
 	handleErrorList,
 	excelTypeOne,
 	excelTypeOneReset,
@@ -151,6 +159,35 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 		// } else {
 		// 	return dispatch(handleErrorList(error.message));
 		// }
+	}
+};
+
+export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your data is deleteing...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ImageUploadDeleteApi(deleteId, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(ImageUploadDataDeleteList(data));
+		}
+	} catch (error) {
+		const { statusCode, message } = error.response.data;
+		if (statusCode === 422) {
+			toast.error(message, {
+				id: toastId,
+			});
+		}
 	}
 };
 
