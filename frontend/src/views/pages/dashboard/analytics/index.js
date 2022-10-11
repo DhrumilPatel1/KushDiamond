@@ -11,12 +11,14 @@ import toast from 'react-hot-toast';
 import { changepasswordResetData } from '../../../../redux/ChagePasswordSlice';
 import { productList } from '../../../../redux/productsSlice';
 import useProductData from '../../../../CustomeHook/useProductData';
+import useUserData from '../../../../CustomeHook/useUserData';
 
 const AnalyticsDashboard = () => {
 	// const { colors } = useContext(ThemeColors)
 	const dispatch = useDispatch();
 	const { changePasswordData, error } = useSelector((state) => state.changePassword);
 	const {productData} = useProductData();
+	const {userList,isLoading} = useUserData();
 	return (
 		<div id="dashboard-analytics">
 			<Row className="match-height">
@@ -24,10 +26,10 @@ const AnalyticsDashboard = () => {
 					<CardWelcome />
 				</Col>
 				<Col lg="3" sm="6">
-					<SubscribersGained />
+					<SubscribersGained userList={userList?.count}/>
 				</Col>
 				<Col lg="3" sm="6">
-					<OrdersReceived productCount={productData?.count} />
+					<OrdersReceived productCount={productData?.count}  />
 				</Col>
 			</Row>
 		</div>

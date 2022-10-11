@@ -13,10 +13,12 @@ import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import { UserListRequest } from '../../../../redux/userSlice';
+import useUserData from '../../../../CustomeHook/useUserData';
 
 const UserList = () => {
 	const dispatch = useDispatch();
-	const { userList, isLoading } = useSelector((state) => state.user);
+	// const { userList, isLoading } = useSelector((state) => state.user);
+	const {userList,isLoading} = useUserData();
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
 
