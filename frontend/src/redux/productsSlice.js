@@ -172,14 +172,15 @@ export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState)
 				Authorization: getState()?.auth?.Token,
 			},
 		};
-		const { data } = await ImageUploadDeleteApi(deleteId, config);
 
+		const { data } = await ImageUploadDeleteApi(deleteId, config);
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,
 			});
 			dispatch(ImageUploadDataDeleteList(data));
+			dispatch(productList())
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
