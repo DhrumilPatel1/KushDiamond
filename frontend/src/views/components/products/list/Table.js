@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Plus, Share } from 'react-feather';
+import { ChevronDown, Plus, Share, Trash2 } from 'react-feather';
 import DataTable from 'react-data-table-component';
 
 import {
@@ -25,13 +25,22 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productExcelUpload, productList, ProductResetData } from '../../../../redux/productsSlice';
+import {
+	productExcelUpload,
+	productList,
+	ProductResetData,
+	ProductsMultiDeleteRequest,
+} from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
 import ProductsActionIcon from '../ProductsActionIcon';
 import useProductData from '../../../../CustomeHook/useProductData';
-
+import { ftpDeleteData } from '../../../../redux/FtpsSlice';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 // // ** Table Header
+
+const ToastSwal = withReactContent(Swal);
 
 const ProductsList = (props) => {
 	const statusObj = {
@@ -222,11 +231,10 @@ const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
 	// const { productData, isLoading } = useSelector((state) => state.products);
-
+	const [toggledClearRows, setToggleClearRows] = useState(false);
 	const { productData, isLoading } = useProductData();
-
+	const [selectedData, setSelectedData] = useState();
 	const [limit, setPerPage] = useState(datatable_per_page);
-
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
 	const [filterShape, setFilterShape] = useState('');
@@ -276,11 +284,35 @@ const ProductsList = (props) => {
 		setFilter_value(value);
 	};
 
-	// const [selectedData, setSelectedData] = useState();
+	const selectRows = (state) => {
+		setSelectedData(state.selectedRows);
+	};
 
-	// const selectRows = (state) => {
-	// 	setSelectedData(state.selectedRows);
-	//   };
+	const multiDeleteData = (selectedData) => {
+		ToastSwal.fire({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover this data!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((deleteRecord) => {
+			if (deleteRecord?.value) {
+				const multiid = selectedData?.map((e) => e.id);
+				const multiDeleteIds = {
+					id: multiid,
+				};
+
+				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
+				setToggleClearRows(!toggledClearRows);
+			}
+			setToggleClearRows(!toggledClearRows);
+		});
+	};
 
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
@@ -291,6 +323,14 @@ const ProductsList = (props) => {
 						<Col xl="4">
 							{/* <Col lg="6"> */}
 							<h3>Products List</h3>
+							{selectedData?.length > 0 ? (
+								<Trash2
+									className="text-danger"
+									size={18}
+									onClick={() => multiDeleteData(selectedData)}
+									style={{ cursor: 'pointer', marginLeft: '5px' }}
+								/>
+							) : null}
 						</Col>
 
 						{/* <Col lg="6" className="d-flex justify-content-end"> */}
@@ -348,8 +388,9 @@ const ProductsList = (props) => {
 				<DataTable
 					noHeader
 					pagination
-					// selectableRows
-					// onSelectedRowsChange={selectRows}
+					selectableRows
+					clearSelectedRows={toggledClearRows}
+					onSelectedRowsChange={selectRows}
 					responsive
 					paginationServer
 					columns={columns}

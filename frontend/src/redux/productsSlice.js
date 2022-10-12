@@ -8,6 +8,7 @@ import {
 	ProductApi,
 	ProductExcelUploadTypeOne,
 	ProductsDetailApi,
+	ProductsMultiDeleteApi,
 	SendFeedAPI,
 } from '../services/api';
 import toast from 'react-hot-toast';
@@ -180,7 +181,7 @@ export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState)
 				id: toastId,
 			});
 			dispatch(ImageUploadDataDeleteList(data));
-			dispatch(productList())
+			dispatch(productList());
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
@@ -213,6 +214,28 @@ export const ProductsDetialRequest = (details_id) => async (dispatch, getState) 
 			toast.error(message);
 		}
 	}
+};
+
+export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getState) => {
+	const toastId = toast.loading('Please wait your data is deleteing...');
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ProductsMultiDeleteApi(DeleteIds, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(productList());
+		}
+	} catch (error) {}
 };
 
 export const productExcelUpload = (uploadfile) => async (dispatch, getState) => {
