@@ -164,8 +164,8 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 };
 
 export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState) => {
-	dispatch(setLoading());
 	const toastId = toast.loading('Please wait your data is deleteing...');
+	dispatch(setLoading());
 	try {
 		const config = {
 			headers: {

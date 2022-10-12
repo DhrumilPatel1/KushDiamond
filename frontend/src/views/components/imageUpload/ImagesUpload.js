@@ -82,7 +82,7 @@ const ImagesUpload = () => {
 										directory=""
 										multiple
 									/>
-									{error && error.message ? <div className="error-sm">{error.message}</div> : null}
+									{error && error?.message ? <div className="error-sm">{error?.message}</div> : null}
 								</FormGroup>
 								<FormGroup className="d-flex mb-0">
 									{isLoading == true || image.length === 0 ? (
