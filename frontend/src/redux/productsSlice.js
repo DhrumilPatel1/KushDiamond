@@ -164,8 +164,8 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 };
 
 export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState) => {
-	const toastId = toast.loading('Please wait your data is deleteing...');
 	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your data is deleteing...');
 	try {
 		const config = {
 			headers: {
@@ -227,13 +227,13 @@ export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getSta
 			},
 		};
 		const { data } = await ProductsMultiDeleteApi(DeleteIds, config);
+		console.log(data, 'response multi delete');
 
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,
 			});
-			dispatch(productList());
 		}
 	} catch (error) {}
 };

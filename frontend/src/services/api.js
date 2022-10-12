@@ -2,7 +2,6 @@ import axios from 'axios';
 // import authHeader from "./auth-token";
 //const BASE_URL_API = 'http://52.44.30.44';
 const BASE_URL_API = 'http://192.168.1.242:8000';
-// const LOCAL_URL = 'http://192.168.1.242:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -101,11 +100,11 @@ export const FtpLogListApi = async (queryString, config) => {
 };
 
 export const ImageUploadApi = async (imgFile, config) => {
-	return await axios.post(`${LOCAL_URL}/api/uploadfile/`, imgFile, config);
+	return await axios.post(`${BASE_URL_API}/api/uploadfile/`, imgFile, config);
 };
 
 export const ImageUploadDeleteApi = async (delete_id, config) => {
-	return await axios.delete(`${LOCAL_URL}/api/product_image/delete/${delete_id}`, config);
+	return await axios.delete(`${BASE_URL_API}/api/product_image/delete/${delete_id}`, config);
 };
 
 export const ExcelLogListApi = async (queryString, config) => {
