@@ -1,15 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, Image, Trash2 } from 'react-feather';
-import {
-	Button,
-	Modal,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	Tooltip,
-	UncontrolledTooltip,
-} from 'reactstrap';
+import { UncontrolledTooltip } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { ImageUploadDeleteRequest } from '../../../redux/productsSlice';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
@@ -108,19 +100,22 @@ const ProductsActionIcon = (props) => {
 			)}
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
-				<Eye size={18} className="ml-1" />
+				<Eye size={18} className="ml-1" id="eyes" />
 			</Link>
+			<UncontrolledTooltip placement="top" target="eyes">
+				View Product
+			</UncontrolledTooltip>
 
 			<Trash2
+				id="images_delete"
 				className="text-danger ml-1"
 				size={18}
 				onClick={() => handleDeleteById(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
-
-			{/* <Link to={`/products/edit/${props.id}`} className="text-warning mx-1">
-				<Edit size={18} />
-			</Link> */}
+			<UncontrolledTooltip placement="top" target="images_delete">
+				Delete Image
+			</UncontrolledTooltip>
 		</>
 	);
 };

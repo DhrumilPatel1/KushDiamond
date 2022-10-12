@@ -10,6 +10,7 @@ const ProductsDetail = () => {
 	const { id } = useParams();
 
 	const { productViewData, error } = useSelector((state) => state.products);
+	console.log(productViewData, 'productViewData');
 
 	useEffect(() => {
 		dispatch(ProductsDetialRequest(id));
@@ -29,7 +30,7 @@ const ProductsDetail = () => {
 
 			<Card>
 				<CardBody>
-					<Row>
+					{/* <Row>
 						<Col md="12 d-flex">
 							<Col md="8 d-flex" sm="12">
 								<Col md="5">
@@ -332,7 +333,75 @@ const ProductsDetail = () => {
 								</Button.Ripple>
 							</FormGroup>
 						</Col>
+					</Row> */}
+					<Row>
+						<Col md="12 d-flex">
+							<Col md="4 d-flex">
+								<FormGroup className="d-flex align-items-center">
+									<Label for="sku" className="label_width">
+										Sku
+									</Label>
+									<Input
+										size="sm"
+										type="text"
+										name="sku"
+										id="sku"
+										defaultValue={productViewData && productViewData.sku}
+										disabled={true}
+									/>
+								</FormGroup>
+							</Col>
+							<Col md="8 d-flex">
+								<div>
+									<div className="box">
+										<div className="row">
+											<h2>item.title</h2>
+											<span>$item.price</span>
+										</div>
+
+										<p>item.description</p>
+										<p>item.content</p>
+
+										<button className="cart">Add to cart</button>
+									</div>
+								</div>
+							</Col>
+						</Col>
+						<Col sm="12">
+							<FormGroup>
+								<Button.Ripple
+									size="sm"
+									className="mx-2"
+									color="secondary"
+									tag={Link}
+									onClick={resetData}
+									to="/products/list"
+									outline
+								>
+									Back
+								</Button.Ripple>
+							</FormGroup>
+						</Col>
 					</Row>
+					{/* <div className="details">
+						<div className="big-img">
+							
+							<h1>Images</h1>
+						</div>
+
+						<div className="box">
+							<div className="row">
+								<h2>item.title</h2>
+								<span>$item.price</span>
+							</div>
+							
+
+							<p>item.description</p>
+							<p>item.content</p>
+
+							<button className="cart">Add to cart</button>
+						</div>
+					</div> */}
 				</CardBody>
 			</Card>
 		</>
