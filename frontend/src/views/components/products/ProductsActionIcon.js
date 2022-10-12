@@ -16,6 +16,7 @@ import lgFullscreen from 'lightgallery/plugins/fullscreen';
 import videoicon from '../../../VideoIcon-image/videoicon2.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import ReactTooltip from 'react-tooltip';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -80,16 +81,18 @@ const ProductsActionIcon = (props) => {
 			{props?.row?.product_images?.length > 0 ? (
 				<>
 					<Image
-						id="UnControlledExample"
+						// id="UnControlledExample"
+						data-tip
+						data-for="view_gallery"
 						size={18}
 						className="text-dark ml-2"
 						onClick={() => props.clickOpenGallarey(props.row.product_images)}
 						style={{ cursor: 'pointer' }}
 					/>
 
-					<UncontrolledTooltip placement="top" target="UnControlledExample">
+					<ReactTooltip id="view_gallery" className="tooltip_info" place="top" effect="solid">
 						View Gallary
-					</UncontrolledTooltip>
+					</ReactTooltip>
 				</>
 			) : (
 				<Image
@@ -100,22 +103,23 @@ const ProductsActionIcon = (props) => {
 			)}
 
 			<Link to={`/products/detail/${props.id}`} className="text-primary">
-				<Eye size={18} className="ml-1" id="eyes" />
+				<Eye size={18} className="ml-1" data-tip data-for="view_product" />
 			</Link>
-			<UncontrolledTooltip placement="top" target="eyes">
+			<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
 				View Product
-			</UncontrolledTooltip>
+			</ReactTooltip>
 
 			<Trash2
-				id="images_delete"
 				className="text-danger ml-1"
+				data-tip
+				data-for="images_delete"
 				size={18}
 				onClick={() => handleDeleteById(props.id)}
 				style={{ cursor: 'pointer' }}
 			/>
-			<UncontrolledTooltip placement="top" target="images_delete">
-				Delete Image
-			</UncontrolledTooltip>
+			<ReactTooltip id="images_delete" className="tooltip_info" place="top" effect="solid">
+				Delete Images
+			</ReactTooltip>
 		</>
 	);
 };
