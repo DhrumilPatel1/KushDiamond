@@ -324,13 +324,21 @@ const ProductsList = (props) => {
 							{/* <Col lg="6"> */}
 							<h3>Products List</h3>
 							{selectedData?.length > 0 ? (
-								<Trash2
-									className="text-danger"
-									size={18}
+								<Button.Ripple
+									size="sm"
 									onClick={() => multiDeleteData(selectedData)}
-									style={{ cursor: 'pointer', marginLeft: '5px' }}
-								/>
-							) : null}
+									className="btn-danger"
+									style={{ cursor: 'pointer' }}
+								>
+									Delete
+								</Button.Ripple>
+							) : // <Trash2
+							// 	className="text-danger"
+							// 	size={18}
+							// 	onClick={() => multiDeleteData(selectedData)}
+							// 	style={{ cursor: 'pointer', marginLeft: '5px' }}
+							// />
+							null}
 						</Col>
 
 						{/* <Col lg="6" className="d-flex justify-content-end"> */}
