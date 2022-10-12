@@ -1,8 +1,8 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
 //const BASE_URL_API = 'http://52.44.30.44';
-const BASE_URL_API = 'http://52.44.30.44';
-const LOCAL_URL = 'http://192.168.1.76:8000';
+const BASE_URL_API = 'http://192.168.1.242:8000';
+// const LOCAL_URL = 'http://192.168.1.242:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -41,13 +41,20 @@ export const ResetPasswordApi = async (changePassword, link, config) => {
 
 export const ProductApi = async (queryString, config) => {
 	return await axios
-		.get(`${LOCAL_URL}/api/product/list/?` + queryString, config)
+		.get(`${BASE_URL_API}/api/product/list/?` + queryString, config)
 		.then((response) => response)
 		.catch((err) => console.log(err));
 };
 
 export const ProductsDetailApi = async (view_id, config) => {
 	return await axios.get(`${BASE_URL_API}/api/productview/${view_id}`, config);
+};
+
+export const ProductsMultiDeleteApi = async (deletedatas, config) => {
+	return await axios.delete(`${BASE_URL_API}/api/product/delete/`, {
+		headers: { Authorization: config.headers?.Authorization },
+		data: deletedatas,
+	});
 };
 
 export const ProductExcelUploadTypeOne = async (uploadexcel, config) => {
