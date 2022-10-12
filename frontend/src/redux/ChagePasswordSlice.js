@@ -15,7 +15,6 @@ export const ChangePasswordSlice = createSlice({
 		},
 
 		changePasswordList: (state, action) => {
-			console.log(action.payload, 'action.payload');
 			state.isLoading = false;
 			state.changePasswordData = action.payload;
 		},

@@ -30,24 +30,24 @@ export default function ProductView() {
 
 	const onInit = (detail) => {
 		imageref.current = detail.instance;
-		console.log('lightGallery has been initialized');
+		// console.log('lightGallery has been initialized');
 	};
 
 	let onBeforeOpen = (detail) => {
-		console.log('onBeforeOpen', detail);
+		// console.log('onBeforeOpen', detail);
 		// imageref.current.closeGallery();
 	};
 
 	let onHasVideo = (detail) => {
-		console.log('dety', detail);
+		// console.log('dety', detail);
 	};
 
 	let onPosterClick = (detail) => {
-		console.log('dety', detail);
+		// console.log('dety', detail);
 	};
 	const onBeforeSlide = (detail) => {
 		const { index, prevIndex } = detail;
-		console.log(index, prevIndex);
+		// console.log(index, prevIndex);
 	};
 
 	useEffect(() => {
@@ -61,11 +61,10 @@ export default function ProductView() {
 				original: image,
 				thumbnail: image,
 			};
-      console.log(image,"image")
+
 			getAllImages.push(images.original);
 		});
 
-    console.log(productViewData,"getAllImages")
 	return (
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
@@ -86,9 +85,6 @@ export default function ProductView() {
 				plugins={[lgThumbnail, lgVideo, lgZoom]}
 			>
 				{getAllImages?.map((items, index) => (
-
-          
-
 					<a href={items} key={index}>
 						<img src={items.url} className="gallary_images" />
 					</a>

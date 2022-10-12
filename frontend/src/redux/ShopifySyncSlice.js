@@ -31,7 +31,6 @@ export const { ShopifySyncData, setLoading, ShopifySyncErrorList } = ShopifySync
 export default ShopifySyncSlice.reducer;
 
 export const ShopifySyncRequest = () => async (dispatch, getState) => {
-	// console.log("called done")
 	const toastId = toast.loading('Please wait your Shopify is Syncing...');
 	dispatch(setLoading());
 	try {

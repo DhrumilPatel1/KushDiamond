@@ -49,7 +49,6 @@ export const ForgotPasswordLinkRequest = (forgotlink) => async (dispatch, getSta
 		const { data } = await ForgotPasswordAPI(forgotlink, config);
 		dispatch(forgotPasswordLink(data));
 	} catch (error) {
-		console.log(error.response, 'error');
 		if (error.response && error.response.data.errors) {
 			dispatch(forgotpasswordErrorList(error.response.data.errors));
 		} else if (error.response.status === 500) {

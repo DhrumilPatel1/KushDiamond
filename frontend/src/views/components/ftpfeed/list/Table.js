@@ -82,10 +82,6 @@ const FtpFeedList = () => {
 	const [filterCut, setFilterCut] = useState('');
 	const [ftpvalue, setFtpValue] = useState([]);
 
-	// console.log(filterColor, 'filterColor');
-	// console.log(filterShape, 'filterShape');
-	// console.log(filterCut, 'filterCut');
-
 	const table_data = {
 		page: 1,
 		per_page: limit,

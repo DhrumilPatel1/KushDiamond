@@ -227,7 +227,6 @@ export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getSta
 			},
 		};
 		const { data } = await ProductsMultiDeleteApi(DeleteIds, config);
-		console.log(data, 'response multi delete');
 
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
