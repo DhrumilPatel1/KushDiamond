@@ -9,7 +9,7 @@ export const userSlice = createSlice({
 		userList: [],
 		userCreateData: [],
 		userDeleteData: [],
-		userViewData:[],
+		userViewData: [],
 		error: null,
 	},
 	reducers: {
@@ -25,7 +25,6 @@ export const userSlice = createSlice({
 			state.isLoading = false;
 			state.userViewData = action.payload?.data;
 		},
-
 
 		userAddList: (state, action) => {
 			state.isLoading = false;
@@ -105,10 +104,6 @@ export const UserCreateRequest = (userData) => async (dispatch, getState) => {
 	}
 };
 
-
-
-
-
 export const UserViewRequest = (userid) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	try {
@@ -119,10 +114,8 @@ export const UserViewRequest = (userid) => async (dispatch, getState) => {
 			},
 		};
 		const { data } = await UserViewApi(userid, config);
-		console.log(data,"data api")
 
-			dispatch(userViewData(data));
-	
+		dispatch(userViewData(data));
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			return dispatch(userErrorList(error.response.data.errors));
@@ -131,8 +124,6 @@ export const UserViewRequest = (userid) => async (dispatch, getState) => {
 		}
 	}
 };
-
-
 
 export const UserDeleteRequest = (deleteId) => async (dispatch, getState) => {
 	dispatch(setLoading());
@@ -154,9 +145,9 @@ export const UserDeleteRequest = (deleteId) => async (dispatch, getState) => {
 			dispatch(userDeleteList(data));
 			dispatch(UserListRequest(data));
 		}
-	} catch (error){
+	} catch (error) {
 		const { statusCode, message } = error.response.data;
-		if (statusCode === 422){
+		if (statusCode === 422) {
 			toast.error(message, {
 				id: toastId,
 			});
