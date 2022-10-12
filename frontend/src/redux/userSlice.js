@@ -114,10 +114,7 @@ export const UserViewRequest = (userid) => async (dispatch, getState) => {
 			},
 		};
 		const { data } = await UserViewApi(userid, config);
-<<<<<<< HEAD
 		console.log(data, 'data api');
-=======
->>>>>>> a44b1b3e439136516b402479a0bb9014ec6df58e
 
 		dispatch(userViewData(data));
 	} catch (error) {
@@ -140,6 +137,7 @@ export const UserDeleteRequest = (deleteId) => async (dispatch, getState) => {
 			},
 		};
 		const { data } = await UserDeleteApi(deleteId, config);
+
 		const { statusCode, error, errors, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
