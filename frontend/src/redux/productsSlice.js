@@ -239,7 +239,7 @@ export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getSta
 
 export const productExcelUpload = (uploadfile) => async (dispatch, getState) => {
 	dispatch(setLoading());
-	const toastId = toast.loading('Please wait your excel Uploading...');
+	const toastId = toast.loading('Please wait your excel is Uploading...');
 	try {
 		const config = {
 			headers: {
@@ -269,7 +269,7 @@ export const productExcelUpload = (uploadfile) => async (dispatch, getState) => 
 
 export const ExcelUploadTypeTwo = (exceluploadtwo) => async (dispatch, getState) => {
 	dispatch(setLoading());
-	const toastId = toast.loading('Please wait your excel type two Uploading...');
+	const toastId = toast.loading('Please wait your excel type two is Uploading...');
 	try {
 		const config = {
 			headers: {
