@@ -1,7 +1,7 @@
 // ** React Imports
 import { Fragment, useState, useEffect } from 'react';
 // ** Columns
-import { columns } from './columns';
+import ExpandableTable, { data, columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 // ** Third Party Components
 
@@ -70,14 +70,17 @@ const ShopifySyncLogList = () => {
 					noHeader
 					pagination
 					responsive
+					expandableRows
 					paginationServer
 					columns={columns}
+					expandOnRowClicked
 					data={ShopifySyncLogList?.results}
 					paginationTotalRows={ShopifySyncLogList?.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
+					expandableRowsComponent={<ExpandableTable />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
 					// progressPending={isLoading}

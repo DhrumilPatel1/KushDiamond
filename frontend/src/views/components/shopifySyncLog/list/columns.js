@@ -6,14 +6,24 @@ const statusObj = {
 	failed: 'light-danger',
 };
 
+const ExpandableTable = ({ data }) => {
+	return (
+		<div className="expandable-content p-2">
+			<p>
+				<span className="font-weight-bold">SkuList:</span> {data.skulist}
+			</p>
+		</div>
+	);
+};
+
 export const columns = [
-	{
-		name: 'SkuList',
-		width: '430px',
-		selector: 'skulist',
-		sortable: true,
-		cell: (row) => row.skulist,
-	},
+	// {
+	// 	name: 'SkuList',
+	// 	width: '2830px',
+	// 	selector: 'skulist',
+	// 	sortable: true,
+	// 	cell: (row) => row.skulist,
+	// },
 	{
 		name: 'Date',
 		width: '210px',
@@ -38,8 +48,10 @@ export const columns = [
 	},
 	{
 		name: 'Error Status',
-		width: '300px',
+		width: '700px',
 		selector: 'error_status',
 		cell: (row) => (row.error_status ? row.error_status : '-'),
 	},
 ];
+
+export default ExpandableTable;
