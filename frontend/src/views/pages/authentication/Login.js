@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -12,6 +12,7 @@ import { Fragment } from 'react';
 import { useEffect } from 'react';
 import InputPasswordToggle from '@components/input-password-toggle';
 import { AbilityContext } from '@src/utility/context/Can.js';
+import { Eye, EyeOff } from 'react-feather';
 
 const illustration = 1 ? 'image_main.png' : 'image_main.png',
 	source = require(`@src/assets/images/logo/${illustration}`).default;
@@ -42,6 +43,7 @@ const SignupSchema = yup.object().shape({
 });
 
 const Login = () => {
+	const [passTextChange, setpassTextChange] = useState(false);
 	const { userData, error, abilityData } = useSelector((state) => state.auth);
 	const ability = useContext(AbilityContext);
 	const dispatch = useDispatch();
@@ -120,14 +122,30 @@ const Login = () => {
 												<small>Forgot Password?</small>
 											</Link>
 										</div>
-										<Field
-											id="password"
-											type="password"
-											name="password"
-											className="form-control"
-											placeholder="Enter Your Password"
-										/>
-
+											
+											<Field
+												id="password"
+												type={passTextChange == true ? 'text' : 'password'}
+												name="password"
+												className="form-control"
+												placeholder="Enter Your Password"
+											/>
+											{passTextChange === true ? (
+												<div className='login-eyes'>
+												<EyeOff
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+												</div>
+											) : (
+												<div className='login-eyes'>
+												<Eye
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+												</div>
+											)}
+									
 										{(errors.password && touched.password) || (error && error.password) ? (
 											<div className="error-sm">{errors.password || error.password}</div>
 										) : null}

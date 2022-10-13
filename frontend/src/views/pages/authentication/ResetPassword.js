@@ -9,6 +9,7 @@ import { ResetpasswordResetData, ResetPasswordRequest } from '../../../redux/Res
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 const resetPassword = yup.object().shape({
 	password: yup.string().required('New password is required'),
@@ -22,6 +23,7 @@ const resetPassword = yup.object().shape({
 });
 
 const ResetPassword = () => {
+	const [passTextChange, setpassTextChange] = useState(false);
 	const { mq, link } = useParams();
 	const ResetLink = mq + '/' + link;
 
