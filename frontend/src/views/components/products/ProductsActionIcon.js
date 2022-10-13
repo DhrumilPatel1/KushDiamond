@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, Image, Trash2 } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +7,13 @@ import { ImageUploadDeleteRequest } from '../../../redux/productsSlice';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
+import { getUserData } from '../../../configs/LocalStorageData';
 
 const ToastSwal = withReactContent(Swal);
 const ProductsActionIcon = (props) => {
-	const { userDatas } = useSelector((state) => state.auth);
 
+	const [user,setUser] = useState();
+	const { userDatas } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
 	const handleDeleteById = (id) => {
@@ -64,16 +66,15 @@ const ProductsActionIcon = (props) => {
 			<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
 				View Product
 			</ReactTooltip>
-	
-				<Trash2
-					className="text-danger ml-1"
-					data-tip
-					data-for="images_delete"
-					size={18}
-					onClick={() => handleDeleteById(props.id)}
-					style={{ cursor: 'pointer' }}
-				/>
-		
+
+			<Trash2
+				className="text-danger ml-1"
+				data-tip
+				data-for="images_delete"
+				size={18}
+				onClick={() => handleDeleteById(props.id)}
+				style={{ cursor: 'pointer' }}
+			/>
 
 			<ReactTooltip id="images_delete" className="tooltip_info" place="top" effect="solid">
 				Delete Images

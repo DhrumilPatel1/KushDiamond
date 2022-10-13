@@ -26,6 +26,9 @@ export const AdminLoginAPI = async (reqData) => {
 	});
 };
 
+export const DashboardAPI = async (config) => {
+	return await axios.get(`${BASE_URL_API}/api/dashboard/`, config);
+};
 export const ForgotPasswordAPI = async (reqData) => {
 	return await axios.post(`${BASE_URL_API}/password-reset/`, reqData);
 };

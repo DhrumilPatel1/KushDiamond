@@ -12,7 +12,7 @@ const SubscribersGained = ({ userList }) => {
 		},
 		{
 			title: userList,
-			subtitle: 'Staff Users',
+			subtitle: 'Users',
 			color: 'light-primary',
 			icon: <Users size={24} />,
 		},
