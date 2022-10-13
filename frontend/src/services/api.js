@@ -121,6 +121,11 @@ export const UserCreateApi = async (reqData, config) => {
 export const UserDeleteApi = async (userId, config) => {
 	return await axios.delete(`${BASE_URL_API}/api/staff/modify/${userId}`, config);
 };
+
+export const UserUpdateApi = async (update_id, updatedata, config) => {
+	return await axios.put(`${BASE_URL_API}/api/staff/modify/${update_id}`, updatedata, config);
+};
+
 export const UserViewApi = async (userId, config) => {
 	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
 };
