@@ -12,6 +12,7 @@ import changePassword from './ChagePasswordSlice';
 import ResetPassword from './ResetPasswordSlice';
 import ShopifySync from './ShopifySyncSlice';
 import Dashboard from './DashboardSlice';
+import ShopifySyncLog from './ShopifySyncLogSlice';
 
 const rootReducer = {
 	navbar,
@@ -23,6 +24,7 @@ const rootReducer = {
 	FtpLog,
 	ExcelLog,
 	user,
+	ShopifySyncLog,
 	ResetPassword,
 	changePassword,
 	ShopifySync,
