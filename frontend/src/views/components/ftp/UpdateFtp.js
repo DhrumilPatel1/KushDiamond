@@ -6,6 +6,7 @@ import { Formik, Form, Field } from 'formik';
 import { ftpResetAuth, FtpUpdateList, FtpViewList } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
+import { Eye, EyeOff } from 'react-feather';
 
 const FtpUpdateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
@@ -26,6 +27,7 @@ const FtpUpdateSchema = yup.object().shape({
 });
 
 const UpdateFtp = () => {
+	const [passTextChange, setpassTextChange] = useState(false);
 	const { ftpUpdateData, error } = useSelector((state) => state.Ftps);
 
 	useEffect(() => {
@@ -214,7 +216,7 @@ const UpdateFtp = () => {
 										<FormGroup>
 											<Label for="password">Password</Label>
 											<Field
-												type="text"
+												type={passTextChange == true ? 'text' : 'password'}
 												name="password"
 												id="password"
 												className="form-control"
@@ -222,6 +224,18 @@ const UpdateFtp = () => {
 												onChange={(e) => onInputChange(e)}
 												placeholder="Enter Your Password"
 											/>
+											{passTextChange === true ? (
+												<EyeOff
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											) : (
+												<Eye
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											)}
+
 											{error && error.password ? (
 												<div className="error-sm">{error.password}</div>
 											) : null}

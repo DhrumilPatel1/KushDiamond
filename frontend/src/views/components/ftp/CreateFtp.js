@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -6,6 +6,7 @@ import { Formik, Form, Field } from 'formik';
 import { FtpCreateRequest, ftpResetAuth } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
+import { Eye, EyeOff } from 'react-feather';
 
 const FtpCreateSchema = yup.object().shape({
 	client_name: yup.string().required('Client Name is required'),
@@ -19,6 +20,7 @@ const FtpCreateSchema = yup.object().shape({
 });
 
 const CreateFtp = () => {
+	const [passTextChange, setpassTextChange] = useState(false);
 	const { ftpCreateData, error } = useSelector((state) => state.Ftps);
 
 	const dispatch = useDispatch();
@@ -157,13 +159,25 @@ const CreateFtp = () => {
 										<FormGroup>
 											<Label for="password">Password</Label>
 											<Field
-												type="password"
+												type={passTextChange == true ? 'text' : 'password'}
 												name="password"
 												id="password"
 												autoComplete="new-password"
 												className="form-control"
 												placeholder="Enter Your Password"
 											/>
+											{passTextChange === true ? (
+												<EyeOff
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											) : (
+												<Eye
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											)}
+
 											{(errors.password && touched.password) || (error && error.password) ? (
 												<div className="error-sm">{errors.password || error.password}</div>
 											) : null}

@@ -6,7 +6,6 @@ import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
 import { UserViewRequest } from '../../../../redux/userSlice';
-
 const UserCreateSchema = yup.object().shape({
 	staff_name: yup.string().required('Username is required'),
 	mobile_no: yup.number().required('Mobile No is required'),
@@ -153,6 +152,7 @@ const EditUser = () => {
 												value={values.password}
 												onChange={(e) => onInputChange(e)}
 											/>
+											   
 											{/* {(errors.password && touched.password) || (error && error.password) ? (
 												<div className="error-sm">{errors.password || error.password}</div>
 											) : null} */}

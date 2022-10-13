@@ -1,4 +1,4 @@
-import { Box, File, Image, Package, Server, ShoppingBag } from 'react-feather';
+import { Box, File, Image, Package, RefreshCw, Server, ShoppingBag } from 'react-feather';
 
 export default [
 	{
@@ -48,6 +48,16 @@ export default [
 				icon: <ShoppingBag size={20} />,
 				navLink: '/shopifySync',
 			},
+
+			{
+				id: 'shopify_sync',
+				title: 'Shopify Sync Log',
+				icon: <RefreshCw size={20} />,
+				navLink: '/shopifySync',
+			},
+
+
+
 		],
 	},
 ];
