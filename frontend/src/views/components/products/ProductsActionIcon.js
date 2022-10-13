@@ -1,51 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, Image, Trash2 } from 'react-feather';
-import { UncontrolledTooltip } from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ImageUploadDeleteRequest } from '../../../redux/productsSlice';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgZoom from 'lightgallery/plugins/zoom';
-import LightGallery from 'lightgallery/react';
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
-import 'lightgallery/css/lg-video.css';
-import lgVideo from 'lightgallery/plugins/video';
-import lgFullscreen from 'lightgallery/plugins/fullscreen';
-import videoicon from '../../../VideoIcon-image/videoicon2.png';
+
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
 
 const ToastSwal = withReactContent(Swal);
-
 const ProductsActionIcon = (props) => {
+	const { userDatas } = useSelector((state) => state.auth);
+
 	const dispatch = useDispatch();
-	// const imageref = useRef(null)
-
-	// const onInit = (detail) => {
-	// 	imageref.current=detail.instance
-
-	// 	console.log('lightGallery has been initialized');
-	// };
-
-	// let onBeforeOpen = (detail) =>{
-	// 	console.log('onBeforeOpen', detail);
-	// 	imageref.current.closeGallary();
-	// }
-
-	// let onHasVideo = (detail) => {
-	// 	console.log('dety', detail);
-	// };
-
-	// let onPosterClick = (detail) => {
-	// 	console.log('dety', detail);
-	// };
-	// const onBeforeSlide = (detail) => {
-	// 	const { index, prevIndex } = detail;
-	// 	console.log(index, prevIndex);
-	// };
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
@@ -65,19 +32,8 @@ const ProductsActionIcon = (props) => {
 			}
 		});
 	};
-
-	// console.log(props?.row?.product_images,"props?.row?.product_images")
-
-	// console.log(props?.row?.product_images, 'props?.row?.product_images');
 	return (
 		<>
-			{/* <Image
-				size={18}
-				className="text-dark ml-2"
-				onClick={() => props.clickOpenGallarey(props.id,props.row)}
-				style={{ cursor: 'pointer' }}
-			/> */}
-
 			{props?.row?.product_images?.length > 0 ? (
 				<>
 					<Image
@@ -108,15 +64,17 @@ const ProductsActionIcon = (props) => {
 			<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
 				View Product
 			</ReactTooltip>
+	
+				<Trash2
+					className="text-danger ml-1"
+					data-tip
+					data-for="images_delete"
+					size={18}
+					onClick={() => handleDeleteById(props.id)}
+					style={{ cursor: 'pointer' }}
+				/>
+		
 
-			<Trash2
-				className="text-danger ml-1"
-				data-tip
-				data-for="images_delete"
-				size={18}
-				onClick={() => handleDeleteById(props.id)}
-				style={{ cursor: 'pointer' }}
-			/>
 			<ReactTooltip id="images_delete" className="tooltip_info" place="top" effect="solid">
 				Delete Images
 			</ReactTooltip>

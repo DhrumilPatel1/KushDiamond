@@ -13,12 +13,15 @@ export const authSlice = createSlice({
 		error: null,
 		Token: accessToken ? accessToken : null,
 		abilityData: null,
+		userDatas:[]
 	},
 	reducers: {
 		setLoading: (state) => {
 			state.isLoading = true;
 		},
 		handleSuccessLogin: (state, action) => {
+			console.log(action.payload,"login action")
+			state.userDatas = action.payload?.data;
 			state.isLoading = false;
 			state.userData = action.payload?.data;
 			state.Token = `Bearer ${action.payload?.token.access}`;

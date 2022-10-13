@@ -7,7 +7,7 @@ import { ExcelUploadTypeTwo } from '../../../../redux/productsSlice';
 
 export default function productInventory() {
 	const dispatch = useDispatch();
-	const history = useHistory()
+	const history = useHistory();
 	const [excelFile, setexcelFile] = useState(false);
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 
@@ -25,7 +25,6 @@ export default function productInventory() {
 		setexcelFile(files);
 	};
 
-
 	const hisToryeBack = () => {
 		history.goBack();
 	};
@@ -36,8 +35,12 @@ export default function productInventory() {
 				<CardBody>
 					<Row>
 						<Col md="12" sm="12">
-							<p>NOTE * <br></br>
-<b>Uploading This Excel File Will Syncronize Your Inventory To The Shopify Store.</b></p>
+							<p>
+								NOTE * <br></br>
+								<b>
+									Uploading This Excel File Will Syncronize Your Inventory To The Shopify Store.
+								</b>
+							</p>
 							<Form onSubmit={(e) => excelUpload(e)}>
 								<FormGroup>
 									<Label for="folder_path">Inventory Excel</Label>
@@ -52,9 +55,9 @@ export default function productInventory() {
 										Submit
 									</Button.Ripple>
 								)}
-									<Button.Ripple className="mr-1" size="sm"  outline onClick={(e) => hisToryeBack(e)}>
-										Back
-									</Button.Ripple>
+								<Button.Ripple className="mr-1" size="sm" outline onClick={(e) => hisToryeBack(e)}>
+									Back
+								</Button.Ripple>
 							</Form>
 						</Col>
 					</Row>

@@ -3,10 +3,9 @@ import Avatar from '@components/avatar';
 import { Card, CardBody, CardText } from 'reactstrap';
 import decorationLeft from '@src/assets/images/elements/decore-left.png';
 import decorationRight from '@src/assets/images/elements/decore-right.png';
+import { getUserData } from '../../configs/LocalStorageData';
 
 const CardWelcome = () => {
-	const getUserData = JSON.parse(localStorage.getItem('userData'));
-
 	return (
 		<Card className="card-congratulations">
 			<CardBody className="text-center">

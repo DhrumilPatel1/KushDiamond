@@ -2,7 +2,7 @@ import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media } from
 import Avatar from '@components/avatar';
 import { TrendingUp, Box, DollarSign, Users } from 'react-feather';
 
-const SubscribersGained = ({userList}) => {
+const SubscribersGained = ({ userList }) => {
 	const data = [
 		{
 			title: '230k',
@@ -12,7 +12,7 @@ const SubscribersGained = ({userList}) => {
 		},
 		{
 			title: userList,
-			subtitle: 'Users',
+			subtitle: 'Staff Users',
 			color: 'light-primary',
 			icon: <Users size={24} />,
 		},

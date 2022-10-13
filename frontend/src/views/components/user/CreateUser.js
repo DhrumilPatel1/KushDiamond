@@ -16,6 +16,10 @@ const FtpCreateSchema = yup.object().shape({
 		.required('Password is required')
 		.min(8, 'Must be 8 characters or more')
 		.matches(/[@$!%*#?&]+/, 'One special character'),
+	confirmPassword: yup
+		.string()
+		.required('Confirm password is required')
+		.oneOf([yup.ref('password'), null], 'password does not match'),
 });
 
 const CreateUser = () => {
@@ -48,6 +52,7 @@ const CreateUser = () => {
 							email: '',
 							mobile_no: '',
 							password: '',
+							confirmPassword: '',
 						}}
 						validationSchema={FtpCreateSchema}
 						onSubmit={(values) => {
@@ -119,6 +124,22 @@ const CreateUser = () => {
 											/>
 											{(errors.password && touched.password) || (error && error.password) ? (
 												<div className="error-sm">{errors.password || error.password}</div>
+											) : null}
+										</FormGroup>
+									</Col>
+
+									<Col md="6" sm="12">
+										<FormGroup>
+											<Label for="confirmPassword">Confirm Password</Label>
+											<Field
+												type="password"
+												name="confirmPassword"
+												id="confirmPassword"
+												className="form-control"
+												placeholder="Enter Your Confirm Password"
+											/>
+											{errors.confirmPassword && touched.confirmPassword ? (
+												<div className="error-sm">{errors.confirmPassword}</div>
 											) : null}
 										</FormGroup>
 									</Col>
