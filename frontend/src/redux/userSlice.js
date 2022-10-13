@@ -114,6 +114,7 @@ export const UserViewRequest = (userid) => async (dispatch, getState) => {
 			},
 		};
 		const { data } = await UserViewApi(userid, config);
+		console.log(data, 'data api');
 
 		dispatch(userViewData(data));
 	} catch (error) {
