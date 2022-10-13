@@ -1,5 +1,5 @@
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { ChevronLeft } from 'react-feather';
+import { ChevronLeft, Eye, EyeOff } from 'react-feather';
 import { Card, CardBody, CardTitle, CardText, FormGroup, Label, Button, Input } from 'reactstrap';
 import { useSkin } from '@hooks/useSkin';
 import '@styles/base/pages/page-auth.scss';
@@ -24,6 +24,8 @@ const resetPassword = yup.object().shape({
 
 const ResetPassword = () => {
 	const [passTextChange, setpassTextChange] = useState(false);
+	const [confirmpassTextChange, setconfirmpassTextChange] = useState(false);
+
 	const { mq, link } = useParams();
 	const ResetLink = mq + '/' + link;
 
@@ -86,6 +88,19 @@ const ResetPassword = () => {
 											className="form-control"
 											placeholder="Enter Your New Password"
 										/>
+										{/* <div className="reset-eyes">
+											{passTextChange === true ? (
+												<EyeOff
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											) : (
+												<Eye
+													className="password-eyes"
+													onClick={() => setpassTextChange(!passTextChange)}
+												/>
+											)}
+										</div> */}
 										{errors.password && touched.password ? (
 											<div className="error-sm">{errors.password}</div>
 										) : null}
@@ -101,6 +116,20 @@ const ResetPassword = () => {
 											className="form-control"
 											placeholder="Enter Your New Password"
 										/>
+
+										{/* <div className="resetConfirm-eyes">
+											{confirmpassTextChange === true ? (
+												<EyeOff
+													className="password-eyes"
+													onClick={() => setconfirmpassTextChange(!confirmpassTextChange)}
+												/>
+											) : (
+												<Eye
+													className="password-eyes"
+													onClick={() => setconfirmpassTextChange(!confirmpassTextChange)}
+												/>
+											)}
+										</div> */}
 										{errors.confirm_password && touched.confirm_password ? (
 											<div className="error-sm">{errors.confirm_password}</div>
 										) : null}

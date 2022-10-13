@@ -11,6 +11,7 @@ import user from './userSlice';
 import changePassword from './ChagePasswordSlice';
 import ResetPassword from './ResetPasswordSlice';
 import ShopifySync from './ShopifySyncSlice';
+import Dashboard from './DashboardSlice';
 
 const rootReducer = {
 	navbar,
@@ -25,6 +26,7 @@ const rootReducer = {
 	ResetPassword,
 	changePassword,
 	ShopifySync,
+	Dashboard
 };
 
 export default rootReducer;
