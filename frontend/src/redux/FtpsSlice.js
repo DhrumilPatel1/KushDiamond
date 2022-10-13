@@ -19,7 +19,6 @@ export const FtpsSlice = createSlice({
 		ftpDeleteData: [],
 		ftpUpdateData: [],
 		ftpGetAllData: [],
-
 		FtpCreateError: [],
 		error: null,
 	},
@@ -106,25 +105,21 @@ export const FtpClientList = (queryString) => async (dispatch, getState) => {
 	}
 };
 
-
 export const FtpGetDataDrowpDown = () => async (dispatch, getState) => {
-		dispatch(setLoading());
-		try {
-			const config = {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: getState()?.auth?.Token,
-				},
-			};
-			const { data } = await FtpGetAllApi(config);
-			dispatch(ftpgetAllDatalist(data));
-			
-		} catch (err) {
-			dispatch(ftpErrorList(err))
-	
-		}
-	};
-
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await FtpGetAllApi(config);
+		dispatch(ftpgetAllDatalist(data));
+	} catch (err) {
+		dispatch(ftpErrorList(err));
+	}
+};
 
 export const FtpViewList = (id) => async (dispatch, getState) => {
 	dispatch(setLoading());

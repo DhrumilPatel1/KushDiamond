@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
 //const BASE_URL_API = 'http://52.44.30.44';
-const BASE_URL_API = 'http://192.168.1.242:8000';
+const BASE_URL_API = 'http://192.168.1.24:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -121,6 +121,11 @@ export const UserCreateApi = async (reqData, config) => {
 export const UserDeleteApi = async (userId, config) => {
 	return await axios.delete(`${BASE_URL_API}/api/staff/modify/${userId}`, config);
 };
+
+export const UserUpdateApi = async (update_id, updatedata, config) => {
+	return await axios.put(`${BASE_URL_API}/api/staff/modify/${update_id}`, updatedata, config);
+};
+
 export const UserViewApi = async (userId, config) => {
 	return await axios.get(`${BASE_URL_API}/api/staffview/${userId}`, config);
 };

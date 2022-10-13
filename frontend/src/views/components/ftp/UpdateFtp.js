@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { ftpResetAuth, FtpUpdateList, FtpViewList } from '../../../redux/FtpsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
 
-const FtpUpdateSchema = yup.object().shape({
-	client_name: yup.string().required('Client Name is required'),
-	protocol: yup.string().required('Protocol is required'),
-	port: yup
-		.number()
-		.positive()
-		.integer()
-		.min(2, 'Port must be at least 2 characters')
-		.required('Port is required'),
-	hostname: yup.string().required('Hostname is required'),
-	username: yup.string().required('Username is required'),
-	password: yup
-		.string()
-		.min(8, 'Password must be at least 8 characters')
-		.required('Password is required'),
-	folder_path: yup.string().required('Folder Path is required'),
-});
+// const FtpUpdateSchema = yup.object().shape({
+// 	client_name: yup.string().required('Client Name is required'),
+// 	protocol: yup.string().required('Protocol is required'),
+// 	port: yup
+// 		.number()
+// 		.positive()
+// 		.integer()
+// 		.min(2, 'Port must be at least 2 characters')
+// 		.required('Port is required'),
+// 	hostname: yup.string().required('Hostname is required'),
+// 	username: yup.string().required('Username is required'),
+// 	password: yup
+// 		.string()
+// 		.min(8, 'Password must be at least 8 characters')
+// 		.required('Password is required'),
+// 	folder_path: yup.string().required('Folder Path is required'),
+// });
 
 const UpdateFtp = () => {
 	const { ftpUpdateData, error } = useSelector((state) => state.Ftps);
@@ -88,7 +87,7 @@ const UpdateFtp = () => {
 				<CardBody>
 					<Formik
 						initialValues={{
-							client_name: ftpViewData && ftpViewData.client_name,
+							client_name: '',
 							protocol: '',
 							port: '',
 							hostname: '',
@@ -96,8 +95,8 @@ const UpdateFtp = () => {
 							password: '',
 							folder_path: '',
 						}}
-						enableReinitialize
-						validationSchema={FtpUpdateSchema}
+						// enableReinitialize
+						// validationSchema={FtpUpdateSchema}
 					>
 						{({ errors, touched }) => (
 							<Form onSubmit={(e) => handleSubmit(e)}>
@@ -214,7 +213,7 @@ const UpdateFtp = () => {
 										<FormGroup>
 											<Label for="password">Password</Label>
 											<Field
-												type="text"
+												type="password"
 												name="password"
 												id="password"
 												className="form-control"

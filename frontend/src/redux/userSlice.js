@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-import { UserCreateApi, UserDeleteApi, UserGetAllApi, UserViewApi } from '../services/api';
+import {
+	UserCreateApi,
+	UserDeleteApi,
+	UserGetAllApi,
+	UserUpdateApi,
+	UserViewApi,
+} from '../services/api';
 
 export const userSlice = createSlice({
 	name: 'user',
@@ -10,6 +16,7 @@ export const userSlice = createSlice({
 		userCreateData: [],
 		userDeleteData: [],
 		userViewData: [],
+		userUpdateData: [],
 		error: null,
 	},
 	reducers: {
@@ -31,6 +38,11 @@ export const userSlice = createSlice({
 			state.userCreateData = action.payload?.data;
 		},
 
+		userUpdateList: (state, action) => {
+			state.isLoading = false;
+			state.userUpdateData = action.payload?.data;
+		},
+
 		userDeleteList: (state, action) => {
 			state.isLoading = false;
 			state.userDeleteData = action.payload;
@@ -44,6 +56,7 @@ export const userSlice = createSlice({
 			state.isLoading = false;
 			state.error = null;
 			state.userCreateData = [];
+			state.userUpdateData = [];
 		},
 	},
 });
@@ -53,6 +66,7 @@ export const {
 	userGetData,
 	userResetAuth,
 	userDeleteList,
+	userUpdateList,
 	userErrorList,
 	setLoading,
 	userViewData,
@@ -114,9 +128,33 @@ export const UserViewRequest = (userid) => async (dispatch, getState) => {
 			},
 		};
 		const { data } = await UserViewApi(userid, config);
-		console.log(data, 'data api');
 
 		dispatch(userViewData(data));
+	} catch (error) {
+		if (error.response && error.response.data.errors) {
+			return dispatch(userErrorList(error.response.data.errors));
+		} else {
+			return dispatch(userErrorList(error.message));
+		}
+	}
+};
+
+export const UserUpdateListRequest = (id, updatedata) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await UserUpdateApi(id, updatedata, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message);
+			dispatch(userUpdateList(data));
+		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			return dispatch(userErrorList(error.response.data.errors));
@@ -138,7 +176,7 @@ export const UserDeleteRequest = (deleteId) => async (dispatch, getState) => {
 		};
 		const { data } = await UserDeleteApi(deleteId, config);
 
-		const { statusCode, error, errors, message } = data;
+		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,

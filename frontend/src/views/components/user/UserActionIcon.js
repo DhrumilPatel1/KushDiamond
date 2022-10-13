@@ -11,7 +11,7 @@ import { UserDeleteRequest } from '../../../redux/userSlice';
 const ToastSwal = withReactContent(Swal);
 const UserActionIcon = (props) => {
 	const dispatch = useDispatch();
-	
+
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
@@ -32,9 +32,9 @@ const UserActionIcon = (props) => {
 	};
 	return (
 		<>
-		{/* <Link to={`/user/edit/${props.id}`} className="text-warning mx-1">
+			<Link to={`/user/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />
-			</Link> */}
+			</Link>
 			<Trash2
 				className="text-danger"
 				size={18}

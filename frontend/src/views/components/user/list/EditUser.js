@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { CardBody, FormGroup, Row, Col, Button, Label, Card } from 'reactstrap';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumbs from '@components/breadcrumbs';
-import { UserViewRequest } from '../../../../redux/userSlice';
-
-const UserCreateSchema = yup.object().shape({
-	staff_name: yup.string().required('Username is required'),
-	mobile_no: yup.number().required('Mobile No is required'),
-});
+import { userResetAuth, UserUpdateListRequest, UserViewRequest } from '../../../../redux/userSlice';
 
 const EditUser = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { id } = useParams();
-	const { userViewData, error } = useSelector((state) => state.user);
+	const { userUpdateData, error } = useSelector((state) => state.user);
+
+	const { userViewData } = useSelector((state) => state.user);
 
 	useEffect(() => {
 		dispatch(UserViewRequest(id));
 	}, []);
 
-	// useEffect(() => {
-	// 	if (userCreateData && userCreateData.length !== 0) {
-	// 		history.push('/user/list');
-	// 	}
-	// 	return () => {
-	// 		dispatch(userResetAuth());
-	// 	};
-	// }, [userCreateData]);
+	useEffect(() => {
+		if (userUpdateData && userUpdateData.length !== 0) {
+			history.push('/user/list');
+		}
+		return () => {
+			dispatch(userResetAuth());
+		};
+	}, [userUpdateData]);
 
 	const [values, setValues] = useState('');
 
@@ -39,47 +35,38 @@ const EditUser = () => {
 
 	useEffect(() => {
 		setValues({
-			staff_name: userViewData && userViewData.staff_name,
+			username: userViewData && userViewData.username,
 			mobile_no: userViewData && userViewData.mobile_no,
 			email: userViewData && userViewData.email,
-			password: userViewData && userViewData.password,
 		});
 	}, [userViewData]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { staff_name, mobile_no, email, password } = values;
+		const { username, mobile_no, email } = values;
 		const updateUserData = {
-			staff_name,
+			username,
 			mobile_no,
 			email,
-			password,
 		};
-		// console.log(updateUserData, 'updateFtpData');
-
-		// dispatch(FtpUpdateList(id, updateFtpData));
+		dispatch(UserUpdateListRequest(id, updateUserData));
 	};
 
 	return (
 		<>
 			<Breadcrumbs
-				breadCrumbTitle="User Create"
+				breadCrumbTitle="User Update"
 				breadCrumbParent="User"
-				breadCrumbActive="Create"
+				breadCrumbActive="Update"
 			/>
 			<Card>
 				<CardBody>
 					<Formik
 						initialValues={{
-							staff_name: '',
+							username: '',
 							email: '',
 							mobile_no: '',
-							password: '',
-						}}
-						validationSchema={UserCreateSchema}
-						onSubmit={(values) => {
-							// dispatch(UserCreateRequest(values));
 						}}
 					>
 						{({ errors, touched }) => (
@@ -87,18 +74,19 @@ const EditUser = () => {
 								<Row>
 									<Col md="6" sm="12">
 										<FormGroup>
-											<Label for="staff_name">User Name</Label>
+											<Label for="username">User Name</Label>
 											<Field
 												type="text"
-												name="staff_name"
-												id="staff_name"
+												name="username"
+												id="username"
 												className="form-control"
 												placeholder="Enter Your User Name"
-												value={values.staff_name}
+												value={values.username}
 												onChange={(e) => onInputChange(e)}
 											/>
-											{(errors.staff_name && touched.staff_name) || (error && error.staff_name) ? (
-												<div className="error-sm">{errors.staff_name || error.staff_name}</div>
+
+											{error && error.username && touched.username ? (
+												<div className="error-sm">{error.username}</div>
 											) : null}
 										</FormGroup>
 									</Col>
@@ -110,16 +98,15 @@ const EditUser = () => {
 												type="email"
 												name="email"
 												id="email"
-												disabled
 												className="form-control"
 												placeholder="Enter Your Email"
 												value={values.email}
 												onChange={(e) => onInputChange(e)}
 											/>
 
-											{/* {(errors.email && touched.email) || (error && error.email) ? (
-												<div className="error-sm">{errors.email || error.email}</div>
-											) : null} */}
+											{error && error.email && touched.email ? (
+												<div className="error-sm">{error.email}</div>
+											) : null}
 										</FormGroup>
 									</Col>
 									<Col md="6" sm="12">
@@ -135,34 +122,16 @@ const EditUser = () => {
 												onChange={(e) => onInputChange(e)}
 											/>
 
-											{/* {(errors.mobile_no && touched.mobile_no) || (error && error.mobile_no) ? (
-												<div className="error-sm">{errors.mobile_no || error.mobile_no}</div>
-											) : null} */}
-										</FormGroup>
-									</Col>
-									<Col md="6" sm="12">
-										<FormGroup>
-											<Label for="password">Password</Label>
-											<Field
-												type="password"
-												name="password"
-												id="password"
-												disabled
-												className="form-control"
-												placeholder="Enter Your Password"
-												value={values.password}
-												onChange={(e) => onInputChange(e)}
-											/>
-											{/* {(errors.password && touched.password) || (error && error.password) ? (
-												<div className="error-sm">{errors.password || error.password}</div>
-											) : null} */}
+											{error && error.mobile_no && touched.mobile_no ? (
+												<div className="error-sm">{error.mobile_no}</div>
+											) : null}
 										</FormGroup>
 									</Col>
 
 									<Col sm="12">
 										<FormGroup className="d-flex mb-0">
 											<Button.Ripple size="sm" className="mr-1" color="primary" type="submit">
-												Update
+												Submit
 											</Button.Ripple>
 											<Button.Ripple size="sm" color="secondary" tag={Link} to="/user/list" outline>
 												Back
