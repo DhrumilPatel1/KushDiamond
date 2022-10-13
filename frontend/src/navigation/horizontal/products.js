@@ -50,14 +50,11 @@ export default [
 			},
 
 			{
-				id: 'shopify_sync',
+				id: 'shopify_sync_log',
 				title: 'Shopify Sync Log',
 				icon: <RefreshCw size={20} />,
-				navLink: '/shopifySync',
+				navLink: '/shopifySyncLog/list',
 			},
-
-
-
 		],
 	},
 ];

@@ -10,6 +10,7 @@ import ProductExcel from './ProductExcel';
 import UserRoutes from './User';
 import ChangePasswordRoutes from './ChangePassword';
 import ShopifySyncRoutes from './ShopifySync';
+import ShopifySyncLogRoutes from './ShopifySyncLog';
 
 // ** Document title
 const TemplateTitle = 'Kush Diamond';
@@ -31,6 +32,7 @@ const Routes = [
 	...ImageUploadRoutes,
 	...UserRoutes,
 	...ShopifySyncRoutes,
+	...ShopifySyncLogRoutes,
 ];
 
 export { DefaultRoute, TemplateTitle, Routes };
