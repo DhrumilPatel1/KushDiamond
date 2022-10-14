@@ -92,12 +92,12 @@ const ResetPassword = () => {
 											/>
 											{passTextChange === true ? (
 												<EyeOff
-													className="password-reset-eyes"
+													className="password_new_pass"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
 											) : (
 												<Eye
-													className="password-reset-eyes"
+													className="password_new_pass"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
 											)}
@@ -116,7 +116,7 @@ const ResetPassword = () => {
 												type={passConfirmTextChange == true ? 'text' : 'password'}
 												id="confirm_password"
 												name="confirm_password"
-												className="form-control reset_newpass"
+												className="form-control"
 												placeholder="Enter Your New Password"
 											/>
 
