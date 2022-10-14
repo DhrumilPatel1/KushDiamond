@@ -98,31 +98,33 @@ const Login = () => {
 						>
 							{({ errors, touched }) => (
 								<Form className="auth-login-form mt-2">
-									<FormGroup>
-										<Label className="form-label" for="login-email">
-											Email or Mobile No
-										</Label>
-										<Field
-											type="text"
-											id="username"
-											name="username"
-											className="form-control"
-											placeholder="Enter Your Email or Mobile No"
-										/>
-										{(errors.username && touched.username) || (error && error.username) ? (
-											<div className="error-sm">{errors.username || error.username}</div>
-										) : null}
-									</FormGroup>
-									<FormGroup>
-										<div className="d-flex justify-content-between">
-											<Label className="form-label" for="login-password">
-												Password
+									<div>
+										<FormGroup>
+											<Label className="form-label" for="login-email">
+												Email or Mobile No
 											</Label>
-											<Link to="/forgot-password">
-												<small>Forgot Password?</small>
-											</Link>
-										</div>
-											
+											<Field
+												type="text"
+												id="username"
+												name="username"
+												className="form-control"
+												placeholder="Enter Your Email or Mobile No"
+											/>
+										</FormGroup>
+									</div>
+									{(errors.username && touched.username) || (error && error.username) ? (
+										<div className="error-reset-sm">{errors.username || error.username}</div>
+									) : null}
+									<div style={{ position: 'relative' }}>
+										<FormGroup>
+											<div className="d-flex justify-content-between">
+												<Label className="form-label" for="login-password">
+													Password
+												</Label>
+												<Link to="/forgot-password">
+													<small>Forgot Password?</small>
+												</Link>
+											</div>
 											<Field
 												id="password"
 												type={passTextChange == true ? 'text' : 'password'}
@@ -131,25 +133,21 @@ const Login = () => {
 												placeholder="Enter Your Password"
 											/>
 											{passTextChange === true ? (
-												<div className='login-eyes'>
 												<EyeOff
-													className="password-eyes"
+													className="password_login_pass"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
-												</div>
 											) : (
-												<div className='login-eyes'>
 												<Eye
-													className="password-eyes"
+													className="password_login_pass"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
-												</div>
 											)}
-									
-										{(errors.password && touched.password) || (error && error.password) ? (
-											<div className="error-sm">{errors.password || error.password}</div>
-										) : null}
-									</FormGroup>
+										</FormGroup>
+									</div>
+									{(errors.password && touched.password) || (error && error.password) ? (
+										<div className="error-reset-sm">{errors.password || error.password}</div>
+									) : null}
 
 									<Button.Ripple type="submit" color="primary" block>
 										Sign in

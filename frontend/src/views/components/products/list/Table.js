@@ -1,7 +1,7 @@
 // ** React Imports
 import { Fragment, useState, useEffect } from 'react';
 // ** Columns
-// import { columns } from './columns';
+// import { passData, columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
@@ -35,14 +35,13 @@ import { datatable_per_page, datatable_per_raw } from '../../../../configs/const
 import { Link } from 'react-router-dom';
 import ProductsActionIcon from '../ProductsActionIcon';
 import useProductData from '../../../../CustomeHook/useProductData';
-import { ftpDeleteData } from '../../../../redux/FtpsSlice';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
-// // ** Table Header
 
 const ToastSwal = withReactContent(Swal);
 
 const ProductsList = (props) => {
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	const statusObj = {
 		active: 'light-success',
 		inactive: 'light-danger',
@@ -291,7 +290,7 @@ const ProductsList = (props) => {
 	const multiDeleteData = (selectedData) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover this data!',
+			text: 'Once deleted, you will not be able to recover This data!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Yes, delete it!',
@@ -321,7 +320,6 @@ const ProductsList = (props) => {
 				<CardBody className="deskboard_card_body">
 					<Row>
 						<Col xl="4">
-							{/* <Col lg="6"> */}
 							<h3>Products List</h3>
 							{selectedData?.length > 0 ? (
 								<Button.Ripple
@@ -332,21 +330,13 @@ const ProductsList = (props) => {
 								>
 									Delete
 								</Button.Ripple>
-							) : // <Trash2
-							// 	className="text-danger"
-							// 	size={18}
-							// 	onClick={() => multiDeleteData(selectedData)}
-							// 	style={{ cursor: 'pointer', marginLeft: '5px' }}
-							// />
-							null}
+							) : null}
 						</Col>
 
-						{/* <Col lg="6" className="d-flex justify-content-end"> */}
 						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
 							<Col lg="2" className="px-0">
 								<Button.Ripple
 									size="sm"
-									// color="dark"
 									className="w-100 form-control-sm "
 									tag={Link}
 									to="/product/excel"
@@ -393,7 +383,51 @@ const ProductsList = (props) => {
 						</Col>
 					</Row>
 				</CardBody>
-				<DataTable
+
+				{getLoginData?.role === 'admin' ? (
+					<DataTable
+						noHeader
+						pagination
+						selectableRows
+						clearSelectedRows={toggledClearRows}
+						onSelectedRowsChange={selectRows}
+						responsive
+						paginationServer
+						columns={columns}
+						data={productData?.results}
+						// passData={props.clickOpenGallarey}
+						paginationTotalRows={productData?.count}
+						paginationRowsPerPageOptions={datatable_per_raw}
+						onChangeRowsPerPage={handlePerRowsChange}
+						onChangePage={handlePageChange}
+						sortIcon={<ChevronDown />}
+						className="react-dataTable"
+						paginationPerPage={table_data.per_page}
+						// progressPending={isLoading}
+						fixedHeader
+						fixedHeaderScrollHeight={dynamicHeight}
+					/>
+				) : (
+					<DataTable
+						noHeader
+						pagination
+						responsive
+						paginationServer
+						columns={columns}
+						data={productData.results}
+						paginationTotalRows={productData.count}
+						paginationRowsPerPageOptions={datatable_per_raw}
+						onChangeRowsPerPage={handlePerRowsChange}
+						onChangePage={handlePageChange}
+						sortIcon={<ChevronDown />}
+						className="react-dataTable"
+						paginationPerPage={table_data.per_page}
+						// progressPending={isLoading}
+						fixedHeader
+						fixedHeaderScrollHeight={dynamicHeight}
+					/>
+				)}
+				{/* <DataTable
 					noHeader
 					pagination
 					selectableRows
@@ -413,7 +447,7 @@ const ProductsList = (props) => {
 					// progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
-				/>
+				/> */}
 			</Card>
 		</Fragment>
 	);

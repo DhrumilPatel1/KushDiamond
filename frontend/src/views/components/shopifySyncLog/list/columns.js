@@ -17,13 +17,14 @@ const ExpandableTable = ({ data }) => {
 };
 
 export const columns = [
-	// {
-	// 	name: 'SkuList',
-	// 	width: '2830px',
-	// 	selector: 'skulist',
-	// 	sortable: true,
-	// 	cell: (row) => row.skulist,
-	// },
+	{
+		name: 'username',
+		width: '140px',
+		selector: 'user_name',
+		sortable: true,
+		cell: (row) => row.user_name,
+	},
+
 	{
 		name: 'Date',
 		width: '210px',

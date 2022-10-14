@@ -24,7 +24,7 @@ const resetPassword = yup.object().shape({
 
 const ResetPassword = () => {
 	const [passTextChange, setpassTextChange] = useState(false);
-	const [confirmpassTextChange, setconfirmpassTextChange] = useState(false);
+	const [passConfirmTextChange, setpassConfirmTextChange] = useState(false);
 
 	const { mq, link } = useParams();
 	const ResetLink = mq + '/' + link;
@@ -77,63 +77,65 @@ const ResetPassword = () => {
 						>
 							{({ errors, touched }) => (
 								<Form className="auth-reset-password-form mt-2">
-									<FormGroup>
-										<Label className="form-label" for="new-password">
-											New Password
-										</Label>
-										<Field
-											type="password"
-											id="password"
-											name="password"
-											className="form-control"
-											placeholder="Enter Your New Password"
-										/>
-										{/* <div className="reset-eyes">
+									<div style={{ position: 'relative' }}>
+										<FormGroup>
+											<Label className="form-label" for="new-password">
+												New Password
+											</Label>
+
+											<Field
+												type={passTextChange == true ? 'text' : 'password'}
+												name="password"
+												id="password"
+												className="form-control"
+												placeholder="Enter Your New Password"
+											/>
 											{passTextChange === true ? (
 												<EyeOff
-													className="password-eyes"
+													className="password-reset-eyes"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
 											) : (
 												<Eye
-													className="password-eyes"
+													className="password-reset-eyes"
 													onClick={() => setpassTextChange(!passTextChange)}
 												/>
 											)}
-										</div> */}
-										{errors.password && touched.password ? (
-											<div className="error-sm">{errors.password}</div>
-										) : null}
-									</FormGroup>
-									<FormGroup>
-										<Label className="form-label" for="confirm-password">
-											Confirm Password
-										</Label>
-										<Field
-											type="password"
-											id="confirm_password"
-											name="confirm_password"
-											className="form-control"
-											placeholder="Enter Your New Password"
-										/>
+										</FormGroup>
+									</div>
+									{errors.password && touched.password ? (
+										<div className="error-reset-sm">{errors.password}</div>
+									) : null}
 
-										{/* <div className="resetConfirm-eyes">
-											{confirmpassTextChange === true ? (
+									<div style={{ position: 'relative' }}>
+										<FormGroup>
+											<Label className="form-label" for="confirm-password">
+												Confirm Password
+											</Label>
+											<Field
+												type={passConfirmTextChange == true ? 'text' : 'password'}
+												id="confirm_password"
+												name="confirm_password"
+												className="form-control reset_newpass"
+												placeholder="Enter Your New Password"
+											/>
+
+											{passConfirmTextChange === true ? (
 												<EyeOff
-													className="password-eyes"
-													onClick={() => setconfirmpassTextChange(!confirmpassTextChange)}
+													className="password_confirm_pass"
+													onClick={() => setpassConfirmTextChange(!passConfirmTextChange)}
 												/>
 											) : (
 												<Eye
-													className="password-eyes"
-													onClick={() => setconfirmpassTextChange(!confirmpassTextChange)}
+													className="password_confirm_pass"
+													onClick={() => setpassConfirmTextChange(!passConfirmTextChange)}
 												/>
 											)}
-										</div> */}
-										{errors.confirm_password && touched.confirm_password ? (
-											<div className="error-sm">{errors.confirm_password}</div>
-										) : null}
-									</FormGroup>
+										</FormGroup>
+									</div>
+									{errors.confirm_password && touched.confirm_password ? (
+										<div className="error-reset-sm">{errors.confirm_password}</div>
+									) : null}
 									<Button.Ripple color="primary" type="submit" block>
 										Set New Password
 									</Button.Ripple>

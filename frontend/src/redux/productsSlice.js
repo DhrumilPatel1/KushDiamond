@@ -29,6 +29,7 @@ export const productsSlice = createSlice({
 		productViewData: [],
 		ImageUploaFileData: [],
 		imageuploadDeleteData: [],
+		MultiDeleteData: [],
 		excelTypeOne: [],
 		excelTypeTwo: [],
 		ftpGetAllData: [],
@@ -67,6 +68,11 @@ export const productsSlice = createSlice({
 			state.imageuploadDeleteData = action.payload;
 		},
 
+		MultiDataDeleteList: (state, action) => {
+			state.isLoading = false;
+			state.MultiDeleteData = action.payload;
+		},
+
 		handleErrorList: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
@@ -99,6 +105,7 @@ export const {
 	productViewData,
 	ImageUploaFileData,
 	ImageUploadDataDeleteList,
+	MultiDataDeleteList,
 	handleErrorList,
 	excelTypeOne,
 	excelTypeOneReset,
@@ -233,8 +240,12 @@ export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getSta
 			toast.success(message, {
 				id: toastId,
 			});
+			dispatch(MultiDataDeleteList(data));
+			dispatch(productList());
 		}
-	} catch (error) {}
+	} catch (error) {
+		dispatch(handleErrorList(error));
+	}
 };
 
 export const productExcelUpload = (uploadfile) => async (dispatch, getState) => {

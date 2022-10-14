@@ -11,11 +11,12 @@ import { UserDeleteRequest } from '../../../redux/userSlice';
 const ToastSwal = withReactContent(Swal);
 const UserActionIcon = (props) => {
 	const dispatch = useDispatch();
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover this data!',
+			text: 'Once deleted, you will not be able to recover This data!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Yes, delete it!',
@@ -35,12 +36,14 @@ const UserActionIcon = (props) => {
 			<Link to={`/user/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />
 			</Link>
-			<Trash2
-				className="text-danger"
-				size={18}
-				onClick={() => handleDeleteById(props.id)}
-				style={{ cursor: 'pointer' }}
-			/>
+			{getLoginData?.role === 'admin' ? (
+				<Trash2
+					className="text-danger"
+					size={18}
+					onClick={() => handleDeleteById(props.id)}
+					style={{ cursor: 'pointer' }}
+				/>
+			) : null}
 		</>
 	);
 };

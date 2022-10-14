@@ -110,7 +110,6 @@ const ProductsList = () => {
 	// 	});
 
 	const clearData = useCallback(() => {
-		// console.log('Onclose++++++++++++++++++++++++++++', imageGalleryArray);
 		setImageGalleryArray([]);
 	}, [imageGalleryArray]);
 

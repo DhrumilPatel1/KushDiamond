@@ -26,6 +26,13 @@ export const columns = [
 		cell: (row) => (row.type == null ? '-' : row.type),
 	},
 	{
+		name: 'username',
+		width: '140px',
+		selector: 'user_name',
+		sortable: true,
+		cell: (row) => row.user_name,
+	},
+	{
 		name: 'Date',
 		width: '210px',
 		selector: 'created_at',

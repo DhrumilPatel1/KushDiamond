@@ -9,12 +9,13 @@ import withReactContent from 'sweetalert2-react-content';
 const ToastSwal = withReactContent(Swal);
 
 const FtpActionIcon = (props) => {
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	const dispatch = useDispatch();
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover this data!',
+			text: 'Once deleted, you will not be able to recover This data!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Yes, delete it!',
@@ -36,12 +37,14 @@ const FtpActionIcon = (props) => {
 			<Link to={`/ftp/edit/${props.id}`} className="text-warning mx-1">
 				<Edit size={18} />
 			</Link>
-			<Trash2
-				className="text-danger"
-				size={18}
-				onClick={() => handleDeleteById(props.id)}
-				style={{ cursor: 'pointer' }}
-			/>
+			{getLoginData?.role === 'admin' ? (
+				<Trash2
+					className="text-danger"
+					size={18}
+					onClick={() => handleDeleteById(props.id)}
+					style={{ cursor: 'pointer' }}
+				/>
+			) : null}
 		</>
 	);
 };

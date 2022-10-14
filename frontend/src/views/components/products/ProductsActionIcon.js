@@ -3,23 +3,27 @@ import { Link } from 'react-router-dom';
 import { Eye, Image, Trash2 } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { ImageUploadDeleteRequest } from '../../../redux/productsSlice';
-
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
-import { getUserData } from '../../../configs/LocalStorageData';
 
 const ToastSwal = withReactContent(Swal);
 const ProductsActionIcon = (props) => {
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 
-	const [user,setUser] = useState();
-	const { userDatas } = useSelector((state) => state.auth);
+	// useEffect(() => {
+	// 	const getUserData = JSON.parse(localStorage.getItem('userData'));
+	// 	if (getUserData) {
+	// 		setUser(getUserData);
+	// 	}
+	// }, []);
+
 	const dispatch = useDispatch();
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover this images!',
+			text: 'Once deleted, you will not be able to recover This images!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Yes, delete it!',
@@ -34,6 +38,7 @@ const ProductsActionIcon = (props) => {
 			}
 		});
 	};
+
 	return (
 		<>
 			{props?.row?.product_images?.length > 0 ? (
@@ -67,18 +72,22 @@ const ProductsActionIcon = (props) => {
 				View Product
 			</ReactTooltip>
 
-			<Trash2
-				className="text-danger ml-1"
-				data-tip
-				data-for="images_delete"
-				size={18}
-				onClick={() => handleDeleteById(props.id)}
-				style={{ cursor: 'pointer' }}
-			/>
+			{getLoginData?.role === 'admin' ? (
+				<>
+					<Trash2
+						className="text-danger ml-1"
+						data-tip
+						data-for="images_delete"
+						size={18}
+						onClick={() => handleDeleteById(props.id)}
+						style={{ cursor: 'pointer' }}
+					/>
 
-			<ReactTooltip id="images_delete" className="tooltip_info" place="top" effect="solid">
-				Delete Images
-			</ReactTooltip>
+					<ReactTooltip id="images_delete" className="tooltip_info" place="top" effect="solid">
+						Delete Images
+					</ReactTooltip>
+				</>
+			) : null}
 		</>
 	);
 };
