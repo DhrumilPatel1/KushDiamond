@@ -37,9 +37,7 @@ export default function productInventory() {
 						<Col md="12" sm="12">
 							<p>
 								NOTE * <br></br>
-								<b>
-									Uploading This Excel File Will Syncronize Your Inventory To The Shopify Store.
-								</b>
+								<b>Upload excel to synchronize inventory with Shopify store.</b>
 							</p>
 
 							<div style={{ marginBottom: '1rem' }}>

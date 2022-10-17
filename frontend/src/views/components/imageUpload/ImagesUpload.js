@@ -64,11 +64,9 @@ const ImagesUpload = () => {
 							</Form>
 						</Col> */}
 						<Col md="12" sm="12">
-						<p>
+							<p>
 								NOTE *<br></br>
-								<b>
-									Folder Name is mandatory as SKU No. Only Image And Video Format are allowed.
-								</b>
+								<b>Folder Name is mandatory as SKU No. Only Image And Video Format are allowed.</b>
 							</p>
 							<Form onSubmit={(e) => handleSubmit(e)}>
 								<FormGroup>
@@ -82,11 +80,19 @@ const ImagesUpload = () => {
 										directory=""
 										multiple
 									/>
-									{error && error?.message ? <div className="error-sm">{error?.message}</div> : null}
+									{error && error?.message ? (
+										<div className="error-sm">{error?.message}</div>
+									) : null}
 								</FormGroup>
 								<FormGroup className="d-flex mb-0">
 									{isLoading == true || image.length === 0 ? (
-										<Button.Ripple className="mr-1" size="sm" color="primary" type="submit" disabled>
+										<Button.Ripple
+											className="mr-1"
+											size="sm"
+											color="primary"
+											type="submit"
+											disabled
+										>
 											Submit
 										</Button.Ripple>
 									) : (
@@ -94,7 +100,12 @@ const ImagesUpload = () => {
 											Submit
 										</Button.Ripple>
 									)}
-									<Button.Ripple className="mr-1" size="sm" outline onClick={(e) => hisToryeBack(e)}>
+									<Button.Ripple
+										className="mr-1"
+										size="sm"
+										outline
+										onClick={(e) => hisToryeBack(e)}
+									>
 										Back
 									</Button.Ripple>
 								</FormGroup>

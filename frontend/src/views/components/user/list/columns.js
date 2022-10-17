@@ -7,7 +7,7 @@ export const columns = [
 		name: 'User Name',
 		width: '350px',
 		selector: 'username',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => row.username,
 	},
 	{

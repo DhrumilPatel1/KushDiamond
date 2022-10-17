@@ -20,7 +20,7 @@ export const columns = [
 		name: 'Username',
 		width: '250px',
 		selector: 'Username',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => row.username,
 	},
 

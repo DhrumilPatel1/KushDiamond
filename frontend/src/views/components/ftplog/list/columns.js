@@ -27,7 +27,7 @@ export const columns = [
 		name: 'username',
 		width: '140px',
 		selector: 'user_name',
-		sortable: true,
+		// sortable: true,
 		cell: (row) => row.user_name,
 	},
 	{
