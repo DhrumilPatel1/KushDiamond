@@ -30,7 +30,7 @@ export default function ProductExcelTypeOne() {
 	const hisToryeBack = () => {
 		history.goBack();
 	};
-	
+
 	return (
 		<div>
 			<Card>
@@ -49,7 +49,15 @@ export default function ProductExcelTypeOne() {
 								</b>
 							</p>
 
-							<a href="http://52.44.30.44/media/excel1/sample1.xlsx">Download Sample Formate</a>
+							<div style={{ marginBottom: '1rem' }}>
+								<span>Download: </span>
+								<a
+									href="http://107.22.15.221/media/sample/sample.xlsx"
+									style={{ textDecoration: 'underline' }}
+								>
+									sample.xlsx
+								</a>
+							</div>
 
 							<Form onSubmit={(e) => excelUploadTypeOne(e)}>
 								<FormGroup>

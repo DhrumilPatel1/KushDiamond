@@ -14,9 +14,9 @@ const CardWelcome = () => {
 				<Avatar icon={<Award size={28} />} className="shadow" color="primary" size="xl" />
 				<div className="text-center">
 					<h1 className="mb-1 text-white">
-						Welcome{' '}
+						Welcome
 						{getUserData.username.charAt(0).toUpperCase() + getUserData.username.slice(1) ||
-							getUserData.name.charAt(0).toUpperCase() + getUserData.name.slice(1)}{' '}
+							getUserData.name.charAt(0).toUpperCase() + getUserData.name.slice(1)}
 						,
 					</h1>
 					<CardText className="m-auto w-75">

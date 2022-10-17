@@ -9,7 +9,7 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'Sku',
-		minWidth: '170px',
+		minWidth: '120px',
 		selector: 'sku',
 		sortable: true,
 		center: true,
@@ -17,7 +17,7 @@ export const columns = [
 	},
 	{
 		name: 'Shape',
-		minWidth: '115px',
+		minWidth: '50px',
 		selector: 'shape',
 		sortable: true,
 		center: true,
@@ -25,7 +25,7 @@ export const columns = [
 	},
 	{
 		name: 'Carat',
-		minWidth: '80px',
+		minWidth: '50px',
 		selector: 'carat',
 		sortable: true,
 		right: true,
@@ -33,7 +33,7 @@ export const columns = [
 	},
 	{
 		name: 'Color',
-		minWidth: '140px',
+		minWidth: '130px',
 		selector: 'color',
 		sortable: true,
 		center: true,
@@ -48,19 +48,19 @@ export const columns = [
 		cell: (row) => row.measurement,
 	},
 	{
-		name: 'Price',
-		minWidth: '100px',
+		name: 'Price($)',
+		minWidth: '120px',
 		selector: 'price',
 		sortable: true,
+		// center: true,
 		right: true,
-		cell: (row) => row.price,
+		cell: (row) => row.price.toLocaleString('en-US'),
 	},
-
 	{
 		name: 'Certificate No',
 		minWidth: '175px',
 		selector: 'certificate_no',
-		// sortable: true,
+		sortable: true,
 		center: true,
 		cell: (row) => row.certificate_no,
 	},
@@ -76,9 +76,9 @@ export const columns = [
 
 	{
 		name: 'Cut',
-		minWidth: '60x',
+		minWidth: '40px',
 		selector: 'cut',
-		sortable: true,
+		// sortable: true,
 		center: true,
 		cell: (row) => (row.cut == '' ? '-' : row.cut),
 	},
@@ -88,7 +88,6 @@ export const columns = [
 		minWidth: '110px',
 		selector: 'dept',
 		sortable: true,
-		right: true,
 		cell: (row) => (row.dept == '' ? '-' : row.dept),
 	},
 
@@ -109,7 +108,6 @@ export const columns = [
 		center: true,
 		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
 	},
-
 	{
 		name: 'Cul',
 		minWidth: '70px',
@@ -142,24 +140,24 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'sym',
 		// sortable: true,
-		center: true,
+		right: true,
 		cell: (row) => (row.sym == '' ? '-' : row.sym),
 	},
 
-	{
-		name: 'Status',
-		minWidth: '100px',
-		selector: 'is_active',
-		sortable: true,
-		center: true,
-		cell: (row) => (
-			<Badge
-				className="text-capitalize"
-				color={statusObj[row.is_active === true ? 'active' : 'inactive']}
-				pill
-			>
-				{row.is_active === true ? 'active' : 'inactive'}
-			</Badge>
-		),
-	},
+	// {
+	// 	name: 'Status',
+	// 	minWidth: '100px',
+	// 	selector: 'is_active',
+	// 	sortable: true,
+	// 	center: true,
+	// 	cell: (row) => (
+	// 		<Badge
+	// 			className="text-capitalize"
+	// 			color={statusObj[row.is_active === true ? 'active' : 'inactive']}
+	// 			pill
+	// 		>
+	// 			{row.is_active === true ? 'active' : 'inactive'}
+	// 		</Badge>
+	// 	),
+	// },
 ];

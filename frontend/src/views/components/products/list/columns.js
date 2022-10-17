@@ -15,7 +15,6 @@ export const columns = [
 		sortable: true,
 		sticky: true,
 		center: true,
-
 		cell: (row) => row.sku,
 	},
 	{
@@ -24,9 +23,6 @@ export const columns = [
 		selector: 'shape',
 		sortable: true,
 		center: true,
-		style: {
-			// marginLeft:169,
-		},
 		cell: (row) => row.shape,
 	},
 	{
@@ -148,7 +144,7 @@ export const columns = [
 		minWidth: '70px',
 		selector: 'sym',
 		// sortable: true,
-		center: true,
+		right: true,
 		cell: (row) => (row.sym == '' ? '-' : row.sym),
 	},
 

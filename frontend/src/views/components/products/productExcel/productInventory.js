@@ -41,6 +41,17 @@ export default function productInventory() {
 									Uploading This Excel File Will Syncronize Your Inventory To The Shopify Store.
 								</b>
 							</p>
+
+							<div style={{ marginBottom: '1rem' }}>
+								<span>Download: </span>
+								<a
+									href="http://107.22.15.221/media/sample/sample2.xlsx"
+									style={{ textDecoration: 'underline' }}
+								>
+									sample.xlsx
+								</a>
+							</div>
+
 							<Form onSubmit={(e) => excelUpload(e)}>
 								<FormGroup>
 									<Label for="folder_path">Inventory Excel</Label>
