@@ -32,7 +32,7 @@ const ForgotPassword = () => {
 		email: yup.string().required('Email is required'),
 	});
 
-	const { forgotPasswordData, error } = useSelector((state) => state.forgotPassword);
+	// const { forgotPasswordData, error } = useSelector((state) => state.forgotPassword);
 
 	return (
 		<div className="auth-wrapper auth-v1 px-2">

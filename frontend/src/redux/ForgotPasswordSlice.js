@@ -47,7 +47,11 @@ export const ForgotPasswordLinkRequest = (forgotlink) => async (dispatch, getSta
 			},
 		};
 		const { data } = await ForgotPasswordAPI(forgotlink, config);
-		dispatch(forgotPasswordLink(data));
+		const { statusCode } = data;
+		if (statusCode === 200) {
+			dispatch(forgotPasswordLink(data));
+			toast.success('Successfully email send');
+		}
 	} catch (error) {
 		if (error.response && error.response.data.errors) {
 			dispatch(forgotpasswordErrorList(error.response.data.errors));
