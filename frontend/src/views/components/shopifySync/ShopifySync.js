@@ -1,15 +1,34 @@
 import React, { useState } from 'react';
-import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
+import { Button, Card, CardBody, Col, Row } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShopifySyncRequest } from '../../../redux/ShopifySyncSlice';
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+const ToastSwal = withReactContent(Swal);
 const ShopifySync = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(ShopifySyncRequest());
+		ToastSwal.fire({
+			// title: 'Do you want to sync your Shopify store?',
+			text: 'Do you want to sync your Shopify store?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Confirm',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((shopifyconfirmSync) => {
+			if (shopifyconfirmSync.value) {
+				dispatch(ShopifySyncRequest());
+			}
+		});
 	};
 	const hisToryeBack = () => {
 		history.goBack();

@@ -6,15 +6,15 @@ const statusObj = {
 	failed: 'light-danger',
 };
 
-const ExpandableTable = ({ data }) => {
-	return (
-		<div className="expandable-content p-2">
-			<p>
-				<span className="font-weight-bold">SkuList:</span> {data.skulist}
-			</p>
-		</div>
-	);
-};
+// const ExpandableTable = ({ data }) => {
+// 	return (
+// 		<div className="expandable-content p-2">
+// 			<p>
+// 				<span className="font-weight-bold">SkuList:</span> {data.skulist}
+// 			</p>
+// 		</div>
+// 	);
+// };
 
 export const columns = [
 	{
@@ -55,4 +55,4 @@ export const columns = [
 	},
 ];
 
-export default ExpandableTable;
+// export default ExpandableTable;

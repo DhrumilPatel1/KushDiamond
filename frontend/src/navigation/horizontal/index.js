@@ -8,8 +8,8 @@ import formsAndTables from './forms-tables';
 import chartsAndMaps from './charts-maps';
 import ftp from './ftp';
 import products from './products';
-import ftplog from './ftplog';
-import imageUpload from './imageUpload';
+// import ftplog from './ftplog';
+// import imageUpload from './imageUpload';
 import user from './user';
 
 // ** Merge & Export

@@ -383,54 +383,11 @@ const ProductsList = (props) => {
 						</Col>
 					</Row>
 				</CardBody>
-
-				{getLoginData?.role === 'admin' ? (
-					<DataTable
-						noHeader
-						pagination
-						selectableRows
-						clearSelectedRows={toggledClearRows}
-						onSelectedRowsChange={selectRows}
-						responsive
-						paginationServer
-						columns={columns}
-						data={productData?.results}
-						// passData={props.clickOpenGallarey}
-						paginationTotalRows={productData?.count}
-						paginationRowsPerPageOptions={datatable_per_raw}
-						onChangeRowsPerPage={handlePerRowsChange}
-						onChangePage={handlePageChange}
-						sortIcon={<ChevronDown />}
-						className="react-dataTable"
-						paginationPerPage={table_data.per_page}
-						// progressPending={isLoading}
-						fixedHeader
-						fixedHeaderScrollHeight={dynamicHeight}
-					/>
-				) : (
-					<DataTable
-						noHeader
-						pagination
-						responsive
-						paginationServer
-						columns={columns}
-						data={productData.results}
-						paginationTotalRows={productData.count}
-						paginationRowsPerPageOptions={datatable_per_raw}
-						onChangeRowsPerPage={handlePerRowsChange}
-						onChangePage={handlePageChange}
-						sortIcon={<ChevronDown />}
-						className="react-dataTable"
-						paginationPerPage={table_data.per_page}
-						// progressPending={isLoading}
-						fixedHeader
-						fixedHeaderScrollHeight={dynamicHeight}
-					/>
-				)}
-				{/* <DataTable
+				
+				<DataTable
 					noHeader
 					pagination
-					selectableRows
+					selectableRows={getLoginData?.role === 'admin' ? true : false}
 					clearSelectedRows={toggledClearRows}
 					onSelectedRowsChange={selectRows}
 					responsive
@@ -447,7 +404,7 @@ const ProductsList = (props) => {
 					// progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
-				/> */}
+				/>
 			</Card>
 		</Fragment>
 	);

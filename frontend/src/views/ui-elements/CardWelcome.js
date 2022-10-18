@@ -3,9 +3,10 @@ import Avatar from '@components/avatar';
 import { Card, CardBody, CardText } from 'reactstrap';
 import decorationLeft from '@src/assets/images/elements/decore-left.png';
 import decorationRight from '@src/assets/images/elements/decore-right.png';
-import { getUserData } from '../../configs/LocalStorageData';
+// import { getUserData } from '../../configs/LocalStorageData';
 
 const CardWelcome = () => {
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	return (
 		<Card className="card-congratulations">
 			<CardBody className="text-center">
@@ -15,12 +16,12 @@ const CardWelcome = () => {
 				<div className="text-center">
 					<h1 className="mb-1 text-white">
 						Welcome {''}
-						{getUserData.username.charAt(0).toUpperCase() + getUserData.username.slice(1) ||
-							getUserData.name.charAt(0).toUpperCase() + getUserData.name.slice(1)}
+						{getLoginData.username.charAt(0).toUpperCase() + getLoginData.username.slice(1) ||
+							getLoginData.name.charAt(0).toUpperCase() + getLoginData.name.slice(1)}
 						,
 					</h1>
 					<CardText className="m-auto w-75">
-						You have successfully logged in as an {getUserData.role} to Kush Diamond. Now you can
+						You have successfully logged in as an {getLoginData.role} to Kush Diamond. Now you can
 						start to explore. Enjoy!
 					</CardText>
 				</div>
