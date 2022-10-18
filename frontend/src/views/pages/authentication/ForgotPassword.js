@@ -18,7 +18,10 @@ import {
 import '@styles/base/pages/page-auth.scss';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ForgotPasswordLinkRequest } from '../../../redux/ForgotPasswordSlice';
+import {
+	ForgotPasswordLinkRequest,
+	forgotpasswordResetData,
+} from '../../../redux/ForgotPasswordSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ForgotPassword = () => {
@@ -77,6 +80,7 @@ const ForgotPassword = () => {
 							validationSchema={ForgotPasswordSchema}
 							onSubmit={(values) => {
 								dispatch(ForgotPasswordLinkRequest(values));
+								dispatch(forgotpasswordResetData());
 								values.email = '';
 							}}
 						>

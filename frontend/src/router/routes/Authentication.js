@@ -29,7 +29,7 @@ const Authentication = [
 		},
 	},
 	{
-		path: '/password-reset/:mq/:link',
+		path: '/password-reset/:linkvalue/:link/',
 		exact: true,
 		component: lazy(() => import('../../views/pages/authentication/ResetPassword.js')),
 		layout: 'BlankLayout',

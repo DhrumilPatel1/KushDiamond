@@ -26,8 +26,9 @@ const ResetPassword = () => {
 	const [passTextChange, setpassTextChange] = useState(false);
 	const [passConfirmTextChange, setpassConfirmTextChange] = useState(false);
 
-	const { mq, link } = useParams();
-	const ResetLink = mq + '/' + link;
+	const { linkvalue, link } = useParams();
+
+	const ResetLink = linkvalue + '/' + link;
 
 	const dispatch = useDispatch();
 	const history = useHistory();
