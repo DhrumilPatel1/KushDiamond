@@ -32,7 +32,7 @@ const ForgotPassword = () => {
 		source = require(`@src/assets/images/logo/${illustration}`).default;
 
 	const ForgotPasswordSchema = yup.object().shape({
-		email: yup.string().required('Email is required'),
+		email: yup.string().email('Invalid email').required('Email is required'),
 	});
 
 	// const { forgotPasswordData, error } = useSelector((state) => state.forgotPassword);
@@ -78,10 +78,10 @@ const ForgotPassword = () => {
 								email: '',
 							}}
 							validationSchema={ForgotPasswordSchema}
-							onSubmit={(values) => {
+							onSubmit={(values, { resetForm }) => {
 								dispatch(ForgotPasswordLinkRequest(values));
 								dispatch(forgotpasswordResetData());
-								values.email = '';
+								resetForm({ values: '' });
 							}}
 						>
 							{({ errors, touched }) => (
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
 									<FormGroup>
 										<Label for="email">Email</Label>
 										<Field
-											type="text"
+											type="email"
 											name="email"
 											id="email"
 											className="form-control"
