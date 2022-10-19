@@ -38,7 +38,7 @@ export const ChangePasswordApi = async (changePassword, config) => {
 };
 
 export const ResetPasswordApi = async (changePassword, link, config) => {
-	return await axios.patch(`${BASE_URL_API}/password-reset/${link}/`, changePassword, config);
+	return await axios.patch(`${BASE_URL_API}/passwordreset/${link}/`, changePassword, config);
 };
 
 export const ProductApi = async (queryString, config) => {
