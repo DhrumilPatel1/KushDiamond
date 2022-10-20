@@ -188,7 +188,7 @@ export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState)
 				id: toastId,
 			});
 			dispatch(ImageUploadDataDeleteList(data));
-			dispatch(productList());
+			dispatch(productList(data));
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;
@@ -196,6 +196,7 @@ export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState)
 			toast.error(message, {
 				id: toastId,
 			});
+			dispatch(productList());
 		}
 	}
 };
