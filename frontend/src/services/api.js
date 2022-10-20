@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
-// const BASE_URL_API = 'http://107.22.15.221';
-const BASE_URL_API = 'http://192.168.1.10:8000';
+const BASE_URL_API = 'http://107.22.15.221';
+// const BASE_URL_API = 'http://192.168.1.10:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
