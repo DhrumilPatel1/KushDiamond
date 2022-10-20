@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Plus, Share, Trash2 } from 'react-feather';
+import { ChevronDown, Eye, Image, Plus, Share, Trash2 } from 'react-feather';
 import DataTable from 'react-data-table-component';
 
 import {
@@ -26,6 +26,7 @@ import {
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
+	ImageUploadDeleteRequest,
 	productExcelUpload,
 	productList,
 	ProductResetData,
@@ -33,200 +34,17 @@ import {
 } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
-import ProductsActionIcon from '../ProductsActionIcon';
+// import ProductsActionIcon from '../ProductsActionIcon';
 import useProductData from '../../../../CustomeHook/useProductData';
-import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import ReactTooltip from 'react-tooltip';
 
 const ToastSwal = withReactContent(Swal);
 
 const ProductsList = (props) => {
-	const getLoginData = JSON.parse(localStorage.getItem('userData'));
-	const statusObj = {
-		active: 'light-success',
-		inactive: 'light-danger',
-	};
-
-	const columns = [
-		{
-			name: 'Sku',
-			minWidth: '130px',
-			selector: 'sku',
-			sortable: true,
-			sticky: true,
-			center: true,
-
-			cell: (row) => row.sku,
-		},
-		{
-			name: 'Shape',
-			minWidth: '50px',
-			selector: 'shape',
-			sortable: true,
-			center: true,
-			style: {
-				// marginLeft:169,
-			},
-			cell: (row) => row.shape,
-		},
-		{
-			name: 'Carat',
-			minWidth: '50px',
-			selector: 'carat',
-			sortable: true,
-			right: true,
-			cell: (row) => row.carat,
-		},
-		{
-			name: 'Color',
-			minWidth: '130px',
-			selector: 'color',
-			sortable: true,
-			center: true,
-			cell: (row) => row.color,
-		},
-		{
-			name: 'Measurement',
-			minWidth: '160px',
-			selector: 'measurement',
-			// sortable: true,
-			center: true,
-			cell: (row) => row.measurement,
-		},
-		{
-			name: 'Price($)',
-			minWidth: '120px',
-			selector: 'price',
-			sortable: true,
-			// center: true,
-			right: true,
-			cell: (row) => row.price.toLocaleString('en-US'),
-		},
-
-		{
-			name: 'Certificate No',
-			minWidth: '175px',
-			selector: 'certificate_no',
-			sortable: true,
-			center: true,
-			cell: (row) => row.certificate_no,
-		},
-
-		{
-			name: 'Lab',
-			minWidth: '80px',
-			selector: 'lab',
-			// sortable: true,
-			center: true,
-			cell: (row) => row.lab,
-		},
-
-		{
-			name: 'Cut',
-			minWidth: '40px',
-			selector: 'cut',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.cut == '' ? '-' : row.cut),
-		},
-
-		{
-			name: 'Dept',
-			minWidth: '110px',
-			selector: 'dept',
-			sortable: true,
-			cell: (row) => (row.dept == '' ? '-' : row.dept),
-		},
-
-		{
-			name: 'Fl',
-			minWidth: '60px',
-			selector: 'fl',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.fl == '' ? '-' : row.fl),
-		},
-
-		{
-			name: 'Girdle',
-			minWidth: '150px',
-			selector: 'girdle',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.girdle == '' ? '-' : row.girdle),
-		},
-
-		{
-			name: 'Cul',
-			minWidth: '70px',
-			selector: 'cul',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.cul == '' ? '-' : row.cul),
-		},
-
-		{
-			name: 'Pol',
-			minWidth: '70px',
-			selector: 'pol',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.pol == '' ? '-' : row.pol),
-		},
-
-		{
-			name: 'Rap',
-			minWidth: '70px',
-			selector: 'rap',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.rap == '' ? '-' : row.rap),
-		},
-
-		{
-			name: 'Sym',
-			minWidth: '70px',
-			selector: 'sym',
-			// sortable: true,
-			center: true,
-			cell: (row) => (row.sym == '' ? '-' : row.sym),
-		},
-
-		// {
-		// 	name: 'Status',
-		// 	minWidth: '100px',
-		// 	selector: 'is_active',
-		// 	sortable: true,
-		// 	cell: (row) => (
-		// 		<Badge
-		// 			className="text-capitalize"
-		// 			color={statusObj[row.is_active === true ? 'active' : 'inactive']}
-		// 			pill
-		// 		>
-		// 			{row.is_active === true ? 'active' : 'inactive'}
-		// 		</Badge>
-		// 	),
-		// },
-
-		{
-			name: 'Actions',
-			minWidth: '150px',
-			// center: true,
-			cell: (row) => {
-				// console.log("row called------------------")
-				return (
-					<div className="d-inline ">
-						<ProductsActionIcon
-							clickOpenGallarey={(row) => props.clickOpenGallarey(row)}
-							row={row}
-							id={row.id}
-						/>
-					</div>
-				);
-			},
-		},
-	];
-
+	// console.log(props.getLoginData, 'props');
+	// const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	const dispatch = useDispatch();
 
 	// const { productData, isLoading } = useSelector((state) => state.products);
@@ -239,6 +57,248 @@ const ProductsList = (props) => {
 	const [filterShape, setFilterShape] = useState('');
 	const [filter_value, setFilter_value] = useState('');
 	const [filterCut, setFilterCut] = useState('');
+	const [columns, setColumns] = useState([]);
+
+	const handleDeleteById = (id) => {
+		ToastSwal.fire({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover This images!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((deleteRecord) => {
+			if (deleteRecord.value) {
+				dispatch(ImageUploadDeleteRequest(id));
+			}
+		});
+	};
+
+	const ColumnList = () => {
+		const column = [
+			{
+				name: 'Sku',
+				minWidth: '130px',
+				selector: 'sku',
+				sortable: true,
+				sticky: true,
+				center: true,
+
+				cell: (row) => row.sku,
+			},
+			{
+				name: 'Shape',
+				minWidth: '50px',
+				selector: 'shape',
+				sortable: true,
+				center: true,
+				style: {
+					// marginLeft:169,
+				},
+				cell: (row) => row.shape,
+			},
+			{
+				name: 'Carat',
+				minWidth: '50px',
+				selector: 'carat',
+				sortable: true,
+				right: true,
+				cell: (row) => row.carat,
+			},
+			{
+				name: 'Color',
+				minWidth: '130px',
+				selector: 'color',
+				sortable: true,
+				center: true,
+				cell: (row) => row.color,
+			},
+			{
+				name: 'Measurement',
+				minWidth: '160px',
+				selector: 'measurement',
+				// sortable: true,
+				center: true,
+				cell: (row) => row.measurement,
+			},
+			{
+				name: 'Price($)',
+				minWidth: '120px',
+				selector: 'price',
+				sortable: true,
+				// center: true,
+				right: true,
+				cell: (row) => row.price.toLocaleString('en-US'),
+			},
+
+			{
+				name: 'Certificate No',
+				minWidth: '175px',
+				selector: 'certificate_no',
+				sortable: true,
+				center: true,
+				cell: (row) => row.certificate_no,
+			},
+
+			{
+				name: 'Lab',
+				minWidth: '80px',
+				selector: 'lab',
+				// sortable: true,
+				center: true,
+				cell: (row) => row.lab,
+			},
+
+			{
+				name: 'Cut',
+				minWidth: '40px',
+				selector: 'cut',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.cut == '' ? '-' : row.cut),
+			},
+
+			{
+				name: 'Dept',
+				minWidth: '110px',
+				selector: 'dept',
+				sortable: true,
+				cell: (row) => (row.dept == '' ? '-' : row.dept),
+			},
+
+			{
+				name: 'Fl',
+				minWidth: '60px',
+				selector: 'fl',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.fl == '' ? '-' : row.fl),
+			},
+
+			{
+				name: 'Girdle',
+				minWidth: '150px',
+				selector: 'girdle',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+			},
+
+			{
+				name: 'Cul',
+				minWidth: '70px',
+				selector: 'cul',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.cul == '' ? '-' : row.cul),
+			},
+
+			{
+				name: 'Pol',
+				minWidth: '70px',
+				selector: 'pol',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.pol == '' ? '-' : row.pol),
+			},
+
+			{
+				name: 'Rap',
+				minWidth: '70px',
+				selector: 'rap',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.rap == '' ? '-' : row.rap),
+			},
+
+			{
+				name: 'Sym',
+				minWidth: '70px',
+				selector: 'sym',
+				// sortable: true,
+				center: true,
+				cell: (row) => (row.sym == '' ? '-' : row.sym),
+			},
+
+			{
+				name: 'Actions',
+				minWidth: '150px',
+				cell: (row) => {
+					return (
+						<>
+							<div className="d-inline ">
+								{row?.product_images?.length > 0 ? (
+									<>
+										<Image
+											data-tip
+											data-for="view_gallery"
+											size={18}
+											className="text-dark ml-2"
+											onClick={() => props.clickOpenGallarey(row.product_images)}
+											style={{ cursor: 'pointer' }}
+										/>
+
+										<ReactTooltip
+											id="view_gallery"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											View Gallary
+										</ReactTooltip>
+									</>
+								) : (
+									<Image
+										size={18}
+										className="text-dark ml-2 gallary_disabled"
+										style={{ cursor: 'not-allowed' }}
+									/>
+								)}
+							</div>
+
+							<Link to={`/products/detail/${row.id}`} className="text-primary">
+								<Eye size={18} className="ml-1" data-tip data-for="view_product" />
+							</Link>
+							<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
+								View Product
+							</ReactTooltip>
+
+							{props.getLoginData?.role === 'admin' ? (
+								<>
+									<Trash2
+										className="text-danger ml-1 text-white bg-white"
+										data-tip
+										data-for="images_delete"
+										size={18}
+										onClick={() => handleDeleteById(row.id)}
+										style={{
+											cursor: 'pointer',
+											outline: 'none',
+										}}
+									/>
+
+									<ReactTooltip
+										id="images_delete"
+										className="tooltip_info"
+										place="top"
+										effect="solid"
+									>
+										Delete Images
+									</ReactTooltip>
+								</>
+							) : null}
+						</>
+					);
+				},
+			},
+		];
+
+		setColumns(column);
+	};
 
 	const table_data = {
 		page: 1,
@@ -255,9 +315,10 @@ const ProductsList = (props) => {
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}`
 	);
 
-	useEffect(() => {
+	useEffect(async () => {
 		dispatch(productList(queryString));
-	}, [dispatch, queryString]);
+		ColumnList();
+	}, [queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -383,25 +444,25 @@ const ProductsList = (props) => {
 						</Col>
 					</Row>
 				</CardBody>
-				
+
 				<DataTable
 					noHeader
 					pagination
-					selectableRows={getLoginData?.role === 'admin' ? true : false}
+					selectableRows={props.getLoginData?.role === 'admin' ? true : false}
 					clearSelectedRows={toggledClearRows}
 					onSelectedRowsChange={selectRows}
 					responsive
 					paginationServer
 					columns={columns}
-					data={productData.results}
-					paginationTotalRows={productData.count}
+					data={productData?.results}
+					paginationTotalRows={productData?.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
 					className="react-dataTable"
 					paginationPerPage={table_data.per_page}
-					// progressPending={isLoading}
+					progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 				/>

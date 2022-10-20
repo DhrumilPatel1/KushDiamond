@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 const ProductsList = () => {
+	const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	const imageref = useRef(null);
 	const dispatch = useDispatch();
 	// const { productViewData, error } = useSelector((state) => state.products);
@@ -131,7 +132,7 @@ const ProductsList = () => {
 	return (
 		<div className="app-user-list">
 			{/* <h1>Products</h1> */}
-			<Table clickOpenGallarey={(e) => clickOpenGallarey(e)} />
+			<Table clickOpenGallarey={(e) => clickOpenGallarey(e)} getLoginData={getLoginData} />
 			<Boxes />
 			<LightGallery
 				onInit={onInit}
