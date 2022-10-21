@@ -134,7 +134,7 @@ export const UserViewApi = async (userId, config) => {
 };
 
 export const ShopifySyncApi = async (config) => {
-	return await axios.get(`${BASE_URL_API}/api/sync/product`, config);
+	return await axios.post(`${BASE_URL_API}/api/sync/product`, '', config);
 };
 
 export const ShopifySyncLogListApi = async (queryString, config) => {
