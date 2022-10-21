@@ -268,28 +268,38 @@ const ProductsList = (props) => {
 							</ReactTooltip>
 
 							{props.getLoginData?.role === 'admin' ? (
-								<>
+								row?.product_images?.length > 0 ? (
+									<>
+										<Trash2
+											className="text-danger ml-1 text-white bg-white"
+											data-tip
+											data-for="images_delete"
+											size={18}
+											onClick={() => handleDeleteById(row.id)}
+											style={{
+												cursor: 'pointer',
+												outline: 'none',
+											}}
+										/>
+
+										<ReactTooltip
+											id="images_delete"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Delete Images
+										</ReactTooltip>
+									</>
+								) : (
 									<Trash2
-										className="text-danger ml-1 text-white bg-white"
+										className="text-danger ml-1 text-white bg-white trash_disabled"
 										data-tip
 										data-for="images_delete"
 										size={18}
-										onClick={() => handleDeleteById(row.id)}
-										style={{
-											cursor: 'pointer',
-											outline: 'none',
-										}}
+										style={{ cursor: 'not-allowed' }}
 									/>
-
-									<ReactTooltip
-										id="images_delete"
-										className="tooltip_info"
-										place="top"
-										effect="solid"
-									>
-										Delete Images
-									</ReactTooltip>
-								</>
+								)
 							) : null}
 						</>
 					);
@@ -318,7 +328,7 @@ const ProductsList = (props) => {
 	useEffect(async () => {
 		dispatch(productList(queryString));
 		ColumnList();
-	}, [queryString]);
+	}, [dispatch,queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
