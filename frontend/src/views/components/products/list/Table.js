@@ -154,6 +154,15 @@ const ProductsList = (props) => {
 			},
 
 			{
+				name: 'TBL',
+				minWidth: '80px',
+				selector: 'tbl',
+				// sortable: true,
+				center: true,
+				cell: (row) => row.tbl,
+			},
+
+			{
 				name: 'Cut',
 				minWidth: '40px',
 				selector: 'cut',

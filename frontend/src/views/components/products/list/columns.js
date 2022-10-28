@@ -68,6 +68,7 @@ export const columns = [
 		cell: (row) => row.certificate_no,
 	},
 
+	
 	{
 		name: 'Lab',
 		minWidth: '80px',
@@ -76,7 +77,16 @@ export const columns = [
 		center: true,
 		cell: (row) => row.lab,
 	},
-
+	
+	{
+		name: 'TBL',
+		minWidth: '80px',
+		selector: 'tbl',
+		// sortable: true,
+		center: true,
+		cell: (row) => row.tbl,
+	},
+	
 	{
 		name: 'Cut',
 		minWidth: '40px',
