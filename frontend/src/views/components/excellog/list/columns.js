@@ -9,7 +9,7 @@ const statusObj = {
 export const columns = [
 	{
 		name: 'File',
-		width: '200px',
+		width: '290px',
 		selector: 'file',
 		// sortable: true,
 		cell: (row) => (
