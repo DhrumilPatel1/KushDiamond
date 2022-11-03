@@ -2,8 +2,9 @@
 import { Badge } from 'reactstrap';
 import moment from 'moment';
 const statusObj = {
+	pending: 'light-warning',
 	success: 'light-success',
-	failed: 'light-danger',
+	error: 'light-danger',
 };
 
 // const ExpandableTable = ({ data }) => {
@@ -40,10 +41,12 @@ export const columns = [
 		cell: (row) => (
 			<Badge
 				className="text-capitalize"
-				color={statusObj[row.status === 'error' ? 'failed' : 'success']}
+				// color={statusObj[row.status === 'error' ? 'failed' : '-']}
+				color={statusObj[row.status]}
 				pill
 			>
-				{row.status === 'error' ? 'failed' : 'success'}
+				{/* {row.status === 'error' ? 'failed' : '-'} */}
+				{row.status}
 			</Badge>
 		),
 	},
