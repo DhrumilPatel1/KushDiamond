@@ -48,7 +48,7 @@ export const columns = [
 		),
 	},
 	{
-		name: 'Error Status',
+		name: 'Log Status',
 		width: '700px',
 		selector: 'error_status',
 		cell: (row) => (row.error_status ? row.error_status : '-'),
