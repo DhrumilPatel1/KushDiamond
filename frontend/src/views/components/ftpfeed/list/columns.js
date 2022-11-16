@@ -40,8 +40,16 @@ export const columns = [
 		cell: (row) => row.color,
 	},
 	{
+		name: 'Clarity',
+		minWidth: '80px',
+		selector: 'clarity',
+		sortable: true,
+		center: true,
+		cell: (row) => row.clarity,
+	},
+	{
 		name: 'Measurement',
-		minWidth: '160px',
+		minWidth: '170px',
 		selector: 'measurement',
 		// sortable: true,
 		center: true,
@@ -49,7 +57,7 @@ export const columns = [
 	},
 	{
 		name: 'Price($)',
-		minWidth: '120px',
+		minWidth: '110px',
 		selector: 'price',
 		sortable: true,
 		// center: true,

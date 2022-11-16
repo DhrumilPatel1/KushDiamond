@@ -85,9 +85,7 @@ const ProductsList = (props) => {
 				minWidth: '130px',
 				selector: 'sku',
 				sortable: true,
-				sticky: true,
 				center: true,
-
 				cell: (row) => row.sku,
 			},
 			{
@@ -118,8 +116,16 @@ const ProductsList = (props) => {
 				cell: (row) => row.color,
 			},
 			{
+				name: 'Clarity',
+				minWidth: '80px',
+				selector: 'clarity',
+				sortable: true,
+				center: true,
+				cell: (row) => row.clarity,
+			},
+			{
 				name: 'Measurement',
-				minWidth: '160px',
+				minWidth: '170px',
 				selector: 'measurement',
 				// sortable: true,
 				center: true,
@@ -127,7 +133,7 @@ const ProductsList = (props) => {
 			},
 			{
 				name: 'Price($)',
-				minWidth: '120px',
+				minWidth: '110px',
 				selector: 'price',
 				sortable: true,
 				// center: true,
@@ -337,7 +343,7 @@ const ProductsList = (props) => {
 	useEffect(async () => {
 		dispatch(productList(queryString));
 		ColumnList();
-	}, [dispatch,queryString]);
+	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
