@@ -248,6 +248,15 @@ const ProductsList = (props) => {
 			},
 
 			{
+				name: 'Shopify Page Url',
+				minWidth: '600px',
+				selector: 'shopify_product_url',
+				sortable: true,
+				// center: true,
+				cell: (row) => row.shopify_product_url,
+			},
+
+			{
 				name: 'Actions',
 				minWidth: '150px',
 				cell: (row) => {
