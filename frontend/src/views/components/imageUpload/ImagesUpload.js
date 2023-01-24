@@ -117,9 +117,9 @@ const ImagesUpload = () => {
                 // toast.success(result?.data?.message, {
                 //     id: toastId,
                 // });
-                setTimeout(() => {
-                    setProgressbar(0);
-                }, 2000);
+                // setTimeout(() => {
+                //     setProgressbar(0);
+                // }, 2000);
                 // dispatch(ImagesUploadRequest(formData, { optionsVal }));
             }
         }
