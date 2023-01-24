@@ -59,18 +59,21 @@ const ImagesUpload = () => {
                         id: toastId,
                     });
                 }
-                // toast.success(result?.data?.message, {
-                //     id: toastId,
-                // });
+                toast.success(result?.data?.message, {
+                    id: toastId,
+                });
                 setTimeout(() => {
                     setProgressbar(0);
-                }, 2000);
+                }, 6000);
             }
         } catch (error) {
-            console.log('error', error);
+            // console.log('error', error);
             const { statusCode, errors } = error?.response?.data;
             if (statusCode === 422) {
-                toast.error(errors.message);
+                toast.error(errors.message, {
+                    id: toastId,
+                });
+                setProgressbar(0);
             }
         }
     };
@@ -101,6 +104,7 @@ const ImagesUpload = () => {
                     let folderName = file.webkitRelativePath
                         .substring(0, file.webkitRelativePath.lastIndexOf('/'))
                         .split('/');
+                    console.log("file", file.name)
                     formData.append('product_img', file);
                     formData.append('folder_name', folderName[ folderName.length - 1 ]);
                     // formData.append(
