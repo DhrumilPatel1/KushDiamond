@@ -48,16 +48,16 @@ const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
 	// const { productData, isLoading } = useSelector((state) => state.products);
-	const [toggledClearRows, setToggleClearRows] = useState(false);
+	const [ toggledClearRows, setToggleClearRows ] = useState(false);
 	const { productData, isLoading } = useProductData();
-	const [selectedData, setSelectedData] = useState();
-	const [limit, setPerPage] = useState(datatable_per_page);
-	const [sort_order, setSort_order] = useState('desc');
-	const [filterColor, setFilterColor] = useState('');
-	const [filterShape, setFilterShape] = useState('');
-	const [filter_value, setFilter_value] = useState('');
-	const [filterCut, setFilterCut] = useState('');
-	const [columns, setColumns] = useState([]);
+	const [ selectedData, setSelectedData ] = useState();
+	const [ limit, setPerPage ] = useState(datatable_per_page);
+	const [ sort_order, setSort_order ] = useState('desc');
+	const [ filterColor, setFilterColor ] = useState('');
+	const [ filterShape, setFilterShape ] = useState('');
+	const [ filter_value, setFilter_value ] = useState('');
+	const [ filterCut, setFilterCut ] = useState('');
+	const [ columns, setColumns ] = useState([]);
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
@@ -80,6 +80,14 @@ const ProductsList = (props) => {
 
 	const ColumnList = () => {
 		const column = [
+			{
+				name: 'Title',
+				minWidth: '500px',
+				selector: 'title',
+				sortable: true,
+				// center: true,
+				cell: (row) => row.title,
+			},
 			{
 				name: 'Sku',
 				minWidth: '130px',
@@ -113,7 +121,7 @@ const ProductsList = (props) => {
 				selector: 'color',
 				sortable: true,
 				center: true,
-				cell: (row) => row.color,
+				cell: (row) => (row.color == '' ? '-' : row.color),
 			},
 			{
 				name: 'Clarity',
@@ -336,14 +344,14 @@ const ProductsList = (props) => {
 		order_column: 'created_at',
 	};
 
-	const [queryString, setQueryString] = useState(
+	const [ queryString, setQueryString ] = useState(
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}`
 	);
 
 	useEffect(async () => {
 		dispatch(productList(queryString));
 		ColumnList();
-	}, [dispatch, queryString]);
+	}, [ dispatch, queryString ]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -357,7 +365,7 @@ const ProductsList = (props) => {
 	const tableChangeHandler = (data) => {
 		let queryStr = Object.keys(data)
 			.map((key) => {
-				return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+				return encodeURIComponent(key) + '=' + encodeURIComponent(data[ key ]);
 			})
 			.join('&');
 		setQueryString(queryStr);
