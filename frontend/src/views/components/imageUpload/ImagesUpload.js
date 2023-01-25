@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
     Button,
@@ -48,32 +48,20 @@ const ImagesUpload = () => {
                 },
             });
             count = count + 1;
-            // const { statusCode, data } = result;
             if (result?.data?.statusCode === 200) {
-                // console.log("result", result?.data?.message)
-                setProgressbar((prev) => parseInt((count * 100) / Object.keys(dataArray).length));
-                // setMessage(result?.data?.message)
-                // console.log("progressbar", progressbar)
-                if (progressbar == 100) {
+                setProgressbar(() => parseInt((count * 100) / Object.keys(dataArray).length));
+                if (count == Object.keys(dataArray).length) {
                     toast.success(result?.data?.message, {
                         id: toastId,
                     });
                 }
-                toast.success(result?.data?.message, {
-                    id: toastId,
-                });
-                setTimeout(() => {
-                    setProgressbar(0);
-                }, 6000);
             }
         } catch (error) {
-            // console.log('error', error);
             const { statusCode, errors } = error?.response?.data;
             if (statusCode === 422) {
                 toast.error(errors.message, {
                     id: toastId,
                 });
-                setProgressbar(0);
             }
         }
     };
@@ -83,19 +71,10 @@ const ImagesUpload = () => {
         var dataArray = {};
         [ ...image ].forEach((file) => {
             let folderName = file.webkitRelativePath.split('/')[ 1 ];
-            // formData.append('product_img', file),
-            // formData.append(
-            // 	'folder_name',
-            // 	file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/') + 1)
-            // );
             if (folderName in dataArray) {
                 dataArray[ folderName ].push(file);
             } else dataArray[ folderName ] = [ file ];
         });
-        // for (var pair of formData.entries()) {
-        //     console.log(pair[ 0 ] + ', ' + pair[ 1 ]);
-        // }
-        // let totalFolderCount = Object.keys(dataArray).length;
         for (const key in dataArray) {
             let formData = new FormData();
             if (Object.hasOwnProperty.call(dataArray, key)) {
@@ -104,7 +83,6 @@ const ImagesUpload = () => {
                     let folderName = file.webkitRelativePath
                         .substring(0, file.webkitRelativePath.lastIndexOf('/'))
                         .split('/');
-                    console.log("file", file.name)
                     formData.append('product_img', file);
                     formData.append('folder_name', folderName[ folderName.length - 1 ]);
                     // formData.append(
@@ -114,12 +92,7 @@ const ImagesUpload = () => {
                 });
                 setProgressbar(1);
                 handleFileUpload(formData, dataArray);
-                // toast.success(result?.data?.message, {
-                //     id: toastId,
-                // });
-                // setTimeout(() => {
-                //     setProgressbar(0);
-                // }, 2000);
+
                 // dispatch(ImagesUploadRequest(formData, { optionsVal }));
             }
         }
@@ -129,7 +102,11 @@ const ImagesUpload = () => {
     const hisToryeBack = () => {
         history.goBack();
     };
-
+    useEffect(() => {
+        if (progressbar == 100) {
+            setProgressbar(0);
+        }
+    }, [ progressbar ]);
     return (
         <>
             <Card>
