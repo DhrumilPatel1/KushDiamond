@@ -24,7 +24,7 @@ import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-const BASE_URL_API = 'http://192.168.0.182:8000';
+const BASE_URL_API = 'http://192.168.1.107:8000';
 
 const ImagesUpload = () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -54,6 +54,7 @@ const ImagesUpload = () => {
                     toast.success(result?.data?.message, {
                         id: toastId,
                     });
+                    setProgressbar(100);
                 }
             }
         } catch (error) {
@@ -70,7 +71,13 @@ const ImagesUpload = () => {
         toastId = toast.loading('Please wait your folder is Uploading...');
         var dataArray = {};
         [ ...image ].forEach((file) => {
-            let folderName = file.webkitRelativePath.split('/')[ 1 ];
+            let folderName1 = file.webkitRelativePath.split('/').length;
+            if (folderName1 == 2) {
+                var myfile = 0;
+            } else {
+                myfile = 1;
+            }
+            let folderName = file.webkitRelativePath.split('/')[ myfile ];
             if (folderName in dataArray) {
                 dataArray[ folderName ].push(file);
             } else dataArray[ folderName ] = [ file ];
