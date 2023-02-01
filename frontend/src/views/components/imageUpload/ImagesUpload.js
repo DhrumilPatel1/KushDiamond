@@ -11,6 +11,7 @@ import {
 	Form,
 	Input,
 	Progress,
+	Alert,
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,7 +20,7 @@ import {
 	ImagesUploadRequest,
 	ProductResetData,
 } from '../../../redux/productsSlice';
-import { Share } from 'react-feather';
+import { Share, CheckCircle } from 'react-feather';
 import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -33,6 +34,12 @@ const ImagesUpload = () => {
 	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
 	const [image, setImage] = useState([]);
 	const [progressbar, setProgressbar] = useState(0);
+	const [visible, setVisible] = useState(false);
+
+	const closeAlert = () => {
+		setVisible(false);
+	};
+
 	const handleChange = (e) => {
 		setImage(e.target.files);
 	};
@@ -55,6 +62,7 @@ const ImagesUpload = () => {
 						id: toastId,
 					});
 					setProgressbar(100);
+					setVisible(true);
 				}
 			}
 		} catch (error) {
@@ -136,6 +144,26 @@ const ImagesUpload = () => {
 								)}
 							</Form>
 						</Col> */}
+
+						<Col>
+							<Alert
+								color="success"
+								className="cursor-pointer"
+								isOpen={visible}
+								onClick={closeAlert}
+							>
+								<div className="alert-body">
+									<CheckCircle
+										size={20}
+										className="bg-white rounded mr-1"
+										style={{ padding: '3px' }}
+									/>
+									Product Images successfully upload. Now you can upload Inventory Excel (Excel Type
+									2).
+								</div>
+							</Alert>
+						</Col>
+
 						<Col md="12" sm="12">
 							<p>
 								NOTE *<br></br>

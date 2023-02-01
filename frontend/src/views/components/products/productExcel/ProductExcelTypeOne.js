@@ -74,8 +74,9 @@ export default function ProductExcelTypeOne() {
 												className="bg-white rounded mr-1"
 												style={{ padding: '3px' }}
 											/>
-											Chupa chups topping bonbon. Jelly-o toffee I love. Sweet I love wafer I love
-											wafer.
+											Products successfully created. now you have to upload product images from
+											Image Upload page. also you can see status of shopify sync process from
+											Shopify Sync Log page.
 										</div>
 									</Alert>
 								</React.Fragment>
