@@ -1,19 +1,30 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { productExcelUpload, ProductResetData } from '../../../../redux/productsSlice';
+import {
+	isExcelUploadSuccess,
+	productExcelUpload,
+	ProductResetData,
+} from '../../../../redux/productsSlice';
 import { Button, Card, CardBody, Col, FormGroup, Label, Row, Form, Input } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
+import { Alert } from 'reactstrap';
+import { CheckCircle } from 'react-feather';
 
 export default function ProductExcelTypeOne() {
 	const history = useHistory();
 
-	const { ImageUploaFileData, error, isLoading } = useSelector((state) => state.products);
+	const { ImageUploaFileData, error, isLoading, isExcelUploadSuccessmessage } = useSelector(
+		(state) => state.products
+	);
+
 	const [excelFile, setexcelFile] = useState(false);
+	const [visible, setVisible] = useState(true);
 	const dispatch = useDispatch();
 
 	const ExcelTypeOne = (e) => {
+		dispatch(isExcelUploadSuccess(false));
 		const files = e.target.files[0];
 		setexcelFile(files);
 	};
@@ -31,20 +42,52 @@ export default function ProductExcelTypeOne() {
 		history.goBack();
 	};
 
+	const closeAlert = () => {
+		if (isExcelUploadSuccessmessage && isExcelUploadSuccessmessage == true) {
+			dispatch(isExcelUploadSuccess(false));
+		}
+	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(isExcelUploadSuccess(false));
+		};
+	}, []);
+
 	return (
 		<div>
 			<Card>
 				<CardBody>
 					<Row>
 						<Col md="12" sm="12">
+							{isExcelUploadSuccessmessage && isExcelUploadSuccessmessage == true ? (
+								<React.Fragment>
+									<Alert
+										color="success"
+										className="cursor-pointer"
+										isOpen={visible}
+										onClick={closeAlert}
+									>
+										<div className="alert-body">
+											<CheckCircle
+												size={20}
+												className="bg-white rounded mr-1"
+												style={{ padding: '3px' }}
+											/>
+											Chupa chups topping bonbon. Jelly-o toffee I love. Sweet I love wafer I love
+											wafer.
+										</div>
+									</Alert>
+								</React.Fragment>
+							) : null}
+
 							<p>
 								NOTE *<br></br>
 								<b>
 									Upload excel to add new/update existing product in databse. Make sure this is only
-									for uplod products not for Shopify synchronize.
+									for upload products not for Shopify synchronize.
 								</b>
 							</p>
-
 							<div style={{ marginBottom: '1rem' }}>
 								<span>Download: </span>
 								<a

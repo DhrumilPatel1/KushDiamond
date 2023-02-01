@@ -6,23 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Eye, Image, Plus, Share, Trash2 } from 'react-feather';
+import { ChevronDown, Eye, Image, Plus, Share, Trash2, Upload } from 'react-feather';
 import DataTable from 'react-data-table-component';
 
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	Input,
-	Row,
-	Col,
-	Label,
-	CustomInput,
-	Button,
-	CardBody,
-	FormGroup,
-	Form,
-} from 'reactstrap';
+import { Card, Input, Row, Col, Label, Button, CardBody, FormGroup } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
@@ -39,6 +26,7 @@ import useProductData from '../../../../CustomeHook/useProductData';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
+import SingleUploadImg from '../SingleUploadImg';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -48,16 +36,16 @@ const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
 	// const { productData, isLoading } = useSelector((state) => state.products);
-	const [ toggledClearRows, setToggleClearRows ] = useState(false);
+	const [toggledClearRows, setToggleClearRows] = useState(false);
 	const { productData, isLoading } = useProductData();
-	const [ selectedData, setSelectedData ] = useState();
-	const [ limit, setPerPage ] = useState(datatable_per_page);
-	const [ sort_order, setSort_order ] = useState('desc');
-	const [ filterColor, setFilterColor ] = useState('');
-	const [ filterShape, setFilterShape ] = useState('');
-	const [ filter_value, setFilter_value ] = useState('');
-	const [ filterCut, setFilterCut ] = useState('');
-	const [ columns, setColumns ] = useState([]);
+	const [selectedData, setSelectedData] = useState();
+	const [limit, setPerPage] = useState(datatable_per_page);
+	const [sort_order, setSort_order] = useState('desc');
+	const [filterColor, setFilterColor] = useState('');
+	const [filterShape, setFilterShape] = useState('');
+	const [filter_value, setFilter_value] = useState('');
+	const [filterCut, setFilterCut] = useState('');
+	const [columns, setColumns] = useState([]);
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
@@ -84,7 +72,7 @@ const ProductsList = (props) => {
 				name: 'Title',
 				minWidth: '500px',
 				selector: 'title',
-				sortable: true,
+				// sortable: true,
 				// center: true,
 				cell: (row) => row.title,
 			},
@@ -248,17 +236,18 @@ const ProductsList = (props) => {
 			},
 
 			{
-				name: 'Shopify Page Url',
-				minWidth: '600px',
-				selector: 'shopify_product_url',
+				name: 'Shopify Product Id',
+				minWidth: '220px',
+				selector: 'shopify_product_id',
 				sortable: true,
 				// center: true,
-				cell: (row) => row.shopify_product_url,
+				right: true,
+				cell: (row) => row.shopify_product_id,
 			},
 
 			{
 				name: 'Actions',
-				minWidth: '150px',
+				minWidth: '180px',
 				cell: (row) => {
 					return (
 						<>
@@ -269,7 +258,7 @@ const ProductsList = (props) => {
 											data-tip
 											data-for="view_gallery"
 											size={18}
-											className="text-dark ml-2"
+											className="outline-none text-dark ml-2"
 											onClick={() => props.clickOpenGallarey(row.product_images)}
 											style={{ cursor: 'pointer' }}
 										/>
@@ -286,18 +275,19 @@ const ProductsList = (props) => {
 								) : (
 									<Image
 										size={18}
-										className="text-dark ml-2 gallary_disabled"
+										className="outline-none text-dark ml-2 gallary_disabled"
 										style={{ cursor: 'not-allowed' }}
 									/>
 								)}
 							</div>
 
 							<Link to={`/products/detail/${row.id}`} className="text-primary">
-								<Eye size={18} className="ml-1" data-tip data-for="view_product" />
+								<Eye size={18} className="ml-1 outline-none" data-tip data-for="view_product" />
 							</Link>
 							<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
 								View Product
 							</ReactTooltip>
+							<SingleUploadImg />
 
 							{props.getLoginData?.role === 'admin' ? (
 								row?.product_images?.length > 0 ? (
@@ -353,14 +343,14 @@ const ProductsList = (props) => {
 		order_column: 'created_at',
 	};
 
-	const [ queryString, setQueryString ] = useState(
+	const [queryString, setQueryString] = useState(
 		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}`
 	);
 
 	useEffect(async () => {
 		dispatch(productList(queryString));
 		ColumnList();
-	}, [ dispatch, queryString ]);
+	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -374,7 +364,7 @@ const ProductsList = (props) => {
 	const tableChangeHandler = (data) => {
 		let queryStr = Object.keys(data)
 			.map((key) => {
-				return encodeURIComponent(key) + '=' + encodeURIComponent(data[ key ]);
+				return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
 			})
 			.join('&');
 		setQueryString(queryStr);

@@ -34,6 +34,7 @@ export const productsSlice = createSlice({
 		excelTypeTwo: [],
 		ftpGetAllData: [],
 		FeedData: [],
+		isExcelUploadSuccessmessage: false,
 		error: null,
 	},
 	reducers: {
@@ -89,6 +90,9 @@ export const productsSlice = createSlice({
 			state.error = action.payload;
 			state.isLoading = false;
 		},
+		isExcelUploadSuccess: (state, action) => {
+			state.isExcelUploadSuccessmessage = action.payload;
+		},
 		ProductResetData: (state) => {
 			state.isLoading = false;
 			state.error = null;
@@ -115,6 +119,7 @@ export const {
 	FeedDataError,
 	ProductResetData,
 	excelTypeTwo,
+	isExcelUploadSuccess,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
@@ -153,6 +158,7 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 				id: toastId,
 			});
 			dispatch(ImageUploaFileData(data));
+			dispatch(productList());
 		}
 	} catch (error) {
 		const { statusCode, errors } = error.response.data;
@@ -265,6 +271,8 @@ export const productExcelUpload = (uploadfile) => async (dispatch, getState) => 
 			toast.success(message, {
 				id: toastId,
 			});
+			dispatch(isExcelUploadSuccess(true));
+
 			dispatch(excelTypeOne(data));
 			dispatch(productList());
 		}

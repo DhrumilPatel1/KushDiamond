@@ -39,13 +39,24 @@ const ProductsList = () => {
 						subHtml: image.image_name,
 					};
 					arr.push(images);
-				} else if (image?.type == 'Video') {
+				} else if (image?.type == 'video/mp4') {
 					var images = {
 						id: index,
 						thumb: videoicon,
-						subHtml: '<h4>Coniston Calmness</h4><p>Beautiful morning</p>',
+						subHtml: `<p>${image.image_name}</p>`,
 						video: {
-							source: [{ src: `${image.url}`, type: 'video/mp4' }],
+							source: [{ src: `${image.url}`, type: `${image.type}` }],
+							attributes: { preload: false, playsinline: true, controls: true },
+						},
+					};
+					arr.push(images);
+				} else if (image?.type == 'video/quicktime') {
+					var images = {
+						id: index,
+						thumb: videoicon,
+						subHtml: `<p>${image.image_name}</p>`,
+						video: {
+							source: [{ src: `${image.url}`, type: `${image.type}` }],
 							attributes: { preload: false, playsinline: true, controls: true },
 						},
 					};
