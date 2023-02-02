@@ -16,12 +16,12 @@ const CardWelcome = () => {
 				<div className="text-center">
 					<h1 className="mb-1 text-white">
 						Welcome {''}
-						{getLoginData.username.charAt(0).toUpperCase() + getLoginData.username.slice(1) ||
-							getLoginData.name.charAt(0).toUpperCase() + getLoginData.name.slice(1)}
+						{getLoginData?.username.charAt(0).toUpperCase() + getLoginData?.username.slice(1) ||
+							getLoginData?.name.charAt(0).toUpperCase() + getLoginData?.name.slice(1)}
 						,
 					</h1>
 					<CardText className="m-auto w-75">
-						You have successfully logged in as an {getLoginData.role} to Kush Diamond. Now you can
+						You have successfully logged in as an {getLoginData?.role} to Kush Diamond. Now you can
 						start to explore. Enjoy!
 					</CardText>
 				</div>

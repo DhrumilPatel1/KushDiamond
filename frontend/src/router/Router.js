@@ -21,6 +21,7 @@ import { DefaultRoute, Routes } from './routes';
 import BlankLayout from '@layouts/BlankLayout';
 import VerticalLayout from '@src/layouts/VerticalLayout';
 import HorizontalLayout from '@src/layouts/HorizontalLayout';
+import { isUserAuthorization } from '../utility/Utils';
 
 const Router = () => {
 	// ** Hooks
@@ -78,8 +79,10 @@ const Router = () => {
 		}
 
 		if (
-			(!isUserLoggedIn() && route.meta === undefined) ||
-			(!isUserLoggedIn() && route.meta && !route.meta.authRoute && !route.meta.publicRoute)
+			// (!isUserLoggedIn() && route.meta === undefined) ||
+			// (!isUserLoggedIn() && route.meta && !route.meta.authRoute && !route.meta.publicRoute)
+			(!isUserAuthorization() && route.meta === undefined) ||
+			(!isUserAuthorization() && route.meta && !route.meta.authRoute && !route.meta.publicRoute)
 		) {
 			/**
 			 ** If user is not Logged in & route meta is undefined
@@ -87,12 +90,10 @@ const Router = () => {
 			 ** If user is not Logged in & route.meta.authRoute, !route.meta.publicRoute are undefined
 			 ** Then redirect user to login
 			 */
-
 			return <Redirect to="/login" />;
 		} else if (route.meta && route.meta.authRoute && isUserLoggedIn()) {
 			// ** If route has meta and authRole and user is Logged in then redirect user to home page (DefaultRoute)
 			return <Redirect to="/" />;
-			// } else if (isUserLoggedIn() && userRole.role === 'student') {
 		} else {
 			// ** If none of the above render component
 			return <route.component {...props} />;

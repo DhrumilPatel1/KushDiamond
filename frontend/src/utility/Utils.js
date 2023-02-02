@@ -1,3 +1,5 @@
+import jsonwebtoken from 'jsonwebtoken';
+
 // ** Checks if an object is empty (returns boolean)
 export const isObjEmpty = (obj) => Object.keys(obj).length === 0;
 
@@ -53,6 +55,36 @@ export const formatDateToMonthShort = (value, toTimeForCurrentDay = true) => {
  */
 export const isUserLoggedIn = () => localStorage.getItem('userData');
 export const getUserData = () => JSON.parse(localStorage.getItem('userData'));
+
+export const isUserAuthorization = () => {
+	let accessToken = JSON.parse(decodeURIComponent(localStorage.getItem('accessToken')));
+
+	if (accessToken !== null && accessToken !== undefined && accessToken !== '') {
+		let bearer_token = JSON.parse(localStorage.accessToken).split(' ')[1];
+		const decoded = jsonwebtoken.decode(bearer_token);
+
+		// CHECK FOR EXPIRED TOKEN
+		const currentTime = Date.now() / 1000;
+		if (decoded.exp < currentTime) {
+			// eslint-disable-next-line no-console
+
+			JSON.parse(localStorage.getItem('userData'));
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+					Authorization: accessToken,
+				},
+			};
+
+			localStorage.clear();
+		}
+		return accessToken;
+	} else {
+		return false;
+	}
+};
 
 /**
  ** This function is used for demo purpose route navigation
