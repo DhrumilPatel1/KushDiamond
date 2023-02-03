@@ -79,6 +79,7 @@ export const isUserAuthorization = () => {
 			};
 
 			localStorage.clear();
+			window.location.pathname = '/login';
 		}
 		return accessToken;
 	} else {

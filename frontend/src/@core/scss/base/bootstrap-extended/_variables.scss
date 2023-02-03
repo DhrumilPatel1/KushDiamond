@@ -100,7 +100,7 @@ $spacers: map-merge(
 //
 // Settings for the `<body>` element.
 $body-bg: #f8f8f8 !default;
-$body-color: #6e6b7b !default;
+$body-color: #6e6767 !default;
 
 // Links
 //
@@ -124,7 +124,7 @@ $line-height-lg: 1.25 !default;
 $line-height-sm: 1 !default;
 
 $border-width: 1px !default;
-$border-color: #ebe9f1 !default;
+$border-color: #dfdfe5 !default;
 $border-radius: 0.357rem !default;
 $border-radius-lg: 0.6rem !default;
 $border-radius-sm: 0.25rem !default;
@@ -184,7 +184,7 @@ $table-hover-bg: #f6f6f9 !default;
 
 $table-border-color: $border-color !default;
 
-$table-head-bg: #f3f2f7 !default;
+$table-head-bg: #dfdfe5 !default;
 $table-head-color: $headings-color !default;
 
 $table-dark-bg: $dark !default;
