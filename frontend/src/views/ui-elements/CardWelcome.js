@@ -7,6 +7,7 @@ import decorationRight from '@src/assets/images/elements/decore-right.png';
 
 const CardWelcome = () => {
 	const getLoginData = JSON.parse(localStorage.getItem('userData'));
+
 	return (
 		<Card className="card-congratulations">
 			<CardBody className="text-center">
@@ -16,8 +17,10 @@ const CardWelcome = () => {
 				<div className="text-center">
 					<h1 className="mb-1 text-white">
 						Welcome {''}
-						{getLoginData?.username.charAt(0).toUpperCase() + getLoginData?.username.slice(1) ||
-							getLoginData?.name.charAt(0).toUpperCase() + getLoginData?.name.slice(1)}
+						{getLoginData?.username == null
+							? ''
+							: getLoginData?.username.charAt(0).toUpperCase() + getLoginData?.username.slice(1) ||
+							  getLoginData?.name.charAt(0).toUpperCase() + getLoginData?.name.slice(1)}
 						,
 					</h1>
 					<CardText className="m-auto w-75">
