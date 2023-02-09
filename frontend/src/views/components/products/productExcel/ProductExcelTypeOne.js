@@ -92,7 +92,7 @@ export default function ProductExcelTypeOne() {
 							<div style={{ marginBottom: '1rem' }}>
 								<span>Download: </span>
 								<a
-									href="http://107.22.15.221/media/sample/sample.xlsx"
+									href="http://107.22.15.221/media/sample/Sample_Excel_Type_1.xlsx"
 									style={{ textDecoration: 'underline' }}
 								>
 									sample.xlsx

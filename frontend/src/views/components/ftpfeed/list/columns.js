@@ -37,7 +37,7 @@ export const columns = [
 		selector: 'color',
 		sortable: true,
 		center: true,
-		cell: (row) => row.color,
+		cell: (row) => (row.color == '' ? '-' : row.color),
 	},
 	{
 		name: 'Clarity',
