@@ -23,7 +23,7 @@ import {
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productList, sendFeed } from '../../../../redux/productsSlice';
+import { sendFeed } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
@@ -31,7 +31,7 @@ import withReactContent from 'sweetalert2-react-content';
 // import toast from 'react-hot-toast';
 import { toast, Slide } from 'react-toastify';
 import Avatar from '@components/avatar';
-import { FtpGetDataDrowpDown } from '../../../../redux/FtpsSlice';
+import { FtpFeedRecordList, FtpGetDataDrowpDown } from '../../../../redux/FtpsSlice';
 
 const OpenSwal = withReactContent(Swal);
 
@@ -64,8 +64,7 @@ const ErrorToastFilter = () => (
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData, FeedData } = useSelector((state) => state.Ftps);
-	const { productData } = useSelector((state) => state.products);
+	const { ftpGetAllData, ftpFeedData } = useSelector((state) => state.Ftps);
 
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
 	const colorDropDownValue = ftpGetAllData.product_color?.map((item) => item);
@@ -104,10 +103,7 @@ const FtpFeedList = () => {
 
 	useEffect(() => {
 		dispatch(FtpGetDataDrowpDown());
-	}, []);
-
-	useEffect(() => {
-		dispatch(productList(queryString));
+		dispatch(FtpFeedRecordList(queryString));
 	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
@@ -149,7 +145,7 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `You want to feed these ${productData?.count} product in FTP feed.`,
+			text: `You want to feed these ${ftpFeedData?.count} product in FTP feed.`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Send Feed',
@@ -170,10 +166,6 @@ const FtpFeedList = () => {
 			}
 		});
 	};
-
-	useEffect(() => {
-		dispatch(productList());
-	}, []);
 
 	const handleShape = (e, color, filterCut) => {
 		tableChangeHandler({
@@ -396,7 +388,7 @@ const FtpFeedList = () => {
 							</Col> */}
 							<Col lg="1" md="3" className="pl-0">
 								{/* <Label for="send feed"></Label> */}
-								{ftpvalue && ftpvalue.length > 0 && productData?.results?.length > 0 ? (
+								{ftpvalue && ftpvalue.length > 0 && ftpFeedData?.results?.length > 0 ? (
 									<Button.Ripple
 										type="submit"
 										size="sm"
@@ -413,7 +405,7 @@ const FtpFeedList = () => {
 										size="sm"
 										color="relief-danger"
 										onClick={
-											productData?.results?.length == 0 ? () => sendFilter() : () => sendFeedClick()
+											ftpFeedData?.results?.length == 0 ? () => sendFilter() : () => sendFeedClick()
 										}
 										style={{ opacity: '0.6' }}
 										className="seed_button"
@@ -433,8 +425,8 @@ const FtpFeedList = () => {
 					responsive
 					paginationServer
 					columns={columns}
-					data={productData.results}
-					paginationTotalRows={productData.count}
+					data={ftpFeedData.results}
+					paginationTotalRows={ftpFeedData.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
@@ -443,7 +435,7 @@ const FtpFeedList = () => {
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
-					// progressPending={productData.length == 0 ? true : false}
+					// progressPending={ftpFeedData.length == 0 ? true : false}
 				/>
 			</Card>
 		</Fragment>

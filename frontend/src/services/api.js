@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import authHeader from "./auth-token";
-// const BASE_URL_API = 'http://107.22.15.221';
-const BASE_URL_API = 'http://192.168.1.107:8000';
+// const BASE_URL_API = 'http://67.202.30.86';
+const BASE_URL_API = 'http://192.168.1.124:8000';
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 let headers = {
 	'Content-Type': 'application/json',
@@ -48,12 +48,19 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
+export const FtpFeedApi = async (queryString, config) => {
+	return await axios
+		.get(`${BASE_URL_API}/api/ftp_product/list/?` + queryString, config)
+		.then((response) => response)
+		.catch((err) => console.log(err));
+};
+
 export const ProductsDetailApi = async (view_id, config) => {
 	return await axios.get(`${BASE_URL_API}/api/productview/${view_id}`, config);
 };
 
 export const ProductsMultiDeleteApi = async (deletedatas, config) => {
-	return await axios.delete(`${BASE_URL_API}/api/product/delete/`, {
+	return await axios.delete(`${BASE_URL_API}/api/product/delete_available/`, {
 		headers: { Authorization: config.headers?.Authorization },
 		data: deletedatas,
 	});

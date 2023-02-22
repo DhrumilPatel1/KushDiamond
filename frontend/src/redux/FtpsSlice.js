@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import {
 	FtpCreateApi,
 	FtpDeleteApi,
+	FtpFeedApi,
 	FtpGetAllApi,
 	FtpListApi,
 	FtpUpdateApi,
@@ -14,6 +15,7 @@ export const FtpsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		ftpData: [],
+		ftpFeedData: [],
 		ftpViewData: [],
 		ftpCreateData: [],
 		ftpDeleteData: [],
@@ -30,6 +32,11 @@ export const FtpsSlice = createSlice({
 		ftpGetData: (state, action) => {
 			state.isLoading = false;
 			state.ftpData = action.payload;
+		},
+
+		ftpFeedDataList: (state, action) => {
+			state.isLoading = false;
+			state.ftpFeedData = action.payload;
 		},
 
 		ftpgetAllDatalist: (state, action) => {
@@ -74,6 +81,7 @@ export const FtpsSlice = createSlice({
 
 export const {
 	ftpGetData,
+	ftpFeedDataList,
 	ftpViewData,
 	ftpCreateData,
 	ftpUpdateData,
@@ -100,6 +108,22 @@ export const FtpClientList = (queryString) => async (dispatch, getState) => {
 		const { data } = await FtpListApi(queryString, config);
 
 		dispatch(ftpGetData(data));
+	} catch (err) {
+		dispatch(ftpErrorList(err));
+	}
+};
+
+export const FtpFeedRecordList = (queryString) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await FtpFeedApi(queryString, config);
+		dispatch(ftpFeedDataList(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));
 	}

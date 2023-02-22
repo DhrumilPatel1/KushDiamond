@@ -3,7 +3,9 @@ const ProductExcel = [
 	{
 		path: '/product/excel',
 		exact: true,
-		component: lazy(() => import('../../views/components/products/productExcel/ProductExcelTypeOne')),
+		component: lazy(() =>
+			import('../../views/components/products/productExcel/ProductExcelTypeOne')
+		),
 	},
 	{
 		path: '/product/inventory',

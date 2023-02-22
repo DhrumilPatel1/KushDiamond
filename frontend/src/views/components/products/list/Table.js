@@ -31,14 +31,13 @@ import SingleUploadImg from '../SingleUploadImg';
 const ToastSwal = withReactContent(Swal);
 
 const ProductsList = (props) => {
-	// console.log(props.getLoginData, 'props');
-	// const getLoginData = JSON.parse(localStorage.getItem('userData'));
 	const dispatch = useDispatch();
 
 	// const { productData, isLoading } = useSelector((state) => state.products);
 	const [toggledClearRows, setToggleClearRows] = useState(false);
 	const { productData, isLoading } = useProductData();
 	const [selectedData, setSelectedData] = useState();
+	const [selectedStatusData, setSelectedStatusData] = useState();
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
 	const [filterColor, setFilterColor] = useState('');
@@ -70,7 +69,7 @@ const ProductsList = (props) => {
 		const column = [
 			{
 				name: 'Title',
-				minWidth: '500px',
+				minWidth: '350px',
 				selector: 'title',
 				// sortable: true,
 				// center: true,
@@ -378,9 +377,10 @@ const ProductsList = (props) => {
 
 	const selectRows = (state) => {
 		setSelectedData(state.selectedRows);
+		setSelectedStatusData(state.selectedRows);
 	};
 
-	const multiDeleteData = (selectedData) => {
+	const multiDeleteData = (e, selectedData) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
 			text: 'Once deleted, you will not be able to recover This data!',
@@ -397,6 +397,34 @@ const ProductsList = (props) => {
 				const multiid = selectedData?.map((e) => e.id);
 				const multiDeleteIds = {
 					id: multiid,
+					key: e.target.value,
+				};
+
+				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
+				setToggleClearRows(!toggledClearRows);
+			}
+			setToggleClearRows(!toggledClearRows);
+		});
+	};
+
+	const multinotAvailableProduct = (e, selectStatus) => {
+		ToastSwal.fire({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover This data!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((deleteRecord) => {
+			if (deleteRecord?.value) {
+				const multiid = selectStatus?.map((e) => e.id);
+				const multiDeleteIds = {
+					id: multiid,
+					key: e.target.value,
 				};
 
 				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
@@ -417,11 +445,24 @@ const ProductsList = (props) => {
 							{selectedData?.length > 0 ? (
 								<Button.Ripple
 									size="sm"
-									onClick={() => multiDeleteData(selectedData)}
+									onClick={(e) => multiDeleteData(e, selectedData)}
+									value="delete"
 									className="btn-danger"
 									style={{ cursor: 'pointer' }}
 								>
 									Delete
+								</Button.Ripple>
+							) : null}
+
+							{selectedStatusData?.length > 0 ? (
+								<Button.Ripple
+									size="sm"
+									onClick={(e) => multinotAvailableProduct(e, selectedStatusData)}
+									className="ml-2"
+									value="not_avalible"
+									style={{ cursor: 'pointer' }}
+								>
+									NA
 								</Button.Ripple>
 							) : null}
 						</Col>
