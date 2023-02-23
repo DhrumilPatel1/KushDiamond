@@ -27,6 +27,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
 import SingleUploadImg from '../SingleUploadImg';
+import { Badge } from 'reactstrap';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -245,6 +246,19 @@ const ProductsList = (props) => {
 			},
 
 			{
+				name: 'Available Status',
+				minWidth: '180px',
+				selector: 'avalibity_status',
+				center: true,
+				cell: (row) =>
+					row.avalibity_status == 'True' ? (
+						<Badge color="success">YES</Badge>
+					) : (
+						<Badge color="danger">NO</Badge>
+					),
+			},
+
+			{
 				name: 'Actions',
 				minWidth: '180px',
 				cell: (row) => {
@@ -410,10 +424,10 @@ const ProductsList = (props) => {
 	const multinotAvailableProduct = (e, selectStatus) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover This data!',
+			text: 'These selected items will be marked as Not Available',
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonText: 'Yes, delete it!',
+			confirmButtonText: 'Yes',
 			customClass: {
 				confirmButton: 'btn btn-primary',
 				cancelButton: 'btn btn-outline-danger ml-1',
