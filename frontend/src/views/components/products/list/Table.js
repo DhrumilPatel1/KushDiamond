@@ -130,11 +130,11 @@ const ProductsList = (props) => {
 			{
 				name: 'Price($)',
 				minWidth: '110px',
-				selector: 'price',
+				selector: 'price_ct',
 				sortable: true,
 				// center: true,
 				right: true,
-				cell: (row) => row.price.toLocaleString('en-US'),
+				cell: (row) => row.price_ct.toLocaleString('en-US'),
 			},
 
 			{
@@ -166,7 +166,7 @@ const ProductsList = (props) => {
 
 			{
 				name: 'Cut',
-				minWidth: '40px',
+				minWidth: '130px',
 				selector: 'cut',
 				// sortable: true,
 				center: true,

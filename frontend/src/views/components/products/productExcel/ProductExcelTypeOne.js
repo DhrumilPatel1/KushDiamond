@@ -93,7 +93,7 @@ export default function ProductExcelTypeOne() {
 								<span>Download: </span>
 								<a
 									// href="http://67.202.30.86/media/sample/sample1.xlsx"
-									href="http://192.168.1.124:8000/media/sample/sample1.xlsx"
+									href="http://192.168.1.19:8000/media/sample/sample1.xlsx"
 									style={{ textDecoration: 'underline' }}
 								>
 									sample.xlsx

@@ -58,11 +58,11 @@ export const columns = [
 	{
 		name: 'Price($)',
 		minWidth: '110px',
-		selector: 'price',
+		selector: 'price_ct',
 		sortable: true,
 		// center: true,
 		right: true,
-		cell: (row) => row.price.toLocaleString('en-US'),
+		cell: (row) => row.price_ct.toLocaleString('en-US'),
 	},
 	{
 		name: 'Certificate No',
@@ -93,7 +93,7 @@ export const columns = [
 
 	{
 		name: 'Cut',
-		minWidth: '40px',
+		minWidth: '130px',
 		selector: 'cut',
 		// sortable: true,
 		center: true,
