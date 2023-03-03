@@ -25,7 +25,7 @@ import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-const BASE_URL_API = 'http://192.168.1.19:8000';
+const BASE_URL_API = 'http://192.168.1.26:8000';
 // const BASE_URL_API = 'http://67.202.30.86';
 
 const ImagesUpload = () => {

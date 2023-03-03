@@ -58,11 +58,11 @@ export const columns = [
 	{
 		name: 'Price($)',
 		minWidth: '110px',
-		selector: 'price_ct',
+		selector: 'price',
 		sortable: true,
 		// center: true,
 		right: true,
-		cell: (row) => row.price_ct.toLocaleString('en-US'),
+		cell: (row) => row.price.toLocaleString('en-US'),
 	},
 	{
 		name: 'Certificate No',

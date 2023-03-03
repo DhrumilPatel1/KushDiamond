@@ -2,7 +2,7 @@
 	"name": "vuexy-react-admin-dashboard",
 	"version": "1.0.0",
 	"private": true,
-	"proxy": "http://192.168.1.19:8000",
+	"proxy": "http://192.168.1.26:8000",
 	"dependencies": {
 		"@casl/ability": "5.2.2",
 		"@casl/react": "2.1.1",
