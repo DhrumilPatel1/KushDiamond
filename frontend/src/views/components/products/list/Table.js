@@ -70,7 +70,7 @@ const ProductsList = (props) => {
 		const column = [
 			{
 				name: 'Title',
-				minWidth: '350px',
+				minWidth: '500px',
 				selector: 'title',
 				// sortable: true,
 				// center: true,
