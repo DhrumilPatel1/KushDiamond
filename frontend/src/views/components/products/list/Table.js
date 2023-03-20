@@ -85,14 +85,62 @@ const ProductsList = (props) => {
 				cell: (row) => row.sku,
 			},
 			{
+				name: 'Available Status',
+				minWidth: '180px',
+				selector: 'avalibity_status',
+				center: true,
+				cell: (row) =>
+					row.avalibity_status == 'True' ? (
+						<Badge color="success">YES</Badge>
+					) : (
+						<Badge color="danger">NO</Badge>
+					),
+			},
+			{
+				name: 'View Image',
+				minWidth: '130px',
+				cell: (row) => {
+					return (
+						<>
+							<div className="d-inline ">
+								{row?.product_images?.length > 0 ? (
+									<>
+										<Image
+											data-tip
+											data-for="view_gallery"
+											size={18}
+											className="outline-none text-dark ml-2"
+											onClick={() => props.clickOpenGallarey(row.product_images)}
+											style={{ cursor: 'pointer' }}
+										/>
+
+										<ReactTooltip
+											id="view_gallery"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											View Gallary
+										</ReactTooltip>
+									</>
+								) : (
+									<Image
+										size={18}
+										className="outline-none text-dark ml-2 gallary_disabled"
+										style={{ cursor: 'not-allowed' }}
+									/>
+								)}
+							</div>
+						</>
+					);
+				},
+			},
+			{
 				name: 'Shape',
-				minWidth: '50px',
+				minWidth: '60px',
 				selector: 'shape',
 				sortable: true,
 				center: true,
-				style: {
-					// marginLeft:169,
-				},
 				cell: (row) => row.shape,
 			},
 			{
@@ -245,18 +293,6 @@ const ProductsList = (props) => {
 				cell: (row) => row.shopify_product_id,
 			},
 
-			{
-				name: 'Available Status',
-				minWidth: '180px',
-				selector: 'avalibity_status',
-				center: true,
-				cell: (row) =>
-					row.avalibity_status == 'True' ? (
-						<Badge color="success">YES</Badge>
-					) : (
-						<Badge color="danger">NO</Badge>
-					),
-			},
 
 			{
 				name: 'Actions',
@@ -264,7 +300,7 @@ const ProductsList = (props) => {
 				cell: (row) => {
 					return (
 						<>
-							<div className="d-inline ">
+							{/* <div className="d-inline ">
 								{row?.product_images?.length > 0 ? (
 									<>
 										<Image
@@ -292,7 +328,7 @@ const ProductsList = (props) => {
 										style={{ cursor: 'not-allowed' }}
 									/>
 								)}
-							</div>
+							</div> */}
 
 							<Link to={`/products/detail/${row.id}`} className="text-primary">
 								<Eye size={18} className="ml-1 outline-none" data-tip data-for="view_product" />

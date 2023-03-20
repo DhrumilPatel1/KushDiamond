@@ -44,7 +44,7 @@ export default function productInventory() {
 								<span>Download: </span>
 								<a
 									// href="http://67.202.30.86/media/sample/sample2.xlsx"
-									href="http://192.168.1.33:8000/media/sample/sample2.xlsx"
+									href="http://192.168.1.103:8000/media/sample/sample2.xlsx"
 									style={{ textDecoration: 'underline' }}
 								>
 									sample.xlsx
