@@ -9,162 +9,205 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
-.sidebar-group-active{
+.sidebar-group-active {
 	display: flex;
 	align-items: center;
 }
-.main-menu-content{
+
+.main-menu-content {
 	display: flex;
 }
-.react-dataTable  .rdt_TableBody .rdt_TableRow .rdt_TableCell{
+
+.react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
 	height: 0 !important;
 }
+
 // .rdt_TableRow:nth-child(even){
 // 	background-color: #FAFAFA;
 // }
-#main-menu-navigation .nav-item .nav-link{
+#main-menu-navigation .nav-item .nav-link {
 	margin: -10px 0 -10px -14px;
 }
-#main-menu-navigation .nav-item{
+
+#main-menu-navigation .nav-item {
 	padding: 8px 20px 8px 0 !important;
 }
-.horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .nav-link{
+
+.horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation>li>.nav-link {
 	padding: 5px 20px !important;
 }
+
 .feed_select .select__control {
 	height: 29.99px !important;
 	min-height: 29.99px !important;
 	align-content: center;
 }
-.filter_button, .seed_button{
+
+.filter_button,
+.seed_button {
 	padding: 7px 10px;
 }
-.doBktq{
+
+.doBktq {
 	min-height: auto !important;
 }
-.deskboard_card{
+
+.deskboard_card {
 	margin: 0 !important;
 }
-.deskboard_card_body{
+
+.deskboard_card_body {
 	padding: 8px 15px;
 }
-.dropdown{
+
+.dropdown {
 	display: flex;
 }
-.footer-static{
+
+.footer-static {
 	padding: 0 2rem !important;
 }
-.navbar-nav{
+
+.navbar-nav {
 	align-items: center;
-	padding: 0  !important;
+	padding: 0 !important;
 }
-footer.footer{
+
+footer.footer {
 	min-height: 2rem;
 }
+
 .navbar-static .app-content {
 	padding: 10px 15px 0 15px !important;
 }
 
-.rdt_Pagination{
+.rdt_Pagination {
 	min-height: 0px !important;
 }
-.navbar-brand span{
+
+.navbar-brand span {
 	font-size: 20px;
 }
+
 .navbar-brand {
 	font-size: 24px;
 }
-.footer.footer-light.footer-static{
+
+.footer.footer-light.footer-static {
 	padding: 0 14px !important;
 }
-.footer.footer-light.footer-static p{
+
+.footer.footer-light.footer-static p {
 	line-height: 1.45;
 	margin-top: 10px;
 }
-.app-user-list .card{
+
+.app-user-list .card {
 	margin-bottom: 0;
 }
-#main-menu-navigation .nav-item:first-child .nav-link span{
+
+#main-menu-navigation .nav-item:first-child .nav-link span {
 	font-size: 20px;
 	align-self: end;
 }
+
 .invoice-list-table-header .btn {
 	padding: 7px 20px;
 	line-height: 1.2;
 	margin-bottom: 0;
 }
-.react-dataTable header{
+
+.react-dataTable header {
 	min-height: 8px;
 }
 
-.header_text_size{
+.header_text_size {
 	font-size: 15px;
 }
 
 
-.horizontal-menu .horizontal-menu-wrapper .header-navbar{
-min-height: 2.45rem !important;
+.horizontal-menu .horizontal-menu-wrapper .header-navbar {
+	min-height: 2.45rem !important;
 }
+
 [dir] .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
-    padding: 0.77rem 1.5rem !important;
+	padding: 0.77rem 1.5rem !important;
 }
 
 .horizontal-layout.navbar-static .content {
-    min-height: calc(100% - calc(4.45rem + calc(3.35rem + 3.15rem))) !important;
-}
-.label_width{
-	width: 70%;
-} 
-.stone_image_container img{
-	width: 230px;
-    height: 160px;
-    margin: 10px auto;
-    display: block;
-    object-fit: cover;
-	max-width: 100%;
-}
-.upload_btn{
-	margin: 0 auto;
-    display: block;
-}
-.dGqwdB{
-	border:  0 !important;
+	min-height: calc(100% - calc(4.45rem + calc(3.35rem + 3.15rem))) !important;
 }
 
-.product_search_button{
+.label_width {
+	width: 70%;
+}
+
+.stone_image_container img {
+	width: 230px;
+	height: 160px;
+	margin: 10px auto;
+	display: block;
+	object-fit: cover;
+	max-width: 100%;
+}
+
+.upload_btn {
+	margin: 0 auto;
+	display: block;
+}
+
+.dGqwdB {
+	border: 0 !important;
+}
+
+.product_search_button {
 	width: 27% !important;
 }
-.rdt_TableRow{
+
+.rdt_TableRow {
 	position: relative;
 }
+
 // .gIMaKV{
 // 	// overflow: scroll;
 // }
-.gIMaKV .gAaLCe{
+
+.table_height .gIMaKV {
+	height: 200px !important;
+}
+
+.gIMaKV .gAaLCe {
 	position: sticky !important;
-    left: 0 !important;
+	left: 0 !important;
 }
-.model_body{
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
+
+.model_body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
+
 // .modal-content{
 // 	height: 600px !important;
 // }
-.lg-img-wrap, .lg-video-loaded{
+.lg-img-wrap,
+.lg-video-loaded {
 	background-color: #000 !important;
 }
-.lg-content{
+
+.lg-content {
 	top: 7px !important;
 }
-.lg-thumb-outer{
+
+.lg-thumb-outer {
 	background-color: #000 !important;
 }
-.gallary_disabled, .trash_disabled{
 
-		pointer-events: none;
-		opacity: 0.4;
+.gallary_disabled,
+.trash_disabled {
+
+	pointer-events: none;
+	opacity: 0.4;
 
 }

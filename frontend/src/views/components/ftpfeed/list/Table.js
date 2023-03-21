@@ -66,6 +66,7 @@ const FtpFeedList = () => {
 	const dispatch = useDispatch();
 	const { ftpGetAllData, ftpFeedData } = useSelector((state) => state.Ftps);
 
+
 	// const { productData } = useSelector((state) => state.products);
 
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
@@ -79,11 +80,12 @@ const FtpFeedList = () => {
 	const [limit, setPerPage] = useState(datatable_per_page);
 
 	const [sort_order, setSort_order] = useState('desc');
+	const [toggledClearRows, setToggleClearRows] = useState(false);
 	const [filterColor, setFilterColor] = useState([]);
 	const [filterShape, setFilterShape] = useState([]);
 	const [filterCut, setFilterCut] = useState([]);
+	const [selectedRow, setSelectedRow] = useState();
 	const [colorLabelArray, setColorLabelArray] = useState([]);
-
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
 	const [selectedData, setSelectedData] = useState();
@@ -91,7 +93,7 @@ const FtpFeedList = () => {
 	const [ftpvalue, setFtpValue] = useState();
 
 	const [array, setArray] = useState([]);
-
+	console.log({ array })
 	const [showTable, setShowTable] = useState(false);
 
 	const table_data = {
@@ -123,11 +125,13 @@ const FtpFeedList = () => {
 	}, [ftpFeedData]);
 
 	useEffect(() => {
-		if (array) {
+		if (selectedRow) {
 			setShowTable(false);
-			setArray(array);
+			setSelectedRow(selectedRow)
 		}
-	}, [array.length]);
+	}, [selectedRow?.length]);
+
+
 
 	// useEffect(() => {
 	// 	dispatch(FtpGetDataDrowpDown());
@@ -166,7 +170,7 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `You want to feed these ${array?.length > 0 ? array?.length : ftpFeedData?.count} product in FTP feed.`,
+			text: `You want to feed these ${selectedRow?.length > 0 ? selectedRow?.length : ftpFeedData?.count} product in FTP feed.`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Send Feed',
@@ -178,26 +182,26 @@ const FtpFeedList = () => {
 		}).then((res) => {
 			if (res && res.isConfirmed) {
 				let ftpValues = ftpvalue?.map((ele) => ele.value);
-				let getSku = array?.map((ele) => ele.sku);
-				if (getSku?.length > 0) {
-					let ftpValuePass = {
+				let selectSku = selectedRow?.map((ele) => ele.sku)
+				if (selectSku?.length > 0) {
+					let selectSkuObj = {
 						ftp: ftpValues,
-						sku_list: getSku,
+						sku_list: selectSku,
 					};
-
 					setFtpValue([]);
-					// dispatch(sendFeed(ftpValuePass));
+					dispatch(sendFeed(selectSkuObj));
+					setSelectedRow(0)
+					setToggleClearRows(!toggledClearRows);
+					setShowTable(false)
 				} else {
 					let ftpValuePass = {
 						ftp: ftpValues,
 						sku_list: [],
 					};
-
 					setFtpValue([]);
-					// dispatch(sendFeed(ftpValuePass));
+					dispatch(sendFeed(ftpValuePass));
+					setShowTable(false)
 				}
-
-				// console.log({ ftpValuePass })
 				setFtpValue([]);
 
 			}
@@ -257,6 +261,10 @@ const FtpFeedList = () => {
 		setFilterCut(e);
 	};
 
+	const selectRows = (state) => {
+		setSelectedRow(state.selectedRows);
+	};
+
 	const sendFeedClick = () => {
 		toast.error(<ErrorToast />, {
 			// transition: Slide,
@@ -273,48 +281,51 @@ const FtpFeedList = () => {
 		});
 	};
 
-	const conditionalRowStyles = [
-		{
-			when: (row) => row.toggleSelected,
-			style: {
-				backgroundColor: 'green',
-				userSelect: 'none',
-				minHeight: '22px',
-				cursor: 'pointer',
-			},
-		},
-	];
+	// const conditionalRowStyles = [
+	// 	{
+	// 		when: (row) => row.toggleSelected,
+	// 		style: {
+	// 			backgroundColor: 'green',
+	// 			userSelect: 'none',
+	// 			minHeight: '22px',
+	// 			cursor: 'pointer',
+	// 		},
+	// 	},
+	// ];
 
-	const handleRowClicked = (row) => {
-		const updatedData = selectedData?.map((item) => {
-			if (row.id !== item.id) {
-				return item;
-			}
+	// const handleRowClicked = (row) => {
+	// 	const updatedData = selectedData?.map((item) => {
+	// 		if (row.id !== item.id) {
+	// 			return item;
+	// 		}
 
-			if (!item.toggleSelected == true) {
-				let getRecord = array?.find((ele) => ele.id === item.id);
-				if (!getRecord) {
-					setArray((oldArray) => [...oldArray, item]);
-				}
-			} else {
-				let getRecord = array?.find((ele) => ele.id === item.id);
-				setShowTable(false);
-				const index = array.indexOf(getRecord);
-				if (index > -1) {
-					array.splice(index, 1);
-				}
-			}
-			return {
-				...item,
-				toggleSelected: !item.toggleSelected,
-			};
-		});
+	// 		if (!item.toggleSelected == true) {
+	// 			let getRecord = array?.find((ele) => ele.id === item.id);
+	// 			if (!getRecord) {
+	// 				setArray((oldArray) => [...oldArray, item]);
+	// 			}
+	// 		} else {
+	// 			let getRecord = array?.find((ele) => ele.id === item.id);
+	// 			setShowTable(false);
+	// 			const index = array.indexOf(getRecord);
+	// 			if (index > -1) {
+	// 				array.splice(index, 1);
+	// 			}
+	// 		}
+	// 		return {
+	// 			...item,
+	// 			toggleSelected: !item.toggleSelected,
+	// 		};
+	// 	});
 
-		setSelectedData(updatedData);
-		showTable && Addtolist();
-	};
+	// 	setSelectedData(updatedData);
+	// 	showTable && Addtolist();
+	// };
 	const Addtolist = () => {
-		if (array.length >= 1) {
+		if (array?.length >= 1) {
+			setShowTable(true);
+		}
+		else if (selectedRow?.length >= 1) {
 			setShowTable(true);
 		} else {
 			setShowTable(false);
@@ -405,7 +416,7 @@ const FtpFeedList = () => {
 
 					<Row>
 						<Col xl="4 mt-2">
-							{array?.length > 0 ? (
+							{selectedRow?.length > 0 ? (
 								<Button.Ripple
 									size="sm"
 									onClick={() => Addtolist()}
@@ -423,19 +434,21 @@ const FtpFeedList = () => {
 					pagination
 					// subHeader
 					selectableRows
+					clearSelectedRows={toggledClearRows}
+					onSelectedRowsChange={selectRows}
 					responsive
 					paginationServer
 					columns={columns}
 					// data={ftpFeedData?.results}
 					data={selectedData}
-					onRowClicked={handleRowClicked}
+					// onRowClicked={handleRowClicked}
 					paginationTotalRows={ftpFeedData?.count}
 					paginationRowsPerPageOptions={datatable_per_raw}
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
-					conditionalRowStyles={conditionalRowStyles}
+					// conditionalRowStyles={conditionalRowStyles}
 					sortIcon={<ChevronDown />}
-					className="react-dataTable"
+					className={`react-dataTable ${selectedRow?.length > 0 ? "table_height" : ""}`}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
@@ -445,7 +458,7 @@ const FtpFeedList = () => {
 
 			<Col lg="1" md="3" className="pl-0 mt-2">
 				{/* <Label for="send feed"></Label> */}
-				{ftpvalue && ftpvalue.length > 0 && ftpFeedData?.results?.length > 0 ? (
+				{ftpvalue && ftpvalue?.length > 0 && ftpFeedData?.results?.length > 0 ? (
 					<Button.Ripple
 						type="submit"
 						size="sm"
@@ -475,22 +488,15 @@ const FtpFeedList = () => {
 					{/* <Card className="deskboard_card"> */}
 					<DataTable
 						noHeader
-						// pagination
-						// subHeader
 						responsive
 						// paginationServer
 						columns={columns}
 						// data={ftpFeedData?.results}
-						data={array}
-						// paginationRowsPerPageOptions={datatable_per_raw}
-						// onChangeRowsPerPage={handlePerRowsChange}
-						// onChangePage={handlePageChange}
-						// sortIcon={<ChevronDown />}
+						// data={selectedRow?.length > 0 ? selectedRow : array}
+						data={selectedRow}
 						className="react-dataTable"
 						fixedHeader
 						fixedHeaderScrollHeight={dynamicHeight}
-					// paginationPerPage={table_data.per_page}
-					// progressPending={ftpFeedData.length == 0 ? true : false}
 					/>
 					{/* </Card> */}
 				</div>
