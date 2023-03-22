@@ -8,7 +8,6 @@ import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { ChevronDown, Eye, Image, Plus, Share, Trash2, Upload } from 'react-feather';
 import DataTable from 'react-data-table-component';
-
 import { Card, Input, Row, Col, Label, Button, CardBody, FormGroup } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
@@ -28,6 +27,7 @@ import withReactContent from 'sweetalert2-react-content';
 import ReactTooltip from 'react-tooltip';
 import SingleUploadImg from '../SingleUploadImg';
 import { Badge } from 'reactstrap';
+import { selectThemeColors } from '@utils';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -39,13 +39,19 @@ const ProductsList = (props) => {
 	const { productData, isLoading } = useProductData();
 	const [selectedData, setSelectedData] = useState();
 	const [selectedStatusData, setSelectedStatusData] = useState();
+	const [availableStatus, setAvailableStatus] = useState();
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
-	const [filterColor, setFilterColor] = useState('');
-	const [filterShape, setFilterShape] = useState('');
+	const [checkStatus, setCheckStatus] = useState("");
 	const [filter_value, setFilter_value] = useState('');
-	const [filterCut, setFilterCut] = useState('');
 	const [columns, setColumns] = useState([]);
+
+
+	const statusOptions = [
+		{ value: '', label: 'Select Status' },
+		{ value: 'True', label: 'Available' },
+		{ value: 'False', label: 'NA' },
+	]
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
@@ -385,15 +391,13 @@ const ProductsList = (props) => {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
-		color: filterColor,
-		shape: filterShape,
-		cut: filterCut,
 		search: filter_value,
+		avalibity_status: checkStatus == "" ? "" : checkStatus,
 		order_column: 'created_at',
 	};
 
 	const [queryString, setQueryString] = useState(
-		`page=${table_data.page}&color=${table_data.color}&shape=${table_data.shape}&cut=${table_data.cut}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}`
+		`page=${table_data.page}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}&avalibity_status=${table_data.avalibity_status}`
 	);
 
 	useEffect(async () => {
@@ -425,9 +429,18 @@ const ProductsList = (props) => {
 		setFilter_value(value);
 	};
 
+	const handleCheckStatus = (e) => {
+		tableChangeHandler({
+			...table_data,
+			avalibity_status: e.value == '' ? '' : e.value
+		});
+		setCheckStatus(e)
+	}
+
 	const selectRows = (state) => {
 		setSelectedData(state.selectedRows);
 		setSelectedStatusData(state.selectedRows);
+		setAvailableStatus(state.selectedRows)
 	};
 
 	const multiDeleteData = (e, selectedData) => {
@@ -476,7 +489,32 @@ const ProductsList = (props) => {
 					id: multiid,
 					key: e.target.value,
 				};
+				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
+				setToggleClearRows(!toggledClearRows);
+			}
+			setToggleClearRows(!toggledClearRows);
+		});
+	};
 
+	const multiAvailableProduct = (e, selectAvailableStatus) => {
+		ToastSwal.fire({
+			title: 'Are you sure?',
+			text: 'These selected items will be marked as available',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((deleteRecord) => {
+			if (deleteRecord?.value) {
+				const multiid = selectAvailableStatus?.map((e) => e.id);
+				const multiDeleteIds = {
+					id: multiid,
+					key: e.target.value,
+				};
 				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
 				setToggleClearRows(!toggledClearRows);
 			}
@@ -515,9 +553,38 @@ const ProductsList = (props) => {
 									NA
 								</Button.Ripple>
 							) : null}
+
+							{availableStatus?.length > 0 ? (
+								<Button.Ripple
+									size="sm"
+									onClick={(e) => multiAvailableProduct(e, availableStatus)}
+									color="success"
+									className="ml-2"
+									value="avalible"
+									style={{ cursor: 'pointer' }}
+								>
+									Avalible
+								</Button.Ripple>
+							) : null}
 						</Col>
 
 						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
+
+							<Col lg="3">
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Status"
+									className="react-select feed_select"
+									name="status"
+									classNamePrefix="select"
+									options={statusOptions}
+									value={checkStatus}
+									onChange={(e) => handleCheckStatus(e)}
+								/>
+							</Col>
+
 							<Col lg="2" className="px-0">
 								<Button.Ripple
 									size="sm"

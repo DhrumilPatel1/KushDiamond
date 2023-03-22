@@ -9,27 +9,21 @@ import { ChevronDown, X } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
 	Card,
-	CardHeader,
-	CardTitle,
-	Input,
 	Row,
 	Col,
-	Label,
-	CustomInput,
 	Button,
 	CardBody,
-	FormGroup,
-	Form,
+	Badge
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
-import { productList, sendFeed } from '../../../../redux/productsSlice';
+import { sendFeed } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { selectThemeColors } from '@utils';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 // import toast from 'react-hot-toast';
-import { toast, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Avatar from '@components/avatar';
 import { FtpFeedRecordList, FtpGetDataDrowpDown } from '../../../../redux/FtpsSlice';
 
@@ -61,6 +55,20 @@ const ErrorToastFilter = () => (
 	</Fragment>
 );
 
+
+const AddProductToastMessage = () => (
+	<Fragment>
+		<div className="toastify-header">
+			<div className="title-wrapper">
+				<Avatar size="sm" color="success" icon={<X size={12} />} />
+			</div>
+			<span className="toast-title" style={{ fontWeight: '200' }}>
+				Product has been added to the table please check below to see
+			</span>
+		</div>
+	</Fragment>
+)
+
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
@@ -85,6 +93,7 @@ const FtpFeedList = () => {
 	const [filterShape, setFilterShape] = useState([]);
 	const [filterCut, setFilterCut] = useState([]);
 	const [selectedRow, setSelectedRow] = useState();
+	const [showTableArray, setShowTableArray] = useState()
 	const [colorLabelArray, setColorLabelArray] = useState([]);
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
@@ -92,8 +101,6 @@ const FtpFeedList = () => {
 
 	const [ftpvalue, setFtpValue] = useState();
 
-	const [array, setArray] = useState([]);
-	console.log({ array })
 	const [showTable, setShowTable] = useState(false);
 
 	const table_data = {
@@ -124,12 +131,12 @@ const FtpFeedList = () => {
 		}
 	}, [ftpFeedData]);
 
-	useEffect(() => {
-		if (selectedRow) {
-			setShowTable(false);
-			setSelectedRow(selectedRow)
-		}
-	}, [selectedRow?.length]);
+	// useEffect(() => {
+	// 	if (selectedRow) {
+	// 		// setShowTable(false);
+	// 		setSelectedRow(selectedRow)
+	// 	}
+	// }, [selectedRow?.length]);
 
 
 
@@ -170,7 +177,7 @@ const FtpFeedList = () => {
 	const openPopup = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: `You want to feed these ${selectedRow?.length > 0 ? selectedRow?.length : ftpFeedData?.count} product in FTP feed.`,
+			text: `You want to feed these ${showTableArray?.length > 0 ? showTableArray?.length : ftpFeedData?.count} product in FTP feed.`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Send Feed',
@@ -190,7 +197,7 @@ const FtpFeedList = () => {
 					};
 					setFtpValue([]);
 					dispatch(sendFeed(selectSkuObj));
-					setSelectedRow(0)
+					setShowTableArray(0)
 					setToggleClearRows(!toggledClearRows);
 					setShowTable(false)
 				} else {
@@ -322,11 +329,14 @@ const FtpFeedList = () => {
 	// 	showTable && Addtolist();
 	// };
 	const Addtolist = () => {
-		if (array?.length >= 1) {
+		if (selectedRow?.length >= 1) {
 			setShowTable(true);
-		}
-		else if (selectedRow?.length >= 1) {
-			setShowTable(true);
+			setShowTableArray(selectedRow)
+			toast.success(<AddProductToastMessage />, {
+				hideProgressBar: true,
+				autoClose: 2000,
+			})
+
 		} else {
 			setShowTable(false);
 		}
@@ -433,7 +443,7 @@ const FtpFeedList = () => {
 					noHeader
 					pagination
 					// subHeader
-					selectableRows
+					selectableRows={colorLabelArray?.length > 0 || shapLabelArray?.length > 0 || cutLabelArray?.length > 0 ? true : false}
 					clearSelectedRows={toggledClearRows}
 					onSelectedRowsChange={selectRows}
 					responsive
@@ -448,52 +458,57 @@ const FtpFeedList = () => {
 					onChangePage={handlePageChange}
 					// conditionalRowStyles={conditionalRowStyles}
 					sortIcon={<ChevronDown />}
-					className={`react-dataTable ${selectedRow?.length > 0 ? "table_height" : ""}`}
+					className={`react-dataTable ${selectedRow?.length > 0 ? "table_height iazphd" : ""}`}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
-				// progressPending={ftpFeedData.length == 0 ? true : false}
 				/>
 			</Card>
+			<Row>
 
-			<Col lg="1" md="3" className="pl-0 mt-2">
-				{/* <Label for="send feed"></Label> */}
-				{ftpvalue && ftpvalue?.length > 0 && ftpFeedData?.results?.length > 0 ? (
-					<Button.Ripple
-						type="submit"
-						size="sm"
-						color="relief-danger"
-						onClick={openPopup}
-						className="seed_button"
-						block
-					>
-						Send Feed
-					</Button.Ripple>
-				) : (
-					<Button.Ripple
-						type="submit"
-						size="sm"
-						color="relief-danger"
-						onClick={ftpFeedData?.results?.length == 0 ? () => sendFilter() : () => sendFeedClick()}
-						style={{ opacity: '0.6' }}
-						className="seed_button"
-						block
-					>
-						Send Feed
-					</Button.Ripple>
-				)}
-			</Col>
+				<Col lg="1" md="3" className="pl-1 mt-1">
+					{/* <Label for="send feed"></Label> */}
+					{ftpvalue && ftpvalue?.length > 0 && ftpFeedData?.results?.length > 0 ? (
+						<Button.Ripple
+							type="submit"
+							size="sm"
+							color="relief-danger"
+							onClick={openPopup}
+							className="seed_button"
+							block
+						>
+							Send Feed
+						</Button.Ripple>
+					) : (
+						<Button.Ripple
+							type="submit"
+							size="sm"
+							color="relief-danger"
+							onClick={ftpFeedData?.results?.length == 0 ? () => sendFilter() : () => sendFeedClick()}
+							style={{ opacity: '0.6' }}
+							className="seed_button"
+							block
+						>
+							Send Feed
+						</Button.Ripple>
+					)}
+				</Col>
+				<Col mb="3" className="pl-0" style={{ marginTop: "15px" }}>
+					{
+						showTableArray?.length > 0 ? (<Badge color="primary" style={{ padding: "8px 12px" }}>Total Products: {showTableArray?.length > 0 ? showTableArray?.length : ftpFeedData?.count}</Badge>) : null
+					}
+
+				</Col>
+			</Row>
 			{showTable && (
-				<div className="mt-4">
+				<div className="mt-1">
 					{/* <Card className="deskboard_card"> */}
 					<DataTable
 						noHeader
 						responsive
-						// paginationServer
 						columns={columns}
-						// data={ftpFeedData?.results}
 						// data={selectedRow?.length > 0 ? selectedRow : array}
-						data={selectedRow}
+						data={showTableArray}
 						className="react-dataTable"
 						fixedHeader
 						fixedHeaderScrollHeight={dynamicHeight}
