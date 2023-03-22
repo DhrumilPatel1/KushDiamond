@@ -386,13 +386,13 @@ const ProductsList = (props) => {
 
 		setColumns(column);
 	};
-
+	
 	const table_data = {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
 		search: filter_value,
-		avalibity_status: checkStatus == "" ? "" : checkStatus,
+		avalibity_status: checkStatus ? checkStatus.value : "",
 		order_column: 'created_at',
 	};
 
@@ -485,11 +485,11 @@ const ProductsList = (props) => {
 		}).then((deleteRecord) => {
 			if (deleteRecord?.value) {
 				const multiid = selectStatus?.map((e) => e.id);
-				const multiDeleteIds = {
+				const multiNAStatus = {
 					id: multiid,
 					key: e.target.value,
 				};
-				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
+				dispatch(ProductsMultiDeleteRequest(multiNAStatus));
 				setToggleClearRows(!toggledClearRows);
 			}
 			setToggleClearRows(!toggledClearRows);
@@ -511,11 +511,11 @@ const ProductsList = (props) => {
 		}).then((deleteRecord) => {
 			if (deleteRecord?.value) {
 				const multiid = selectAvailableStatus?.map((e) => e.id);
-				const multiDeleteIds = {
+				const multiAvailableStatus = {
 					id: multiid,
 					key: e.target.value,
 				};
-				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
+				dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
 				setToggleClearRows(!toggledClearRows);
 			}
 			setToggleClearRows(!toggledClearRows);
