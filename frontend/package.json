@@ -2,7 +2,7 @@
 	"name": "vuexy-react-admin-dashboard",
 	"version": "1.0.0",
 	"private": true,
-	"proxy": "http://192.168.1.103:8000",
+	"proxy": "http://192.168.1.85:8000",
 	"dependencies": {
 		"@casl/ability": "5.2.2",
 		"@casl/react": "2.1.1",
@@ -29,6 +29,7 @@
 		"chroma-js": "2.1.0",
 		"classnames": "2.2.6",
 		"cleave.js": "1.6.0",
+		"dotenv": "^16.0.3",
 		"draft-js": "0.11.7",
 		"draftjs-to-html": "0.9.1",
 		"file-saver": "2.0.2",

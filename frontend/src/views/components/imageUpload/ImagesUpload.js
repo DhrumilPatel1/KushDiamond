@@ -25,7 +25,7 @@ import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-const BASE_URL_API = 'http://192.168.1.103:8000';
+// const BASE_URL_API = 'http://192.168.1.103:8000';
 // const BASE_URL_API = 'http://67.202.30.86';
 
 const ImagesUpload = () => {
@@ -49,7 +49,7 @@ const ImagesUpload = () => {
 
 	const handleFileUpload = async (formData, dataArray) => {
 		try {
-			const result = await axios.post(`${BASE_URL_API}/api/uploadfile/`, formData, {
+			const result = await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/uploadfile/`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					Authorization: accessToken,

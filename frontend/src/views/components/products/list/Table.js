@@ -42,16 +42,15 @@ const ProductsList = (props) => {
 	const [availableStatus, setAvailableStatus] = useState();
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
-	const [checkStatus, setCheckStatus] = useState("");
+	const [checkStatus, setCheckStatus] = useState('');
 	const [filter_value, setFilter_value] = useState('');
 	const [columns, setColumns] = useState([]);
-
 
 	const statusOptions = [
 		{ value: '', label: 'Select Status' },
 		{ value: 'True', label: 'Available' },
 		{ value: 'False', label: 'NA' },
-	]
+	];
 
 	const handleDeleteById = (id) => {
 		ToastSwal.fire({
@@ -299,7 +298,6 @@ const ProductsList = (props) => {
 				cell: (row) => row.shopify_product_id,
 			},
 
-
 			{
 				name: 'Actions',
 				minWidth: '180px',
@@ -386,13 +384,13 @@ const ProductsList = (props) => {
 
 		setColumns(column);
 	};
-	
+
 	const table_data = {
 		page: 1,
 		per_page: limit,
 		sort_order: sort_order,
 		search: filter_value,
-		avalibity_status: checkStatus ? checkStatus.value : "",
+		avalibity_status: checkStatus ? checkStatus.value : '',
 		order_column: 'created_at',
 	};
 
@@ -432,15 +430,15 @@ const ProductsList = (props) => {
 	const handleCheckStatus = (e) => {
 		tableChangeHandler({
 			...table_data,
-			avalibity_status: e.value == '' ? '' : e.value
+			avalibity_status: e.value == '' ? '' : e.value,
 		});
-		setCheckStatus(e)
-	}
+		setCheckStatus(e);
+	};
 
 	const selectRows = (state) => {
 		setSelectedData(state.selectedRows);
 		setSelectedStatusData(state.selectedRows);
-		setAvailableStatus(state.selectedRows)
+		setAvailableStatus(state.selectedRows);
 	};
 
 	const multiDeleteData = (e, selectedData) => {
@@ -563,13 +561,12 @@ const ProductsList = (props) => {
 									value="avalible"
 									style={{ cursor: 'pointer' }}
 								>
-									Avalible
+									Available
 								</Button.Ripple>
 							) : null}
 						</Col>
 
 						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
-
 							<Col lg="3">
 								<Select
 									size="sm"

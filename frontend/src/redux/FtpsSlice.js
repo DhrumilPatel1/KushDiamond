@@ -16,6 +16,7 @@ export const FtpsSlice = createSlice({
 		isLoading: false,
 		ftpData: [],
 		ftpFeedData: [],
+		ftpfeedTotalCountData: [],
 		ftpViewData: [],
 		ftpCreateData: [],
 		ftpDeleteData: [],
@@ -37,6 +38,11 @@ export const FtpsSlice = createSlice({
 		ftpFeedDataList: (state, action) => {
 			state.isLoading = false;
 			state.ftpFeedData = action.payload;
+		},
+
+		ftpfeedTotalCountDataList: (state, action) => {
+			state.isLoading = false;
+			state.ftpfeedTotalCountData = action.payload;
 		},
 
 		ftpgetAllDatalist: (state, action) => {
@@ -82,6 +88,7 @@ export const FtpsSlice = createSlice({
 export const {
 	ftpGetData,
 	ftpFeedDataList,
+	ftpfeedTotalCountDataList,
 	ftpViewData,
 	ftpCreateData,
 	ftpUpdateData,
@@ -124,6 +131,22 @@ export const FtpFeedRecordList = (queryString) => async (dispatch, getState) => 
 		};
 		const { data } = await FtpFeedApi(queryString, config);
 		dispatch(ftpFeedDataList(data));
+	} catch (err) {
+		dispatch(ftpErrorList(err));
+	}
+};
+
+export const ftpfeedTotalCountRecordList = (queryString) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await FtpFeedApi(queryString, config);
+		dispatch(ftpfeedTotalCountDataList(data));
 	} catch (err) {
 		dispatch(ftpErrorList(err));
 	}
