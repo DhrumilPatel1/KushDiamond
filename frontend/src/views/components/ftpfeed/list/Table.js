@@ -7,7 +7,7 @@ import Select from 'react-select';
 // ** Third Party Components
 import { ChevronDown, X } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Row, Col, Button, CardBody, Badge } from 'reactstrap';
+import { Card, Row, Col, Button, CardBody, Badge, Input } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { FeedData, sendFeed } from '../../../../redux/productsSlice';
@@ -25,19 +25,6 @@ import {
 } from '../../../../redux/FtpsSlice';
 
 const OpenSwal = withReactContent(Swal);
-
-const ErrorToast = () => (
-	<Fragment>
-		<div className="toastify-header">
-			<div className="title-wrapper">
-				<Avatar size="sm" color="danger" icon={<X size={12} />} />
-			</div>
-			<span className="toast-title" style={{ fontWeight: '200' }}>
-				Please select client for FTP Feed &amp; color,shape or cut
-			</span>
-		</div>
-	</Fragment>
-);
 
 const ErrorToastFilter = () => (
 	<Fragment>
@@ -90,11 +77,27 @@ const FtpFeedList = () => {
 	const [colorLabelArray, setColorLabelArray] = useState([]);
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
-
+	const [filterRecord, setFilterRecord] = useState([]);
 	const [ftpvalue, setFtpValue] = useState();
-
 	const [showTable, setShowTable] = useState(false);
 	const [total, setTotal] = useState(false);
+	const [tableWidth, setTableWidth] = useState(false);
+	const [showTableWidth, setShowTableWidth] = useState(false);
+
+	const ErrorToast = () => (
+		<Fragment>
+			<div className="toastify-header">
+				<div className="title-wrapper">
+					<Avatar size="sm" color="danger" icon={<X size={12} />} />
+				</div>
+				<span className="toast-title" style={{ fontWeight: '200' }}>
+					{ftpvalue?.length > 0
+						? 'Please click Add all or Add Selected'
+						: 'Please select client for FTP Feed color,shape or cut'}
+				</span>
+			</div>
+		</Fragment>
+	);
 
 	const table_data = {
 		page: 1,
@@ -346,11 +349,24 @@ const FtpFeedList = () => {
 		);
 	};
 
+	// const onSetWidth = () => {
+	// 	setTableWidth(true);
+	// };
+
 	const resetAll = () => {
+		setShowTableWidth(false);
 		setShowTable(false);
 		setTotal(false);
 		setShowTableArray(0);
 		setToggleClearRows(!toggledClearRows);
+	};
+
+	const handleFilter = (e) => {
+		const getFilterRecord = ftpfeedTotalCountData?.results?.filter(
+			(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+		);
+
+		setFilterRecord(getFilterRecord);
 	};
 
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
@@ -442,7 +458,7 @@ const FtpFeedList = () => {
 								<Button.Ripple
 									size="sm"
 									onClick={() => Addtolist()}
-									className="btn-success"
+									className="btn-success seed_button"
 									style={{ cursor: 'pointer' }}
 								>
 									Add Selected
@@ -453,10 +469,31 @@ const FtpFeedList = () => {
 								<Button.Ripple
 									size="sm"
 									onClick={addAll}
-									className="btn-secondary ml-2"
+									className="btn-secondary seed_button ml-2"
 									style={{ cursor: 'pointer' }}
 								>
 									Add All
+								</Button.Ripple>
+							)}
+							{tableWidth == true ? (
+								<Button.Ripple
+									size="sm"
+									onClick={() => setTableWidth(false)}
+									className="seed_button ml-2"
+									color="primary"
+									style={{ cursor: 'pointer' }}
+								>
+									50% Width
+								</Button.Ripple>
+							) : (
+								<Button.Ripple
+									size="sm"
+									onClick={() => setTableWidth(true)}
+									className="seed_button ml-2"
+									color="primary"
+									style={{ cursor: 'pointer' }}
+								>
+									100% Width
 								</Button.Ripple>
 							)}
 						</Col>
@@ -485,7 +522,7 @@ const FtpFeedList = () => {
 					onChangePage={handlePageChange}
 					// conditionalRowStyles={conditionalRowStyles}
 					sortIcon={<ChevronDown />}
-					className={`react-dataTable ${selectedRow?.length > 0 ? 'table_height iazphd' : ''}`}
+					className={`react-dataTable ${tableWidth == true ? 'table_height iazphd' : ''}`}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
@@ -502,7 +539,10 @@ const FtpFeedList = () => {
 								{/* <Col lg="3" className="pl-1 mt-1"> */}
 								<Col lg="2">
 									{/* <Label for="send feed"></Label> */}
-									{ftpvalue && ftpvalue?.length > 0 && ftpFeedData?.results?.length > 0 ? (
+									{ftpvalue &&
+									ftpvalue?.length > 0 &&
+									ftpFeedData?.results?.length > 0 &&
+									showTable == true ? (
 										<Button.Ripple
 											type="submit"
 											size="sm"
@@ -542,7 +582,7 @@ const FtpFeedList = () => {
 									) : null}
 								</Col>
 
-								<Col lg="2">
+								<Col lg="1">
 									{showTable == true ? (
 										<Button.Ripple
 											size="sm"
@@ -554,6 +594,46 @@ const FtpFeedList = () => {
 										</Button.Ripple>
 									) : null}
 								</Col>
+
+								<Col lg="2">
+									{showTable == true ? (
+										showTableWidth == true ? (
+											<Button.Ripple
+												size="sm"
+												onClick={() => setShowTableWidth(false)}
+												className="btn-primary seed_button ml-2"
+												color="primary"
+												style={{ cursor: 'pointer' }}
+											>
+												50% Width
+											</Button.Ripple>
+										) : (
+											<Button.Ripple
+												size="sm"
+												onClick={() => setShowTableWidth(true)}
+												className="btn-primary seed_button ml-2"
+												color="primary"
+												style={{ cursor: 'pointer' }}
+											>
+												100% Width
+											</Button.Ripple>
+										)
+									) : null}
+								</Col>
+
+								{showTable && (
+									<Col lg="4">
+										<Input
+											id="search"
+											className="w-100 form-control-sm"
+											type="text"
+											size="sm"
+											name="search"
+											onChange={handleFilter}
+											placeholder="Search"
+										/>
+									</Col>
+								)}
 							</Col>
 						</Row>
 					</CardBody>
@@ -567,9 +647,16 @@ const FtpFeedList = () => {
 						noHeader
 						responsive
 						columns={columns}
-						// data={selectedRow?.length > 0 ? selectedRow : array}
-						data={showTableArray?.length > 0 ? showTableArray : ftpfeedTotalCountData?.results}
-						className="react-dataTable mb-0"
+						data={
+							showTableArray?.length > 0
+								? showTableArray
+								: filterRecord?.length > 0
+								? filterRecord
+								: ftpfeedTotalCountData?.results?.length > 0
+								? ftpfeedTotalCountData?.results
+								: []
+						}
+						className={`react-dataTable ${showTableWidth == true ? 'table_height iazphd' : ''}`}
 						fixedHeader
 						fixedHeaderScrollHeight={dynamicHeight}
 					/>

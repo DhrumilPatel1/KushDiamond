@@ -498,7 +498,7 @@ const ProductsList = (props) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
 			text: 'These selected items will be marked as available',
-			icon: 'warning',
+			icon: 'success',
 			showCancelButton: true,
 			confirmButtonText: 'Yes',
 			customClass: {
