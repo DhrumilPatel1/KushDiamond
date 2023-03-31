@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 import Avatar from '@components/avatar';
 import {
 	FtpFeedRecordList,
+	ftpFeedResestData,
 	ftpfeedTotalCountRecordList,
 	FtpGetDataDrowpDown,
 } from '../../../../redux/FtpsSlice';
@@ -55,7 +56,9 @@ const AddProductToastMessage = () => (
 const FtpFeedList = () => {
 	// ** Store Vars
 	const dispatch = useDispatch();
-	const { ftpGetAllData, ftpFeedData, ftpfeedTotalCountData } = useSelector((state) => state.Ftps);
+	const { ftpGetAllData, ftpFeedData, ftpfeedTotalCountData, isLoading } = useSelector(
+		(state) => state.Ftps
+	);
 
 	const getAllDropdownValue = ftpGetAllData.ftp_data?.map((item) => item);
 
@@ -75,9 +78,11 @@ const FtpFeedList = () => {
 	const [selectedRow, setSelectedRow] = useState();
 	const [showTableArray, setShowTableArray] = useState();
 	const [colorLabelArray, setColorLabelArray] = useState([]);
+	console.log(colorLabelArray?.length);
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
 	const [filterRecord, setFilterRecord] = useState([]);
+	console.log({ filterRecord });
 	const [ftpvalue, setFtpValue] = useState();
 	const [showTable, setShowTable] = useState(false);
 	const [total, setTotal] = useState(false);
@@ -119,7 +124,13 @@ const FtpFeedList = () => {
 
 	useEffect(() => {
 		dispatch(FtpFeedRecordList(queryString));
-	}, [dispatch, queryString]);
+		if (ftpfeedTotalCountData?.count > 0) {
+			setFilterRecord(ftpfeedTotalCountData?.results);
+		}
+		if (showTableArray?.length > 0) {
+			setFilterRecord(showTableArray);
+		}
+	}, [dispatch, queryString, ftpfeedTotalCountData, showTableArray]);
 
 	// useEffect(() => {
 	// 	if (ftpFeedData?.results) {
@@ -229,6 +240,7 @@ const FtpFeedList = () => {
 
 		setColorLabelArray(getColorLabel.join(','));
 		setFilterColor(e);
+		// dispatch(ftpFeedResestData());
 	};
 
 	const handleShape = (e, colorLabelArray, cutLabelArray) => {
@@ -330,6 +342,7 @@ const FtpFeedList = () => {
 		if (selectedRow?.length >= 1) {
 			setShowTable(true);
 			setShowTableArray(selectedRow);
+			setFilterRecord(selectedRow);
 			toast.success(<AddProductToastMessage />, {
 				hideProgressBar: true,
 				autoClose: 2000,
@@ -347,6 +360,7 @@ const FtpFeedList = () => {
 				`color__in=${table_data.color__in}&shape__in=${table_data.shape__in}&cut__in=${table_data.cut__in}&per_page=${ftpFeedData?.count}&order_column=${table_data.order_column}`
 			)
 		);
+		setFilterRecord(ftpfeedTotalCountData?.results);
 	};
 
 	// const onSetWidth = () => {
@@ -354,6 +368,8 @@ const FtpFeedList = () => {
 	// };
 
 	const resetAll = () => {
+		setFilterRecord(0);
+		dispatch(ftpFeedResestData());
 		setShowTableWidth(false);
 		setShowTable(false);
 		setTotal(false);
@@ -362,11 +378,17 @@ const FtpFeedList = () => {
 	};
 
 	const handleFilter = (e) => {
-		const getFilterRecord = ftpfeedTotalCountData?.results?.filter(
-			(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-		);
-
-		setFilterRecord(getFilterRecord);
+		if (ftpfeedTotalCountData?.results) {
+			const getFilterFtpFeedRecord = ftpfeedTotalCountData?.results?.filter(
+				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+			);
+			setFilterRecord(getFilterFtpFeedRecord);
+		} else {
+			const getFilterFtpFeedRecord = showTableArray?.filter(
+				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+			);
+			setFilterRecord(getFilterFtpFeedRecord);
+		}
 	};
 
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
@@ -648,15 +670,17 @@ const FtpFeedList = () => {
 						responsive
 						columns={columns}
 						data={
-							showTableArray?.length > 0
-								? showTableArray
-								: filterRecord?.length > 0
-								? filterRecord
-								: ftpfeedTotalCountData?.results?.length > 0
-								? ftpfeedTotalCountData?.results
-								: []
+							// showTableArray?.length > 0
+							// 	? showTableArray
+							// 	: filterRecord?.length > 0
+							// 	? filterRecord
+							// 	: ftpfeedTotalCountData?.results?.length > 0
+							// 	? ftpfeedTotalCountData?.results
+							// 	: []
+							filterRecord?.length > 0 ? filterRecord : []
 						}
 						className={`react-dataTable ${showTableWidth == true ? 'table_height iazphd' : ''}`}
+						progressPending={isLoading}
 						fixedHeader
 						fixedHeaderScrollHeight={dynamicHeight}
 					/>

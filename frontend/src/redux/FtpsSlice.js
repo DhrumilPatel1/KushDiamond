@@ -82,6 +82,11 @@ export const FtpsSlice = createSlice({
 			state.ftpUpdateData = [];
 			state.FtpCreateError = [];
 		},
+		ftpFeedResestData: (state) => {
+			state.isLoading = false;
+			state.error = null;
+			state.ftpfeedTotalCountData = [];
+		},
 	},
 });
 
@@ -99,6 +104,7 @@ export const {
 	createSuccess,
 	ftpResetAuth,
 	FtpCreateError,
+	ftpFeedResestData
 } = FtpsSlice.actions;
 
 export default FtpsSlice.reducer;
