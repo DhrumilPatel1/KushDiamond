@@ -78,7 +78,6 @@ const FtpFeedList = () => {
 	const [selectedRow, setSelectedRow] = useState();
 	const [showTableArray, setShowTableArray] = useState();
 	const [colorLabelArray, setColorLabelArray] = useState([]);
-	console.log(colorLabelArray?.length);
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
 	const [filterRecord, setFilterRecord] = useState([]);
@@ -88,6 +87,8 @@ const FtpFeedList = () => {
 	const [total, setTotal] = useState(false);
 	const [tableWidth, setTableWidth] = useState(false);
 	const [showTableWidth, setShowTableWidth] = useState(false);
+	const [rowArray, setRowArray] = useState([]);
+	console.log({ rowArray });
 
 	const ErrorToast = () => (
 		<Fragment>
@@ -126,9 +127,11 @@ const FtpFeedList = () => {
 		dispatch(FtpFeedRecordList(queryString));
 		if (ftpfeedTotalCountData?.count > 0) {
 			setFilterRecord(ftpfeedTotalCountData?.results);
+			// setRowArray(0);
 		}
 		if (showTableArray?.length > 0) {
 			setFilterRecord(showTableArray);
+			setRowArray([]);
 		}
 	}, [dispatch, queryString, ftpfeedTotalCountData, showTableArray]);
 
@@ -164,10 +167,6 @@ const FtpFeedList = () => {
 		setQueryString(queryStr);
 	};
 
-	const filterSubmit = (e) => {
-		e.preventDefault();
-	};
-
 	const handleChange = (e) => {
 		setFtpValue(e);
 	};
@@ -176,7 +175,8 @@ const FtpFeedList = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
 			text: `You want to feed these ${
-				showTableArray?.length > 0 ? showTableArray?.length : ftpFeedData?.count
+				// showTableArray?.length > 0 ? showTableArray?.length : ftpFeedData?.count
+				filterRecord?.length
 			} product in FTP feed.`,
 			icon: 'warning',
 			showCancelButton: true,
@@ -189,36 +189,49 @@ const FtpFeedList = () => {
 		}).then((res) => {
 			if (res && res.isConfirmed) {
 				let ftpValues = ftpvalue?.map((ele) => ele.value);
-				let selectSku = selectedRow?.map((ele) => ele.sku);
-				let totalSku = ftpfeedTotalCountData?.results?.map((ele) => ele.sku);
-				if (selectSku?.length > 0) {
+				// let selectSku = selectedRow?.map((ele) => ele.sku);
+				// let totalSku = ftpfeedTotalCountData?.results?.map((ele) => ele.sku);
+				let totalfilterRecordSku = filterRecord?.map((ele) => ele.sku);
+				if (totalfilterRecordSku?.length > 0) {
 					let selectSkuObj = {
 						ftp: ftpValues,
-						sku_list: selectSku,
+						sku_list: totalfilterRecordSku,
 					};
+					// console.log({ selectSkuObj });
 					setFtpValue([]);
 					dispatch(sendFeed(selectSkuObj));
-					setShowTableArray(0);
+					setFilterRecord(0);
 					setToggleClearRows(!toggledClearRows);
 					setShowTable(false);
-				} else if (totalSku?.length > 0) {
-					let ftpValuePass = {
-						ftp: ftpValues,
-						sku_list: totalSku,
-					};
-					setFtpValue([]);
-					setTotal(false);
-					dispatch(sendFeed(ftpValuePass));
-					setShowTable(false);
-				} else {
-					let ftpObj = {
-						ftp: ftpValues,
-						sku_list: [],
-					};
-					setFtpValue([]);
-					dispatch(sendFeed(ftpObj));
-					setShowTable(false);
 				}
+				// if (selectSku?.length > 0) {
+				// 	let selectSkuObj = {
+				// 		ftp: ftpValues,
+				// 		sku_list: selectSku,
+				// 	};
+				// 	setFtpValue([]);
+				// 	dispatch(sendFeed(selectSkuObj));
+				// 	setShowTableArray(0);
+				// 	setToggleClearRows(!toggledClearRows);
+				// 	setShowTable(false);
+				// } else if (totalSku?.length > 0) {
+				// 	let ftpValuePass = {
+				// 		ftp: ftpValues,
+				// 		sku_list: totalSku,
+				// 	};
+				// 	setFtpValue([]);
+				// 	setTotal(false);
+				// 	dispatch(sendFeed(ftpValuePass));
+				// 	setShowTable(false);
+				// } else {
+				// 	let ftpObj = {
+				// 		ftp: ftpValues,
+				// 		sku_list: [],
+				// 	};
+				// 	setFtpValue([]);
+				// 	dispatch(sendFeed(ftpObj));
+				// 	setShowTable(false);
+				// }
 				setFtpValue([]);
 			}
 		});
@@ -298,51 +311,61 @@ const FtpFeedList = () => {
 		});
 	};
 
-	// const conditionalRowStyles = [
-	// 	{
-	// 		when: (row) => row.toggleSelected,
-	// 		style: {
-	// 			backgroundColor: 'green',
-	// 			userSelect: 'none',
-	// 			minHeight: '22px',
-	// 			cursor: 'pointer',
-	// 		},
-	// 	},
-	// ];
+	const conditionalRowStyles = [
+		{
+			when: (row) => row.toggleSelected,
+			style: {
+				backgroundColor: 'green',
+				userSelect: 'none',
+				minHeight: '22px',
+				cursor: 'pointer',
+			},
+		},
+	];
 
-	// const handleRowClicked = (row) => {
-	// 	const updatedData = selectedData?.map((item) => {
-	// 		if (row.id !== item.id) {
-	// 			return item;
-	// 		}
+	const handleRowClicked = (row) => {
+		const updatedData = filterRecord?.map((item) => {
+			if (row.id !== item.id) {
+				return item;
+			} else if (!item.toggleSelected == true) {
+				// if (rowArray == 0) {
+				// 	setRowArray(rowArray);
+				// } else {
+				// 	let getRecord = rowArray?.find((ele) => ele.id === item.id);
+				// 	if (!getRecord) {
+				// 		setRowArray((oldArray) => [...oldArray, item]);
+				// 	}
+				// }
 
-	// 		if (!item.toggleSelected == true) {
-	// 			let getRecord = array?.find((ele) => ele.id === item.id);
-	// 			if (!getRecord) {
-	// 				setArray((oldArray) => [...oldArray, item]);
-	// 			}
-	// 		} else {
-	// 			let getRecord = array?.find((ele) => ele.id === item.id);
-	// 			setShowTable(false);
-	// 			const index = array.indexOf(getRecord);
-	// 			if (index > -1) {
-	// 				array.splice(index, 1);
-	// 			}
-	// 		}
-	// 		return {
-	// 			...item,
-	// 			toggleSelected: !item.toggleSelected,
-	// 		};
-	// 	});
+				setRowArray((oldArray) => [...oldArray, item]);
 
-	// 	setSelectedData(updatedData);
-	// 	showTable && Addtolist();
-	// };
+				// let getRecord = rowArray?.find((ele) => ele.id === item.id);
+				// console.log({getRecord})
+				// if (!getRecord) {
+				// 	setRowArray((oldArray) => [...oldArray, item]);
+				// }
+			} else {
+				let getRecord = rowArray?.find((ele) => ele.id === item.id);
+				const index = rowArray.indexOf(getRecord);
+				if (index > -1) {
+					rowArray.splice(index, 1);
+				}
+			}
+			return {
+				...item,
+				toggleSelected: !item.toggleSelected,
+			};
+		});
+
+		setFilterRecord(updatedData);
+		// showTable && Addtolist();
+	};
 	const Addtolist = () => {
 		if (selectedRow?.length >= 1) {
 			setShowTable(true);
 			setShowTableArray(selectedRow);
 			setFilterRecord(selectedRow);
+			setRowArray([]);
 			toast.success(<AddProductToastMessage />, {
 				hideProgressBar: true,
 				autoClose: 2000,
@@ -363,9 +386,30 @@ const FtpFeedList = () => {
 		setFilterRecord(ftpfeedTotalCountData?.results);
 	};
 
-	// const onSetWidth = () => {
-	// 	setTableWidth(true);
-	// };
+	const multiRowDelete = () => {
+		OpenSwal.fire({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover This data!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Send Feed',
+			customClass: {
+				confirmButton: 'btn btn-primary',
+				cancelButton: 'btn btn-outline-danger ml-1',
+			},
+			buttonsStyling: false,
+		}).then((res) => {
+			if (res && res.isConfirmed) {
+				const deleteRow = filterRecord.filter(
+					({ id: ele }) => !rowArray.some(({ id: item }) => item === ele)
+				);
+
+				setFilterRecord(deleteRow);
+				setRowArray([]);
+				setToggleClearRows(!toggledClearRows);
+			}
+		});
+	};
 
 	const resetAll = () => {
 		setFilterRecord(0);
@@ -375,6 +419,7 @@ const FtpFeedList = () => {
 		setTotal(false);
 		setShowTableArray(0);
 		setToggleClearRows(!toggledClearRows);
+		setRowArray([]);
 	};
 
 	const handleFilter = (e) => {
@@ -382,11 +427,13 @@ const FtpFeedList = () => {
 			const getFilterFtpFeedRecord = ftpfeedTotalCountData?.results?.filter(
 				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
 			);
+
 			setFilterRecord(getFilterFtpFeedRecord);
-		} else {
+		} else if (showTableArray?.length > 0) {
 			const getFilterFtpFeedRecord = showTableArray?.filter(
 				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
 			);
+
 			setFilterRecord(getFilterFtpFeedRecord);
 		}
 	};
@@ -396,7 +443,6 @@ const FtpFeedList = () => {
 		<Fragment>
 			<Card className="deskboard_card">
 				<CardBody className="deskboard_card_body">
-					{/* <Form onSubmit={(e) => filterSubmit(e)}> */}
 					<Row>
 						<Col lg="3" md="6">
 							<Select
@@ -459,19 +505,6 @@ const FtpFeedList = () => {
 								onChange={(e) => handleCut(e, colorLabelArray, shapLabelArray)}
 							/>
 						</Col>
-
-						{/* <Col lg="1" md="3">
-								
-								<Button.Ripple
-									type="submit"
-									size="sm"
-									color="relief-primary"
-									className="filter_button"
-									block
-								>
-									Filter
-								</Button.Ripple>
-							</Col> */}
 					</Row>
 
 					<Row>
@@ -544,7 +577,9 @@ const FtpFeedList = () => {
 					onChangePage={handlePageChange}
 					// conditionalRowStyles={conditionalRowStyles}
 					sortIcon={<ChevronDown />}
-					className={`react-dataTable ${tableWidth == true ? 'table_height iazphd' : ''}`}
+					className={`react-dataTable datatalbe_bg_color ${
+						tableWidth == true ? 'table_height iazphd' : ''
+					}`}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}
@@ -563,7 +598,7 @@ const FtpFeedList = () => {
 									{/* <Label for="send feed"></Label> */}
 									{ftpvalue &&
 									ftpvalue?.length > 0 &&
-									ftpFeedData?.results?.length > 0 &&
+									filterRecord?.length > 0 &&
 									showTable == true ? (
 										<Button.Ripple
 											type="submit"
@@ -593,13 +628,28 @@ const FtpFeedList = () => {
 										</Button.Ripple>
 									)}
 								</Col>
+								{rowArray?.length > 0 ? (
+									<Col lg="2">
+										<Button.Ripple
+											type="submit"
+											size="sm"
+											color="relief-danger"
+											onClick={multiRowDelete}
+											className="seed_button"
+										>
+											Row Delete
+										</Button.Ripple>
+									</Col>
+								) : null}
+
 								<Col lg="2">
-									{total == true || showTableArray?.length > 0 ? (
+									{filterRecord?.length > 0 ? (
 										<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
 											Total Products:{' '}
-											{showTableArray?.length > 0
+											{/* {showTableArray?.length > 0
 												? showTableArray?.length
-												: ftpfeedTotalCountData?.count}
+												: ftpfeedTotalCountData?.count} */}
+											{filterRecord?.length}
 										</Badge>
 									) : null}
 								</Col>
@@ -679,7 +729,11 @@ const FtpFeedList = () => {
 							// 	: []
 							filterRecord?.length > 0 ? filterRecord : []
 						}
-						className={`react-dataTable ${showTableWidth == true ? 'table_height iazphd' : ''}`}
+						onRowClicked={handleRowClicked}
+						className={`react-dataTable show_datatable ${
+							showTableWidth == true ? 'table_height iazphd' : ''
+						}`}
+						conditionalRowStyles={conditionalRowStyles}
 						progressPending={isLoading}
 						fixedHeader
 						fixedHeaderScrollHeight={dynamicHeight}

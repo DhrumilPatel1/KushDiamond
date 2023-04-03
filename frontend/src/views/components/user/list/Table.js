@@ -110,7 +110,7 @@ const UserList = () => {
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
-					className="react-dataTable"
+					className="react-dataTable datatalbe_bg_color"
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 					paginationPerPage={table_data.per_page}

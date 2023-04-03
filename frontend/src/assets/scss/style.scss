@@ -22,8 +22,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	height: 0 !important;
 }
 
-.rdt_TableRow:nth-child(even){
-	background-color: #FAFAFA;
+.datatalbe_bg_color .rdt_TableRow:nth-child(even) {
+	background-color: #fafafa;
 }
 #main-menu-navigation .nav-item .nav-link {
 	margin: -10px 0 -10px -14px;
@@ -33,7 +33,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	padding: 8px 20px 8px 0 !important;
 }
 
-.horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation>li>.nav-link {
+.horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .nav-link {
 	padding: 5px 20px !important;
 }
 
@@ -125,7 +125,6 @@ footer.footer {
 	font-size: 15px;
 }
 
-
 .horizontal-menu .horizontal-menu-wrapper .header-navbar {
 	min-height: 2.45rem !important;
 }
@@ -175,7 +174,7 @@ footer.footer {
 .table_height .gIMaKV {
 	height: 200px !important;
 }
-.table_height .iazphd{
+.table_height .iazphd {
 	height: 200px !important;
 }
 
@@ -209,8 +208,6 @@ footer.footer {
 
 .gallary_disabled,
 .trash_disabled {
-
 	pointer-events: none;
 	opacity: 0.4;
-
 }

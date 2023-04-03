@@ -647,7 +647,7 @@ const ProductsList = (props) => {
 					onChangeRowsPerPage={handlePerRowsChange}
 					onChangePage={handlePageChange}
 					sortIcon={<ChevronDown />}
-					className="react-dataTable"
+					className="react-dataTable datatalbe_bg_color"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
 					fixedHeader
