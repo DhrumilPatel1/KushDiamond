@@ -62,7 +62,7 @@ export const columns = [
 		sortable: true,
 		// center: true,
 		right: true,
-		cell: (row) => row.price.toLocaleString('en-US'),
+		cell: (row) => row.price?.toLocaleString('en-US'),
 	},
 	{
 		name: 'Certificate No',

@@ -10,6 +10,7 @@ import {
 	ProductsDetailApi,
 	ProductsMultiDeleteApi,
 	SendFeedAPI,
+	VideoSirvUploadApi,
 } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -28,6 +29,7 @@ export const productsSlice = createSlice({
 		productData: [],
 		productViewData: [],
 		ImageUploaFileData: [],
+		VideoUploaFileData: [],
 		imageuploadDeleteData: [],
 		MultiDeleteData: [],
 		excelTypeOne: [],
@@ -62,6 +64,11 @@ export const productsSlice = createSlice({
 		ImageUploaFileData: (state, action) => {
 			state.isLoading = false;
 			state.ImageUploaFileData = action.payload;
+		},
+
+		VideoUploaFile: (state, action) => {
+			state.isLoading = false;
+			state.VideoUploaFileData = action.payload;
 		},
 
 		ImageUploadDataDeleteList: (state, action) => {
@@ -108,6 +115,7 @@ export const {
 	productGetData,
 	productViewData,
 	ImageUploaFileData,
+	VideoUploaFile,
 	ImageUploadDataDeleteList,
 	MultiDataDeleteList,
 	handleErrorList,
@@ -173,6 +181,37 @@ export const ImagesUploadRequest = (img_upload) => async (dispatch, getState) =>
 		// } else {
 		// 	return dispatch(handleErrorList(error.message));
 		// }
+	}
+};
+
+export const VideoSirvUploadRequest = (video_upload) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your folder is Uploading...');
+
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await VideoSirvUploadApi(video_upload, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(VideoUploaFile(data));
+		}
+	} catch (error) {
+		const { statusCode, errors } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorList(errors));
+			toast.error(errors.message, {
+				id: toastId,
+			});
+		}
 	}
 };
 

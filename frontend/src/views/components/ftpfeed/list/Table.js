@@ -81,14 +81,13 @@ const FtpFeedList = () => {
 	const [shapLabelArray, setShapeLabelArray] = useState([]);
 	const [cutLabelArray, setCutLabelArray] = useState([]);
 	const [filterRecord, setFilterRecord] = useState([]);
-	console.log({ filterRecord });
+	const [extendData, setExtendData] = useState([]);
 	const [ftpvalue, setFtpValue] = useState();
 	const [showTable, setShowTable] = useState(false);
 	const [total, setTotal] = useState(false);
 	const [tableWidth, setTableWidth] = useState(false);
 	const [showTableWidth, setShowTableWidth] = useState(false);
 	const [rowArray, setRowArray] = useState([]);
-	console.log({ rowArray });
 
 	const ErrorToast = () => (
 		<Fragment>
@@ -127,10 +126,12 @@ const FtpFeedList = () => {
 		dispatch(FtpFeedRecordList(queryString));
 		if (ftpfeedTotalCountData?.count > 0) {
 			setFilterRecord(ftpfeedTotalCountData?.results);
+			setExtendData(ftpfeedTotalCountData?.results);
 			// setRowArray(0);
 		}
 		if (showTableArray?.length > 0) {
 			setFilterRecord(showTableArray);
+			setExtendData(showTableArray);
 			setRowArray([]);
 		}
 	}, [dispatch, queryString, ftpfeedTotalCountData, showTableArray]);
@@ -315,7 +316,7 @@ const FtpFeedList = () => {
 		{
 			when: (row) => row.toggleSelected,
 			style: {
-				backgroundColor: 'green',
+				backgroundColor: 'lightgray',
 				userSelect: 'none',
 				minHeight: '22px',
 				cursor: 'pointer',
@@ -365,6 +366,8 @@ const FtpFeedList = () => {
 			setShowTable(true);
 			setShowTableArray(selectedRow);
 			setFilterRecord(selectedRow);
+			setExtendData(selectedRow);
+			// setFilterRecord((oldArray) => [...oldArray, selectedRow])
 			setRowArray([]);
 			toast.success(<AddProductToastMessage />, {
 				hideProgressBar: true,
@@ -384,15 +387,15 @@ const FtpFeedList = () => {
 			)
 		);
 		setFilterRecord(ftpfeedTotalCountData?.results);
+		setExtendData(ftpfeedTotalCountData?.results);
 	};
 
 	const multiRowDelete = () => {
 		OpenSwal.fire({
 			title: 'Are you sure?',
-			text: 'Once deleted, you will not be able to recover This data!',
-			icon: 'warning',
+			text: 'Do you want to remove?',
 			showCancelButton: true,
-			confirmButtonText: 'Send Feed',
+			confirmButtonText: 'Yes',
 			customClass: {
 				confirmButton: 'btn btn-primary',
 				cancelButton: 'btn btn-outline-danger ml-1',
@@ -405,6 +408,7 @@ const FtpFeedList = () => {
 				);
 
 				setFilterRecord(deleteRow);
+				setExtendData(deleteRow);
 				setRowArray([]);
 				setToggleClearRows(!toggledClearRows);
 			}
@@ -423,19 +427,13 @@ const FtpFeedList = () => {
 	};
 
 	const handleFilter = (e) => {
-		if (ftpfeedTotalCountData?.results) {
-			const getFilterFtpFeedRecord = ftpfeedTotalCountData?.results?.filter(
-				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-			);
+		const getFilterFtpFeedRecord =
+			e.target.value == '' || e.target.value == null
+				? extendData
+				: filterRecord &&
+				  filterRecord.filter((ele) => ele.sku.toLowerCase().match(e.target.value.toLowerCase()));
 
-			setFilterRecord(getFilterFtpFeedRecord);
-		} else if (showTableArray?.length > 0) {
-			const getFilterFtpFeedRecord = showTableArray?.filter(
-				(ele) => ele.sku.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-			);
-
-			setFilterRecord(getFilterFtpFeedRecord);
-		}
+		setFilterRecord(getFilterFtpFeedRecord);
 	};
 
 	const dynamicHeight = Math.min(window.innerHeight * 4 + 1, 70) + 'vh';
@@ -538,7 +536,7 @@ const FtpFeedList = () => {
 									color="primary"
 									style={{ cursor: 'pointer' }}
 								>
-									50% Width
+									100% Width
 								</Button.Ripple>
 							) : (
 								<Button.Ripple
@@ -548,7 +546,7 @@ const FtpFeedList = () => {
 									color="primary"
 									style={{ cursor: 'pointer' }}
 								>
-									100% Width
+									50% Width
 								</Button.Ripple>
 							)}
 						</Col>
@@ -595,6 +593,30 @@ const FtpFeedList = () => {
 							<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
 								{/* <Col lg="3" className="pl-1 mt-1"> */}
 								<Col lg="2">
+									{filterRecord?.length > 0 ? (
+										<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
+											Total Products:{' '}
+											{/* {showTableArray?.length > 0
+												? showTableArray?.length
+												: ftpfeedTotalCountData?.count} */}
+											{filterRecord?.length}
+										</Badge>
+									) : null}
+								</Col>
+								{rowArray?.length > 0 ? (
+									<Col lg="2">
+										<Button.Ripple
+											type="submit"
+											size="sm"
+											color="relief-danger"
+											onClick={multiRowDelete}
+											className="seed_button"
+										>
+											Remove
+										</Button.Ripple>
+									</Col>
+								) : null}
+								<Col lg="2">
 									{/* <Label for="send feed"></Label> */}
 									{ftpvalue &&
 									ftpvalue?.length > 0 &&
@@ -628,31 +650,6 @@ const FtpFeedList = () => {
 										</Button.Ripple>
 									)}
 								</Col>
-								{rowArray?.length > 0 ? (
-									<Col lg="2">
-										<Button.Ripple
-											type="submit"
-											size="sm"
-											color="relief-danger"
-											onClick={multiRowDelete}
-											className="seed_button"
-										>
-											Row Delete
-										</Button.Ripple>
-									</Col>
-								) : null}
-
-								<Col lg="2">
-									{filterRecord?.length > 0 ? (
-										<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
-											Total Products:{' '}
-											{/* {showTableArray?.length > 0
-												? showTableArray?.length
-												: ftpfeedTotalCountData?.count} */}
-											{filterRecord?.length}
-										</Badge>
-									) : null}
-								</Col>
 
 								<Col lg="1">
 									{showTable == true ? (
@@ -677,7 +674,7 @@ const FtpFeedList = () => {
 												color="primary"
 												style={{ cursor: 'pointer' }}
 											>
-												50% Width
+												100% Width
 											</Button.Ripple>
 										) : (
 											<Button.Ripple
@@ -687,7 +684,7 @@ const FtpFeedList = () => {
 												color="primary"
 												style={{ cursor: 'pointer' }}
 											>
-												100% Width
+												50% Width
 											</Button.Ripple>
 										)
 									) : null}
@@ -702,7 +699,7 @@ const FtpFeedList = () => {
 											size="sm"
 											name="search"
 											onChange={handleFilter}
-											placeholder="Search"
+											placeholder="Search (Enter your SKU)"
 										/>
 									</Col>
 								)}

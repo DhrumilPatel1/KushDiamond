@@ -113,6 +113,10 @@ export const ImageUploadApi = async (imgFile, config) => {
 	return await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/uploadfile/`, imgFile, config);
 };
 
+export const VideoSirvUploadApi = async (videoFile, config) => {
+	return await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/sirvuploadfile/`, videoFile, config);
+};
+
 export const ImageUploadDeleteApi = async (delete_id, config) => {
 	return await axios.delete(`${process.env.REACT_APP_BASE_URL_API}/api/product_image/delete/${delete_id}`, config);
 };

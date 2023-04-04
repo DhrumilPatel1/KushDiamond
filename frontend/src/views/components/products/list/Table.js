@@ -8,7 +8,7 @@ import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { ChevronDown, Eye, Image, Plus, Share, Trash2, Upload } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Input, Row, Col, Label, Button, CardBody, FormGroup } from 'reactstrap';
+import { Card, Input, Row, Col, Label, Button, CardBody, FormGroup, ButtonGroup } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
@@ -47,9 +47,9 @@ const ProductsList = (props) => {
 	const [columns, setColumns] = useState([]);
 
 	const statusOptions = [
-		{ value: '', label: 'Select Status' },
+		{ value: '', label: 'Select All' },
 		{ value: 'True', label: 'Available' },
-		{ value: 'False', label: 'NA' },
+		{ value: 'False', label: 'UnAvailable' },
 	];
 
 	const handleDeleteById = (id) => {
@@ -74,14 +74,6 @@ const ProductsList = (props) => {
 	const ColumnList = () => {
 		const column = [
 			{
-				name: 'Title',
-				minWidth: '500px',
-				selector: 'title',
-				// sortable: true,
-				// center: true,
-				cell: (row) => row.title,
-			},
-			{
 				name: 'Sku',
 				minWidth: '130px',
 				selector: 'sku',
@@ -89,6 +81,7 @@ const ProductsList = (props) => {
 				center: true,
 				cell: (row) => row.sku,
 			},
+
 			{
 				name: 'Available Status',
 				minWidth: '180px',
@@ -101,9 +94,11 @@ const ProductsList = (props) => {
 						<Badge color="danger">NO</Badge>
 					),
 			},
+
 			{
-				name: 'View Image',
-				minWidth: '130px',
+				name: 'Actions',
+				minWidth: '180px',
+				center: true,
 				cell: (row) => {
 					return (
 						<>
@@ -136,10 +131,93 @@ const ProductsList = (props) => {
 									/>
 								)}
 							</div>
+
+							<Link to={`/products/detail/${row.id}`} className="text-primary">
+								<Eye size={18} className="ml-1 outline-none" data-tip data-for="view_product" />
+							</Link>
+							<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
+								View Product
+							</ReactTooltip>
+							<SingleUploadImg />
+
+							{props.getLoginData?.role === 'admin' ? (
+								row?.product_images?.length > 0 ? (
+									<>
+										<Trash2
+											className="text-danger ml-1 text-white bg-white"
+											data-tip
+											data-for="images_delete"
+											size={18}
+											onClick={() => handleDeleteById(row.id)}
+											style={{
+												cursor: 'pointer',
+												outline: 'none',
+											}}
+										/>
+
+										<ReactTooltip
+											id="images_delete"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Delete Images
+										</ReactTooltip>
+									</>
+								) : (
+									<Trash2
+										className="text-danger ml-1 text-white bg-white trash_disabled"
+										data-tip
+										data-for="images_delete"
+										size={18}
+										style={{ cursor: 'not-allowed' }}
+									/>
+								)
+							) : null}
 						</>
 					);
 				},
 			},
+
+			// {
+			// 	name: 'View Image',
+			// 	minWidth: '130px',
+			// 	cell: (row) => {
+			// 		return (
+			// 			<>
+			// 				<div className="d-inline ">
+			// 					{row?.product_images?.length > 0 ? (
+			// 						<>
+			// 							<Image
+			// 								data-tip
+			// 								data-for="view_gallery"
+			// 								size={18}
+			// 								className="outline-none text-dark ml-2"
+			// 								onClick={() => props.clickOpenGallarey(row.product_images)}
+			// 								style={{ cursor: 'pointer' }}
+			// 							/>
+
+			// 							<ReactTooltip
+			// 								id="view_gallery"
+			// 								className="tooltip_info"
+			// 								place="top"
+			// 								effect="solid"
+			// 							>
+			// 								View Gallary
+			// 							</ReactTooltip>
+			// 						</>
+			// 					) : (
+			// 						<Image
+			// 							size={18}
+			// 							className="outline-none text-dark ml-2 gallary_disabled"
+			// 							style={{ cursor: 'not-allowed' }}
+			// 						/>
+			// 					)}
+			// 				</div>
+			// 			</>
+			// 		);
+			// 	},
+			// },
 			{
 				name: 'Shape',
 				minWidth: '60px',
@@ -297,89 +375,6 @@ const ProductsList = (props) => {
 				right: true,
 				cell: (row) => row.shopify_product_id,
 			},
-
-			{
-				name: 'Actions',
-				minWidth: '180px',
-				cell: (row) => {
-					return (
-						<>
-							{/* <div className="d-inline ">
-								{row?.product_images?.length > 0 ? (
-									<>
-										<Image
-											data-tip
-											data-for="view_gallery"
-											size={18}
-											className="outline-none text-dark ml-2"
-											onClick={() => props.clickOpenGallarey(row.product_images)}
-											style={{ cursor: 'pointer' }}
-										/>
-
-										<ReactTooltip
-											id="view_gallery"
-											className="tooltip_info"
-											place="top"
-											effect="solid"
-										>
-											View Gallary
-										</ReactTooltip>
-									</>
-								) : (
-									<Image
-										size={18}
-										className="outline-none text-dark ml-2 gallary_disabled"
-										style={{ cursor: 'not-allowed' }}
-									/>
-								)}
-							</div> */}
-
-							<Link to={`/products/detail/${row.id}`} className="text-primary">
-								<Eye size={18} className="ml-1 outline-none" data-tip data-for="view_product" />
-							</Link>
-							<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
-								View Product
-							</ReactTooltip>
-							<SingleUploadImg />
-
-							{props.getLoginData?.role === 'admin' ? (
-								row?.product_images?.length > 0 ? (
-									<>
-										<Trash2
-											className="text-danger ml-1 text-white bg-white"
-											data-tip
-											data-for="images_delete"
-											size={18}
-											onClick={() => handleDeleteById(row.id)}
-											style={{
-												cursor: 'pointer',
-												outline: 'none',
-											}}
-										/>
-
-										<ReactTooltip
-											id="images_delete"
-											className="tooltip_info"
-											place="top"
-											effect="solid"
-										>
-											Delete Images
-										</ReactTooltip>
-									</>
-								) : (
-									<Trash2
-										className="text-danger ml-1 text-white bg-white trash_disabled"
-										data-tip
-										data-for="images_delete"
-										size={18}
-										style={{ cursor: 'not-allowed' }}
-									/>
-								)
-							) : null}
-						</>
-					);
-				},
-			},
 		];
 
 		setColumns(column);
@@ -528,6 +523,7 @@ const ProductsList = (props) => {
 					<Row>
 						<Col xl="4">
 							<h3>Products List</h3>
+
 							{selectedData?.length > 0 ? (
 								<Button.Ripple
 									size="sm"
@@ -539,31 +535,31 @@ const ProductsList = (props) => {
 									Delete
 								</Button.Ripple>
 							) : null}
+							<ButtonGroup>
+								{selectedStatusData?.length > 0 ? (
+									<Button.Ripple
+										size="sm"
+										onClick={(e) => multinotAvailableProduct(e, selectedStatusData)}
+										className="ml-2"
+										value="not_avalible"
+										style={{ cursor: 'pointer' }}
+									>
+										Unavailable
+									</Button.Ripple>
+								) : null}
 
-							{selectedStatusData?.length > 0 ? (
-								<Button.Ripple
-									size="sm"
-									onClick={(e) => multinotAvailableProduct(e, selectedStatusData)}
-									className="ml-2"
-									value="not_avalible"
-									style={{ cursor: 'pointer' }}
-								>
-									NA
-								</Button.Ripple>
-							) : null}
-
-							{availableStatus?.length > 0 ? (
-								<Button.Ripple
-									size="sm"
-									onClick={(e) => multiAvailableProduct(e, availableStatus)}
-									color="success"
-									className="ml-2"
-									value="avalible"
-									style={{ cursor: 'pointer' }}
-								>
-									Available
-								</Button.Ripple>
-							) : null}
+								{availableStatus?.length > 0 ? (
+									<Button.Ripple
+										size="sm"
+										onClick={(e) => multiAvailableProduct(e, availableStatus)}
+										color="success"
+										value="avalible"
+										style={{ cursor: 'pointer' }}
+									>
+										Available
+									</Button.Ripple>
+								) : null}
+							</ButtonGroup>
 						</Col>
 
 						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
