@@ -23,7 +23,7 @@ export default [
 
 			{
 				id: 'image_upload',
-				title: 'Image Upload',
+				title: 'Upload Media',
 				icon: <Image size={20} />,
 				navLink: '/uploadImage',
 			},

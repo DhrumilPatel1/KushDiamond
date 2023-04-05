@@ -74,9 +74,9 @@ export default function ProductExcelTypeOne() {
 												className="bg-white rounded mr-1"
 												style={{ padding: '3px' }}
 											/>
-											Products successfully created. now you have to upload product images from
-											Image Upload page. also you can see status of shopify sync process from
-											Shopify Sync Log page.
+											Product successfully created. now you have to upload product images from the
+											Image Upload page. also, you can see the status of the Shopify sync process
+											from the Shopify Sync Log page
 										</div>
 									</Alert>
 								</React.Fragment>
@@ -85,8 +85,9 @@ export default function ProductExcelTypeOne() {
 							<p>
 								NOTE *<br></br>
 								<b>
-									Upload excel to add new/update existing product in databse. Make sure this is only
-									for upload products not for Shopify synchronize.
+									{/* Upload excel to add new/update existing product in database. Make sure this is
+									only for upload products not for Shopify synchronize. */}
+									Please Upload excel to add new and updated existing products into the database. Please make sure that this is only to upload products, not for Shopify synchronize.
 								</b>
 							</p>
 							<div style={{ marginBottom: '1rem' }}>

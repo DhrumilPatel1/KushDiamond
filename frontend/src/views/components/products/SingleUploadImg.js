@@ -5,7 +5,8 @@ import { Button, Modal, ModalHeader, ModalBody, Label, FormGroup, Input, Form } 
 import { useDispatch, useSelector } from 'react-redux';
 import { ImagesUploadRequest, productGetData, productList } from '../../../redux/productsSlice';
 
-const SingleUploadImg = () => {
+const SingleUploadImg = ({ row }) => {
+	
 	const [formModal, setFormModal] = useState(false);
 	const dispatch = useDispatch();
 	const { error, isLoading } = useSelector((state) => state.products);
@@ -38,7 +39,7 @@ const SingleUploadImg = () => {
 				className="ml-1 outline-none cursor-pointer"
 				onClick={() => setFormModal(!formModal)}
 				data-tip
-				data-for="upload_img"
+				data-for={`upload_media${row.sku}`}
 			/>
 
 			<Modal
@@ -94,8 +95,8 @@ const SingleUploadImg = () => {
 				</ModalFooter> */}
 			</Modal>
 
-			<ReactTooltip id="upload_img" className="tooltip_info" place="top" effect="solid">
-				Upload Image
+			<ReactTooltip id={`upload_media${row.sku}`} className="tooltip_info" place="top" effect="solid">
+				Upload media for {row.sku}
 			</ReactTooltip>
 		</>
 	);

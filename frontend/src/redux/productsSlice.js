@@ -270,7 +270,7 @@ export const ProductsDetialRequest = (details_id) => async (dispatch, getState) 
 };
 
 export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getState) => {
-	const toastId = toast.loading('Please wait your data is deleteing...');
+	const toastId = toast.loading('Please wait,Processing...');
 	dispatch(setLoading());
 	try {
 		const config = {

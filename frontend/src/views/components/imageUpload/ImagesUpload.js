@@ -12,7 +12,6 @@ import {
 	Input,
 	Progress,
 	Alert,
-	CustomInput,
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,15 +19,13 @@ import {
 	ExcelUploadTypeTwo,
 	ImagesUploadRequest,
 	ProductResetData,
-	VideoSirvUploadRequest,
 } from '../../../redux/productsSlice';
 import { Share, CheckCircle } from 'react-feather';
 import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-// const BASE_URL_API = 'http://192.168.1.103:8000';
-// const BASE_URL_API = 'http://67.202.30.86';
+// const BASE_URL_API = 'http://192.168.1.124:8000';
 
 const ImagesUpload = () => {
 	const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -38,8 +35,6 @@ const ImagesUpload = () => {
 	const [image, setImage] = useState([]);
 	const [progressbar, setProgressbar] = useState(0);
 	const [visible, setVisible] = useState(false);
-	const [showRadioValue, setShowRadioValue] = useState(false);
-	const [video, setVideo] = useState([]);
 
 	const closeAlert = () => {
 		setVisible(false);
@@ -123,26 +118,6 @@ const ImagesUpload = () => {
 		e.target.reset();
 		setImage([]);
 	};
-
-	const handleVideoChange = (e) => {
-		setVideo(e.target.files);
-	};
-
-	const handleVideoSubmit = (e) => {
-		e.preventDefault();
-		let formData = new FormData();
-
-		[...video].forEach((file) => {
-			formData.append('product_img', file),
-				formData.append(
-					'folder_name',
-					file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/') + 1)
-				);
-		});
-		dispatch(VideoSirvUploadRequest(formData));
-		e.target.reset();
-		setVideo([]);
-	};
 	const hisToryeBack = () => {
 		history.goBack();
 	};
@@ -194,131 +169,64 @@ const ImagesUpload = () => {
 						</Col>
 
 						<Col md="12" sm="12">
-							<p color="relief-danger">
+							<p>
 								NOTE *<br></br>
 								<b>
-									{showRadioValue == true ? 'File' : 'Folder'} Name is mandatory as SKU No.
-									Only&nbsp;
-									{showRadioValue == true ? 'Video' : 'Image And Video'} Format are allowed.
+									The Folder name should be the same as SKU No. Please upload images and videos
+									only.
 								</b>
 							</p>
-							<div>
-								<CustomInput
-									type="radio"
-									id="image_upload"
-									name="customRadio"
-									className="mb-1"
-									// inline
-									label="Image upload"
-									onChange={() => setShowRadioValue(false)}
-									defaultChecked
-								/>
-								<CustomInput
-									type="radio"
-									id="sirv_upload"
-									name="customRadio"
-									// inline
-									label="Upload video mp4 video to generate spin"
-									onChange={() => setShowRadioValue(true)}
-								/>
-							</div>
-							{showRadioValue == true ? (
-								<Form className="mt-1" onSubmit={(e) => handleVideoSubmit(e)}>
-									<FormGroup>
-										<Label for="folder_video_path">Video Upload</Label>
-										<Input
-											type="file"
-											name="product_img"
-											accept="video/*"
-											onChange={(e) => handleVideoChange(e)}
-											webkitdirectory=""
-											directory=""
-											multiple
-										/>
-										{/* {error && error?.message ? (
-											<div className="error-sm">{error?.message}</div>
-										) : null} */}
-									</FormGroup>
-									<FormGroup className="d-flex mb-0">
-										{isLoading == true || video?.length === 0 ? (
-											<Button.Ripple
-												className="mr-1"
-												size="sm"
-												color="primary"
-												type="submit"
-												disabled
-											>
-												Submit
-											</Button.Ripple>
-										) : (
-											<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
-												Submit
-											</Button.Ripple>
-										)}
+							<Form onSubmit={(e) => handleSubmit(e)}>
+								<FormGroup>
+									<Label for="folder_path">Folder Upload</Label>
+									<Input
+										type="file"
+										name="product_img"
+										accept="image/*"
+										onChange={(e) => handleChange(e)}
+										webkitdirectory="true"
+										directory=""
+										multiple
+									/>
+									<ul id="listing"></ul>
+									{progressbar > 0 ? (
+										<div className="demo-vertical-spacing">
+											<Progress min={0} max={100} value={progressbar}>
+												{progressbar}%
+											</Progress>
+										</div>
+									) : null}
 
+									{error && error?.message ? (
+										<div className="error-sm">{error?.message}</div>
+									) : null}
+								</FormGroup>
+								<FormGroup className="d-flex mb-0">
+									{isLoading == true || image.length === 0 ? (
 										<Button.Ripple
 											className="mr-1"
 											size="sm"
-											outline
-											onClick={(e) => hisToryeBack(e)}
+											color="primary"
+											type="submit"
+											disabled
 										>
-											Back
+											Submit
 										</Button.Ripple>
-									</FormGroup>
-								</Form>
-							) : (
-								<Form className="mt-1" onSubmit={(e) => handleSubmit(e)}>
-									<FormGroup>
-										<Label for="folder_path">Folder Upload</Label>
-										<Input
-											type="file"
-											name="product_img"
-											accept="image/*"
-											onChange={(e) => handleChange(e)}
-											webkitdirectory="true"
-											directory=""
-											multiple
-										/>
-										<ul id="listing"></ul>
-										{progressbar > 0 ? (
-											<div className="demo-vertical-spacing">
-												<Progress min={0} max={100} value={progressbar}>
-													{progressbar}%
-												</Progress>
-											</div>
-										) : null}
-
-										{/* {error && error?.message ? (
-											<div className="error-sm">{error?.message}</div>
-										) : null} */}
-									</FormGroup>
-									<FormGroup className="d-flex mb-0">
-										{isLoading == true || image?.length === 0 ? (
-											<Button.Ripple
-												className="mr-1"
-												size="sm"
-												color="primary"
-												type="submit"
-												disabled
-											>
-												Submit
-											</Button.Ripple>
-										) : (
-											<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
-												Submit
-											</Button.Ripple>
-										)}
-										<Button.Ripple
-											className="mr-1"
-											size="sm"
-											outline
-											onClick={(e) => hisToryeBack(e)}
-										>
-											Back
+									) : (
+										<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
+											Submit
 										</Button.Ripple>
-									</FormGroup>
-								</Form>
-							)}
+									)}
+									<Button.Ripple
+										className="mr-1"
+										size="sm"
+										outline
+										onClick={(e) => hisToryeBack(e)}
+									>
+										Back
+									</Button.Ripple>
+								</FormGroup>
+							</Form>
 						</Col>
 					</Row>
 				</CardBody>

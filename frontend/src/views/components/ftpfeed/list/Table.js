@@ -118,11 +118,12 @@ const FtpFeedList = () => {
 		`page=${table_data.page}&color__in=${table_data.color__in}&shape__in=${table_data.shape__in}&cut__in=${table_data.cut__in}&per_page=${table_data.per_page}&order_column=${table_data.order_column}`
 	);
 
-	useEffect(() => {
-		dispatch(FtpGetDataDrowpDown());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(FtpGetDataDrowpDown());
+	// }, []);
 
 	useEffect(() => {
+		dispatch(FtpGetDataDrowpDown());
 		dispatch(FtpFeedRecordList(queryString));
 		if (ftpfeedTotalCountData?.count > 0) {
 			setFilterRecord(ftpfeedTotalCountData?.results);
@@ -134,6 +135,7 @@ const FtpFeedList = () => {
 			setExtendData(showTableArray);
 			setRowArray([]);
 		}
+	
 	}, [dispatch, queryString, ftpfeedTotalCountData, showTableArray]);
 
 	// useEffect(() => {
@@ -536,7 +538,7 @@ const FtpFeedList = () => {
 									color="primary"
 									style={{ cursor: 'pointer' }}
 								>
-									100% Width
+									100% Height
 								</Button.Ripple>
 							) : (
 								<Button.Ripple
@@ -546,7 +548,7 @@ const FtpFeedList = () => {
 									color="primary"
 									style={{ cursor: 'pointer' }}
 								>
-									50% Width
+									50% Height
 								</Button.Ripple>
 							)}
 						</Col>
@@ -593,7 +595,8 @@ const FtpFeedList = () => {
 							<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
 								{/* <Col lg="3" className="pl-1 mt-1"> */}
 								<Col lg="2">
-									{filterRecord?.length > 0 ? (
+									{/* {filterRecord?.length > 0 ? ( */}
+									{showTable == true ? (
 										<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
 											Total Products:{' '}
 											{/* {showTableArray?.length > 0
@@ -674,7 +677,7 @@ const FtpFeedList = () => {
 												color="primary"
 												style={{ cursor: 'pointer' }}
 											>
-												100% Width
+												100% Height
 											</Button.Ripple>
 										) : (
 											<Button.Ripple
@@ -684,7 +687,7 @@ const FtpFeedList = () => {
 												color="primary"
 												style={{ cursor: 'pointer' }}
 											>
-												50% Width
+												50% Height
 											</Button.Ripple>
 										)
 									) : null}

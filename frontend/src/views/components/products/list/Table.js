@@ -6,9 +6,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Eye, Image, Plus, Share, Trash2, Upload } from 'react-feather';
+import { ChevronDown, Eye, FileText, Image, Plus, Share, Trash2, Upload } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Input, Row, Col, Label, Button, CardBody, FormGroup, ButtonGroup } from 'reactstrap';
+import {
+	Card,
+	Input,
+	Row,
+	Col,
+	Label,
+	Button,
+	CardBody,
+	FormGroup,
+	ButtonGroup,
+	UncontrolledButtonDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem,
+} from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
@@ -34,9 +48,24 @@ const ToastSwal = withReactContent(Swal);
 const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
-	// const { productData, isLoading } = useSelector((state) => state.products);
+	const { productData, isLoading } = useSelector((state) => state.products);
+	const productArray = productData?.results?.map((ele) => {
+		let productObj = {
+			sku: ele.sku,
+			shape: ele.shape,
+			carat: ele.carat,
+			color: ele.color,
+			clarity: ele.clarity,
+			measurement: ele.measurement,
+			price: ele.price,
+			certificate_no: ele.certificate_no,
+			lab: ele.lab,
+		};
+		return productObj;
+	});
+	
 	const [toggledClearRows, setToggleClearRows] = useState(false);
-	const { productData, isLoading } = useProductData();
+	// const { productData, isLoading } = useProductData();
 	const [selectedData, setSelectedData] = useState();
 	const [selectedStatusData, setSelectedStatusData] = useState();
 	const [availableStatus, setAvailableStatus] = useState();
@@ -49,7 +78,7 @@ const ProductsList = (props) => {
 	const statusOptions = [
 		{ value: '', label: 'Select All' },
 		{ value: 'True', label: 'Available' },
-		{ value: 'False', label: 'UnAvailable' },
+		{ value: 'False', label: 'Unavailable' },
 	];
 
 	const handleDeleteById = (id) => {
@@ -107,7 +136,7 @@ const ProductsList = (props) => {
 									<>
 										<Image
 											data-tip
-											data-for="view_gallery"
+											data-for={`view_images${row.sku}`}
 											size={18}
 											className="outline-none text-dark ml-2"
 											onClick={() => props.clickOpenGallarey(row.product_images)}
@@ -115,12 +144,12 @@ const ProductsList = (props) => {
 										/>
 
 										<ReactTooltip
-											id="view_gallery"
+											id={`view_images${row.sku}`}
 											className="tooltip_info"
 											place="top"
 											effect="solid"
 										>
-											View Gallary
+											View gallery for {row.sku}
 										</ReactTooltip>
 									</>
 								) : (
@@ -133,12 +162,22 @@ const ProductsList = (props) => {
 							</div>
 
 							<Link to={`/products/detail/${row.id}`} className="text-primary">
-								<Eye size={18} className="ml-1 outline-none" data-tip data-for="view_product" />
+								<Eye
+									size={18}
+									className="ml-1 outline-none"
+									data-tip
+									data-for={`view_product${row.sku}`}
+								/>
 							</Link>
-							<ReactTooltip id="view_product" className="tooltip_info" place="top" effect="solid">
-								View Product
+							<ReactTooltip
+								id={`view_product${row.sku}`}
+								className="tooltip_info"
+								place="top"
+								effect="solid"
+							>
+								View product for {row.sku}
 							</ReactTooltip>
-							<SingleUploadImg />
+							<SingleUploadImg row={row} />
 
 							{props.getLoginData?.role === 'admin' ? (
 								row?.product_images?.length > 0 ? (
@@ -146,7 +185,7 @@ const ProductsList = (props) => {
 										<Trash2
 											className="text-danger ml-1 text-white bg-white"
 											data-tip
-											data-for="images_delete"
+											data-for={`delete_image${row.sku}`}
 											size={18}
 											onClick={() => handleDeleteById(row.id)}
 											style={{
@@ -156,12 +195,12 @@ const ProductsList = (props) => {
 										/>
 
 										<ReactTooltip
-											id="images_delete"
+											id={`delete_image${row.sku}`}
 											className="tooltip_info"
 											place="top"
 											effect="solid"
 										>
-											Delete Images
+											Delete images for {row.sku}
 										</ReactTooltip>
 									</>
 								) : (
@@ -515,6 +554,48 @@ const ProductsList = (props) => {
 		});
 	};
 
+	// const convertArrayOfObjectsToCSV = () => {
+	// 	let result;
+
+	// 	const columnDelimiter = ',';
+	// 	const lineDelimiter = '\n';
+	// 	const keys = Object.keys(productArray[0]);
+
+	// 	result = '';
+	// 	result += keys.join(columnDelimiter);
+	// 	result += lineDelimiter;
+
+	// 	productArray.forEach((item) => {
+	// 		let ctr = 0;
+	// 		keys.forEach((key) => {
+	// 			if (ctr > 0) result += columnDelimiter;
+
+	// 			result += item[key];
+
+	// 			ctr++;
+	// 		});
+	// 		result += lineDelimiter;
+	// 	});
+
+	// 	return result;
+	// };
+
+	// const downloadCSV = () => {
+	// 	const link = document.createElement('a');
+	// 	let csv = convertArrayOfObjectsToCSV();
+	// 	if (csv === null) return;
+
+	// 	const filename = 'data.csv';
+
+	// 	if (!csv.match(/^data:text\/csv/i)) {
+	// 		csv = `data:text/csv;charset=utf-8,${csv}`;
+	// 	}
+
+	// 	link.setAttribute('href', encodeURI(csv));
+	// 	link.setAttribute('download', filename);
+	// 	link.click();
+	// };
+
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
@@ -563,6 +644,20 @@ const ProductsList = (props) => {
 						</Col>
 
 						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
+							{/* <Col lg="2">
+								<div>
+									<Button.Ripple
+										color="secondary"
+										size="sm"
+										onClick={() => downloadCSV()}
+										caret
+										outline
+									>
+										<Share size={15} />
+										<span className="align-middle ml-50">Export CSV</span>
+									</Button.Ripple>
+								</div>
+							</Col> */}
 							<Col lg="3">
 								<Select
 									size="sm"

@@ -37,7 +37,7 @@ export default function productInventory() {
 						<Col md="12" sm="12">
 							<p>
 								NOTE * <br></br>
-								<b>Upload excel to synchronize inventory with Shopify store.</b>
+								<b>Please Upload excel to synchronize inventory into the Shopify store.</b>
 							</p>
 
 							<div style={{ marginBottom: '1rem' }}>
