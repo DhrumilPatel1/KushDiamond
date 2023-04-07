@@ -6,6 +6,7 @@ import {
 	ImageUploadApi,
 	ImageUploadDeleteApi,
 	ProductApi,
+	ProductCsvApi,
 	ProductExcelUploadTypeOne,
 	ProductsDetailApi,
 	ProductsMultiDeleteApi,
@@ -27,6 +28,7 @@ export const productsSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		productData: [],
+		productCsvData: [],
 		productViewData: [],
 		ImageUploaFileData: [],
 		VideoUploaFileData: [],
@@ -46,6 +48,11 @@ export const productsSlice = createSlice({
 		productGetData: (state, action) => {
 			state.isLoading = false;
 			state.productData = action.payload;
+		},
+
+		productCsvList: (state, action) => {
+			state.isLoading = false;
+			state.productCsvData = action.payload;
 		},
 
 		productViewData: (state, action) => {
@@ -113,6 +120,7 @@ export const productsSlice = createSlice({
 
 export const {
 	productGetData,
+	productCsvList,
 	productViewData,
 	ImageUploaFileData,
 	VideoUploaFile,
@@ -143,6 +151,22 @@ export const productList = (queryString) => async (dispatch, getState) => {
 		};
 		const { data } = await ProductApi(queryString, config);
 		dispatch(productGetData(data));
+	} catch (err) {
+		dispatch(handleErrorList(err));
+	}
+};
+
+export const productCsvListData = (queryString) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ProductCsvApi(queryString, config);
+		dispatch(productCsvList(data));
 	} catch (err) {
 		dispatch(handleErrorList(err));
 	}
@@ -290,7 +314,11 @@ export const ProductsMultiDeleteRequest = (DeleteIds) => async (dispatch, getSta
 			dispatch(productList());
 		}
 	} catch (error) {
-		dispatch(handleErrorList(error));
+		if (error.response && error.response.data)
+			dispatch(handleErrorList(error.response.data.message));
+		toast.error(error.response.data.message, {
+			id: toastId,
+		});
 	}
 };
 

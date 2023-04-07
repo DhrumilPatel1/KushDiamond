@@ -48,6 +48,15 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
+export const ProductCsvApi = async (queryString, config) => {
+	return await axios
+		.get(`${process.env.REACT_APP_BASE_URL_API}/api/csv_product/list/?` + queryString, config)
+		.then((response) => response)
+		.catch((err) => console.log(err));
+};
+
+
+
 export const FtpFeedApi = async (queryString, config) => {
 	return await axios
 		.get(`${process.env.REACT_APP_BASE_URL_API}/api/ftp_product/list/?` + queryString, config)

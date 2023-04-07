@@ -6,7 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
-import { ChevronDown, Eye, FileText, Image, Plus, Share, Trash2, Upload } from 'react-feather';
+import {
+	CheckCircle,
+	ChevronDown,
+	Eye,
+	FileText,
+	Image,
+	Link2,
+	Plus,
+	Share,
+	Slash,
+	Trash,
+	Trash2,
+	Upload,
+} from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
 	Card,
@@ -16,17 +29,15 @@ import {
 	Label,
 	Button,
 	CardBody,
-	FormGroup,
 	ButtonGroup,
-	UncontrolledButtonDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
+	CardHeader,
+	CardTitle,
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import {
 	ImageUploadDeleteRequest,
+	productCsvListData,
 	productExcelUpload,
 	productList,
 	ProductResetData,
@@ -48,10 +59,14 @@ const ToastSwal = withReactContent(Swal);
 const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
-	const { productData, isLoading } = useSelector((state) => state.products);
-	const productArray = productData?.results?.map((ele) => {
+	// const { productData, isLoading } = useProductData();
+	const { productData, isLoading, productCsvData } = useSelector((state) => state.products);
+	console.log({ productCsvData });
+
+	const productCsvArray = productCsvData?.data?.map((ele) => {
 		let productObj = {
 			sku: ele.sku,
+			avalibity_status: ele.avalibity_status,
 			shape: ele.shape,
 			carat: ele.carat,
 			color: ele.color,
@@ -60,15 +75,23 @@ const ProductsList = (props) => {
 			price: ele.price,
 			certificate_no: ele.certificate_no,
 			lab: ele.lab,
+			tbl: ele.tbl,
+			cut: ele.cut,
+			dept: ele.dept,
+			fl: ele.fl,
+			girdle: ele.girdle,
+			cul: ele.cul,
+			pol: ele.pol,
+			rap: ele.rap,
+			sym: ele.sym,
+			title: ele.title,
 		};
 		return productObj;
 	});
-	
+
 	const [toggledClearRows, setToggleClearRows] = useState(false);
-	// const { productData, isLoading } = useProductData();
-	const [selectedData, setSelectedData] = useState();
-	const [selectedStatusData, setSelectedStatusData] = useState();
-	const [availableStatus, setAvailableStatus] = useState();
+	const [selectedData, setSelectedData] = useState([]);
+
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
 	const [checkStatus, setCheckStatus] = useState('');
@@ -76,7 +99,7 @@ const ProductsList = (props) => {
 	const [columns, setColumns] = useState([]);
 
 	const statusOptions = [
-		{ value: '', label: 'Select All' },
+		{ value: '', label: 'Select All Availability' },
 		{ value: 'True', label: 'Available' },
 		{ value: 'False', label: 'Unavailable' },
 	];
@@ -104,7 +127,7 @@ const ProductsList = (props) => {
 		const column = [
 			{
 				name: 'Sku',
-				minWidth: '130px',
+				minWidth: '110px',
 				selector: 'sku',
 				sortable: true,
 				center: true,
@@ -112,33 +135,39 @@ const ProductsList = (props) => {
 			},
 
 			{
-				name: 'Available Status',
-				minWidth: '180px',
+				name: 'Available ?',
+				minWidth: '130px',
 				selector: 'avalibity_status',
 				center: true,
 				cell: (row) =>
 					row.avalibity_status == 'True' ? (
-						<Badge color="success">YES</Badge>
+						<Badge color="light-success">
+							<CheckCircle size={12} className="align-middle" />
+							<span className="align-middle ml-25">YES</span>
+						</Badge>
 					) : (
-						<Badge color="danger">NO</Badge>
+						<Badge color="light-danger">
+							<Slash size={12} className="align-middle" />
+							<span className="align-middle ml-25">NO</span>
+						</Badge>
 					),
 			},
 
 			{
 				name: 'Actions',
-				minWidth: '180px',
+				minWidth: '240px',
 				center: true,
 				cell: (row) => {
 					return (
 						<>
-							<div className="d-inline ">
+							<div className="d-inline">
 								{row?.product_images?.length > 0 ? (
 									<>
 										<Image
 											data-tip
 											data-for={`view_images${row.sku}`}
 											size={18}
-											className="outline-none text-dark ml-2"
+											className="outline-none text-dark"
 											onClick={() => props.clickOpenGallarey(row.product_images)}
 											style={{ cursor: 'pointer' }}
 										/>
@@ -155,7 +184,7 @@ const ProductsList = (props) => {
 								) : (
 									<Image
 										size={18}
-										className="outline-none text-dark ml-2 gallary_disabled"
+										className="outline-none text-dark  gallary_disabled"
 										style={{ cursor: 'not-allowed' }}
 									/>
 								)}
@@ -164,7 +193,7 @@ const ProductsList = (props) => {
 							<Link to={`/products/detail/${row.id}`} className="text-primary">
 								<Eye
 									size={18}
-									className="ml-1 outline-none"
+									className="ml-2 outline-none"
 									data-tip
 									data-for={`view_product${row.sku}`}
 								/>
@@ -183,7 +212,7 @@ const ProductsList = (props) => {
 								row?.product_images?.length > 0 ? (
 									<>
 										<Trash2
-											className="text-danger ml-1 text-white bg-white"
+											className="text-danger ml-2 text-white bg-white"
 											data-tip
 											data-for={`delete_image${row.sku}`}
 											size={18}
@@ -205,7 +234,7 @@ const ProductsList = (props) => {
 									</>
 								) : (
 									<Trash2
-										className="text-danger ml-1 text-white bg-white trash_disabled"
+										className="text-danger ml-2 text-white bg-white trash_disabled"
 										data-tip
 										data-for="images_delete"
 										size={18}
@@ -218,45 +247,6 @@ const ProductsList = (props) => {
 				},
 			},
 
-			// {
-			// 	name: 'View Image',
-			// 	minWidth: '130px',
-			// 	cell: (row) => {
-			// 		return (
-			// 			<>
-			// 				<div className="d-inline ">
-			// 					{row?.product_images?.length > 0 ? (
-			// 						<>
-			// 							<Image
-			// 								data-tip
-			// 								data-for="view_gallery"
-			// 								size={18}
-			// 								className="outline-none text-dark ml-2"
-			// 								onClick={() => props.clickOpenGallarey(row.product_images)}
-			// 								style={{ cursor: 'pointer' }}
-			// 							/>
-
-			// 							<ReactTooltip
-			// 								id="view_gallery"
-			// 								className="tooltip_info"
-			// 								place="top"
-			// 								effect="solid"
-			// 							>
-			// 								View Gallary
-			// 							</ReactTooltip>
-			// 						</>
-			// 					) : (
-			// 						<Image
-			// 							size={18}
-			// 							className="outline-none text-dark ml-2 gallary_disabled"
-			// 							style={{ cursor: 'not-allowed' }}
-			// 						/>
-			// 					)}
-			// 				</div>
-			// 			</>
-			// 		);
-			// 	},
-			// },
 			{
 				name: 'Shape',
 				minWidth: '60px',
@@ -275,7 +265,7 @@ const ProductsList = (props) => {
 			},
 			{
 				name: 'Color',
-				minWidth: '130px',
+				minWidth: '160px',
 				selector: 'color',
 				sortable: true,
 				center: true,
@@ -283,7 +273,7 @@ const ProductsList = (props) => {
 			},
 			{
 				name: 'Clarity',
-				minWidth: '80px',
+				minWidth: '120px',
 				selector: 'clarity',
 				sortable: true,
 				center: true,
@@ -313,7 +303,7 @@ const ProductsList = (props) => {
 				selector: 'certificate_no',
 				sortable: true,
 				center: true,
-				cell: (row) => row.certificate_no,
+				cell: (row) => (row.certificate_no == '' ? '-' : row.certificate_no),
 			},
 
 			{
@@ -322,7 +312,7 @@ const ProductsList = (props) => {
 				selector: 'lab',
 				// sortable: true,
 				center: true,
-				cell: (row) => row.lab,
+				cell: (row) => (row.lab == '' ? '-' : row.lab),
 			},
 
 			{
@@ -336,7 +326,7 @@ const ProductsList = (props) => {
 
 			{
 				name: 'Cut',
-				minWidth: '130px',
+				minWidth: '160px',
 				selector: 'cut',
 				// sortable: true,
 				center: true,
@@ -432,9 +422,10 @@ const ProductsList = (props) => {
 		`page=${table_data.page}&per_page=${table_data.per_page}&order_column=${table_data.order_column}&search=${table_data.search}&avalibity_status=${table_data.avalibity_status}`
 	);
 
-	useEffect(async () => {
+	useEffect(() => {
 		dispatch(productList(queryString));
 		ColumnList();
+		dispatch(productCsvListData());
 	}, [dispatch, queryString]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
@@ -471,8 +462,6 @@ const ProductsList = (props) => {
 
 	const selectRows = (state) => {
 		setSelectedData(state.selectedRows);
-		setSelectedStatusData(state.selectedRows);
-		setAvailableStatus(state.selectedRows);
 	};
 
 	const multiDeleteData = (e, selectedData) => {
@@ -492,17 +481,19 @@ const ProductsList = (props) => {
 				const multiid = selectedData?.map((e) => e.id);
 				const multiDeleteIds = {
 					id: multiid,
-					key: e.target.value,
+					key: 'delete',
 				};
 
 				dispatch(ProductsMultiDeleteRequest(multiDeleteIds));
 				setToggleClearRows(!toggledClearRows);
+				setSelectedData([]);
 			}
 			setToggleClearRows(!toggledClearRows);
+			setSelectedData([]);
 		});
 	};
 
-	const multinotAvailableProduct = (e, selectStatus) => {
+	const multinotAvailableProduct = (e, selectedData) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
 			text: 'These selected items will be marked as Not Available',
@@ -516,19 +507,21 @@ const ProductsList = (props) => {
 			buttonsStyling: false,
 		}).then((deleteRecord) => {
 			if (deleteRecord?.value) {
-				const multiid = selectStatus?.map((e) => e.id);
+				const multiid = selectedData?.map((e) => e.id);
 				const multiNAStatus = {
 					id: multiid,
-					key: e.target.value,
+					key: 'not_avalible',
 				};
 				dispatch(ProductsMultiDeleteRequest(multiNAStatus));
 				setToggleClearRows(!toggledClearRows);
+				setSelectedData([]);
 			}
 			setToggleClearRows(!toggledClearRows);
+			setSelectedData([]);
 		});
 	};
 
-	const multiAvailableProduct = (e, selectAvailableStatus) => {
+	const multiAvailableProduct = (e, selectedData) => {
 		ToastSwal.fire({
 			title: 'Are you sure?',
 			text: 'These selected items will be marked as available',
@@ -542,10 +535,10 @@ const ProductsList = (props) => {
 			buttonsStyling: false,
 		}).then((deleteRecord) => {
 			if (deleteRecord?.value) {
-				const multiid = selectAvailableStatus?.map((e) => e.id);
+				const multiid = selectedData?.map((e) => e.id);
 				const multiAvailableStatus = {
 					id: multiid,
-					key: e.target.value,
+					key: 'avalible',
 				};
 				dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
 				setToggleClearRows(!toggledClearRows);
@@ -554,149 +547,264 @@ const ProductsList = (props) => {
 		});
 	};
 
-	// const convertArrayOfObjectsToCSV = () => {
-	// 	let result;
+	// const conditionalRowStyles = [
+	// 	{
+	// 		when: (row) => row.sku,
+	// 		style: {
+	// 			'&:hover': {
+	// 				cursor: 'pointer',
+	// 				backgroundColor: 'rgba(63, 195, 128, 0.9)',
+	// 				minHeight: 'auto !important',
+	// 			},
+	// 		},
+	// 	},
 
-	// 	const columnDelimiter = ',';
-	// 	const lineDelimiter = '\n';
-	// 	const keys = Object.keys(productArray[0]);
+	// ];
 
-	// 	result = '';
-	// 	result += keys.join(columnDelimiter);
-	// 	result += lineDelimiter;
+	const convertArrayOfObjectsToCSV = () => {
+		let result;
 
-	// 	productArray.forEach((item) => {
-	// 		let ctr = 0;
-	// 		keys.forEach((key) => {
-	// 			if (ctr > 0) result += columnDelimiter;
+		const columnDelimiter = ',';
+		const lineDelimiter = '\n';
+		const keys = Object.keys(productCsvArray[0]);
 
-	// 			result += item[key];
+		result = '';
+		result += keys.join(columnDelimiter);
+		result += lineDelimiter;
 
-	// 			ctr++;
-	// 		});
-	// 		result += lineDelimiter;
-	// 	});
+		productCsvArray.forEach((item) => {
+			let ctr = 0;
+			keys.forEach((key) => {
+				if (ctr > 0) result += columnDelimiter;
 
-	// 	return result;
-	// };
+				result += item[key];
 
-	// const downloadCSV = () => {
-	// 	const link = document.createElement('a');
-	// 	let csv = convertArrayOfObjectsToCSV();
-	// 	if (csv === null) return;
+				ctr++;
+			});
+			result += lineDelimiter;
+		});
 
-	// 	const filename = 'data.csv';
+		return result;
+	};
 
-	// 	if (!csv.match(/^data:text\/csv/i)) {
-	// 		csv = `data:text/csv;charset=utf-8,${csv}`;
-	// 	}
+	const downloadCSV = () => {
+		const link = document.createElement('a');
+		let csv = convertArrayOfObjectsToCSV();
+		if (csv === null) return;
 
-	// 	link.setAttribute('href', encodeURI(csv));
-	// 	link.setAttribute('download', filename);
-	// 	link.click();
-	// };
+		const filename = 'Product.csv';
+
+		if (!csv.match(/^data:text\/csv/i)) {
+			csv = `data:text/csv;charset=utf-8,${csv}`;
+		}
+
+		link.setAttribute('href', encodeURI(csv));
+		link.setAttribute('download', filename);
+		link.click();
+	};
 
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
 			<Card className="deskboard_card">
+				<CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom py-1">
+					<CardTitle tag="h4" style={{ fontSize: '25px' }}>
+						All Products List
+					</CardTitle>
+					<div className="d-flex mt-md-0 mt-1">
+						<div>
+							<Button.Ripple
+								color="secondary"
+								size="sm"
+								onClick={() => downloadCSV()}
+								caret
+								outline
+							>
+								<Share size={15} />
+								<span className="align-middle ml-50">Product Export CSV</span>
+							</Button.Ripple>
+						</div>
+					</div>
+				</CardHeader>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col xl="4">
-							<h3>Products List</h3>
-
-							{selectedData?.length > 0 ? (
-								<Button.Ripple
-									size="sm"
-									onClick={(e) => multiDeleteData(e, selectedData)}
-									value="delete"
-									className="btn-danger"
-									style={{ cursor: 'pointer' }}
-								>
-									Delete
-								</Button.Ripple>
-							) : null}
+						<Col xl="4" className="my-1">
 							<ButtonGroup>
-								{selectedStatusData?.length > 0 ? (
+								{selectedData?.length > 0 ? (
 									<Button.Ripple
 										size="sm"
-										onClick={(e) => multinotAvailableProduct(e, selectedStatusData)}
-										className="ml-2"
-										value="not_avalible"
+										data-tip
+										data-for="remove_products"
+										onClick={(e) => multiDeleteData(e, selectedData)}
+										value="delete"
+										outline
+										color="primary"
 										style={{ cursor: 'pointer' }}
 									>
-										Unavailable
+										<Trash2 className="text-danger" size={20} />
+										<ReactTooltip
+											id="remove_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Remove Products
+										</ReactTooltip>
 									</Button.Ripple>
-								) : null}
+								) : (
+									<>
+										<Button.Ripple
+											size="sm"
+											data-tip
+											data-for="remove_products"
+											value="delete"
+											outline
+											color="primary"
+											style={{ cursor: 'pointer' }}
+										>
+											<Trash2
+												className="text-danger"
+												style={{ cursor: 'pointer', opacity: '0.6' }}
+												size={20}
+											/>
+										</Button.Ripple>
+										<ReactTooltip
+											id="remove_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Remove Products
+										</ReactTooltip>
+									</>
+								)}
 
-								{availableStatus?.length > 0 ? (
+								{selectedData?.length > 0 ? (
 									<Button.Ripple
 										size="sm"
-										onClick={(e) => multiAvailableProduct(e, availableStatus)}
-										color="success"
+										data-tip
+										data-for="unavailable_products"
+										onClick={(e) => multinotAvailableProduct(e, selectedData)}
+										value="not_avalible"
+										outline
+										color="primary"
+										style={{ cursor: 'pointer' }}
+									>
+										<Slash className="text-secondary" size={20} />
+										<ReactTooltip
+											id="unavailable_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Unavailable
+										</ReactTooltip>
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										size="sm"
+										data-tip
+										data-for="unavailable_products"
+										value="not_avalible"
+										outline
+										color="primary"
+										style={{ cursor: 'pointer' }}
+									>
+										<Slash
+											className="text-secondary"
+											style={{ cursor: 'pointer', opacity: '0.6' }}
+											size={20}
+										/>
+										<ReactTooltip
+											id="unavailable_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Unavailable
+										</ReactTooltip>
+									</Button.Ripple>
+								)}
+
+								{selectedData?.length > 0 ? (
+									<Button.Ripple
+										size="sm"
+										data-tip
+										data-for="available_products"
+										onClick={(e) => multiAvailableProduct(e, selectedData)}
+										outline
+										color="primary"
 										value="avalible"
 										style={{ cursor: 'pointer' }}
 									>
-										Available
+										<CheckCircle className="text-secondary" size={20} />
+										<ReactTooltip
+											id="available_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Available
+										</ReactTooltip>
 									</Button.Ripple>
-								) : null}
+								) : (
+									<Button.Ripple
+										size="sm"
+										data-tip
+										data-for="available_products"
+										outline
+										color="primary"
+										value="avalible"
+										style={{ cursor: 'pointer' }}
+									>
+										<CheckCircle
+											className="text-secondary"
+											style={{ cursor: 'pointer', opacity: '0.6' }}
+											size={20}
+										/>
+										<ReactTooltip
+											id="available_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Available
+										</ReactTooltip>
+									</Button.Ripple>
+								)}
 							</ButtonGroup>
 						</Col>
 
-						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
-							{/* <Col lg="2">
-								<div>
+						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end my-1 px-0">
+							<Col xl="4">
+								<ButtonGroup>
 									<Button.Ripple
-										color="secondary"
-										size="sm"
-										onClick={() => downloadCSV()}
-										caret
+										color="primary"
+										style={{ padding: '10px' }}
 										outline
+										size="sm"
+										tag={Link}
+										to="/product/excel"
 									>
-										<Share size={15} />
-										<span className="align-middle ml-50">Export CSV</span>
+										<Link2 size={14} />
+										<span className="align-middle ml-25">Product Excel</span>
 									</Button.Ripple>
-								</div>
-							</Col> */}
-							<Col lg="3">
-								<Select
-									size="sm"
-									isClearable={false}
-									theme={selectThemeColors}
-									placeholder="Select Status"
-									className="react-select feed_select"
-									name="status"
-									classNamePrefix="select"
-									options={statusOptions}
-									value={checkStatus}
-									onChange={(e) => handleCheckStatus(e)}
-								/>
+
+									<Button.Ripple
+										color="primary"
+										style={{ padding: '10px' }}
+										outline
+										size="sm"
+										tag={Link}
+										to="/product/inventory"
+									>
+										<Link2 size={14} />
+										<span className="align-middle ml-25">Inventory Excel</span>
+									</Button.Ripple>
+								</ButtonGroup>
 							</Col>
 
-							<Col lg="2" className="px-0">
-								<Button.Ripple
-									size="sm"
-									className="w-100 form-control-sm "
-									tag={Link}
-									to="/product/excel"
-								>
-									Product Excel
-								</Button.Ripple>
-							</Col>
-
-							<Col lg="2 px-0" className="px-0">
-								<Button.Ripple
-									size="sm"
-									color="danger"
-									className="ml-1 w-100 form-control-sm "
-									tag={Link}
-									to="/product/inventory"
-								>
-									Inventory Excel
-								</Button.Ripple>
-							</Col>
-
-							<Col lg="2" className="px-0">
+							{/* <Col lg="2" className="px-0">
 								<Button.Ripple
 									size="sm"
 									color="success"
@@ -706,12 +814,27 @@ const ProductsList = (props) => {
 								>
 									Shopify Sync
 								</Button.Ripple>
+							</Col> */}
+
+							<Col lg="3">
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Availability"
+									className="react-select feed_select text-secondary"
+									name="status"
+									classNamePrefix="select"
+									options={statusOptions}
+									value={checkStatus}
+									onChange={(e) => handleCheckStatus(e)}
+								/>
 							</Col>
 
 							<Col lg="4">
 								<Input
 									id="search-invoice"
-									className="ml-2 w-100 form-control-sm"
+									className="w-100 form-control-sm"
 									type="text"
 									size="sm"
 									name="search"
@@ -741,6 +864,7 @@ const ProductsList = (props) => {
 					className="react-dataTable datatalbe_bg_color"
 					paginationPerPage={table_data.per_page}
 					progressPending={isLoading}
+					// conditionalRowStyles={conditionalRowStyles}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
 				/>

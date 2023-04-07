@@ -36,7 +36,7 @@ const SingleUploadImg = ({ row }) => {
 		<>
 			<Upload
 				size={18}
-				className="ml-1 outline-none cursor-pointer"
+				className="ml-2 outline-none cursor-pointer"
 				onClick={() => setFormModal(!formModal)}
 				data-tip
 				data-for={`upload_media${row.sku}`}
