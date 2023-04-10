@@ -53,6 +53,7 @@ import ReactTooltip from 'react-tooltip';
 import SingleUploadImg from '../SingleUploadImg';
 import { Badge } from 'reactstrap';
 import { selectThemeColors } from '@utils';
+import { toast } from 'react-hot-toast';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -61,30 +62,28 @@ const ProductsList = (props) => {
 
 	// const { productData, isLoading } = useProductData();
 	const { productData, isLoading, productCsvData } = useSelector((state) => state.products);
-	console.log({ productCsvData });
 
 	const productCsvArray = productCsvData?.data?.map((ele) => {
 		let productObj = {
-			sku: ele.sku,
-			avalibity_status: ele.avalibity_status,
-			shape: ele.shape,
-			carat: ele.carat,
-			color: ele.color,
-			clarity: ele.clarity,
-			measurement: ele.measurement,
-			price: ele.price,
-			certificate_no: ele.certificate_no,
-			lab: ele.lab,
-			tbl: ele.tbl,
-			cut: ele.cut,
-			dept: ele.dept,
-			fl: ele.fl,
-			girdle: ele.girdle,
-			cul: ele.cul,
-			pol: ele.pol,
-			rap: ele.rap,
-			sym: ele.sym,
-			title: ele.title,
+			'LOT NO': ele.sku,
+			SHAPE: ele.shape,
+			CARAT: ele.carat,
+			COLOR: ele.color,
+			CLARITY: ele.clarity,
+			MEASUREMENT: ele.measurement,
+			PRICE: ele.price,
+			'CERTIFICATE NO': ele.certificate_no,
+			LAB: ele.lab,
+			TBL: ele.tbl,
+			CUT: ele.cut,
+			DEPT: ele.dept,
+			FL: ele.fl,
+			GIRDLE: ele.girdle,
+			CUL: ele.cul,
+			POL: ele.pol,
+			RAP: ele.rap,
+			SYM: ele.sym,
+			TITLE: ele.title,
 		};
 		return productObj;
 	});
@@ -133,7 +132,6 @@ const ProductsList = (props) => {
 				center: true,
 				cell: (row) => row.sku,
 			},
-
 			{
 				name: 'Available ?',
 				minWidth: '130px',
@@ -253,7 +251,16 @@ const ProductsList = (props) => {
 				selector: 'shape',
 				sortable: true,
 				center: true,
-				cell: (row) => row.shape,
+				// cell: (row) => row.shape,
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.shape}
+							</div>
+						</>
+					);
+				},
 			},
 			{
 				name: 'Carat',
@@ -261,7 +268,16 @@ const ProductsList = (props) => {
 				selector: 'carat',
 				sortable: true,
 				right: true,
-				cell: (row) => row.carat,
+				// cell: (row) => row.carat,
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.carat}
+							</div>
+						</>
+					);
+				},
 			},
 			{
 				name: 'Color',
@@ -269,7 +285,16 @@ const ProductsList = (props) => {
 				selector: 'color',
 				sortable: true,
 				center: true,
-				cell: (row) => (row.color == '' ? '-' : row.color),
+				// cell: (row) => (row.color == '' ? '-' : row.color),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.color == '' ? '-' : row.color}
+							</div>
+						</>
+					);
+				},
 			},
 			{
 				name: 'Clarity',
@@ -277,7 +302,16 @@ const ProductsList = (props) => {
 				selector: 'clarity',
 				sortable: true,
 				center: true,
-				cell: (row) => row.clarity,
+				// cell: (row) => row.clarity,
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.clarity == '' ? '-' : row.clarity}
+							</div>
+						</>
+					);
+				},
 			},
 			{
 				name: 'Measurement',
@@ -285,7 +319,16 @@ const ProductsList = (props) => {
 				selector: 'measurement',
 				// sortable: true,
 				center: true,
-				cell: (row) => row.measurement,
+				// cell: (row) => row.measurement,
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.measurement == '' ? '-' : row.measurement}
+							</div>
+						</>
+					);
+				},
 			},
 			{
 				name: 'Price($)',
@@ -294,7 +337,16 @@ const ProductsList = (props) => {
 				sortable: true,
 				// center: true,
 				right: true,
-				cell: (row) => row.price.toLocaleString('en-US'),
+				// cell: (row) => row.price.toLocaleString('en-US'),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.price?.toLocaleString('en-US')}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -303,7 +355,16 @@ const ProductsList = (props) => {
 				selector: 'certificate_no',
 				sortable: true,
 				center: true,
-				cell: (row) => (row.certificate_no == '' ? '-' : row.certificate_no),
+				// cell: (row) => (row.certificate_no == '' ? '-' : row.certificate_no),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.certificate_no == '' ? '-' : row.certificate_no}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -312,7 +373,16 @@ const ProductsList = (props) => {
 				selector: 'lab',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.lab == '' ? '-' : row.lab),
+				// cell: (row) => (row.lab == '' ? '-' : row.lab),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.lab == '' ? '-' : row.lab}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -321,7 +391,16 @@ const ProductsList = (props) => {
 				selector: 'tbl',
 				// sortable: true,
 				center: true,
-				cell: (row) => row.tbl,
+				// cell: (row) => row.tbl,
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.tbl == '' ? '-' : row.tbl}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -330,7 +409,16 @@ const ProductsList = (props) => {
 				selector: 'cut',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.cut == '' ? '-' : row.cut),
+				// cell: (row) => (row.cut == '' ? '-' : row.cut),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.cut == '' ? '-' : row.cut}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -338,7 +426,16 @@ const ProductsList = (props) => {
 				minWidth: '110px',
 				selector: 'dept',
 				sortable: true,
-				cell: (row) => (row.dept == '' ? '-' : row.dept),
+				// cell: (row) => (row.dept == '' ? '-' : row.dept),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.dept == '' ? '-' : row.dept}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -347,7 +444,16 @@ const ProductsList = (props) => {
 				selector: 'fl',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.fl == '' ? '-' : row.fl),
+				// cell: (row) => (row.fl == '' ? '-' : row.fl),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.fl == '' ? '-' : row.fl}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -356,7 +462,16 @@ const ProductsList = (props) => {
 				selector: 'girdle',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+				// cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.girdle == '' ? '-' : row.girdle}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -365,7 +480,16 @@ const ProductsList = (props) => {
 				selector: 'cul',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.cul == '' ? '-' : row.cul),
+				// cell: (row) => (row.cul == '' ? '-' : row.cul),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.cul == '' ? '-' : row.cul}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -374,7 +498,16 @@ const ProductsList = (props) => {
 				selector: 'pol',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.pol == '' ? '-' : row.pol),
+				// cell: (row) => (row.pol == '' ? '-' : row.pol),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.pol == '' ? '-' : row.pol}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -383,7 +516,16 @@ const ProductsList = (props) => {
 				selector: 'rap',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.rap == '' ? '-' : row.rap),
+				// cell: (row) => (row.rap == '' ? '-' : row.rap),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.rap == '' ? '-' : row.rap}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -392,7 +534,16 @@ const ProductsList = (props) => {
 				selector: 'sym',
 				// sortable: true,
 				center: true,
-				cell: (row) => (row.sym == '' ? '-' : row.sym),
+				// cell: (row) => (row.sym == '' ? '-' : row.sym),
+				cell: (row) => {
+					return (
+						<>
+							<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+								{row.sym == '' ? '-' : row.sym}
+							</div>
+						</>
+					);
+				},
 			},
 
 			{
@@ -402,7 +553,23 @@ const ProductsList = (props) => {
 				sortable: true,
 				// center: true,
 				right: true,
-				cell: (row) => row.shopify_product_id,
+				// cell: (row) => row.shopify_product_id,
+				cell: (row) => {
+					return (
+						<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+							{row.shopify_product_id}
+						</div>
+					);
+				},
+			},
+			{
+				cell: (row) => {
+					return (
+						<ReactTooltip id={`${row.sku}`} className="tooltip_info" place="top" effect="solid">
+							{row.sku}
+						</ReactTooltip>
+					);
+				},
 			},
 		];
 
@@ -494,57 +661,85 @@ const ProductsList = (props) => {
 	};
 
 	const multinotAvailableProduct = (e, selectedData) => {
-		ToastSwal.fire({
-			title: 'Are you sure?',
-			text: 'These selected items will be marked as Not Available',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Yes',
-			customClass: {
-				confirmButton: 'btn btn-primary',
-				cancelButton: 'btn btn-outline-danger ml-1',
-			},
-			buttonsStyling: false,
-		}).then((deleteRecord) => {
-			if (deleteRecord?.value) {
-				const multiid = selectedData?.map((e) => e.id);
-				const multiNAStatus = {
-					id: multiid,
-					key: 'not_avalible',
-				};
-				dispatch(ProductsMultiDeleteRequest(multiNAStatus));
+		let checkAvailableStatus = selectedData?.map((ele) => ele.avalibity_status);
+		if (selectedData?.length == 1 && checkAvailableStatus == 'False') {
+			ToastSwal.fire({
+				icon: 'warning',
+				text: 'This item is already unavailable. Please select the available item',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+				},
+				buttonsStyling: false,
+			}).then(() => {
+				setToggleClearRows(!toggledClearRows);
+			});
+		} else {
+			ToastSwal.fire({
+				title: 'Are you sure?',
+				text: 'These selected items will be marked as unavailable',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Yes',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-outline-danger ml-1',
+				},
+				buttonsStyling: false,
+			}).then((deleteRecord) => {
+				if (deleteRecord?.value) {
+					const multiid = selectedData?.map((e) => e.id);
+					const multiNAStatus = {
+						id: multiid,
+						key: 'not_avalible',
+					};
+					dispatch(ProductsMultiDeleteRequest(multiNAStatus));
+					setToggleClearRows(!toggledClearRows);
+					setSelectedData([]);
+				}
 				setToggleClearRows(!toggledClearRows);
 				setSelectedData([]);
-			}
-			setToggleClearRows(!toggledClearRows);
-			setSelectedData([]);
-		});
+			});
+		}
 	};
 
 	const multiAvailableProduct = (e, selectedData) => {
-		ToastSwal.fire({
-			title: 'Are you sure?',
-			text: 'These selected items will be marked as available',
-			icon: 'success',
-			showCancelButton: true,
-			confirmButtonText: 'Yes',
-			customClass: {
-				confirmButton: 'btn btn-primary',
-				cancelButton: 'btn btn-outline-danger ml-1',
-			},
-			buttonsStyling: false,
-		}).then((deleteRecord) => {
-			if (deleteRecord?.value) {
-				const multiid = selectedData?.map((e) => e.id);
-				const multiAvailableStatus = {
-					id: multiid,
-					key: 'avalible',
-				};
-				dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
+		let checkAvailableStatus = selectedData?.map((ele) => ele.avalibity_status);
+		if (selectedData?.length == 1 && checkAvailableStatus == 'True') {
+			ToastSwal.fire({
+				icon: 'success',
+				text: 'This item is already available. Please select the unavailable item',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+				},
+				buttonsStyling: false,
+			}).then(() => {
 				setToggleClearRows(!toggledClearRows);
-			}
-			setToggleClearRows(!toggledClearRows);
-		});
+			});
+		} else {
+			ToastSwal.fire({
+				title: 'Are you sure?',
+				text: 'These selected items will be marked as available',
+				icon: 'success',
+				showCancelButton: true,
+				confirmButtonText: 'Yes',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-outline-danger ml-1',
+				},
+				buttonsStyling: false,
+			}).then((deleteRecord) => {
+				if (deleteRecord?.value) {
+					const multiid = selectedData?.map((e) => e.id);
+					const multiAvailableStatus = {
+						id: multiid,
+						key: 'avalible',
+					};
+					dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
+					setToggleClearRows(!toggledClearRows);
+				}
+				setToggleClearRows(!toggledClearRows);
+			});
+		}
 	};
 
 	// const conditionalRowStyles = [
@@ -592,7 +787,7 @@ const ProductsList = (props) => {
 		let csv = convertArrayOfObjectsToCSV();
 		if (csv === null) return;
 
-		const filename = 'Product.csv';
+		const filename = 'Products.csv';
 
 		if (!csv.match(/^data:text\/csv/i)) {
 			csv = `data:text/csv;charset=utf-8,${csv}`;
@@ -601,6 +796,7 @@ const ProductsList = (props) => {
 		link.setAttribute('href', encodeURI(csv));
 		link.setAttribute('download', filename);
 		link.click();
+		toast.success('Products csv successfully download');
 	};
 
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';

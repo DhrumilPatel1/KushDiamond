@@ -39,6 +39,23 @@ const ProductsList = () => {
 						subHtml: image.image_name,
 					};
 					arr.push(images);
+				}
+				else if (image?.type == 'image/jpeg') {
+					var images = {
+						id: index,
+						src: image.url,
+						thumb: image.url,
+						subHtml: image.image_name,
+					};
+					arr.push(images);
+				} else if (image?.type == 'image/png') {
+					var images = {
+						id: index,
+						src: image.url,
+						thumb: image.url,
+						subHtml: image.image_name,
+					};
+					arr.push(images);
 				} else if (image?.type == 'video/mp4') {
 					var images = {
 						id: index,

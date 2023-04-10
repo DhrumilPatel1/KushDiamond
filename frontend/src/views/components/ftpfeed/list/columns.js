@@ -1,10 +1,4 @@
-// ** Third Party Components
-import { Badge } from 'reactstrap';
-
-const statusObj = {
-	active: 'light-success',
-	inactive: 'light-danger',
-};
+import ReactTooltip from 'react-tooltip';
 
 export const columns = [
 	{
@@ -21,7 +15,16 @@ export const columns = [
 		selector: 'shape',
 		sortable: true,
 		center: true,
-		cell: (row) => row.shape,
+		// cell: (row) => row.shape,
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.shape}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Carat',
@@ -29,7 +32,16 @@ export const columns = [
 		selector: 'carat',
 		sortable: true,
 		right: true,
-		cell: (row) => row.carat,
+		// cell: (row) => row.carat,
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.carat}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Color',
@@ -37,15 +49,33 @@ export const columns = [
 		selector: 'color',
 		sortable: true,
 		center: true,
-		cell: (row) => (row.color == '' ? '-' : row.color),
+		// cell: (row) => (row.color == '' ? '-' : row.color),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.color == '' ? '-' : row.color}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Clarity',
-		minWidth: '80px',
+		minWidth: '120px',
 		selector: 'clarity',
 		sortable: true,
 		center: true,
-		cell: (row) => row.clarity,
+		// cell: (row) => row.clarity,
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.clarity == '' ? '-' : row.clarity}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Measurement',
@@ -53,7 +83,16 @@ export const columns = [
 		selector: 'measurement',
 		// sortable: true,
 		center: true,
-		cell: (row) => row.measurement,
+		// cell: (row) => row.measurement,
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.measurement == '' ? '-' : row.measurement}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Price($)',
@@ -62,7 +101,16 @@ export const columns = [
 		sortable: true,
 		// center: true,
 		right: true,
-		cell: (row) => row.price?.toLocaleString('en-US'),
+		// cell: (row) => row.price?.toLocaleString('en-US'),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.price?.toLocaleString('en-US')}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Certificate No',
@@ -70,7 +118,16 @@ export const columns = [
 		selector: 'certificate_no',
 		sortable: true,
 		center: true,
-		cell: (row) => row.certificate_no,
+		// cell: (row) => (row.certificate_no == '' ? '-' : row.certificate_no),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.certificate_no == '' ? '-' : row.certificate_no}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -79,7 +136,16 @@ export const columns = [
 		selector: 'lab',
 		// sortable: true,
 		center: true,
-		cell: (row) => row.lab,
+		// cell: (row) => (row.lab == '' ? '-' : row.lab),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.lab == '' ? '-' : row.lab}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -88,16 +154,34 @@ export const columns = [
 		selector: 'tbl',
 		// sortable: true,
 		center: true,
-		cell: (row) => row.tbl,
+		// cell: (row) => row.tbl,
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.tbl == '' ? '-' : row.tbl}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
 		name: 'Cut',
-		minWidth: '130px',
+		minWidth: '160px',
 		selector: 'cut',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.cut == '' ? '-' : row.cut),
+		// cell: (row) => (row.cut == '' ? '-' : row.cut),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.cut == '' ? '-' : row.cut}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -105,7 +189,16 @@ export const columns = [
 		minWidth: '110px',
 		selector: 'dept',
 		sortable: true,
-		cell: (row) => (row.dept == '' ? '-' : row.dept),
+		// cell: (row) => (row.dept == '' ? '-' : row.dept),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.dept == '' ? '-' : row.dept}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -114,7 +207,16 @@ export const columns = [
 		selector: 'fl',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.fl == '' ? '-' : row.fl),
+		// cell: (row) => (row.fl == '' ? '-' : row.fl),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.fl == '' ? '-' : row.fl}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -123,7 +225,16 @@ export const columns = [
 		selector: 'girdle',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+		// cell: (row) => (row.girdle == '' ? '-' : row.girdle),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.girdle == '' ? '-' : row.girdle}
+					</div>
+				</>
+			);
+		},
 	},
 	{
 		name: 'Cul',
@@ -131,7 +242,16 @@ export const columns = [
 		selector: 'cul',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.cul == '' ? '-' : row.cul),
+		// cell: (row) => (row.cul == '' ? '-' : row.cul),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.cul == '' ? '-' : row.cul}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -140,7 +260,16 @@ export const columns = [
 		selector: 'pol',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.pol == '' ? '-' : row.pol),
+		// cell: (row) => (row.pol == '' ? '-' : row.pol),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.pol == '' ? '-' : row.pol}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -149,7 +278,16 @@ export const columns = [
 		selector: 'rap',
 		// sortable: true,
 		center: true,
-		cell: (row) => (row.rap == '' ? '-' : row.rap),
+		// cell: (row) => (row.rap == '' ? '-' : row.rap),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.rap == '' ? '-' : row.rap}
+					</div>
+				</>
+			);
+		},
 	},
 
 	{
@@ -158,23 +296,24 @@ export const columns = [
 		selector: 'sym',
 		// sortable: true,
 		right: true,
-		cell: (row) => (row.sym == '' ? '-' : row.sym),
+		// cell: (row) => (row.sym == '' ? '-' : row.sym),
+		cell: (row) => {
+			return (
+				<>
+					<div data-tip data-for={`${row.sku}`} className="cursor-pointer">
+						{row.sym == '' ? '-' : row.sym}
+					</div>
+				</>
+			);
+		},
 	},
-
-	// {
-	// 	name: 'Status',
-	// 	minWidth: '100px',
-	// 	selector: 'is_active',
-	// 	sortable: true,
-	// 	center: true,
-	// 	cell: (row) => (
-	// 		<Badge
-	// 			className="text-capitalize"
-	// 			color={statusObj[row.is_active === true ? 'active' : 'inactive']}
-	// 			pill
-	// 		>
-	// 			{row.is_active === true ? 'active' : 'inactive'}
-	// 		</Badge>
-	// 	),
-	// },
+	{
+		cell: (row) => {
+			return (
+				<ReactTooltip id={`${row.sku}`} className="tooltip_info" place="top" effect="solid">
+					{row.sku}
+				</ReactTooltip>
+			);
+		},
+	},
 ];

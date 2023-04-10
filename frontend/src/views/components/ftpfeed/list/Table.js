@@ -5,9 +5,20 @@ import { columns } from './columns';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 // ** Third Party Components
-import { ChevronDown, X } from 'react-feather';
+import { ChevronDown, RotateCcw, Send, Trash2, X, XCircle } from 'react-feather';
 import DataTable from 'react-data-table-component';
-import { Card, Row, Col, Button, CardBody, Badge, Input } from 'reactstrap';
+import {
+	Card,
+	Row,
+	Col,
+	Button,
+	CardBody,
+	Badge,
+	Input,
+	CardHeader,
+	CardTitle,
+	ButtonGroup,
+} from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
 import { FeedData, sendFeed } from '../../../../redux/productsSlice';
@@ -135,7 +146,6 @@ const FtpFeedList = () => {
 			setExtendData(showTableArray);
 			setRowArray([]);
 		}
-	
 	}, [dispatch, queryString, ftpfeedTotalCountData, showTableArray]);
 
 	// useEffect(() => {
@@ -390,6 +400,10 @@ const FtpFeedList = () => {
 		);
 		setFilterRecord(ftpfeedTotalCountData?.results);
 		setExtendData(ftpfeedTotalCountData?.results);
+		toast.success(<AddProductToastMessage />, {
+			hideProgressBar: true,
+			autoClose: 2000,
+		});
 	};
 
 	const multiRowDelete = () => {
@@ -442,73 +456,77 @@ const FtpFeedList = () => {
 	return (
 		<Fragment>
 			<Card className="deskboard_card">
+				<CardHeader className="d-block border-bottom py-1">
+					<CardTitle tag="h4">FTP Feed Filter</CardTitle>
+					<div className="mt-1">
+						<Row>
+							<Col lg="3" md="6">
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Client for FTP Feed"
+									isMulti
+									name="ftp"
+									className="react-select feed_select"
+									classNamePrefix="select"
+									options={getAllDropdownValue}
+									value={ftpvalue}
+									onChange={(e) => handleChange(e)}
+								/>
+							</Col>
+							<Col lg="3" md="6">
+								{/* {/ <Label for="color">Color:</Label> /} */}
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Color"
+									className="react-select feed_select"
+									name="color"
+									isMulti
+									classNamePrefix="select"
+									options={colorDropDownValue}
+									value={filterColor}
+									onChange={(e) => handleColor(e, shapLabelArray, cutLabelArray)}
+								/>
+							</Col>
+							<Col lg="3" md="6">
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Shape"
+									name="shape"
+									className="react-select feed_select"
+									isMulti
+									classNamePrefix="select"
+									options={shapeDropDownValue}
+									value={filterShape}
+									onChange={(e) => handleShape(e, colorLabelArray, cutLabelArray)}
+								/>
+							</Col>
+							<Col lg="3" md="6">
+								<Select
+									size="sm"
+									isClearable={false}
+									theme={selectThemeColors}
+									placeholder="Select Cut"
+									name="cut"
+									className="react-select feed_select"
+									isMulti
+									classNamePrefix="select"
+									options={cutDropDownValue}
+									value={filterCut}
+									onChange={(e) => handleCut(e, colorLabelArray, shapLabelArray)}
+								/>
+							</Col>
+						</Row>
+					</div>
+				</CardHeader>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col lg="3" md="6">
-							<Select
-								size="sm"
-								isClearable={false}
-								theme={selectThemeColors}
-								placeholder="Select Client for FTP Feed"
-								isMulti
-								name="ftp"
-								className="react-select feed_select"
-								classNamePrefix="select"
-								options={getAllDropdownValue}
-								value={ftpvalue}
-								onChange={(e) => handleChange(e)}
-							/>
-						</Col>
-						<Col lg="3" md="6">
-							{/* {/ <Label for="color">Color:</Label> /} */}
-							<Select
-								size="sm"
-								isClearable={false}
-								theme={selectThemeColors}
-								placeholder="Select Color"
-								className="react-select feed_select"
-								name="color"
-								isMulti
-								classNamePrefix="select"
-								options={colorDropDownValue}
-								value={filterColor}
-								onChange={(e) => handleColor(e, shapLabelArray, cutLabelArray)}
-							/>
-						</Col>
-						<Col lg="3" md="6">
-							<Select
-								size="sm"
-								isClearable={false}
-								theme={selectThemeColors}
-								placeholder="Select Shape"
-								name="shape"
-								className="react-select feed_select"
-								isMulti
-								classNamePrefix="select"
-								options={shapeDropDownValue}
-								value={filterShape}
-								onChange={(e) => handleShape(e, colorLabelArray, cutLabelArray)}
-							/>
-						</Col>
-						<Col lg="3" md="6">
-							<Select
-								size="sm"
-								isClearable={false}
-								theme={selectThemeColors}
-								placeholder="Select Cut"
-								name="cut"
-								className="react-select feed_select"
-								isMulti
-								classNamePrefix="select"
-								options={cutDropDownValue}
-								value={filterCut}
-								onChange={(e) => handleCut(e, colorLabelArray, shapLabelArray)}
-							/>
-						</Col>
-					</Row>
-
-					<Row>
-						<Col md="4 mt-2">
+						<Col md="4 mt-1 px-0">
 							{selectedRow?.length > 0 ? (
 								<Button.Ripple
 									size="sm"
@@ -587,40 +605,45 @@ const FtpFeedList = () => {
 			</Card>
 			<div className="mt-2">
 				<Card className="deskboard_card">
+					<CardHeader className="border-bottom py-1">
+						<CardTitle tag="h4" style={{ fontSize: '20px' }}>
+							Product Bucket for FTP Feed
+						</CardTitle>
+					</CardHeader>
 					<CardBody className="deskboard_card_body">
-						<Row>
-							<Col xl="4">
-								<h3>Product Bucket for FTP Feed</h3>
+						<Row className="mt-1">
+							<Col lg="5" className="d-flex align-items-sm-center">
+								<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
+									Total Products: {showTable == true ? filterRecord?.length : 0}
+								</Badge>
+
+								{showTableWidth == true ? (
+									<Button.Ripple
+										size="sm"
+										onClick={() => setShowTableWidth(false)}
+										className="btn-primary seed_button ml-2"
+										outline
+										color="primary"
+										style={{ cursor: 'pointer' }}
+									>
+										100% Height
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										size="sm"
+										onClick={() => setShowTableWidth(true)}
+										className="btn-primary seed_button ml-2"
+										outline
+										color="primary"
+										style={{ cursor: 'pointer' }}
+									>
+										50% Height
+									</Button.Ripple>
+								)}
 							</Col>
-							<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end">
-								{/* <Col lg="3" className="pl-1 mt-1"> */}
-								<Col lg="2">
-									{/* {filterRecord?.length > 0 ? ( */}
-									{showTable == true ? (
-										<Badge color="primary" className="seed_button" style={{ padding: '8px 12px' }}>
-											Total Products:{' '}
-											{/* {showTableArray?.length > 0
-												? showTableArray?.length
-												: ftpfeedTotalCountData?.count} */}
-											{filterRecord?.length}
-										</Badge>
-									) : null}
-								</Col>
-								{rowArray?.length > 0 ? (
-									<Col lg="2">
-										<Button.Ripple
-											type="submit"
-											size="sm"
-											color="relief-danger"
-											onClick={multiRowDelete}
-											className="seed_button"
-										>
-											Remove
-										</Button.Ripple>
-									</Col>
-								) : null}
-								<Col lg="2">
-									{/* <Label for="send feed"></Label> */}
+
+							<Col xl="4">
+								<ButtonGroup>
 									{ftpvalue &&
 									ftpvalue?.length > 0 &&
 									filterRecord?.length > 0 &&
@@ -628,18 +651,20 @@ const FtpFeedList = () => {
 										<Button.Ripple
 											type="submit"
 											size="sm"
-											color="relief-danger"
+											outline
+											color="primary"
 											onClick={openPopup}
 											className="seed_button"
-											block
 										>
+											<Send className="text-success" style={{ marginRight: '8px' }} size={20} />
 											Send Feed
 										</Button.Ripple>
 									) : (
 										<Button.Ripple
 											type="submit"
 											size="sm"
-											color="relief-danger"
+											outline
+											color="primary"
 											onClick={
 												ftpFeedData?.results?.length == 0
 													? () => sendFilter()
@@ -647,64 +672,82 @@ const FtpFeedList = () => {
 											}
 											style={{ opacity: '0.6' }}
 											className="seed_button"
-											block
 										>
+											<Send className="text-success" style={{ marginRight: '8px' }} size={20} />
 											Send Feed
 										</Button.Ripple>
 									)}
-								</Col>
+									{rowArray?.length > 0 ? (
+										<Button.Ripple
+											type="submit"
+											size="sm"
+											outline
+											color="primary"
+											onClick={multiRowDelete}
+											className="seed_button"
+										>
+											<Trash2 className="text-danger" style={{ marginRight: '8px' }} size={20} />
+											Remove
+										</Button.Ripple>
+									) : (
+										<Button.Ripple
+											type="submit"
+											size="sm"
+											outline
+											color="primary"
+											style={{ opacity: '0.6' }}
+											className="seed_button"
+										>
+											<Trash2 className="text-danger" style={{ marginRight: '8px' }} size={20} />
+											Remove
+										</Button.Ripple>
+									)}
 
-								<Col lg="1">
 									{showTable == true ? (
 										<Button.Ripple
 											size="sm"
+											outline
+											color="primary"
 											onClick={resetAll}
-											className="btn-secondary seed_button"
+											className="seed_button"
 											style={{ cursor: 'pointer' }}
 										>
+											<RotateCcw size={20} style={{ marginRight: '8px' }} />
 											Reset
 										</Button.Ripple>
-									) : null}
-								</Col>
-
-								<Col lg="2">
-									{showTable == true ? (
-										showTableWidth == true ? (
-											<Button.Ripple
-												size="sm"
-												onClick={() => setShowTableWidth(false)}
-												className="btn-primary seed_button ml-2"
-												color="primary"
-												style={{ cursor: 'pointer' }}
-											>
-												100% Height
-											</Button.Ripple>
-										) : (
-											<Button.Ripple
-												size="sm"
-												onClick={() => setShowTableWidth(true)}
-												className="btn-primary seed_button ml-2"
-												color="primary"
-												style={{ cursor: 'pointer' }}
-											>
-												50% Height
-											</Button.Ripple>
-										)
-									) : null}
-								</Col>
-
-								{showTable && (
-									<Col lg="4">
-										<Input
-											id="search"
-											className="w-100 form-control-sm"
-											type="text"
+									) : (
+										<Button.Ripple
 											size="sm"
-											name="search"
-											onChange={handleFilter}
-											placeholder="Search (Enter your SKU)"
-										/>
-									</Col>
+											outline
+											color="primary"
+											className="seed_button"
+											style={{ cursor: 'pointer', opacity: '0.6' }}
+										>
+											<RotateCcw size={20} style={{ marginRight: '8px' }} />
+											Reset
+										</Button.Ripple>
+									)}
+								</ButtonGroup>
+							</Col>
+							<Col xl="3">
+								{showTable == true ? (
+									<Input
+										id="search"
+										className="w-80 form-control-sm"
+										type="text"
+										size="sm"
+										name="search"
+										onChange={handleFilter}
+										placeholder="Search (Enter your SKU)"
+									/>
+								) : (
+									<Input
+										id="search"
+										className="w-80 form-control-sm"
+										type="text"
+										size="sm"
+										placeholder="Search (Enter your SKU)"
+									/>
 								)}
 							</Col>
 						</Row>
@@ -712,35 +755,35 @@ const FtpFeedList = () => {
 				</Card>
 			</div>
 
-			{showTable && (
-				<div className="mt-1">
-					{/* <Card className="deskboard_card"> */}
-					<DataTable
-						noHeader
-						responsive
-						columns={columns}
-						data={
-							// showTableArray?.length > 0
-							// 	? showTableArray
-							// 	: filterRecord?.length > 0
-							// 	? filterRecord
-							// 	: ftpfeedTotalCountData?.results?.length > 0
-							// 	? ftpfeedTotalCountData?.results
-							// 	: []
-							filterRecord?.length > 0 ? filterRecord : []
-						}
-						onRowClicked={handleRowClicked}
-						className={`react-dataTable show_datatable ${
-							showTableWidth == true ? 'table_height iazphd' : ''
-						}`}
-						conditionalRowStyles={conditionalRowStyles}
-						progressPending={isLoading}
-						fixedHeader
-						fixedHeaderScrollHeight={dynamicHeight}
-					/>
-					{/* </Card> */}
-				</div>
-			)}
+			{/* {showTable && ( */}
+			<div className="mt-1">
+				{/* <Card className="deskboard_card"> */}
+				<DataTable
+					noHeader
+					responsive
+					columns={columns}
+					data={
+						// showTableArray?.length > 0
+						// 	? showTableArray
+						// 	: filterRecord?.length > 0
+						// 	? filterRecord
+						// 	: ftpfeedTotalCountData?.results?.length > 0
+						// 	? ftpfeedTotalCountData?.results
+						// 	: []
+						filterRecord?.length > 0 ? filterRecord : []
+					}
+					onRowClicked={handleRowClicked}
+					className={`react-dataTable show_datatable ${
+						showTableWidth == true ? 'table_height iazphd' : ''
+					}`}
+					conditionalRowStyles={conditionalRowStyles}
+					progressPending={isLoading}
+					fixedHeader
+					fixedHeaderScrollHeight={dynamicHeight}
+				/>
+				{/* </Card> */}
+			</div>
+			{/* )} */}
 		</Fragment>
 	);
 };
