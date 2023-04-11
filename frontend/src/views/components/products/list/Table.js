@@ -405,7 +405,7 @@ const ProductsList = (props) => {
 
 			{
 				name: 'Cut',
-				minWidth: '160px',
+				minWidth: '220px',
 				selector: 'cut',
 				// sortable: true,
 				center: true,
