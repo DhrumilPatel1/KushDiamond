@@ -328,7 +328,7 @@ const FtpFeedList = () => {
 		{
 			when: (row) => row.toggleSelected,
 			style: {
-				backgroundColor: 'lightgray',
+				backgroundColor: '#facea8',
 				userSelect: 'none',
 				minHeight: '22px',
 				cursor: 'pointer',
@@ -531,7 +531,7 @@ const FtpFeedList = () => {
 								<Button.Ripple
 									size="sm"
 									onClick={() => Addtolist()}
-									className="btn-success seed_button"
+									className="btn-success seed_button ml-2"
 									style={{ cursor: 'pointer' }}
 								>
 									Add Selected
@@ -770,7 +770,7 @@ const FtpFeedList = () => {
 						// 	: ftpfeedTotalCountData?.results?.length > 0
 						// 	? ftpfeedTotalCountData?.results
 						// 	: []
-						filterRecord?.length > 0 ? filterRecord : []
+						showTable && filterRecord?.length > 0 ? filterRecord : []
 					}
 					onRowClicked={handleRowClicked}
 					className={`react-dataTable show_datatable ${

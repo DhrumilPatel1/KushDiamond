@@ -71,7 +71,7 @@ const ProductsList = () => {
 					var images = {
 						id: index,
 						thumb: videoicon,
-						subHtml: `<p>${image.image_name}</p>`,
+						subHtml: `<a href='${image.url}' style={{ textDecoration: 'none' }}>${image.image_name}</a>`,
 						video: {
 							source: [{ src: `${image.url}`, type: `${image.type}` }],
 							attributes: { preload: false, playsinline: true, controls: true },

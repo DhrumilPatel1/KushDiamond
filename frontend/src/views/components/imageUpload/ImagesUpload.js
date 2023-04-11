@@ -123,7 +123,9 @@ const ImagesUpload = () => {
 	};
 	useEffect(() => {
 		if (progressbar == 100) {
-			setProgressbar(0);
+			setTimeout(() => {
+				setProgressbar(0);
+			}, [2000]);
 		}
 	}, [progressbar]);
 	return (

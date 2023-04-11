@@ -29,6 +29,13 @@ export default [
 			},
 
 			{
+				id: 'media_log',
+				title: 'Media Log',
+				icon: <Image size={20} />,
+				navLink: '/mediaLog/list',
+			},
+
+			{
 				id: 'Inventory Excel',
 				title: 'Inventory Excel',
 				icon: <File size={20} />,

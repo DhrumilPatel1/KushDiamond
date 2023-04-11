@@ -4,12 +4,12 @@ import { TrendingUp, Box, DollarSign, Users } from 'react-feather';
 
 const SubscribersGained = ({ userList }) => {
 	const data = [
-		{
-			title: '230k',
-			subtitle: 'Sales',
-			color: 'light-primary',
-			icon: <TrendingUp size={24} />,
-		},
+		// {
+		// 	title: '230k',
+		// 	subtitle: 'Sales',
+		// 	color: 'light-primary',
+		// 	icon: <TrendingUp size={24} />,
+		// },
 		{
 			title: userList,
 			subtitle: 'Users',

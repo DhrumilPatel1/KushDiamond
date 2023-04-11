@@ -13,6 +13,7 @@ import ResetPassword from './ResetPasswordSlice';
 import ShopifySync from './ShopifySyncSlice';
 import Dashboard from './DashboardSlice';
 import ShopifySyncLog from './ShopifySyncLogSlice';
+import mediaLog from './mediaLogSlice';
 
 const rootReducer = {
 	navbar,
@@ -28,7 +29,8 @@ const rootReducer = {
 	ResetPassword,
 	changePassword,
 	ShopifySync,
-	Dashboard
+	mediaLog,
+	Dashboard,
 };
 
 export default rootReducer;

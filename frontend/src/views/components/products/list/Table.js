@@ -60,8 +60,8 @@ const ToastSwal = withReactContent(Swal);
 const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
-	// const { productData, isLoading } = useProductData();
-	const { productData, isLoading, productCsvData } = useSelector((state) => state.products);
+	const { productData, isLoading } = useProductData();
+	const { productCsvData } = useSelector((state) => state.products);
 
 	const productCsvArray = productCsvData?.data?.map((ele) => {
 		let productObj = {
@@ -227,7 +227,7 @@ const ProductsList = (props) => {
 											place="top"
 											effect="solid"
 										>
-											Delete images for {row.sku}
+											Remove images for {row.sku}
 										</ReactTooltip>
 									</>
 								) : (
@@ -796,7 +796,7 @@ const ProductsList = (props) => {
 		link.setAttribute('href', encodeURI(csv));
 		link.setAttribute('download', filename);
 		link.click();
-		toast.success('Products csv successfully download');
+		toast.success('Products csv successfully downloaded');
 	};
 
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
