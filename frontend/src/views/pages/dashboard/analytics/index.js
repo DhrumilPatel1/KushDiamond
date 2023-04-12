@@ -6,6 +6,7 @@ import SubscribersGained from '../../../ui-elements/SubscribersGained';
 import OrdersReceived from '../../../ui-elements/OrdersReceived';
 import { useDispatch, useSelector } from 'react-redux';
 import useDashboard from '../../../../CustomeHook/useDashboard';
+import StatsCard from '../../../ui-elements/StatsCard';
 
 const AnalyticsDashboard = () => {
 	// const { colors } = useContext(ThemeColors)
@@ -15,15 +16,36 @@ const AnalyticsDashboard = () => {
 	return (
 		<div id="dashboard-analytics">
 			<Row className="match-height">
-				<Col lg="6" sm="12">
+				<Col xl="6" md="6" xs="12">
 					<CardWelcome />
 				</Col>
-				<Col lg="3" sm="6">
+				<Col xl="6" md="6" xs="12">
+					<StatsCard
+						cols={{ xl: '4', sm: '6' }}
+						totalUser={
+							DashboardDataList?.user_count == undefined ? 0 : DashboardDataList?.user_count
+						}
+						totalProduct={
+							DashboardDataList?.product_count == undefined ? 0 : DashboardDataList?.product_count
+						}
+						availableProduct={
+							DashboardDataList?.active_product_count == undefined
+								? 0
+								: DashboardDataList?.active_product_count
+						}
+						unavailableProduct={
+							DashboardDataList?.inactive_product_count == undefined
+								? 0
+								: DashboardDataList?.inactive_product_count
+						}
+					/>
+				</Col>
+				{/* <Col lg="3" sm="6">
 					<SubscribersGained userList={DashboardDataList?.user_count} />
 				</Col>
 				<Col lg="3" sm="6">
 					<OrdersReceived productCount={DashboardDataList?.product_count} />
-				</Col>
+				</Col> */}
 			</Row>
 		</div>
 	);
