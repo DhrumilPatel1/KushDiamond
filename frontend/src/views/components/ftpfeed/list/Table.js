@@ -457,7 +457,7 @@ const FtpFeedList = () => {
 		<Fragment>
 			<Card className="deskboard_card">
 				<CardHeader className="d-block border-bottom py-1">
-					<CardTitle tag="h4">FTP Feed Filter</CardTitle>
+					<CardTitle tag="h4">FTP Feed Products Filter</CardTitle>
 					<div className="mt-1">
 						<Row>
 							<Col lg="3" md="6">
