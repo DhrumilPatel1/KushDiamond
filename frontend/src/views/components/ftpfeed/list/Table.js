@@ -760,6 +760,7 @@ const FtpFeedList = () => {
 				{/* <Card className="deskboard_card"> */}
 				<DataTable
 					noHeader
+					pagination
 					responsive
 					columns={columns}
 					data={
@@ -777,6 +778,8 @@ const FtpFeedList = () => {
 						showTableWidth == true ? 'table_height iazphd' : ''
 					}`}
 					conditionalRowStyles={conditionalRowStyles}
+					paginationRowsPerPageOptions={[10, 25, 50, 100, 500]}
+					paginationPerPage={50}
 					progressPending={isLoading}
 					fixedHeader
 					fixedHeaderScrollHeight={dynamicHeight}
