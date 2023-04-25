@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
 	ExcelTypetwo,
 	FtpGetAllApi,
+	ImagePositionApi,
 	ImageUploadApi,
 	ImageUploadDeleteApi,
 	ProductApi,
@@ -31,6 +32,7 @@ export const productsSlice = createSlice({
 		productCsvData: [],
 		productViewData: [],
 		ImageUploaFileData: [],
+		ImagePositionData: [],
 		VideoUploaFileData: [],
 		imageuploadDeleteData: [],
 		MultiDeleteData: [],
@@ -71,6 +73,10 @@ export const productsSlice = createSlice({
 		ImageUploaFileData: (state, action) => {
 			state.isLoading = false;
 			state.ImageUploaFileData = action.payload;
+		},
+		ImagePositionDataList: (state, action) => {
+			state.isLoading = false;
+			state.ImagePositionData = action.payload;
 		},
 
 		VideoUploaFile: (state, action) => {
@@ -125,6 +131,7 @@ export const {
 	ImageUploaFileData,
 	VideoUploaFile,
 	ImageUploadDataDeleteList,
+	ImagePositionDataList,
 	MultiDataDeleteList,
 	handleErrorList,
 	excelTypeOne,
@@ -169,6 +176,37 @@ export const productCsvListData = (queryString) => async (dispatch, getState) =>
 		dispatch(productCsvList(data));
 	} catch (err) {
 		dispatch(handleErrorList(err));
+	}
+};
+
+export const imagePositionRequest = (img_position) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await ImagePositionApi(img_position, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(ImagePositionDataList(data));
+			// dispatch(productList());
+		}
+	} catch (error) {
+		const { statusCode, errors } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorList(errors));
+			toast.error(errors?.message, {
+				id: toastId,
+			});
+		}
 	}
 };
 
@@ -239,7 +277,7 @@ export const VideoSirvUploadRequest = (video_upload) => async (dispatch, getStat
 	}
 };
 
-export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState) => {
+export const ImageUploadDeleteRequest = (deleteRequest) => async (dispatch, getState) => {
 	dispatch(setLoading());
 	const toastId = toast.loading('Please wait your data is deleteing...');
 	try {
@@ -250,14 +288,14 @@ export const ImageUploadDeleteRequest = (deleteId) => async (dispatch, getState)
 			},
 		};
 
-		const { data } = await ImageUploadDeleteApi(deleteId, config);
+		const { data } = await ImageUploadDeleteApi(deleteRequest, config);
 		const { statusCode, message } = data;
 		if (statusCode === 200) {
 			toast.success(message, {
 				id: toastId,
 			});
 			dispatch(ImageUploadDataDeleteList(data));
-			dispatch(productList(data));
+			dispatch(productList());
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;

@@ -56,6 +56,14 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
+export const ImagePositionApi = async (imgPosition, config) => {
+	return await axios.post(
+		`${process.env.REACT_APP_BASE_URL_API}/api/image_position/`,
+		imgPosition,
+		config
+	);
+};
+
 export const ProductCsvApi = async (queryString, config) => {
 	return await axios
 		.get(`${process.env.REACT_APP_BASE_URL_API}/api/csv_product/list/?` + queryString, config)
@@ -167,9 +175,10 @@ export const VideoSirvUploadApi = async (videoFile, config) => {
 	);
 };
 
-export const ImageUploadDeleteApi = async (delete_id, config) => {
-	return await axios.delete(
-		`${process.env.REACT_APP_BASE_URL_API}/api/product_image/delete/${delete_id}`,
+export const ImageUploadDeleteApi = async (reqdata, config) => {
+	return await axios.post(
+		`${process.env.REACT_APP_BASE_URL_API}/api/product_image/delete/`,
+		reqdata,
 		config
 	);
 };

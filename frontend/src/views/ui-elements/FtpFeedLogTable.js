@@ -43,7 +43,7 @@ const FtpFeedLogTable = ({ ftpLogList }) => {
 							<td className="text-nowrap">{ele.created_by_id__username}</td>
 							<td className="text-nowrap">{moment(ele.created_at).format('MMM DD YYYY h:mm A')}</td>
 							<td className="text-nowrap">
-								<a href={`${process.env.REACT_APP_BASE_URL_API}/${ele.file}`} download={ele.file}>
+								<a href={`${process.env.REACT_APP_BASE_URL_API}/media/product_feed/${ele.file}`} download={ele.file}>
 									{ele.file}
 								</a>
 							</td>

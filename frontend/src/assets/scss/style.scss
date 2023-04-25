@@ -211,3 +211,32 @@ footer.footer {
 	pointer-events: none;
 	opacity: 0.4;
 }
+
+//--- model ---///
+
+.modal-content {
+	width: 100vw;
+}
+// .card-container {
+// 	height: 500px;
+// }
+
+.card-container .card {
+	margin-bottom: 8px !important;
+}
+
+.cardImg img {
+	height: 200px;
+	width: 230px;
+}
+.cardImg video {
+	height: 200px;
+	width: 230px;
+}
+.card-body-content {
+	padding: 10px;
+}
+.item-name {
+	height: 40px !important;
+	padding: 5px !important;
+}

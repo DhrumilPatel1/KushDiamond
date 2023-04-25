@@ -19,6 +19,7 @@ import {
 	Trash,
 	Trash2,
 	Upload,
+	XSquare,
 } from 'react-feather';
 import DataTable from 'react-data-table-component';
 import {
@@ -54,6 +55,7 @@ import SingleUploadImg from '../SingleUploadImg';
 import { Badge } from 'reactstrap';
 import { selectThemeColors } from '@utils';
 import { toast } from 'react-hot-toast';
+import ViewImageReorder from '../ViewImageReorder';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -117,7 +119,12 @@ const ProductsList = (props) => {
 			buttonsStyling: false,
 		}).then((deleteRecord) => {
 			if (deleteRecord.value) {
-				dispatch(ImageUploadDeleteRequest(id));
+				const deleteImageObj = {
+					product_image_id: id,
+					type: 'all_image_delete',
+				};
+
+				dispatch(ImageUploadDeleteRequest(deleteImageObj));
 			}
 		});
 	};
@@ -182,7 +189,7 @@ const ProductsList = (props) => {
 								) : (
 									<Image
 										size={18}
-										className="outline-none text-dark  gallary_disabled"
+										className="outline-none text-dark gallary_disabled"
 										style={{ cursor: 'not-allowed' }}
 									/>
 								)}
@@ -240,6 +247,7 @@ const ProductsList = (props) => {
 									/>
 								)
 							) : null}
+							<ViewImageReorder row={row?.product_images} rowId={row} />
 						</>
 					);
 				},

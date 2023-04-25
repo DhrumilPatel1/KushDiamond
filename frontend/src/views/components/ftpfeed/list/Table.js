@@ -526,28 +526,54 @@ const FtpFeedList = () => {
 				</CardHeader>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col md="4 mt-1 px-0">
-							{selectedRow?.length > 0 ? (
-								<Button.Ripple
-									size="sm"
-									onClick={() => Addtolist()}
-									className="btn-success seed_button ml-2"
-									style={{ cursor: 'pointer' }}
-								>
-									Add Selected
-								</Button.Ripple>
-							) : null}
+						<Col md="4 mt-1 px-1">
+							<ButtonGroup>
+								{selectedRow?.length > 0 ? (
+									<Button.Ripple
+										size="sm"
+										outline
+										color="primary"
+										onClick={() => Addtolist()}
+										className="seed_button"
+										style={{ cursor: 'pointer' }}
+									>
+										Add Selected
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										size="sm"
+										outline
+										color="primary"
+										className="seed_button"
+										style={{ cursor: 'pointer', opacity: '0.6' }}
+									>
+										Add Selected
+									</Button.Ripple>
+								)}
 
-							{selectedRow?.length > 0 || ftpFeedData?.count == 0 ? null : (
-								<Button.Ripple
-									size="sm"
-									onClick={addAll}
-									className="btn-secondary seed_button ml-2"
-									style={{ cursor: 'pointer' }}
-								>
-									Add All
-								</Button.Ripple>
-							)}
+								{selectedRow?.length > 0 || ftpFeedData?.count == 0 ? (
+									<Button.Ripple
+										size="sm"
+										outline
+										color="primary"
+										className="seed_button"
+										style={{ cursor: 'pointer', opacity: '0.6' }}
+									>
+										Add All
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										size="sm"
+										outline
+										color="primary"
+										onClick={addAll}
+										className="seed_button"
+										style={{ cursor: 'pointer' }}
+									>
+										Add All
+									</Button.Ripple>
+								)}
+							</ButtonGroup>
 							{tableWidth == true ? (
 								<Button.Ripple
 									size="sm"
