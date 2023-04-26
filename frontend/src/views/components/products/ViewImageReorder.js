@@ -25,6 +25,7 @@ import { useDispatch } from 'react-redux';
 const ToastSwal = withReactContent(Swal);
 
 const ViewImageReorder = ({ row, rowId }) => {
+	
 	const dispatch = useDispatch();
 
 	const [formModal, setFormModal] = useState(false);

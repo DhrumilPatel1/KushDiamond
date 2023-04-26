@@ -195,7 +195,15 @@ const ProductsList = (props) => {
 								)}
 							</div>
 
-							<Link to={`/products/detail/${row.id}`} className="text-primary">
+							<Link
+								to={{
+									pathname: `/products/detail/${row.id}`,
+									state: { row: row },
+								}}
+								// to={`/products/detail/${row.id}`}
+								className="text-primary"
+								// state={{ state: 'mystate' }}
+							>
 								<Eye
 									size={18}
 									className="ml-2 outline-none"
@@ -247,7 +255,7 @@ const ProductsList = (props) => {
 									/>
 								)
 							) : null}
-							<ViewImageReorder row={row?.product_images} rowId={row} />
+							{/* <ViewImageReorder row={row?.product_images} rowId={row} /> */}
 						</>
 					);
 				},
