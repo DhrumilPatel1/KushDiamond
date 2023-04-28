@@ -6,7 +6,9 @@ import {
 	ImageUploadDeleteRequest,
 	ProductResetData,
 	ProductsDetialRequest,
+	SingleUploadImgRequest,
 	imagePositionRequest,
+	productList,
 } from '../../../redux/productsSlice';
 import Breadcrumbs from '@components/breadcrumbs';
 import { ReactSortable } from 'react-sortablejs';
@@ -29,11 +31,32 @@ const ProductsDetail = () => {
 	const viewProductData = location.state?.row;
 
 	const [productPos, setProductPos] = useState(false);
-	const [items, setItems] = useState(viewProductData?.product_images);
+	const [imgArr, setImgArr] = useState([]);
+	const [items, setItems] = useState(imgArr);
+	const [newImg, setNewImg] = useState([]);
+
+	const [imagePos, setImagePos] = useState(false);
 
 	useEffect(() => {
 		dispatch(ProductsDetialRequest(id));
-	}, []);
+		dispatch(productList());
+		if (viewProductData) {
+			productData?.results?.map((ele) => {
+				if (ele.id == viewProductData.id) {
+					setImgArr(ele.product_images);
+				}
+			});
+		}
+		if (imagePos == true) {
+			productData?.results?.map((ele) => {
+				if (ele.id == viewProductData.id) {
+					setNewImg(ele.product_images);
+				}
+			});
+
+			// setImagePos(false);
+		}
+	}, [viewProductData, imagePos]);
 
 	useEffect(() => {
 		if (productData) {
@@ -83,23 +106,15 @@ const ProductsDetail = () => {
 		}
 	};
 
-	const handleChange = () => {
-		setProductPos(true);
-		// const imgPositionObj = listArr?.map((ele) => {
-		// 	let imgArrayObj = {
-		// 		id: ele.id,
-		// 		position: ele.position,
-		// 	};
-		// 	return imgArrayObj;
-		// });
-
-		// let position_array = {
-		// 	position_array: imgPositionObj,
-		// };
-
-		// console.log(position_array, '---');
-
-		// dispatch(imagePositionRequest(position_array));
+	const handleChange = (e) => {
+		setImagePos(true);
+		const files = e.target.files[0];
+		let formData = new FormData();
+		formData.append('file', files);
+		formData.append('sku', viewProductData?.sku);
+		formData.append('title', viewProductData?.title);
+		formData.append('product_id', viewProductData?.id);
+		dispatch(SingleUploadImgRequest(formData));
 	};
 
 	const singleImageDelete = (id) => {
@@ -144,7 +159,7 @@ const ProductsDetail = () => {
 				<CardBody>
 					<Row>
 						<Col md="12 d-flex">
-							<Col md="6 d-flex" sm="12">
+							<Col md="5 d-flex" sm="12">
 								<Col md="6">
 									<FormGroup className="d-flex align-items-center">
 										<Label for="sku" className="label_width">
@@ -168,7 +183,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="shape"
 											id="shape"
-											defaultValue={productViewData && productViewData.shape}
+											defaultValue={viewProductData && viewProductData.shape}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -181,7 +196,7 @@ const ProductsDetail = () => {
 											type="number"
 											name="carat"
 											id="carat"
-											defaultValue={productViewData && productViewData.carat}
+											defaultValue={viewProductData && viewProductData.carat}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -194,7 +209,7 @@ const ProductsDetail = () => {
 											type="number"
 											name="stone"
 											id="stone"
-											defaultValue={productViewData && productViewData.stone}
+											defaultValue={viewProductData && viewProductData.stone}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -207,7 +222,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="color"
 											id="color"
-											defaultValue={productViewData && productViewData.color}
+											defaultValue={viewProductData && viewProductData.color}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -220,7 +235,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="clarity"
 											id="clarity"
-											defaultValue={productViewData && productViewData.clarity}
+											defaultValue={viewProductData && viewProductData.clarity}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -233,7 +248,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="measurement"
 											id="measurement"
-											defaultValue={productViewData && productViewData.measurement}
+											defaultValue={viewProductData && viewProductData.measurement}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -246,7 +261,7 @@ const ProductsDetail = () => {
 											type="number"
 											name="dept"
 											id="dept"
-											defaultValue={productViewData && productViewData.dept}
+											defaultValue={viewProductData && viewProductData.dept}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -259,7 +274,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="tbl"
 											id="tbl"
-											defaultValue={productViewData && productViewData.tbl}
+											defaultValue={viewProductData && viewProductData.tbl}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -272,7 +287,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="cut"
 											id="cut"
-											defaultValue={productViewData && productViewData.cut}
+											defaultValue={viewProductData && viewProductData.cut}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -301,7 +316,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="pol"
 											id="pol"
-											defaultValue={productViewData && productViewData.pol}
+											defaultValue={viewProductData && viewProductData.pol}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -314,7 +329,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="sym"
 											id="sym"
-											defaultValue={productViewData && productViewData.sym}
+											defaultValue={viewProductData && viewProductData.sym}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -327,7 +342,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="fl"
 											id="fl"
-											defaultValue={productViewData && productViewData.fl}
+											defaultValue={viewProductData && viewProductData.fl}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -340,7 +355,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="cul"
 											id="cul"
-											defaultValue={productViewData && productViewData.cul}
+											defaultValue={viewProductData && viewProductData.cul}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -353,7 +368,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="girdle"
 											id="girdle"
-											defaultValue={productViewData && productViewData.girdle}
+											defaultValue={viewProductData && viewProductData.girdle}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -366,7 +381,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="lab"
 											id="lab"
-											defaultValue={productViewData && productViewData.lab}
+											defaultValue={viewProductData && viewProductData.lab}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -379,7 +394,7 @@ const ProductsDetail = () => {
 											type="text"
 											name="certificate_no"
 											id="certificate_no"
-											defaultValue={productViewData && productViewData.certificate_no}
+											defaultValue={viewProductData && viewProductData.certificate_no}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -392,7 +407,7 @@ const ProductsDetail = () => {
 											type="number"
 											name="rap"
 											id="rap"
-											defaultValue={productViewData && productViewData.rap}
+											defaultValue={viewProductData && viewProductData.rap}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -406,7 +421,7 @@ const ProductsDetail = () => {
 											type="number"
 											name="price"
 											id="price"
-											defaultValue={productViewData && productViewData.price}
+											defaultValue={viewProductData && viewProductData.price}
 											disabled={true}
 										/>
 									</FormGroup>
@@ -420,16 +435,16 @@ const ProductsDetail = () => {
 											size="sm"
 											id="is_active"
 											name="is_active"
-											checked={productViewData && productViewData.is_active == true ? true : false}
+											checked={viewProductData && viewProductData.is_active == true ? true : false}
 											disabled={true}
 										/>
 									</FormGroup>
 								</Col>
 							</Col>
-							<Col md="6">
+							<Col md="7">
 								<div className="d-flex justify-content-between">
 									<p>
-										*NOTE * <br></br>
+										* NOTE * <br></br>
 										<b>You can change image position</b>
 									</p>
 									<div>
@@ -437,71 +452,27 @@ const ProductsDetail = () => {
 											type="file"
 											id={'csvFileInput'}
 											name="product_img"
-											accept="image/*"
+											// accept="image/*"
+											onChange={(e) => handleChange(e)}
 											hidden
 										/>
 
 										<div
 											className="cursor-pointer w-9rem border-round"
-											style={{ backgroundColor: '#7367f0', color: 'white', padding: '5px 12px',borderRadius:'5px' }}
+											style={{
+												backgroundColor: '#7367f0',
+												color: 'white',
+												padding: '5px 12px',
+												borderRadius: '5px',
+											}}
 										>
-											<label
-												htmlFor="csvFileInput"
-												className="product-add-img-content"
-											>
-												<Upload size={15} className='mr-1'/>
-												<span>
-													Add Image
-												</span>
+											<label htmlFor="csvFileInput" className="product-add-img-content">
+												<Upload size={15} className="mr-1" />
+												<span>Add Image</span>
 											</label>
 										</div>
-										{/* <span id="file-chosen" className="ml-3 text-lg font-bold">
-												{selectFileName}
-											</span> */}
 									</div>
 								</div>
-
-								{/* <div>
-									<ReactSortable
-										tag="div"
-										list={listArr}
-										setList={setListArr}
-										style={{
-											display: 'grid',
-											gridTemplateColumns: 'repeat(3,1fr)',
-											columnGap: '1rem',
-										}}
-										onChange={() => handleChange()}
-									>
-										{listArr?.map((item, index) => {
-											return (
-												<div className="card-container mb-2" key={index}>
-													<Card key={index} className="cardImg">
-														
-														<div className="text-center mx-auto">{renderImgVideo(item)}</div>
-														<CardBody className="pt-1 px-0 text-center">
-															<h6 className="item-name">
-																{item.image_name.substring(item.image_name.lastIndexOf('/') + 1)}
-															</h6>
-															
-														</CardBody>
-														<div className="item-options text-center mb-1 d-flex justify-content-around align-items-center">
-															<Button
-																className="remove-btn-image"
-																color="light"
-																onClick={() => singleImageDelete(item.id)}
-															>
-																<Trash2 size={14} className="mr-1 text-danger" />
-																<span style={{ fontSize: '12px' }}>Remove</span>
-															</Button>
-															<h6>Position: {item.position}</h6>
-														</div>
-													</Card>
-												</div>
-											);
-										})}
-									</ReactSortable>
-								</div> */}
 
 								<SortableList
 									onSortEnd={onSortEnd}
@@ -513,7 +484,7 @@ const ProductsDetail = () => {
 									draggedItemClassName="dragged"
 								>
 									{items?.map((item, index) => (
-										<div>
+										<div key={index}>
 											<SortableItem key={item}>
 												<div className="card-container mb-2">
 													<Card className="cardImg">
@@ -555,6 +526,9 @@ const ProductsDetail = () => {
 																	onClick={() => singleImageDelete(item.id)}
 																	data-tip
 																	data-for="remove_single_img"
+																	style={{
+																		outline: 'none',
+																	}}
 																/>
 																<ReactTooltip
 																	id="remove_single_img"
@@ -574,21 +548,6 @@ const ProductsDetail = () => {
 								</SortableList>
 							</Col>
 						</Col>
-						{/* <Col sm="12">
-							<FormGroup>
-								<Button.Ripple
-									size="sm"
-									className="mx-2"
-									color="secondary"
-									tag={Link}
-									onClick={resetData}
-									to="/products/list"
-									outline
-								>
-									Back
-								</Button.Ripple>
-							</FormGroup>
-						</Col> */}
 					</Row>
 				</CardBody>
 			</Card>

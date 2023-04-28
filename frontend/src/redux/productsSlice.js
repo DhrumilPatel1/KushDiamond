@@ -12,6 +12,7 @@ import {
 	ProductsDetailApi,
 	ProductsMultiDeleteApi,
 	SendFeedAPI,
+	SingleImageUploadApi,
 	VideoSirvUploadApi,
 } from '../services/api';
 import toast from 'react-hot-toast';
@@ -31,6 +32,7 @@ export const productsSlice = createSlice({
 		productData: [],
 		productCsvData: [],
 		productViewData: [],
+		singleUploadImg: [],
 		ImageUploaFileData: [],
 		ImagePositionData: [],
 		VideoUploaFileData: [],
@@ -60,6 +62,11 @@ export const productsSlice = createSlice({
 		productViewData: (state, action) => {
 			state.isLoading = false;
 			state.productViewData = action.payload;
+		},
+
+		singleUploadImgData: (state, action) => {
+			state.isLoading = false;
+			state.singleUploadImg = action.payload;
 		},
 
 		excelTypeOne: (state, action) => {
@@ -120,6 +127,7 @@ export const productsSlice = createSlice({
 			state.excelTypeOne = [];
 			state.excelTypeTwo = [];
 			state.productViewData = [];
+			state.singleUploadImg = [];
 		},
 	},
 });
@@ -128,6 +136,7 @@ export const {
 	productGetData,
 	productCsvList,
 	productViewData,
+	singleUploadImgData,
 	ImageUploaFileData,
 	VideoUploaFile,
 	ImageUploadDataDeleteList,
@@ -204,6 +213,37 @@ export const imagePositionRequest = (img_position) => async (dispatch, getState)
 		if (statusCode === 422) {
 			dispatch(handleErrorList(errors));
 			toast.error(errors?.message, {
+				id: toastId,
+			});
+		}
+	}
+};
+
+export const SingleUploadImgRequest = (img_file) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await SingleImageUploadApi(img_file, config);
+
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(singleUploadImgData(data));
+			dispatch(productList());
+		}
+	} catch (error) {
+		const { statusCode } = error.response.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorList(error.response.data.message));
+			toast.error(error.response.data?.message, {
 				id: toastId,
 			});
 		}

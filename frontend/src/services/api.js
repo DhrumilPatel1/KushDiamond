@@ -56,6 +56,11 @@ export const ProductApi = async (queryString, config) => {
 		.catch((err) => console.log(err));
 };
 
+export const SingleImageUploadApi = async (imgFile, config) => {
+	return await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/single_image_or_video_uplaod/`, imgFile, config);
+};
+
+
 export const ImagePositionApi = async (imgPosition, config) => {
 	return await axios.post(
 		`${process.env.REACT_APP_BASE_URL_API}/api/image_position/`,
