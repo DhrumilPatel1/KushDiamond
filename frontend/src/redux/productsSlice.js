@@ -206,7 +206,7 @@ export const imagePositionRequest = (img_position) => async (dispatch, getState)
 				id: toastId,
 			});
 			dispatch(ImagePositionDataList(data));
-			// dispatch(productList());
+			dispatch(productList());
 		}
 	} catch (error) {
 		const { statusCode, errors } = error.response.data;
@@ -319,7 +319,7 @@ export const VideoSirvUploadRequest = (video_upload) => async (dispatch, getStat
 
 export const ImageUploadDeleteRequest = (deleteRequest) => async (dispatch, getState) => {
 	dispatch(setLoading());
-	const toastId = toast.loading('Please wait your data is deleteing...');
+	const toastId = toast.loading('Please wait...');
 	try {
 		const config = {
 			headers: {

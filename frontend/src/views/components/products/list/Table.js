@@ -65,9 +65,10 @@ const ProductsList = (props) => {
 	const { productData, isLoading } = useProductData();
 	const { productCsvData } = useSelector((state) => state.products);
 
-	const productCsvArray = productCsvData?.data?.map((ele) => {
+	const productCsvArray = productCsvData?.map((ele) => {
 		let productObj = {
 			'LOT NO': ele.sku,
+			'IMAGE COUNT': ele.images_count,
 			SHAPE: ele.shape,
 			CARAT: ele.carat,
 			COLOR: ele.color,
@@ -183,7 +184,7 @@ const ProductsList = (props) => {
 											place="top"
 											effect="solid"
 										>
-											View gallery for {row.sku}
+											View gallery for {row.sku}, Count {row.images_count}
 										</ReactTooltip>
 									</>
 								) : (

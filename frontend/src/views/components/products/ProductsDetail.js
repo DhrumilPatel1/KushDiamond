@@ -33,9 +33,7 @@ const ProductsDetail = () => {
 	const [productPos, setProductPos] = useState(false);
 	const [imgArr, setImgArr] = useState([]);
 	const [items, setItems] = useState(imgArr);
-	const [newImg, setNewImg] = useState([]);
-
-	const [imagePos, setImagePos] = useState(false);
+	const [imgPos, setImgPos] = useState(false);
 
 	useEffect(() => {
 		dispatch(ProductsDetialRequest(id));
@@ -47,16 +45,7 @@ const ProductsDetail = () => {
 				}
 			});
 		}
-		if (imagePos == true) {
-			productData?.results?.map((ele) => {
-				if (ele.id == viewProductData.id) {
-					setNewImg(ele.product_images);
-				}
-			});
-
-			// setImagePos(false);
-		}
-	}, [viewProductData, imagePos]);
+	}, [viewProductData]);
 
 	useEffect(() => {
 		if (productData) {
@@ -70,19 +59,24 @@ const ProductsDetail = () => {
 
 	useEffect(() => {
 		if (productPos == true) {
+			let data = [];
 			const imgPositionObj = items?.map((ele) => {
 				let imgArrayObj = {
 					id: ele.id,
-					position: ele.position,
+					position: data.push(ele.position),
 				};
+
 				return imgArrayObj;
 			});
+
+			// console.log({ imgPositionObj });
 
 			let position_array = {
 				position_array: imgPositionObj,
 			};
 
 			dispatch(imagePositionRequest(position_array));
+			// dispatch(productList());
 			setProductPos(false);
 		}
 	}, [productPos]);
@@ -107,7 +101,6 @@ const ProductsDetail = () => {
 	};
 
 	const handleChange = (e) => {
-		setImagePos(true);
 		const files = e.target.files[0];
 		let formData = new FormData();
 		formData.append('file', files);
