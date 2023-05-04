@@ -69,6 +69,7 @@ const ProductsList = (props) => {
 		let productObj = {
 			'LOT NO': ele.sku,
 			'IMAGE COUNT': ele.images_count,
+			'VIDEO COUNT': ele.videos_count,
 			SHAPE: ele.shape,
 			CARAT: ele.carat,
 			COLOR: ele.color,

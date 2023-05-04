@@ -207,6 +207,7 @@ export const imagePositionRequest = (img_position) => async (dispatch, getState)
 			});
 			dispatch(ImagePositionDataList(data));
 			dispatch(productList());
+			dispatch(productCsvListData());
 		}
 	} catch (error) {
 		const { statusCode, errors } = error.response.data;
@@ -238,6 +239,7 @@ export const SingleUploadImgRequest = (img_file) => async (dispatch, getState) =
 			});
 			dispatch(singleUploadImgData(data));
 			dispatch(productList());
+			dispatch(productCsvListData());
 		}
 	} catch (error) {
 		const { statusCode } = error.response.data;
@@ -336,6 +338,7 @@ export const ImageUploadDeleteRequest = (deleteRequest) => async (dispatch, getS
 			});
 			dispatch(ImageUploadDataDeleteList(data));
 			dispatch(productList());
+			dispatch(productCsvListData());
 		}
 	} catch (error) {
 		const { statusCode, message } = error.response.data;

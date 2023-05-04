@@ -8,6 +8,7 @@ import {
 	ProductsDetialRequest,
 	SingleUploadImgRequest,
 	imagePositionRequest,
+	productCsvListData,
 	productList,
 } from '../../../redux/productsSlice';
 import Breadcrumbs from '@components/breadcrumbs';
@@ -18,6 +19,7 @@ import withReactContent from 'sweetalert2-react-content';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import arrayMove from 'array-move';
 import ReactTooltip from 'react-tooltip';
+import { Spinner } from 'reactstrap';
 
 const ToastSwal = withReactContent(Swal);
 
@@ -26,20 +28,27 @@ const ProductsDetail = () => {
 	const { id } = useParams();
 	const location = useLocation();
 
-	const { productData, productViewData, isLoading, error } = useSelector((state) => state.products);
+	const { productData, productCsvData, productViewData, isLoading, error } = useSelector(
+		(state) => state.products
+	);
 
 	const viewProductData = location.state?.row;
 
 	const [productPos, setProductPos] = useState(false);
 	const [imgArr, setImgArr] = useState([]);
 	const [items, setItems] = useState(imgArr);
-	const [imgPos, setImgPos] = useState(false);
 
 	useEffect(() => {
 		dispatch(ProductsDetialRequest(id));
 		dispatch(productList());
+		dispatch(productCsvListData());
 		if (viewProductData) {
-			productData?.results?.map((ele) => {
+			// productData?.results?.map((ele) => {
+			// 	if (ele.id == viewProductData.id) {
+			// 		setImgArr(ele.product_images);
+			// 	}
+			// });
+			productCsvData?.map((ele) => {
 				if (ele.id == viewProductData.id) {
 					setImgArr(ele.product_images);
 				}
@@ -48,14 +57,21 @@ const ProductsDetail = () => {
 	}, [viewProductData]);
 
 	useEffect(() => {
-		if (productData) {
-			productData?.results?.map((ele) => {
+		// if (productData) {
+		// 	productData?.results?.map((ele) => {
+		// 		if (ele.id == viewProductData.id) {
+		// 			setItems(ele.product_images);
+		// 		}
+		// 	});
+		// }
+		if (productCsvData) {
+			productCsvData?.map((ele) => {
 				if (ele.id == viewProductData.id) {
 					setItems(ele.product_images);
 				}
 			});
 		}
-	}, [productData]);
+	}, [productCsvData]);
 
 	useEffect(() => {
 		if (productPos == true) {
@@ -77,6 +93,7 @@ const ProductsDetail = () => {
 
 			dispatch(imagePositionRequest(position_array));
 			// dispatch(productList());
+			// dispatch(productCsvListData());
 			setProductPos(false);
 		}
 	}, [productPos]);
@@ -85,7 +102,7 @@ const ProductsDetail = () => {
 		dispatch(ProductResetData());
 	};
 	const renderImgVideo = (image) => {
-		if (image?.type == 'image' || image?.type == 'image/jpeg' || image?.type == "Image") {
+		if (image?.type == 'image' || image?.type == 'image/jpeg' || image?.type == 'Image') {
 			return <img className="img-fluid card-img-top" src={image.url} alt={image.image_name} />;
 		} else if (
 			image?.type == 'video' ||
@@ -466,79 +483,87 @@ const ProductsDetail = () => {
 										</div>
 									</div>
 								</div>
-
-								<SortableList
-									onSortEnd={onSortEnd}
-									style={{
-										display: 'grid',
-										gridTemplateColumns: 'repeat(3,1fr)',
-										columnGap: '1rem',
-									}}
-									draggedItemClassName="dragged"
-								>
-									{items?.map((item, index) => (
-										<div key={index}>
-											<SortableItem key={item}>
-												<div className="card-container mb-2">
-													<Card className="cardImg">
-														<div className="text-center mx-auto">{renderImgVideo(item)}</div>
-														<CardBody className="pt-1 px-0 text-center">
-															<h6
-																className="item-name d-flex justify-content-center"
-																style={{ marginBottom: '10px' }}
-															>
-																Name:
-																<p
-																	style={{
-																		marginLeft: '7px',
-																		fontWeight: 'bold',
-																		fontSize: '15px',
-																	}}
+								{items?.length > 0 || productPos == true ? (
+									<SortableList
+										onSortEnd={onSortEnd}
+										style={{
+											display: 'grid',
+											gridTemplateColumns: 'repeat(3,1fr)',
+											columnGap: '1rem',
+										}}
+										draggedItemClassName="dragged"
+									>
+										{items?.map((item, index) => (
+											<div key={index}>
+												<SortableItem key={item}>
+													<div className="card-container mb-2">
+														<Card className="cardImg">
+															<div className="text-center mx-auto">{renderImgVideo(item)}</div>
+															<CardBody className="pt-1 px-0 text-center">
+																<h6
+																	className="item-name d-flex justify-content-center"
+																	style={{ marginBottom: '10px' }}
 																>
-																	{item.image_name.substring(item.image_name.lastIndexOf('/') + 1)}
-																</p>
-															</h6>
-														</CardBody>
-														<div className="item-options text-center d-flex justify-content-between mx-1">
-															<h6 className="d-flex">
-																Position:
-																<p
-																	style={{
-																		marginLeft: '7px',
-																		fontWeight: 'bold',
-																		fontSize: '15px',
-																	}}
-																>
-																	{item.position}
-																</p>
-															</h6>
-															<div>
-																<Trash2
-																	size={18}
-																	className="text-danger cursor-pointer"
-																	onClick={() => singleImageDelete(item.id)}
-																	data-tip
-																	data-for="remove_single_img"
-																	style={{
-																		outline: 'none',
-																	}}
-																/>
-																<ReactTooltip
-																	id="remove_single_img"
-																	className="tooltip_info"
-																	place="top"
-																	effect="solid"
-																>
-																	Remove image
-																</ReactTooltip>
+																	Name:
+																	<p
+																		style={{
+																			width: '12rem',
+																			marginLeft: '7px',
+																			fontWeight: 'bold',
+																			fontSize: '15px',
+																		}}
+																	>
+																		{item.image_name.substring(
+																			item.image_name.lastIndexOf('/') + 1
+																		)}
+																	</p>
+																</h6>
+															</CardBody>
+															<div className="item-options text-center d-flex justify-content-between mx-1 mt-2">
+																<h6 className="d-flex">
+																	Position:
+																	<p
+																		style={{
+																			marginLeft: '7px',
+																			fontWeight: 'bold',
+																			fontSize: '15px',
+																		}}
+																	>
+																		{item.position}
+																	</p>
+																</h6>
+																<div>
+																	<Trash2
+																		size={18}
+																		className="text-danger cursor-pointer"
+																		onClick={() => singleImageDelete(item.id)}
+																		data-tip
+																		data-for="remove_single_img"
+																		style={{
+																			outline: 'none',
+																		}}
+																	/>
+																	<ReactTooltip
+																		id="remove_single_img"
+																		className="tooltip_info"
+																		place="top"
+																		effect="solid"
+																	>
+																		Remove image
+																	</ReactTooltip>
+																</div>
 															</div>
-														</div>
-													</Card>
-												</div>
-											</SortableItem>
-										</div>
-									))}
-								</SortableList>
+														</Card>
+													</div>
+												</SortableItem>
+											</div>
+										))}
+									</SortableList>
+								) : (
+									<div className="d-flex justify-content-center mt-4">
+										<Spinner color="primary" size="lg" style={{ width: '50px', height: '50px' }} />
+									</div>
+								)}
 							</Col>
 						</Col>
 					</Row>
