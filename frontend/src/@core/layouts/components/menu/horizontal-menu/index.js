@@ -10,8 +10,12 @@ import { NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import NavbarSearch from '../../navbar/NavbarSearch';
 import UserDropdown from '../../navbar/UserDropdown';
+import dashboards from '../../../../../navigation/horizontal/dashboards';
+import products from '../../../../../navigation/horizontal/products';
+import user from '../../../../../navigation/horizontal/user';
 
 const HorizontalMenu = ({ currentActiveItem, routerProps }) => {
+	const getAuthRole = JSON.parse(localStorage.getItem('userData'));
 	// ** States
 	const [activeItem, setActiveItem] = useState(null);
 	const [groupActive, setGroupActive] = useState([]);
@@ -31,12 +35,14 @@ const HorizontalMenu = ({ currentActiveItem, routerProps }) => {
 		setOpenDropdown([...arr]);
 	};
 
+	const hideFtpArr = [...dashboards, ...products, ...user];
+
 	return (
 		<div className="navbar-container main-menu-content">
 			<ul className="nav navbar-nav" id="main-menu-navigation">
 				<HorizontalNavMenuItems
 					submenu={false}
-					items={navigation}
+					items={getAuthRole?.role == 'admin' ? navigation : hideFtpArr}
 					activeItem={activeItem}
 					groupActive={groupActive}
 					routerProps={routerProps}

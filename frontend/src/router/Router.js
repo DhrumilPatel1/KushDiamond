@@ -15,15 +15,17 @@ import LayoutWrapper from '@layouts/components/layout-wrapper';
 import { BrowserRouter as AppRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 // ** Routes & Default Routes
-import { DefaultRoute, Routes } from './routes';
+import { DefaultRoute, Routes, userRoutes } from './routes';
 
 // ** Layouts
 import BlankLayout from '@layouts/BlankLayout';
 import VerticalLayout from '@src/layouts/VerticalLayout';
 import HorizontalLayout from '@src/layouts/HorizontalLayout';
 import { isUserAuthorization } from '../utility/Utils';
+import userAuthRole from '../CustomeHook/userAuthRole';
 
 const Router = () => {
+	const { authData } = userAuthRole();
 	// ** Hooks
 	const [layout, setLayout] = useLayout();
 	const [transition, setTransition] = useRouterTransition();
@@ -47,7 +49,8 @@ const Router = () => {
 		const LayoutRoutes = [];
 		const LayoutPaths = [];
 
-		if (Routes) {
+		if (authData?.role == 'admin') {
+			// if (Routes) {
 			Routes.filter((route) => {
 				// ** Checks if Route layout or Default layout matches current layout
 				if (route.layout === layout || (route.layout === undefined && DefaultLayout === layout)) {
@@ -55,8 +58,18 @@ const Router = () => {
 					LayoutPaths.push(route.path);
 				}
 			});
+			// }
+		} else {
+			// if (userRoutes) {
+			userRoutes.filter((route) => {
+				// ** Checks if Route layout or Default layout matches current layout
+				if (route.layout === layout || (route.layout === undefined && DefaultLayout === layout)) {
+					LayoutRoutes.push(route);
+					LayoutPaths.push(route.path);
+				}
+			});
+			// }
 		}
-
 		return { LayoutRoutes, LayoutPaths };
 	};
 

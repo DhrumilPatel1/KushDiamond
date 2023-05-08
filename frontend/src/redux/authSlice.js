@@ -42,7 +42,7 @@ export const authSlice = createSlice({
 		handleResetAuth: (state) => {
 			state.isLoading = false;
 			state.error = null;
-			state.userData = null;
+			// state.userData = null;
 		},
 	},
 });

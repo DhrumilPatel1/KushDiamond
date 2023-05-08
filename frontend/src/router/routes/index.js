@@ -35,4 +35,17 @@ const Routes = [
 	...ShopifySyncLogRoutes,
 ];
 
-export { DefaultRoute, TemplateTitle, Routes };
+const userRoutes = [
+	...DashboardRoutes,
+	...ChangePasswordRoutes,
+	...AuthenticationRoutes,
+	...ProductesRoutes,
+	...ProductExcel,
+	...ExcelLogRoutes,
+	...ImageUploadRoutes,
+	...UserRoutes,
+	...ShopifySyncRoutes,
+	...ShopifySyncLogRoutes,
+];
+
+export { DefaultRoute, TemplateTitle, Routes, userRoutes };
