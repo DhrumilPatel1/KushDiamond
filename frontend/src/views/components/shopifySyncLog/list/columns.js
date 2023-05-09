@@ -4,7 +4,7 @@ import moment from 'moment';
 const statusObj = {
 	pending: 'light-warning',
 	success: 'light-success',
-	error: 'light-danger',
+	fail: 'light-danger',
 };
 
 // const ExpandableTable = ({ data }) => {
