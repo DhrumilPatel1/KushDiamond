@@ -1,4 +1,5 @@
 // ** React Imports
+import { useState, useEffect } from 'react';
 import { Suspense, useContext, lazy } from 'react';
 
 // ** Utils
@@ -29,6 +30,7 @@ const Router = () => {
 	// ** Hooks
 	const [layout, setLayout] = useLayout();
 	const [transition, setTransition] = useRouterTransition();
+	const [newAuthData, setNewAuthData] = useState({});
 
 	// ** ACL Ability Context
 	const ability = useContext(AbilityContext);
@@ -43,13 +45,15 @@ const Router = () => {
 	const currentActiveItem = null;
 
 	// const userRole = localStorage.getItem('userData');
-
+	useEffect(() => {
+		setNewAuthData(authData);
+	}, [authData]);
 	// ** Return Filtered Array of Routes & Paths
 	const LayoutRoutesAndPaths = (layout) => {
 		const LayoutRoutes = [];
 		const LayoutPaths = [];
 
-		if (authData?.role == 'admin') {
+		if (newAuthData?.role == 'admin') {
 			// if (Routes) {
 			Routes.filter((route) => {
 				// ** Checks if Route layout or Default layout matches current layout

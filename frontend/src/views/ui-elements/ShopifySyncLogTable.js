@@ -2,8 +2,9 @@ import { Table } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import moment from 'moment';
 const statusObj = {
+	pending: 'light-warning',
 	success: 'light-success',
-	failed: 'light-danger',
+	fail: 'light-danger',
 };
 
 const ShopifySyncLogTable = ({ shopifySyncLogList }) => {
@@ -35,10 +36,10 @@ const ShopifySyncLogTable = ({ shopifySyncLogList }) => {
 							<td className="text-nowrap">
 								<Badge
 									className="text-capitalize"
-									color={statusObj[ele.status === 'error' ? 'failed' : 'success']}
+									color={statusObj[ele.status]}
 									pill
 								>
-									{ele.status === 'error' ? 'failed' : 'success'}
+									{ele.status}
 								</Badge>
 							</td>
 							<td className="text-nowrap">{ele.error_status ? ele.error_status : '-'}</td>

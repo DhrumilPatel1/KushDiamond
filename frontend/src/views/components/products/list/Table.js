@@ -264,6 +264,22 @@ const ProductsList = (props) => {
 			},
 
 			{
+				name: 'Shopify Status',
+				minWidth: '130px',
+				selector: 'avalibity_status',
+				cell: (row) =>
+					row.avalibity_status == 'True' ? (
+						<Badge color="light-success">
+							<span className="align-middle ml-25">YES</span>
+						</Badge>
+					) : (
+						<Badge color="light-danger">
+							<span className="align-middle ml-25">NO</span>
+						</Badge>
+					),
+			},
+
+			{
 				name: 'Shape',
 				minWidth: '60px',
 				selector: 'shape',
