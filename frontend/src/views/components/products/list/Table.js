@@ -9,6 +9,7 @@ import ReactPaginate from 'react-paginate';
 import {
 	CheckCircle,
 	ChevronDown,
+	ExternalLink,
 	Eye,
 	FileText,
 	Image,
@@ -56,6 +57,10 @@ import { Badge } from 'reactstrap';
 import { selectThemeColors } from '@utils';
 import { toast } from 'react-hot-toast';
 import ViewImageReorder from '../ViewImageReorder';
+const statusObj = {
+	ACTIVE: 'light-success',
+	DRAFT: 'light-danger',
+};
 
 const ToastSwal = withReactContent(Swal);
 
@@ -265,18 +270,60 @@ const ProductsList = (props) => {
 
 			{
 				name: 'Shopify Status',
-				minWidth: '130px',
-				selector: 'avalibity_status',
-				cell: (row) =>
-					row.avalibity_status == 'True' ? (
-						<Badge color="light-success">
-							<span className="align-middle ml-25">YES</span>
-						</Badge>
-					) : (
-						<Badge color="light-danger">
-							<span className="align-middle ml-25">NO</span>
-						</Badge>
-					),
+				minWidth: '170px',
+				selector: 'status',
+				center: true,
+				cell: (row) => (
+					<Badge className="text-capitalize" color={statusObj[row.status]}>
+						{row.status}
+					</Badge>
+				),
+			},
+
+			{
+				name: 'SIRV Url',
+				minWidth: '140px',
+				selector: 'video_url',
+				center: true,
+				// cell: (row) => row.video_url[0]?.sirv_video_url
+				cell: (row) => {
+					return (
+						<div className="d-inline">
+							{row?.video_url?.length > 0 ? (
+								<>
+									{row?.video_url?.map((ele) => {
+										return (
+											<a href={ele?.sirv_video_url} target="_blank">
+												<ExternalLink
+													data-tip
+													data-for={`sirv_url${row.sku}`}
+													size={18}
+													className="outline-none text-dark"
+													style={{ cursor: 'pointer' }}
+												/>
+
+												<ReactTooltip
+													id={`sirv_url${row.sku}`}
+													className="tooltip_info"
+													place="top"
+													effect="solid"
+												>
+													SIRV Video URL for {row.sku}
+												</ReactTooltip>
+											</a>
+										);
+									})}
+								</>
+							) : (
+								<ExternalLink
+									size={18}
+									className="outline-none text-dark gallary_disabled"
+									style={{ cursor: 'not-allowed' }}
+								/>
+							)}
+						</div>
+					);
+				},
 			},
 
 			{

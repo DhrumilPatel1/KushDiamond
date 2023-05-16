@@ -23,14 +23,12 @@ import BlankLayout from '@layouts/BlankLayout';
 import VerticalLayout from '@src/layouts/VerticalLayout';
 import HorizontalLayout from '@src/layouts/HorizontalLayout';
 import { isUserAuthorization } from '../utility/Utils';
-import userAuthRole from '../CustomeHook/userAuthRole';
 
 const Router = () => {
-	const { authData } = userAuthRole();
+	const getAuthRole = JSON.parse(localStorage.getItem('userData'));
 	// ** Hooks
 	const [layout, setLayout] = useLayout();
 	const [transition, setTransition] = useRouterTransition();
-	const [newAuthData, setNewAuthData] = useState({});
 
 	// ** ACL Ability Context
 	const ability = useContext(AbilityContext);
@@ -44,16 +42,12 @@ const Router = () => {
 	// ** Current Active Item
 	const currentActiveItem = null;
 
-	// const userRole = localStorage.getItem('userData');
-	useEffect(() => {
-		setNewAuthData(authData);
-	}, [authData]);
 	// ** Return Filtered Array of Routes & Paths
 	const LayoutRoutesAndPaths = (layout) => {
 		const LayoutRoutes = [];
 		const LayoutPaths = [];
 
-		if (newAuthData?.role == 'admin') {
+		if (getAuthRole?.role == 'admin') {
 			// if (Routes) {
 			Routes.filter((route) => {
 				// ** Checks if Route layout or Default layout matches current layout
