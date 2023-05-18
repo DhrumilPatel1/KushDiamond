@@ -4,6 +4,7 @@ import moment from 'moment';
 const statusObj = {
 	Pending: 'light-warning',
 	Success: 'light-success',
+	fail: 'light-danger',
 };
 
 export const columns = [
@@ -41,5 +42,11 @@ export const columns = [
 				{row.status}
 			</Badge>
 		),
+	},
+	{
+		name: 'Error Status',
+		width: '700px',
+		selector: 'error_status',
+		cell: (row) => (row.error_status ? row.error_status : '-'),
 	},
 ];

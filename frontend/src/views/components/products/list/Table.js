@@ -270,7 +270,7 @@ const ProductsList = (props) => {
 
 			{
 				name: 'Shopify Status',
-				minWidth: '170px',
+				minWidth: '180px',
 				selector: 'status',
 				center: true,
 				cell: (row) => (
@@ -280,51 +280,50 @@ const ProductsList = (props) => {
 				),
 			},
 
-			{
-				name: 'SIRV Url',
-				minWidth: '140px',
-				selector: 'video_url',
-				center: true,
-				// cell: (row) => row.video_url[0]?.sirv_video_url
-				cell: (row) => {
-					return (
-						<div className="d-inline">
-							{row?.video_url?.length > 0 ? (
-								<>
-									{row?.video_url?.map((ele) => {
-										return (
-											<a href={ele?.sirv_video_url} target="_blank">
-												<ExternalLink
-													data-tip
-													data-for={`sirv_url${row.sku}`}
-													size={18}
-													className="outline-none text-dark"
-													style={{ cursor: 'pointer' }}
-												/>
+			// {
+			// 	name: 'SIRV Url',
+			// 	minWidth: '140px',
+			// 	selector: 'video_url',
+			// 	center: true,
+			// 	cell: (row) => {
+			// 		return (
+			// 			<div className="d-inline">
+			// 				{row?.video_url?.length > 0 ? (
+			// 					<>
+			// 						{row?.video_url?.map((ele) => {
+			// 							return (
+			// 								<a href={ele?.sirv_video_url} target="_blank">
+			// 									<ExternalLink
+			// 										data-tip
+			// 										data-for={`sirv_url${row.sku}`}
+			// 										size={18}
+			// 										className="outline-none text-dark"
+			// 										style={{ cursor: 'pointer' }}
+			// 									/>
 
-												<ReactTooltip
-													id={`sirv_url${row.sku}`}
-													className="tooltip_info"
-													place="top"
-													effect="solid"
-												>
-													SIRV Video URL for {row.sku}
-												</ReactTooltip>
-											</a>
-										);
-									})}
-								</>
-							) : (
-								<ExternalLink
-									size={18}
-									className="outline-none text-dark gallary_disabled"
-									style={{ cursor: 'not-allowed' }}
-								/>
-							)}
-						</div>
-					);
-				},
-			},
+			// 									<ReactTooltip
+			// 										id={`sirv_url${row.sku}`}
+			// 										className="tooltip_info"
+			// 										place="top"
+			// 										effect="solid"
+			// 									>
+			// 										SIRV Video URL for {row.sku}
+			// 									</ReactTooltip>
+			// 								</a>
+			// 							);
+			// 						})}
+			// 					</>
+			// 				) : (
+			// 					<ExternalLink
+			// 						size={18}
+			// 						className="outline-none text-dark gallary_disabled"
+			// 						style={{ cursor: 'not-allowed' }}
+			// 					/>
+			// 				)}
+			// 			</div>
+			// 		);
+			// 	},
+			// },
 
 			{
 				name: 'Shape',

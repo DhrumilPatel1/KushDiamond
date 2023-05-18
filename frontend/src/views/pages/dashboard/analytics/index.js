@@ -10,6 +10,7 @@ import ShopifySyncLogTable from '../../../ui-elements/ShopifySyncLogTable';
 
 const AnalyticsDashboard = () => {
 	const { DashboardDataList } = useDashboard();
+	const authRole = JSON.parse(localStorage.getItem('userData'));
 	return (
 		<div id="dashboard-analytics">
 			<Row className="match-height">
@@ -38,25 +39,27 @@ const AnalyticsDashboard = () => {
 					/>
 				</Col>
 			</Row>
-			<Row className="match-height">
-				<Col xs="12">
-					<Card>
-						<CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom py-1">
-							<CardTitle tag="h4" style={{ fontSize: '20px' }}>
-								Recent FTP Feed Log
-							</CardTitle>
-							<div className="d-flex mt-md-0 mt-1">
-								<div>
-									<Button.Ripple color="primary" size="sm" tag={Link} to={'/ftplog/list'}>
-										<span className="align-middle">View All FTP Feed Log</span>
-									</Button.Ripple>
+			{authRole?.role === 'admin' ? (
+				<Row className="match-height">
+					<Col xs="12">
+						<Card>
+							<CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom py-1">
+								<CardTitle tag="h4" style={{ fontSize: '20px' }}>
+									Recent FTP Feed Log
+								</CardTitle>
+								<div className="d-flex mt-md-0 mt-1">
+									<div>
+										<Button.Ripple color="primary" size="sm" tag={Link} to={'/ftplog/list'}>
+											<span className="align-middle">View All FTP Feed Log</span>
+										</Button.Ripple>
+									</div>
 								</div>
-							</div>
-						</CardHeader>
-						<FtpFeedLogTable ftpLogList={DashboardDataList?.ftp_log} />
-					</Card>
-				</Col>
-			</Row>
+							</CardHeader>
+							<FtpFeedLogTable ftpLogList={DashboardDataList?.ftp_log} />
+						</Card>
+					</Col>
+				</Row>
+			) : null}
 
 			<Row className="match-height">
 				<Col xs="12">

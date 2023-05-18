@@ -47,7 +47,8 @@ const SingleUploadImg = ({ row }) => {
 				toggle={() => setFormModal(!formModal)}
 				className="modal-dialog-centered modal-sm"
 			>
-				<ModalHeader toggle={() => setFormModal(!formModal)}>Upload Single Folder</ModalHeader>
+				<ModalHeader toggle={() => setFormModal(!formModal)}>Upload <span style={{color:"black"
+				}}>{row.sku}</span> Single Folder</ModalHeader>
 				<ModalBody>
 					<Form onSubmit={(e) => handleSubmit(e)}>
 						<FormGroup>
