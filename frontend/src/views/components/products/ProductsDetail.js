@@ -102,7 +102,7 @@ const ProductsDetail = () => {
 		dispatch(ProductResetData());
 	};
 	const renderImgVideo = (image) => {
-		if (image?.type == 'image' || image?.type == 'image/jpeg' || image?.type == 'Image') {
+		if (image?.type == 'image' || image?.type == 'image/jpeg' || image?.type == 'image/png' || image?.type == 'Image') {
 			return <img className="img-fluid card-img-top" src={image.url} alt={image.image_name} />;
 		} else if (
 			image?.type == 'video' ||

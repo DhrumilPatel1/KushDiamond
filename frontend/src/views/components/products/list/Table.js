@@ -190,7 +190,7 @@ const ProductsList = (props) => {
 											place="top"
 											effect="solid"
 										>
-											View gallery for {row.sku}, Count {row.images_count}
+											View gallery for {row.sku}, Count {row.total_count}
 										</ReactTooltip>
 									</>
 								) : (
