@@ -23,9 +23,11 @@ import BlankLayout from '@layouts/BlankLayout';
 import VerticalLayout from '@src/layouts/VerticalLayout';
 import HorizontalLayout from '@src/layouts/HorizontalLayout';
 import { isUserAuthorization } from '../utility/Utils';
+import { useSelector } from 'react-redux';
 
 const Router = () => {
-	const getAuthRole = JSON.parse(localStorage.getItem('userData'));
+	const { userData } = useSelector((state) => state.auth);
+
 	// ** Hooks
 	const [layout, setLayout] = useLayout();
 	const [transition, setTransition] = useRouterTransition();
@@ -47,7 +49,7 @@ const Router = () => {
 		const LayoutRoutes = [];
 		const LayoutPaths = [];
 
-		if (getAuthRole?.role == 'admin') {
+		if (userData?.role == 'admin') {
 			// if (Routes) {
 			Routes.filter((route) => {
 				// ** Checks if Route layout or Default layout matches current layout

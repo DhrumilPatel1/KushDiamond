@@ -64,9 +64,6 @@ const Login = () => {
 				history.push(getHomeRouteForLoggedInUser(userData.role));
 			}, 100);
 		}
-		return () => {
-			dispatch(handleResetAuth());
-		};
 	}, [userData]);
 
 	return (

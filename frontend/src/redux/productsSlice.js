@@ -14,6 +14,7 @@ import {
 	SendFeedAPI,
 	SingleImageUploadApi,
 	VideoSirvUploadApi,
+	productUnavailableApi,
 } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -42,6 +43,7 @@ export const productsSlice = createSlice({
 		excelTypeTwo: [],
 		ftpGetAllData: [],
 		FeedData: [],
+		productUnAvailableExcelMessage: null,
 		isExcelUploadSuccessmessage: false,
 		error: null,
 	},
@@ -113,6 +115,11 @@ export const productsSlice = createSlice({
 			state.isLoading = false;
 			state.FeedData = action.payload;
 		},
+
+		productUnAvailableExcelData: (state, action) => {
+			state.isLoading = false;
+			state.productUnAvailableExcelMessage = action.payload;
+		},
 		FeedDataError: (state, action) => {
 			state.error = action.payload;
 			state.isLoading = false;
@@ -128,6 +135,11 @@ export const productsSlice = createSlice({
 			state.excelTypeTwo = [];
 			state.productViewData = [];
 			state.singleUploadImg = [];
+		},
+		productUnavailableResetMessage: (state) => {
+			state.isLoading = false;
+			state.error = null;
+			state.productUnAvailableExcelMessage = null;
 		},
 	},
 });
@@ -147,9 +159,11 @@ export const {
 	excelTypeOneReset,
 	setLoading,
 	FeedData,
+	productUnAvailableExcelData,
 	handleErrorExcel,
 	FeedDataError,
 	ProductResetData,
+	productUnavailableResetMessage,
 	excelTypeTwo,
 	isExcelUploadSuccess,
 } = productsSlice.actions;
@@ -486,6 +500,35 @@ export const sendFeed = (sendFeedData, queryString) => async (dispatch, getState
 		const { statusCode, message } = error.response.data;
 		if (statusCode === 422) {
 			dispatch(FeedDataError(message));
+			toast.error(message, {
+				id: toastId,
+			});
+		}
+	}
+};
+
+export const productUnavailableExcelRequest = (unavailableExcel) => async (dispatch, getState) => {
+	dispatch(setLoading());
+	const toastId = toast.loading('Please wait your excel Uploading...');
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: getState()?.auth?.Token,
+			},
+		};
+		const { data } = await productUnavailableApi(unavailableExcel, config);
+		const { statusCode, message } = data;
+		if (statusCode === 200) {
+			toast.success(message, {
+				id: toastId,
+			});
+			dispatch(productUnAvailableExcelData(message));
+		}
+	} catch (error) {
+		const { statusCode, message } = error?.response?.data;
+		if (statusCode === 422) {
+			dispatch(handleErrorExcel(message));
 			toast.error(message, {
 				id: toastId,
 			});

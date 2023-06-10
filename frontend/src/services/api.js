@@ -109,6 +109,10 @@ export const ExcelTypetwo = async (exceltwo, config) => {
 	return await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/upload2/`, exceltwo, config);
 };
 
+export const productUnavailableApi = async (unavailableExcel, config) => {
+	return await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/Product_not_available/`, unavailableExcel, config);
+};
+
 export const SendFeedAPI = async (SendFeedData, queryString, config) => {
 	return await axios.post(
 		`${process.env.REACT_APP_BASE_URL_API}/api/send_feed/?` + queryString,

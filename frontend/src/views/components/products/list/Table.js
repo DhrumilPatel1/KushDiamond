@@ -34,6 +34,11 @@ import {
 	ButtonGroup,
 	CardHeader,
 	CardTitle,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	Form,
+	FormGroup,
 } from 'reactstrap';
 import '@styles/react/libs/react-select/_react-select.scss';
 import '@styles/react/libs/tables/react-dataTable-component.scss';
@@ -44,6 +49,8 @@ import {
 	productList,
 	ProductResetData,
 	ProductsMultiDeleteRequest,
+	productUnavailableExcelRequest,
+	productUnavailableResetMessage,
 } from '../../../../redux/productsSlice';
 import { datatable_per_page, datatable_per_raw } from '../../../../configs/constant_array';
 import { Link } from 'react-router-dom';
@@ -68,7 +75,8 @@ const ProductsList = (props) => {
 	const dispatch = useDispatch();
 
 	const { productData, isLoading } = useProductData();
-	const { productCsvData } = useSelector((state) => state.products);
+	const { productCsvData, productUnAvailableExcelMessage } = useSelector((state) => state.products);
+	
 
 	const productCsvArray = productCsvData?.map((ele) => {
 		let productObj = {
@@ -99,12 +107,13 @@ const ProductsList = (props) => {
 
 	const [toggledClearRows, setToggleClearRows] = useState(false);
 	const [selectedData, setSelectedData] = useState([]);
-
+	const [unavailableExcelModel, setUnavailableExcelModel] = useState(false);
 	const [limit, setPerPage] = useState(datatable_per_page);
 	const [sort_order, setSort_order] = useState('desc');
 	const [checkStatus, setCheckStatus] = useState('');
 	const [filter_value, setFilter_value] = useState('');
 	const [columns, setColumns] = useState([]);
+	const [excelFile, setexcelFile] = useState(false);
 
 	const statusOptions = [
 		{ value: '', label: 'Select All Availability' },
@@ -673,7 +682,16 @@ const ProductsList = (props) => {
 		dispatch(productList(queryString));
 		ColumnList();
 		dispatch(productCsvListData());
+		return () => {
+			dispatch(productUnavailableResetMessage());
+		};
 	}, [dispatch, queryString]);
+
+	useEffect(() => {
+		if (productUnAvailableExcelMessage !== null) {
+			dispatch(productList(queryString));
+		}
+	}, [productUnAvailableExcelMessage]);
 
 	const handlePerRowsChange = (newPerPage, page) => {
 		setPerPage(newPerPage);
@@ -879,9 +897,51 @@ const ProductsList = (props) => {
 		toast.success('Products csv successfully downloaded');
 	};
 
+	const handleExcelSubmit = (e) => {
+		e.preventDefault();
+		let formData = new FormData();
+		formData.append('file', excelFile);
+		dispatch(productUnavailableExcelRequest(formData));
+		setexcelFile(false);
+		e.target.reset();
+		setUnavailableExcelModel(!unavailableExcelModel);
+		dispatch(productUnavailableResetMessage());
+	};
+
+	const handleUnavailableExcelChange = (e) => {
+		const files = e.target.files[0];
+		setexcelFile(files);
+	};
+
 	const dynamicHeight = Math.min(productData?.results?.length * 3 + 1, 70) + 'vh';
 	return (
 		<Fragment>
+			<Modal
+				isOpen={unavailableExcelModel}
+				toggle={() => setUnavailableExcelModel(!unavailableExcelModel)}
+				className="modal-dialog-centered modal-sm"
+			>
+				<ModalHeader toggle={() => setUnavailableExcelModel(!unavailableExcelModel)}>
+					Upload Excel
+				</ModalHeader>
+				<ModalBody>
+					<Form onSubmit={(e) => handleExcelSubmit(e)}>
+						<FormGroup>
+							<Label for="folder_path">Unavailable Excel</Label>
+							<Input type="file" onChange={(e) => handleUnavailableExcelChange(e)} />
+						</FormGroup>
+						{isLoading == true || excelFile == false ? (
+							<Button.Ripple className="mr-1" size="sm" color="primary" type="submit" disabled>
+								Submit
+							</Button.Ripple>
+						) : (
+							<Button.Ripple className="mr-1" size="sm" color="primary" type="submit">
+								Submit
+							</Button.Ripple>
+						)}
+					</Form>
+				</ModalBody>
+			</Modal>
 			<Card className="deskboard_card">
 				<CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom py-1">
 					<CardTitle tag="h4" style={{ fontSize: '25px' }}>
@@ -904,7 +964,7 @@ const ProductsList = (props) => {
 				</CardHeader>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col xl="4" className="my-1">
+						<Col xl="3" className="my-1">
 							<ButtonGroup>
 								{selectedData?.length > 0 ? (
 									<Button.Ripple
@@ -1051,9 +1111,19 @@ const ProductsList = (props) => {
 							</ButtonGroup>
 						</Col>
 
-						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end my-1 px-0">
-							<Col xl="4">
+						<Col xl="9" className="d-flex align-items-sm-center justify-content-lg-end my-1 px-0">
+							<Col xl="5">
 								<ButtonGroup>
+									<Button.Ripple
+										color="primary"
+										style={{ padding: '10px' }}
+										outline
+										size="sm"
+										onClick={() => setUnavailableExcelModel(true)}
+									>
+										<FileText size={14} />
+										<span className="align-middle ml-25">unavailable Excel</span>
+									</Button.Ripple>
 									<Button.Ripple
 										color="primary"
 										style={{ padding: '10px' }}

@@ -9,7 +9,9 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState: {
 		isLoading: false,
-		userData: null,
+		userData: JSON.parse(localStorage.getItem('userData'))
+			? JSON.parse(localStorage.getItem('userData'))
+			: null,
 		error: null,
 		Token: accessToken ? accessToken : null,
 		abilityData: null,
