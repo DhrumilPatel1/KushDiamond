@@ -7,10 +7,12 @@ import Select from 'react-select';
 // ** Third Party Components
 import ReactPaginate from 'react-paginate';
 import {
+	Book,
 	CheckCircle,
 	ChevronDown,
 	ExternalLink,
 	Eye,
+	File,
 	FileText,
 	Image,
 	Link2,
@@ -76,7 +78,6 @@ const ProductsList = (props) => {
 
 	const { productData, isLoading } = useProductData();
 	const { productCsvData, productUnAvailableExcelMessage } = useSelector((state) => state.products);
-	
 
 	const productCsvArray = productCsvData?.map((ele) => {
 		let productObj = {
@@ -149,7 +150,7 @@ const ProductsList = (props) => {
 		const column = [
 			{
 				name: 'Sku',
-				minWidth: '110px',
+				minWidth: '120px',
 				selector: 'sku',
 				sortable: true,
 				center: true,
@@ -165,6 +166,11 @@ const ProductsList = (props) => {
 						<Badge color="light-success">
 							<CheckCircle size={12} className="align-middle" />
 							<span className="align-middle ml-25">YES</span>
+						</Badge>
+					) : row.avalibity_status == 'Memo' ? (
+						<Badge color="light-warning">
+							<Book size={12} className="align-middle" />
+							<span className="align-middle ml-25">MEMO</span>
 						</Badge>
 					) : (
 						<Badge color="light-danger">
@@ -763,7 +769,7 @@ const ProductsList = (props) => {
 		if (selectedData?.length == 1 && checkAvailableStatus == 'False') {
 			ToastSwal.fire({
 				icon: 'warning',
-				text: 'This item is already unavailable. Please select the available item',
+				text: 'This item is already unavailable. Please select the available & memo item',
 				customClass: {
 					confirmButton: 'btn btn-primary',
 				},
@@ -805,7 +811,7 @@ const ProductsList = (props) => {
 		if (selectedData?.length == 1 && checkAvailableStatus == 'True') {
 			ToastSwal.fire({
 				icon: 'success',
-				text: 'This item is already available. Please select the unavailable item',
+				text: 'This item is already available. Please select the unavailable & memo item',
 				customClass: {
 					confirmButton: 'btn btn-primary',
 				},
@@ -831,6 +837,46 @@ const ProductsList = (props) => {
 					const multiAvailableStatus = {
 						id: multiid,
 						key: 'avalible',
+					};
+					dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
+					setToggleClearRows(!toggledClearRows);
+				}
+				setToggleClearRows(!toggledClearRows);
+			});
+		}
+	};
+
+	const multiMemoProduct = (e, selectedData) => {
+		let checkAvailableStatus = selectedData?.map((ele) => ele.avalibity_status);
+		if (selectedData?.length == 1 && checkAvailableStatus == 'Memo') {
+			ToastSwal.fire({
+				icon: 'success',
+				text: 'This item is already memo. Please select the available & unavailable item',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+				},
+				buttonsStyling: false,
+			}).then(() => {
+				setToggleClearRows(!toggledClearRows);
+			});
+		} else {
+			ToastSwal.fire({
+				title: 'Are you sure?',
+				text: 'These selected items will be marked as memo',
+				icon: 'success',
+				showCancelButton: true,
+				confirmButtonText: 'Yes',
+				customClass: {
+					confirmButton: 'btn btn-primary',
+					cancelButton: 'btn btn-outline-danger ml-1',
+				},
+				buttonsStyling: false,
+			}).then((deleteRecord) => {
+				if (deleteRecord?.value) {
+					const multiid = selectedData?.map((e) => e.id);
+					const multiAvailableStatus = {
+						id: multiid,
+						key: 'memo',
 					};
 					dispatch(ProductsMultiDeleteRequest(multiAvailableStatus));
 					setToggleClearRows(!toggledClearRows);
@@ -927,7 +973,7 @@ const ProductsList = (props) => {
 				<ModalBody>
 					<Form onSubmit={(e) => handleExcelSubmit(e)}>
 						<FormGroup>
-							<Label for="folder_path">Unavailable Excel</Label>
+							<Label for="folder_path">Status Update Excel</Label>
 							<Input type="file" onChange={(e) => handleUnavailableExcelChange(e)} />
 						</FormGroup>
 						{isLoading == true || excelFile == false ? (
@@ -964,7 +1010,7 @@ const ProductsList = (props) => {
 				</CardHeader>
 				<CardBody className="deskboard_card_body">
 					<Row>
-						<Col xl="3" className="my-1">
+						<Col xl="4" className="my-1">
 							<ButtonGroup>
 								{selectedData?.length > 0 ? (
 									<Button.Ripple
@@ -1108,22 +1154,59 @@ const ProductsList = (props) => {
 										</ReactTooltip>
 									</Button.Ripple>
 								)}
+
+								{selectedData?.length > 0 ? (
+									<Button.Ripple
+										size="sm"
+										data-tip
+										data-for="available_products"
+										onClick={(e) => multiMemoProduct(e, selectedData)}
+										outline
+										color="primary"
+										value="avalible"
+										style={{ cursor: 'pointer' }}
+									>
+										<Book className="text-secondary" size={20} />
+										<ReactTooltip
+											id="available_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Memo
+										</ReactTooltip>
+									</Button.Ripple>
+								) : (
+									<Button.Ripple
+										size="sm"
+										data-tip
+										data-for="memo_products"
+										outline
+										color="primary"
+										value="avalible"
+										style={{ cursor: 'pointer' }}
+									>
+										<Book
+											className="text-secondary"
+											style={{ cursor: 'pointer', opacity: '0.6' }}
+											size={20}
+										/>
+										<ReactTooltip
+											id="memo_products"
+											className="tooltip_info"
+											place="top"
+											effect="solid"
+										>
+											Mark as Memo
+										</ReactTooltip>
+									</Button.Ripple>
+								)}
 							</ButtonGroup>
 						</Col>
 
-						<Col xl="9" className="d-flex align-items-sm-center justify-content-lg-end my-1 px-0">
-							<Col xl="5">
+						<Col xl="8" className="d-flex align-items-sm-center justify-content-lg-end my-1 px-0">
+							<Col xl="6">
 								<ButtonGroup>
-									<Button.Ripple
-										color="primary"
-										style={{ padding: '10px' }}
-										outline
-										size="sm"
-										onClick={() => setUnavailableExcelModel(true)}
-									>
-										<FileText size={14} />
-										<span className="align-middle ml-25">unavailable Excel</span>
-									</Button.Ripple>
 									<Button.Ripple
 										color="primary"
 										style={{ padding: '10px' }}
@@ -1146,6 +1229,16 @@ const ProductsList = (props) => {
 									>
 										<Link2 size={14} />
 										<span className="align-middle ml-25">Inventory Excel</span>
+									</Button.Ripple>
+									<Button.Ripple
+										color="primary"
+										style={{ padding: '10px' }}
+										outline
+										size="sm"
+										onClick={() => setUnavailableExcelModel(true)}
+									>
+										<FileText size={14} />
+										<span className="align-middle ml-25">Status Update Excel</span>
 									</Button.Ripple>
 								</ButtonGroup>
 							</Col>
