@@ -120,6 +120,7 @@ const ProductsList = (props) => {
 		{ value: '', label: 'Select All Availability' },
 		{ value: 'True', label: 'Available' },
 		{ value: 'False', label: 'Unavailable' },
+		{ value: 'Memo', label: 'Memo' },
 	];
 
 	const handleDeleteById = (id) => {
