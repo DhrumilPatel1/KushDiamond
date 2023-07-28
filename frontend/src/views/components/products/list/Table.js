@@ -80,6 +80,8 @@ const ProductsList = (props) => {
 	const { productCsvData, productUnAvailableExcelMessage } = useSelector((state) => state.products);
 
 	const productCsvArray = productCsvData?.map((ele) => {
+		let strGirdle = ele?.girdle?.split(' ')?.join('');
+
 		let productObj = {
 			'LOT NO': ele.sku,
 			'IMAGE COUNT': ele.images_count,
@@ -96,8 +98,8 @@ const ProductsList = (props) => {
 			CUT: ele.cut,
 			DEPT: ele.dept,
 			FL: ele.fl,
-			GIRDLE: ele.girdle,
-			CUL: ele.cul,
+			GIRDLE: `"${strGirdle}"`,
+			CUL: ele?.cul,
 			POL: ele.pol,
 			RAP: ele.rap,
 			SYM: ele.sym,

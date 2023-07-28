@@ -360,7 +360,7 @@ export const ImageUploadDeleteRequest = (deleteRequest) => async (dispatch, getS
 			toast.error(message, {
 				id: toastId,
 			});
-			dispatch(productList());
+			dispatch(handleErrorList(message));
 		}
 	}
 };
